@@ -1,0 +1,68 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Print Studio" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">{% trans "Print Studio" %}</h1>
+  {% if feature_flags.can_use_print_studio %}
+    <div class="dashboard-grid">
+      <div class="dashboard-card dashboard-card--auto">
+        <div class="dashboard-card-header">
+          <h3 class="dashboard-card-title">{% trans "Business Cards" %}</h3>
+          <span class="dashboard-badge">{% trans "Bizay soon" %}</span>
+        </div>
+        <p class="dashboard-muted">{% trans "High-quality cards for your brand." %}</p>
+        <button class="dashboard-button" type="button" disabled>{% trans "Open" %}</button>
+      </div>
+      <div class="dashboard-card dashboard-card--auto">
+        <div class="dashboard-card-header">
+          <h3 class="dashboard-card-title">{% trans "Flyers" %}</h3>
+          <span class="dashboard-badge">{% trans "Bizay soon" %}</span>
+        </div>
+        <p class="dashboard-muted">{% trans "Promote services with bold flyers." %}</p>
+        <button class="dashboard-button" type="button" disabled>{% trans "Open" %}</button>
+      </div>
+      <div class="dashboard-card dashboard-card--auto">
+        <div class="dashboard-card-header">
+          <h3 class="dashboard-card-title">{% trans "Stickers" %}</h3>
+          <span class="dashboard-badge">{% trans "Bizay soon" %}</span>
+        </div>
+        <p class="dashboard-muted">{% trans "Custom stickers for packaging or giveaways." %}</p>
+        <button class="dashboard-button" type="button" disabled>{% trans "Open" %}</button>
+      </div>
+      <div class="dashboard-card dashboard-card--auto">
+        <div class="dashboard-card-header">
+          <h3 class="dashboard-card-title">{% trans "Merch / Apparel" %}</h3>
+          <span class="dashboard-badge">{% trans "Printful" %}</span>
+        </div>
+        <p class="dashboard-muted">{% trans "On-demand apparel and merchandise." %}</p>
+        <button class="dashboard-button" type="button" disabled>{% trans "Open" %}</button>
+      </div>
+    </div>
+  {% else %}
+    {% include "components/upgrade_cta.html" with title=upgrade_ctas.print_studio.title message=upgrade_ctas.print_studio.message primary_button_text=upgrade_ctas.print_studio.primary_button_text primary_button_url=upgrade_ctas.print_studio.primary_button_url secondary_link_text=upgrade_ctas.print_studio.secondary_link_text secondary_link_url=upgrade_ctas.print_studio.secondary_link_url style=upgrade_ctas.print_studio.style %}
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block drawer %}
+  {% if feature_flags.can_use_print_studio %}
+  <div class="dashboard-card dashboard-card--auto">
+    <div class="dashboard-card-header">
+      <h3 class="dashboard-card-title">{% trans "Integrations" %}</h3>
+    </div>
+    <div class="dashboard-list">
+      <div class="dashboard-list-item">
+        <span>{% trans "Printful" %}</span>
+        <span class="dashboard-status">{% trans "Connected" %}</span>
+      </div>
+      <div class="dashboard-list-item">
+        <span>{% trans "Bizay" %}</span>
+        <span class="dashboard-status">{% trans "Coming soon" %}</span>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+{% endblock %}

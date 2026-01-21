@@ -1,0 +1,254 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
+    <link rel="icon" href="{% static 'favicon.png' %}">
+    
+    <title>
+      {{ seo_title|default:"JustCodeWorks" }}
+    </title>
+        <meta name="robots" content="{{ seo_robots|default:'index, follow' }}">
+    {% if launch_noindex %}
+    <meta name="robots" content="noindex,nofollow">
+    {% endif %}
+<meta name="description" content="{{ seo_description|default:'Website builder and content management platform' }}">
+    </head>
+  <body class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium">
+    <div class="min-h-screen ltr" data-locale="{{ LANGUAGE_CODE }}">
+      {% include 'core/main_nav.html' %}
+      <div class="min-h-screen">
+        <div class="relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
+            <div class="absolute inset-0 opacity-20">
+              <div class="absolute top-0 left-0 w-2 h-2 bg-white rounded-full animate-ping">
+              </div>
+              <div class="absolute top-10 left-20 w-1 h-1 bg-blue-300 rounded-full animate-pulse">
+              </div>
+              <div class="absolute top-20 right-10 w-1 h-1 bg-purple-300 rounded-full animate-ping">
+              </div>
+              <div class="absolute bottom-20 left-10 w-2 h-2 bg-pink-300 rounded-full animate-pulse">
+              </div>
+            </div>
+            <div class="absolute top-0 left-0 w-full h-full">
+              <div class="absolute top-20 left-20 w-32 h-32 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob">
+              </div>
+              <div class="absolute top-40 right-20 w-32 h-32 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000">
+              </div>
+              <div class="absolute -bottom-8 left-40 w-32 h-32 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000">
+              </div>
+            </div>
+          </div>
+          <div class="relative z-10 max-w-7xl mx-auto px-4 py-20 sm:py-32">
+            <div class="text-center text-white">
+              <div class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm font-medium mb-8">
+                <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse">
+                </span>
+                {{ page.title }}
+              </div>
+              <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent leading-tight">{{ sections_by_key.hero.content.heading }}</h1>
+              <p class="text-xl md:text-2xl mb-12 text-blue-100 max-w-4xl mx-auto leading-relaxed">{{ sections_by_key.hero.content.subheading }}</p>
+              <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="px-8 py-4 bg-white text-blue-900 font-bold rounded-xl hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 shadow-xl">{{ sections_by_key.hero.content.cta_primary_text }}</button>
+                <button class="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300">{{ sections_by_key.hero.content.cta_secondary_text }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="py-20 bg-gray-50">
+          <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+              <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ sections_by_key.main.content.heading }}</h2>
+              <p class="text-lg text-gray-600 max-w-3xl mx-auto">{{ sections_by_key.main.content.body }}</p>
+            </div>
+            {% if sections_by_key.affiliate_disclosure %}
+            <div class="mb-8 rounded-lg border border-blue-200 bg-white p-4 text-sm text-blue-800">
+              {{ sections_by_key.affiliate_disclosure.content.body }}
+            </div>
+            {% endif %}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+              {% if sections_by_key.pos_affiliate_block_1 %}
+              <div class="bg-white dark:bg-slate-800 rounded-xl p-8 shadow-lg border border-blue-100 hover:shadow-xl transition-shadow group">
+                <div class="flex items-start justify-between mb-6">
+                  <div class="text-4xl mb-4">
+                    POS
+                  </div>
+                </div>
+                <h3 class="text-xl font-bold text-blue-900 mb-3">
+                  {{ sections_by_key.pos_affiliate_block_1.content.heading }}
+                </h3>
+                <p class="text-blue-700 mb-4 font-medium">
+                  {{ sections_by_key.pos_affiliate_block_1.content.subheading }}
+                </p>
+                <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm leading-relaxed">
+                  {{ sections_by_key.pos_affiliate_block_1.content.body }}
+                </p>
+                <div class="space-y-3">
+                  {% if sections_by_key.pos_affiliate_block_1.content.cta_primary_text %}
+                  <a class="w-full px-4 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors text-center inline-block" href="{{ sections_by_key.pos_affiliate_block_1.content.cta_primary_url }}" target="_blank" rel="nofollow sponsored noopener">
+                    {{ sections_by_key.pos_affiliate_block_1.content.cta_primary_text }}
+                  </a>
+                  {% endif %}
+                  {% if sections_by_key.pos_affiliate_block_1.content.cta_secondary_text %}
+                  <a class="w-full px-4 py-3 bg-blue-50 text-blue-700 font-semibold rounded-lg hover:bg-blue-100 transition-colors border border-blue-200 text-center inline-block" href="{{ sections_by_key.pos_affiliate_block_1.content.cta_secondary_url }}" target="_blank" rel="nofollow sponsored noopener">
+                    {{ sections_by_key.pos_affiliate_block_1.content.cta_secondary_text }}
+                  </a>
+                  {% endif %}
+                </div>
+              </div>
+              {% endif %}
+              {% if sections_by_key.pos_affiliate_block_2 %}
+              <div class="bg-white dark:bg-slate-800 rounded-xl p-8 shadow-lg border border-blue-100 hover:shadow-xl transition-shadow group">
+                <div class="flex items-start justify-between mb-6">
+                  <div class="text-4xl mb-4">
+                    POS
+                  </div>
+                </div>
+                <h3 class="text-xl font-bold text-blue-900 mb-3">
+                  {{ sections_by_key.pos_affiliate_block_2.content.heading }}
+                </h3>
+                <p class="text-blue-700 mb-4 font-medium">
+                  {{ sections_by_key.pos_affiliate_block_2.content.subheading }}
+                </p>
+                <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm leading-relaxed">
+                  {{ sections_by_key.pos_affiliate_block_2.content.body }}
+                </p>
+                <div class="space-y-3">
+                  {% if sections_by_key.pos_affiliate_block_2.content.cta_primary_text %}
+                  <a class="w-full px-4 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors text-center inline-block" href="{{ sections_by_key.pos_affiliate_block_2.content.cta_primary_url }}" target="_blank" rel="nofollow sponsored noopener">
+                    {{ sections_by_key.pos_affiliate_block_2.content.cta_primary_text }}
+                  </a>
+                  {% endif %}
+                  {% if sections_by_key.pos_affiliate_block_2.content.cta_secondary_text %}
+                  <a class="w-full px-4 py-3 bg-blue-50 text-blue-700 font-semibold rounded-lg hover:bg-blue-100 transition-colors border border-blue-200 text-center inline-block" href="{{ sections_by_key.pos_affiliate_block_2.content.cta_secondary_url }}" target="_blank" rel="nofollow sponsored noopener">
+                    {{ sections_by_key.pos_affiliate_block_2.content.cta_secondary_text }}
+                  </a>
+                  {% endif %}
+                </div>
+              </div>
+              {% endif %}
+              {% if sections_by_key.pos_affiliate_block_3 %}
+              <div class="bg-white dark:bg-slate-800 rounded-xl p-8 shadow-lg border border-blue-100 hover:shadow-xl transition-shadow group">
+                <div class="flex items-start justify-between mb-6">
+                  <div class="text-4xl mb-4">
+                    POS
+                  </div>
+                </div>
+                <h3 class="text-xl font-bold text-blue-900 mb-3">
+                  {{ sections_by_key.pos_affiliate_block_3.content.heading }}
+                </h3>
+                <p class="text-blue-700 mb-4 font-medium">
+                  {{ sections_by_key.pos_affiliate_block_3.content.subheading }}
+                </p>
+                <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm leading-relaxed">
+                  {{ sections_by_key.pos_affiliate_block_3.content.body }}
+                </p>
+                <div class="space-y-3">
+                  {% if sections_by_key.pos_affiliate_block_3.content.cta_primary_text %}
+                  <a class="w-full px-4 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors text-center inline-block" href="{{ sections_by_key.pos_affiliate_block_3.content.cta_primary_url }}" target="_blank" rel="nofollow sponsored noopener">
+                    {{ sections_by_key.pos_affiliate_block_3.content.cta_primary_text }}
+                  </a>
+                  {% endif %}
+                  {% if sections_by_key.pos_affiliate_block_3.content.cta_secondary_text %}
+                  <a class="w-full px-4 py-3 bg-blue-50 text-blue-700 font-semibold rounded-lg hover:bg-blue-100 transition-colors border border-blue-200 text-center inline-block" href="{{ sections_by_key.pos_affiliate_block_3.content.cta_secondary_url }}" target="_blank" rel="nofollow sponsored noopener">
+                    {{ sections_by_key.pos_affiliate_block_3.content.cta_secondary_text }}
+                  </a>
+                  {% endif %}
+                </div>
+              </div>
+              {% endif %}
+              {% if sections_by_key.pos_affiliate_block_4 %}
+              <div class="bg-white dark:bg-slate-800 rounded-xl p-8 shadow-lg border border-blue-100 hover:shadow-xl transition-shadow group">
+                <div class="flex items-start justify-between mb-6">
+                  <div class="text-4xl mb-4">
+                    POS
+                  </div>
+                </div>
+                <h3 class="text-xl font-bold text-blue-900 mb-3">
+                  {{ sections_by_key.pos_affiliate_block_4.content.heading }}
+                </h3>
+                <p class="text-blue-700 mb-4 font-medium">
+                  {{ sections_by_key.pos_affiliate_block_4.content.subheading }}
+                </p>
+                <p class="text-gray-600 dark:text-gray-400 mb-6 text-sm leading-relaxed">
+                  {{ sections_by_key.pos_affiliate_block_4.content.body }}
+                </p>
+                <div class="space-y-3">
+                  {% if sections_by_key.pos_affiliate_block_4.content.cta_primary_text %}
+                  <a class="w-full px-4 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors text-center inline-block" href="{{ sections_by_key.pos_affiliate_block_4.content.cta_primary_url }}" target="_blank" rel="nofollow sponsored noopener">
+                    {{ sections_by_key.pos_affiliate_block_4.content.cta_primary_text }}
+                  </a>
+                  {% endif %}
+                  {% if sections_by_key.pos_affiliate_block_4.content.cta_secondary_text %}
+                  <a class="w-full px-4 py-3 bg-blue-50 text-blue-700 font-semibold rounded-lg hover:bg-blue-100 transition-colors border border-blue-200 text-center inline-block" href="{{ sections_by_key.pos_affiliate_block_4.content.cta_secondary_url }}" target="_blank" rel="nofollow sponsored noopener">
+                    {{ sections_by_key.pos_affiliate_block_4.content.cta_secondary_text }}
+                  </a>
+                  {% endif %}
+                </div>
+              </div>
+              {% endif %}
+            </div>            <div class="bg-white dark:bg-slate-800 rounded-xl p-8 shadow-lg border border-blue-100 mb-12">
+              <div class="text-center mb-6">
+                <h2 class="text-2xl font-bold text-blue-900 mb-2">{{ sections_by_key.cta.content.heading }}</h2>
+                <p class="text-blue-700">{{ sections_by_key.cta.content.body }}</p>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="text-center">
+                  <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                    <span class="text-2xl">
+                      sync
+                    </span>
+                  </div>
+                  <h3 class="font-semibold text-blue-900 mb-1">
+                    Easy Integration
+                  </h3>
+                  <p class="text-sm text-blue-600">
+                    Works with your existing tools and workflows
+                  </p>
+                </div>
+                <div class="text-center">
+                  <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                    <span class="text-2xl">
+                      Cloud
+                    </span>
+                  </div>
+                  <h3 class="font-semibold text-blue-900 mb-1">
+                    Cloud-Based
+                  </h3>
+                  <p class="text-sm text-blue-600">
+                    Access your data from anywhere, anytime
+                  </p>
+                </div>
+                <div class="text-center">
+                  <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                    <span class="text-2xl">
+                      secure
+                    </span>
+                  </div>
+                  <h3 class="font-semibold text-blue-900 mb-1">
+                    Secure &amp; Reliable
+                  </h3>
+                  <p class="text-sm text-blue-600">
+                    Bank-level security for all transactions
+                  </p>
+                </div>
+              </div>
+              <div class="text-center mt-8">
+                <button class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">{{ sections_by_key.cta.content.cta_primary_text }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% include 'core/footer.html' %}
+    </div>
+
+<script src="{% static 'jcw/js/jcw-ui.js' %}"></script>
+
+    {% include 'core/right_sidebar.html' %}
+</body>
+</html>
+
+

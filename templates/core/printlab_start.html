@@ -1,0 +1,29 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+
+{% block content %}
+  <div class="min-h-screen ltr" data-locale="{{ LANGUAGE_CODE }}">
+    <div class="max-w-3xl mx-auto px-4 py-20">
+      <div class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+        <div class="inline-flex items-center px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-semibold mb-4">
+          {% trans "PrintLab category start" %}
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          {{ category_title }}
+        </h1>
+        <p class="text-lg text-gray-600 mb-6">
+          {% trans "Designer coming soon. We're preparing this category for you now." %}
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors inline-flex justify-center" href="{% url 'core:printlab' %}">
+            {% trans "Back to PrintLab" %}
+          </a>
+          <a class="bg-white border border-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:border-gray-300 transition-colors inline-flex justify-center" href="{% url 'core:home' %}">
+            {% trans "Back to homepage" %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include 'core/footer.html' %}
+{% endblock %}

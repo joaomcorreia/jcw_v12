@@ -1,0 +1,16 @@
+{% load i18n %}
+<div class="dashboard-card dashboard-card--auto">
+  <div class="dashboard-card-header">
+    <h3 class="dashboard-card-title">{% trans "Activity feed" %}</h3>
+  </div>
+  <ul class="dashboard-feed">
+    {% for item in activity %}
+    <li class="dashboard-feed-item">
+      <span>{{ item.message }}</span>
+      <span class="dashboard-status">{{ item.time }}</span>
+    </li>
+    {% empty %}
+    <li class="dashboard-feed-item dashboard-muted">{% trans "No recent activity." %}</li>
+    {% endfor %}
+  </ul>
+</div>

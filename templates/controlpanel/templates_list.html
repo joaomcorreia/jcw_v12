@@ -1,0 +1,59 @@
+{% extends "controlpanel/base_controlpanel.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Templates" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <div class="dashboard-card-header">
+    <h1 class="dashboard-title">{% trans "Templates" %}</h1>
+    <a class="dashboard-button" href="{% url 'controlpanel:templates_create' %}">{% trans "New template" %}</a>
+  </div>
+  <div class="dashboard-card dashboard-card--auto">
+    <div class="dashboard-table">
+      <div class="dashboard-table-row dashboard-table-header">
+        <div>{% trans "Name" %}</div>
+        <div>{% trans "Slug" %}</div>
+        <div>{% trans "Published" %}</div>
+        <div>{% trans "Updated" %}</div>
+        <div>{% trans "Actions" %}</div>
+      </div>
+      {% for template in templates %}
+      <div class="dashboard-table-row">
+        <div>{{ template.name }}</div>
+        <div class="dashboard-muted">{{ template.slug }}</div>
+        <div>
+          {% if template.is_published %}
+          <span class="dashboard-badge">{% trans "Published" %}</span>
+          {% else %}
+          <span class="dashboard-badge dashboard-badge--muted">{% trans "Draft" %}</span>
+          {% endif %}
+        </div>
+        <div class="dashboard-muted">{{ template.updated_at|date:"Y-m-d" }}</div>
+        <div class="dashboard-cta-actions">
+          <a class="dashboard-link" href="{% url 'controlpanel:templates_edit' template.id %}">{% trans "Edit" %}</a>
+          <form method="post" action="{% url 'controlpanel:templates_toggle_publish' template.id %}">
+            {% csrf_token %}
+            <button class="dashboard-link" type="submit">
+              {% if template.is_published %}
+                {% trans "Unpublish" %}
+              {% else %}
+                {% trans "Publish" %}
+              {% endif %}
+            </button>
+          </form>
+        </div>
+      </div>
+      {% empty %}
+      <div class="dashboard-table-row dashboard-table-empty">
+        <div>{% trans "No templates yet" %}</div>
+        <div>--</div>
+        <div>--</div>
+        <div>--</div>
+        <div>--</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

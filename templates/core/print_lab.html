@@ -1,0 +1,462 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
+    <link rel="icon" href="{% static 'favicon.png' %}">
+    
+    <title>
+      {{ seo_title|default:"JustCodeWorks" }}
+    </title>
+        <meta name="robots" content="{{ seo_robots|default:'index, follow' }}">
+    {% if launch_noindex %}
+    <meta name="robots" content="noindex,nofollow">
+    {% endif %}
+<meta name="description" content="{{ seo_description|default:'Website builder and content management platform' }}">
+    __SCRIPT_4____STYLE_0__
+  </head>
+  <body class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium">
+    <div class="min-h-screen ltr" data-locale="{{ LANGUAGE_CODE }}">
+      {% include 'core/main_nav.html' %}
+      <div class="jsx-e826c9b2f8ec5a67 min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-900">
+        <div class="jsx-e826c9b2f8ec5a67 fixed inset-0 overflow-hidden pointer-events-none">
+          <div class="jsx-e826c9b2f8ec5a67 absolute -top-40 -right-40 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob">
+          </div>
+          <div class="jsx-e826c9b2f8ec5a67 absolute -bottom-40 -left-40 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000">
+          </div>
+          <div class="jsx-e826c9b2f8ec5a67 absolute top-1/2 left-1/2 w-96 h-96 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000">
+          </div>
+        </div>
+        <div class="jsx-e826c9b2f8ec5a67 relative z-10">
+          <div class="jsx-e826c9b2f8ec5a67 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+            <div class="jsx-e826c9b2f8ec5a67 text-center transform transition-all duration-1000 translate-y-0 opacity-100">
+              <h1 class="jsx-e826c9b2f8ec5a67 text-6xl md:text-7xl font-black mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent animate-gradient-x">{{ sections_by_key.hero.content.heading }}</h1>
+              <p class="jsx-e826c9b2f8ec5a67 text-xl md:text-2xl text-slate-600 dark:text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed">{{ sections_by_key.hero.content.subheading }}</p>
+              <div class="jsx-e826c9b2f8ec5a67 flex flex-col sm:flex-row gap-4 justify-center mb-16">
+                <button class="jsx-e826c9b2f8ec5a67 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-2xl shadow-2xl hover:shadow-blue-500/25 transform hover:scale-105 transition-all duration-300 hover:from-blue-700 hover:to-purple-700">{{ sections_by_key.hero.content.cta_primary_text }}</button>
+                <button class="jsx-e826c9b2f8ec5a67 px-8 py-4 bg-white/80 backdrop-blur-sm text-slate-800 font-bold rounded-2xl shadow-xl hover:bg-white/90 transform hover:scale-105 transition-all duration-300 border border-slate-200">{{ sections_by_key.hero.content.cta_secondary_text }}</button>
+              </div>
+              <div class="jsx-e826c9b2f8ec5a67 grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
+                <div class="jsx-e826c9b2f8ec5a67 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-2xl p-6 shadow-xl transform transition-all duration-500 hover:scale-110 translate-y-0 opacity-100 jcw-inline-50bfa5d9ac">
+                  <div class="jsx-e826c9b2f8ec5a67 text-3xl mb-2">
+                    😊
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-3xl font-black text-slate-800 dark:text-white mb-1">
+                    10K+
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                    Happy Customers
+                  </div>
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-2xl p-6 shadow-xl transform transition-all duration-500 hover:scale-110 translate-y-0 opacity-100 jcw-inline-49d17959ab">
+                  <div class="jsx-e826c9b2f8ec5a67 text-3xl mb-2">
+                    ⚡
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-3xl font-black text-slate-800 dark:text-white mb-1">
+                    48h
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                    Average Delivery
+                  </div>
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-2xl p-6 shadow-xl transform transition-all duration-500 hover:scale-110 translate-y-0 opacity-100 jcw-inline-1187cbf008">
+                  <div class="jsx-e826c9b2f8ec5a67 text-3xl mb-2">
+                    ⭐
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-3xl font-black text-slate-800 dark:text-white mb-1">
+                    99%
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                    Quality Rating
+                  </div>
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-2xl p-6 shadow-xl transform transition-all duration-500 hover:scale-110 translate-y-0 opacity-100 jcw-inline-98679de470">
+                  <div class="jsx-e826c9b2f8ec5a67 text-3xl mb-2">
+                    💬
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-3xl font-black text-slate-800 dark:text-white mb-1">
+                    24/7
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                    Support Available
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="jsx-e826c9b2f8ec5a67 mb-20">
+              <h2 class="jsx-e826c9b2f8ec5a67 text-4xl md:text-5xl font-black text-center mb-4 text-slate-800 dark:text-white">{{ sections_by_key.main.content.heading }}</h2>
+              <p class="jsx-e826c9b2f8ec5a67 text-xl text-center text-slate-600 dark:text-slate-300 mb-12 max-w-2xl mx-auto">{{ sections_by_key.main.content.body }}</p>
+              <div class="jsx-e826c9b2f8ec5a67 grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="jsx-e826c9b2f8ec5a67 group relative overflow-hidden rounded-3xl shadow-2xl transform transition-all duration-700 hover:scale-[1.02] ring-4 ring-blue-400 shadow-blue-500/50">
+                  <div class="jsx-e826c9b2f8ec5a67 absolute inset-0 bg-gradient-to-br from-blue-600 to-purple-600 opacity-90">
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 relative z-10 p-8 text-white">
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-start justify-between mb-6">
+                      <div class="jsx-e826c9b2f8ec5a67 text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                        💼
+                      </div>
+                      <span class="jsx-e826c9b2f8ec5a67 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full animate-pulse">
+                        🔥 POPULAR
+                      </span>
+                    </div>
+                    <h3 class="jsx-e826c9b2f8ec5a67 text-3xl font-black mb-2">
+                      Business Cards
+                    </h3>
+                    <p class="jsx-e826c9b2f8ec5a67 text-xl font-semibold opacity-90 mb-4">
+                      Make Your First Impression Count
+                    </p>
+                    <p class="jsx-e826c9b2f8ec5a67 opacity-80 mb-6 leading-relaxed">
+                      Premium business cards with cutting-edge design and high-quality materials
+                    </p>
+                    <div class="jsx-e826c9b2f8ec5a67 grid grid-cols-2 gap-2 mb-6">
+                      <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                        <span class="jsx-e826c9b2f8ec5a67 mr-2">
+                          ✓
+                        </span>
+                        Premium cardstock
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                        <span class="jsx-e826c9b2f8ec5a67 mr-2">
+                          ✓
+                        </span>
+                        UV coating available
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                        <span class="jsx-e826c9b2f8ec5a67 mr-2">
+                          ✓
+                        </span>
+                        Same-day printing
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                        <span class="jsx-e826c9b2f8ec5a67 mr-2">
+                          ✓
+                        </span>
+                        Free design consultation
+                      </div>
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 flex gap-3 mb-6">
+                      <div class="jsx-e826c9b2f8ec5a67 w-16 h-16 bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg shadow-lg transform hover:scale-110 transition-transform duration-300 flex items-center justify-center text-xs font-bold text-white">
+                        Classic
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-lg shadow-lg transform hover:scale-110 transition-transform duration-300 flex items-center justify-center text-xs font-bold text-white">
+                        Modern
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg shadow-lg transform hover:scale-110 transition-transform duration-300 flex items-center justify-center text-xs font-bold text-white">
+                        Elegant
+                      </div>
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-center justify-between">
+                      <div class="jsx-e826c9b2f8ec5a67 text-2xl font-black">
+                        From €29
+                      </div>
+                      <button class="jsx-e826c9b2f8ec5a67 px-6 py-3 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-xl font-bold transition-all duration-300 transform hover:scale-105">
+                        Get Quote →
+                      </button>
+                    </div>
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  </div>
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 group relative overflow-hidden rounded-3xl shadow-2xl transform transition-all duration-700 hover:scale-[1.02] ">
+                  <div class="jsx-e826c9b2f8ec5a67 absolute inset-0 bg-gradient-to-br from-emerald-600 to-teal-600 opacity-90">
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 relative z-10 p-8 text-white">
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-start justify-between mb-6">
+                      <div class="jsx-e826c9b2f8ec5a67 text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                        📄
+                      </div>
+                    </div>
+                    <h3 class="jsx-e826c9b2f8ec5a67 text-3xl font-black mb-2">
+                      Flyers &amp; Brochures
+                    </h3>
+                    <p class="jsx-e826c9b2f8ec5a67 text-xl font-semibold opacity-90 mb-4">
+                      Captivate Your Audience
+                    </p>
+                    <p class="jsx-e826c9b2f8ec5a67 opacity-80 mb-6 leading-relaxed">
+                      Eye-catching marketing materials that drive engagement and conversions
+                    </p>
+                    <div class="jsx-e826c9b2f8ec5a67 grid grid-cols-2 gap-2 mb-6">
+                      <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                        <span class="jsx-e826c9b2f8ec5a67 mr-2">
+                          ✓
+                        </span>
+                        Full-color printing
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                        <span class="jsx-e826c9b2f8ec5a67 mr-2">
+                          ✓
+                        </span>
+                        Various paper weights
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                        <span class="jsx-e826c9b2f8ec5a67 mr-2">
+                          ✓
+                        </span>
+                        Tri-fold options
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                        <span class="jsx-e826c9b2f8ec5a67 mr-2">
+                          ✓
+                        </span>
+                        Bulk discounts
+                      </div>
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 flex gap-3 mb-6">
+                      <div class="jsx-e826c9b2f8ec5a67 w-16 h-16 bg-gradient-to-br from-emerald-400 to-green-500 rounded-lg shadow-lg transform hover:scale-110 transition-transform duration-300 flex items-center justify-center text-xs font-bold text-white">
+                        A4 Flyer
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 w-16 h-16 bg-gradient-to-br from-teal-400 to-blue-500 rounded-lg shadow-lg transform hover:scale-110 transition-transform duration-300 flex items-center justify-center text-xs font-bold text-white">
+                        Tri-fold
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 w-16 h-16 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-lg shadow-lg transform hover:scale-110 transition-transform duration-300 flex items-center justify-center text-xs font-bold text-white">
+                        Brochure
+                      </div>
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-center justify-between">
+                      <div class="jsx-e826c9b2f8ec5a67 text-2xl font-black">
+                        From €15
+                      </div>
+                      <button class="jsx-e826c9b2f8ec5a67 px-6 py-3 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-xl font-bold transition-all duration-300 transform hover:scale-105">
+                        Get Quote →
+                      </button>
+                    </div>
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  </div>
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 group relative overflow-hidden rounded-3xl shadow-2xl transform transition-all duration-700 hover:scale-[1.02] ">
+                  <div class="jsx-e826c9b2f8ec5a67 absolute inset-0 bg-gradient-to-br from-orange-600 to-red-600 opacity-90">
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 relative z-10 p-8 text-white">
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-start justify-between mb-6">
+                      <div class="jsx-e826c9b2f8ec5a67 text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                        👕
+                      </div>
+                    </div>
+                    <h3 class="jsx-e826c9b2f8ec5a67 text-3xl font-black mb-2">
+                      Custom Apparel
+                    </h3>
+                    <p class="jsx-e826c9b2f8ec5a67 text-xl font-semibold opacity-90 mb-4">
+                      Wear Your Brand
+                    </p>
+                    <p class="jsx-e826c9b2f8ec5a67 opacity-80 mb-6 leading-relaxed">
+                      High-quality custom clothing and branded merchandise for your business
+                    </p>
+                    <div class="jsx-e826c9b2f8ec5a67 grid grid-cols-2 gap-2 mb-6">
+                      <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                        <span class="jsx-e826c9b2f8ec5a67 mr-2">
+                          ✓
+                        </span>
+                        Premium fabrics
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                        <span class="jsx-e826c9b2f8ec5a67 mr-2">
+                          ✓
+                        </span>
+                        Screen printing
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                        <span class="jsx-e826c9b2f8ec5a67 mr-2">
+                          ✓
+                        </span>
+                        Embroidery options
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                        <span class="jsx-e826c9b2f8ec5a67 mr-2">
+                          ✓
+                        </span>
+                        Size range S-5XL
+                      </div>
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 flex gap-3 mb-6">
+                      <div class="jsx-e826c9b2f8ec5a67 w-16 h-16 bg-gradient-to-br from-red-400 to-pink-500 rounded-lg shadow-lg transform hover:scale-110 transition-transform duration-300 flex items-center justify-center text-xs font-bold text-white">
+                        T-Shirt
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 w-16 h-16 bg-gradient-to-br from-orange-400 to-red-500 rounded-lg shadow-lg transform hover:scale-110 transition-transform duration-300 flex items-center justify-center text-xs font-bold text-white">
+                        Hoodie
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg shadow-lg transform hover:scale-110 transition-transform duration-300 flex items-center justify-center text-xs font-bold text-white">
+                        Cap
+                      </div>
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-center justify-between">
+                      <div class="jsx-e826c9b2f8ec5a67 text-2xl font-black">
+                        From €18
+                      </div>
+                      <button class="jsx-e826c9b2f8ec5a67 px-6 py-3 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-xl font-bold transition-all duration-300 transform hover:scale-105">
+                        Get Quote →
+                      </button>
+                    </div>
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  </div>
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 group relative overflow-hidden rounded-3xl shadow-2xl transform transition-all duration-700 hover:scale-[1.02] ">
+                  <div class="jsx-e826c9b2f8ec5a67 absolute inset-0 bg-gradient-to-br from-violet-600 to-purple-600 opacity-90">
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 relative z-10 p-8 text-white">
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-start justify-between mb-6">
+                      <div class="jsx-e826c9b2f8ec5a67 text-5xl mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                        🎁
+                      </div>
+                    </div>
+                    <h3 class="jsx-e826c9b2f8ec5a67 text-3xl font-black mb-2">
+                      Promotional Items
+                    </h3>
+                    <p class="jsx-e826c9b2f8ec5a67 text-xl font-semibold opacity-90 mb-4">
+                      Brand Recognition That Lasts
+                    </p>
+                    <p class="jsx-e826c9b2f8ec5a67 opacity-80 mb-6 leading-relaxed">
+                      Memorable promotional products that keep your brand top-of-mind
+                    </p>
+                    <div class="jsx-e826c9b2f8ec5a67 grid grid-cols-2 gap-2 mb-6">
+                      <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                        <span class="jsx-e826c9b2f8ec5a67 mr-2">
+                          ✓
+                        </span>
+                        Custom mugs &amp; bottles
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                        <span class="jsx-e826c9b2f8ec5a67 mr-2">
+                          ✓
+                        </span>
+                        Tech accessories
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                        <span class="jsx-e826c9b2f8ec5a67 mr-2">
+                          ✓
+                        </span>
+                        Office supplies
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                        <span class="jsx-e826c9b2f8ec5a67 mr-2">
+                          ✓
+                        </span>
+                        Gift packaging
+                      </div>
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 flex gap-3 mb-6">
+                      <div class="jsx-e826c9b2f8ec5a67 w-16 h-16 bg-gradient-to-br from-purple-400 to-violet-500 rounded-lg shadow-lg transform hover:scale-110 transition-transform duration-300 flex items-center justify-center text-xs font-bold text-white">
+                        Mug
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 w-16 h-16 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-lg shadow-lg transform hover:scale-110 transition-transform duration-300 flex items-center justify-center text-xs font-bold text-white">
+                        USB Drive
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 w-16 h-16 bg-gradient-to-br from-violet-400 to-pink-500 rounded-lg shadow-lg transform hover:scale-110 transition-transform duration-300 flex items-center justify-center text-xs font-bold text-white">
+                        Notebook
+                      </div>
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-center justify-between">
+                      <div class="jsx-e826c9b2f8ec5a67 text-2xl font-black">
+                        From €8
+                      </div>
+                      <button class="jsx-e826c9b2f8ec5a67 px-6 py-3 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-xl font-bold transition-all duration-300 transform hover:scale-105">
+                        Get Quote →
+                      </button>
+                    </div>
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="jsx-e826c9b2f8ec5a67 mb-20">
+              <h2 class="jsx-e826c9b2f8ec5a67 text-4xl md:text-5xl font-black text-center mb-4 text-slate-800 dark:text-white">
+                Simple 4-Step Process
+              </h2>
+              <p class="jsx-e826c9b2f8ec5a67 text-xl text-center text-slate-600 dark:text-slate-300 mb-12">
+                From concept to delivery in just a few clicks
+              </p>
+              <div class="jsx-e826c9b2f8ec5a67 grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="jsx-e826c9b2f8ec5a67 relative p-6 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 text-white shadow-xl transform hover:scale-105 transition-all duration-300 hover:shadow-2xl">
+                  <div class="jsx-e826c9b2f8ec5a67 text-4xl mb-4">
+                    🎯
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-2xl font-black mb-2">
+                    1
+                  </div>
+                  <h3 class="jsx-e826c9b2f8ec5a67 text-xl font-bold mb-2">
+                    Choose
+                  </h3>
+                  <p class="jsx-e826c9b2f8ec5a67 opacity-90 text-sm">
+                    Select your product &amp; customize
+                  </p>
+                  <div class="jsx-e826c9b2f8ec5a67 hidden md:block absolute -right-3 top-1/2 transform -translate-y-1/2 text-3xl text-slate-400">
+                    →
+                  </div>
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 relative p-6 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-400 text-white shadow-xl transform hover:scale-105 transition-all duration-300 hover:shadow-2xl">
+                  <div class="jsx-e826c9b2f8ec5a67 text-4xl mb-4">
+                    🎨
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-2xl font-black mb-2">
+                    2
+                  </div>
+                  <h3 class="jsx-e826c9b2f8ec5a67 text-xl font-bold mb-2">
+                    Design
+                  </h3>
+                  <p class="jsx-e826c9b2f8ec5a67 opacity-90 text-sm">
+                    Upload or create your design
+                  </p>
+                  <div class="jsx-e826c9b2f8ec5a67 hidden md:block absolute -right-3 top-1/2 transform -translate-y-1/2 text-3xl text-slate-400">
+                    →
+                  </div>
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 relative p-6 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-400 text-white shadow-xl transform hover:scale-105 transition-all duration-300 hover:shadow-2xl">
+                  <div class="jsx-e826c9b2f8ec5a67 text-4xl mb-4">
+                    ✅
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-2xl font-black mb-2">
+                    3
+                  </div>
+                  <h3 class="jsx-e826c9b2f8ec5a67 text-xl font-bold mb-2">
+                    Approve
+                  </h3>
+                  <p class="jsx-e826c9b2f8ec5a67 opacity-90 text-sm">
+                    Review &amp; approve your proof
+                  </p>
+                  <div class="jsx-e826c9b2f8ec5a67 hidden md:block absolute -right-3 top-1/2 transform -translate-y-1/2 text-3xl text-slate-400">
+                    →
+                  </div>
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 relative p-6 rounded-2xl bg-gradient-to-br from-orange-500 to-red-400 text-white shadow-xl transform hover:scale-105 transition-all duration-300 hover:shadow-2xl">
+                  <div class="jsx-e826c9b2f8ec5a67 text-4xl mb-4">
+                    📦
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-2xl font-black mb-2">
+                    4
+                  </div>
+                  <h3 class="jsx-e826c9b2f8ec5a67 text-xl font-bold mb-2">
+                    Receive
+                  </h3>
+                  <p class="jsx-e826c9b2f8ec5a67 opacity-90 text-sm">
+                    Fast delivery to your door
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="jsx-e826c9b2f8ec5a67 text-center bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-12 shadow-2xl">
+              <h2 class="jsx-e826c9b2f8ec5a67 text-4xl md:text-5xl font-black text-white mb-4">{{ sections_by_key.cta.content.heading }}</h2>
+              <p class="jsx-e826c9b2f8ec5a67 text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+                Join thousands of satisfied customers who trust us with their printing needs
+              </p>
+              <div class="jsx-e826c9b2f8ec5a67 flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="jsx-e826c9b2f8ec5a67 px-8 py-4 bg-white text-blue-600 font-bold rounded-2xl shadow-xl hover:bg-blue-50 transform hover:scale-105 transition-all duration-300">{{ sections_by_key.cta.content.cta_primary_text }}</button>
+                <button class="jsx-e826c9b2f8ec5a67 px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-2xl hover:bg-white/10 transform hover:scale-105 transition-all duration-300">{{ sections_by_key.cta.content.cta_secondary_text }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% include 'core/footer.html' %}
+    </div>
+
+<script src="{% static 'jcw/js/jcw-ui.js' %}"></script>
+
+    {% include 'core/right_sidebar.html' %}
+</body>
+</html>
+
+

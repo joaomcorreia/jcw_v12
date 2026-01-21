@@ -1,0 +1,39 @@
+﻿{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
+    <link rel="icon" href="{% static 'favicon.png' %}">
+    <title>
+      {{ seo_title|default:"JustCodeWorks" }}
+    </title>
+    <meta name="description" content="{{ seo_description|default:"Website builder and content management platform" }}">
+    <meta name="description" content="{{ seo_description|default:"Website builder and content management platform" }}">
+    <meta name="description" content="{{ seo_description|default:"Website builder and content management platform" }}">
+    <meta name="robots" content="{{ seo_robots|default:"index, follow" }}">
+    {% if launch_noindex %}
+    <meta name="robots" content="noindex,nofollow">
+    {% endif %}
+    {% block head %}{% endblock %}
+  </head>
+  <body class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium">
+    {% block content %}{% endblock %}
+    {% include 'core/right_sidebar.html' %}
+    <script src="{% static 'jcw/js/jcw-ui.js' %}"></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,44 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Billing" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">{% trans "Billing" %}</h1>
+  <div class="dashboard-grid">
+    <div class="dashboard-card dashboard-card--auto">
+      <div class="dashboard-card-header">
+        <h3 class="dashboard-card-title">{% trans "Current plan" %}</h3>
+      </div>
+      <p class="dashboard-card-value">{{ current_plan_name }}</p>
+      <button class="dashboard-button" type="button" disabled>{% trans "Manage subscription" %}</button>
+    </div>
+    <div class="dashboard-card dashboard-card--auto">
+      <div class="dashboard-card-header">
+        <h3 class="dashboard-card-title">{% trans "Payment method" %}</h3>
+      </div>
+      <p class="dashboard-muted">{% trans "Add a payment method to enable upgrades." %}</p>
+      <button class="dashboard-button dashboard-button--secondary" type="button" disabled>{% trans "Add payment method" %}</button>
+    </div>
+  </div>
+  <div class="dashboard-card dashboard-card--auto">
+    <div class="dashboard-card-header">
+      <h3 class="dashboard-card-title">{% trans "Invoices" %}</h3>
+    </div>
+    <div class="dashboard-table">
+      <div class="dashboard-table-row dashboard-table-header">
+        <div>{% trans "Date" %}</div>
+        <div>{% trans "Amount" %}</div>
+        <div>{% trans "Status" %}</div>
+      </div>
+      <div class="dashboard-table-row dashboard-table-empty">
+        <div>{% trans "No invoices yet" %}</div>
+        <div>--</div>
+        <div>--</div>
+      </div>
+    </div>
+  </div>
+  {% include "components/upgrade_cta.html" with title=upgrade_cta_context.title message=upgrade_cta_context.message primary_button_text=upgrade_cta_context.primary_button_text primary_button_url=upgrade_cta_context.primary_button_url secondary_link_text=upgrade_cta_context.secondary_link_text secondary_link_url=upgrade_cta_context.secondary_link_url style=upgrade_cta_context.style %}
+</div>
+{% endblock %}

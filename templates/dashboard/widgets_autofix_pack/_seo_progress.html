@@ -1,0 +1,23 @@
+{% load i18n %}
+<div class="dashboard-card dashboard-card--auto">
+  <div class="dashboard-card-header">
+    <h3 class="dashboard-card-title">{% trans "SEO progress" %}</h3>
+    <span class="dashboard-badge">{{ seo_progress.percent }}%</span>
+  </div>
+  <div class="dashboard-list">
+    <div class="dashboard-list-item">
+      <span>{% trans "Pages optimized" %}</span>
+      <span class="dashboard-status">
+        {% blocktrans with done=seo_progress.optimized_pages total=seo_progress.total_pages %}{{ done }} / {{ total }}{% endblocktrans %}
+      </span>
+    </div>
+    <div class="dashboard-list-item">
+      <span>{% trans "Schema status" %}</span>
+      <span class="dashboard-status">{{ seo_progress.schema_status }}</span>
+    </div>
+    <div class="dashboard-list-item">
+      <span>{% trans "Next crawl" %}</span>
+      <span class="dashboard-status">{{ seo_progress.next_crawl }}</span>
+    </div>
+  </div>
+</div>

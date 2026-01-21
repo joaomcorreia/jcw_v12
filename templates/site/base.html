@@ -1,0 +1,29 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if page_title %}{{ page_title }}{% else %}{% trans "Coming soon" %}{% endif %}</title>
+  </head>
+  <body>
+    {% if nav_pages %}
+      <nav>
+        <ul>
+          {% for nav in nav_pages %}
+            <li>
+              {% if nav.slug == "home" %}
+                <a href="{% url 'core:home' %}">{{ nav.title }}</a>
+              {% else %}
+                <a href="{% url 'core:public_page' nav.slug %}">{{ nav.title }}</a>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    {% endif %}
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>

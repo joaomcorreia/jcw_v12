@@ -1,0 +1,12 @@
+{% load i18n %}
+<section>
+  <h2>{% trans "Section" %}: {{ section.type }}</h2>
+  {% if data %}
+    <p>
+      {% trans "Fields" %}:
+      {% for key in data.keys %}
+        {{ key }}{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+    </p>
+  {% endif %}
+</section>

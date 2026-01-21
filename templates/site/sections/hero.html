@@ -1,0 +1,8 @@
+{% load i18n %}
+<section>
+  <h1>{{ data.title|default:"" }}</h1>
+  <p>{{ data.subtitle|default:"" }}</p>
+  {% if data.cta_text and data.cta_url %}
+    <a href="{{ data.cta_url }}">{{ data.cta_text }}</a>
+  {% endif %}
+</section>

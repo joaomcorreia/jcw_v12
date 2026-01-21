@@ -1,0 +1,13 @@
+{% load i18n %}
+<div class="dashboard-card dashboard-card--auto">
+  <div class="dashboard-card-header">
+    <h3 class="dashboard-card-title">{% trans "Milestones" %}</h3>
+  </div>
+  <div class="dashboard-milestones">
+    {% for milestone in milestones %}
+    <span class="dashboard-badge">{{ milestone }}</span>
+    {% empty %}
+    <p class="dashboard-muted">{% trans "No milestones yet." %}</p>
+    {% endfor %}
+  </div>
+</div>

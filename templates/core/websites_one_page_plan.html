@@ -1,0 +1,325 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
+    <link rel="icon" href="{% static 'favicon.png' %}">
+    <title>
+      {{ seo_title|default:"JustCodeWorks" }}
+    </title>
+    <meta name="robots" content="{{ seo_robots|default:'index, follow' }}">
+    {% if launch_noindex %}
+    <meta name="robots" content="noindex,nofollow">
+    {% endif %}
+    <meta name="description" content="{{ seo_description|default:'Website builder and content management platform' }}">
+    <style>
+      .jcw-plan-grid {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 24px;
+      }
+      .jcw-plan-card {
+        border-radius: 18px;
+        padding: 24px;
+        box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
+        border: 1px solid rgba(15, 23, 42, 0.06);
+      }
+      .jcw-plan-card--blue {
+        background: #eff6ff;
+      }
+      .jcw-plan-card--green {
+        background: #ecfdf3;
+      }
+      .jcw-plan-card--purple {
+        background: #f5f3ff;
+      }
+      .jcw-plan-card--amber {
+        background: #fffbeb;
+      }
+      .jcw-plan-card--slate {
+        background: #f8fafc;
+      }
+      @property --jcw-border-angle {
+        syntax: "<angle>";
+        inherits: false;
+        initial-value: 0deg;
+      }
+      .jcw-interactive-border {
+        --jcw-border-angle: 0deg;
+        border: 4px solid transparent;
+        border-radius: 22px;
+        background:
+          linear-gradient(#eff6ff, #eff6ff) padding-box,
+          conic-gradient(
+            from var(--jcw-border-angle),
+            #1c5aa7,
+            #5c33d8,
+            #780994,
+            #2a63a8
+          )
+          border-box;
+        animation: jcw-border-spin 7s linear infinite;
+      }
+      .jcw-interactive-border:hover {
+        animation-duration: 2.5s;
+        box-shadow: 0 18px 40px rgba(37, 99, 235, 0.2);
+      }
+      @keyframes jcw-border-spin {
+        to {
+          --jcw-border-angle: 360deg;
+        }
+      }
+      [data-jcw-nav] {
+        position: relative;
+      }
+      [data-jcw-nav].jcw-nav-scrolled::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #60a5fa, #a78bfa, #f472b6, #60a5fa);
+        background-size: 200% 100%;
+        animation: jcw-nav-border 6s linear infinite;
+      }
+      [data-jcw-nav].jcw-nav-scrolled:hover::after {
+        animation-duration: 2.5s;
+      }
+      @keyframes jcw-nav-border {
+        0% {
+          background-position: 0% 50%;
+        }
+        100% {
+          background-position: 200% 50%;
+        }
+      }
+      .jcw-plan-span-12 {
+        grid-column: span 12;
+      }
+      .jcw-plan-span-7 {
+        grid-column: span 7;
+      }
+      .jcw-plan-span-6 {
+        grid-column: span 6;
+      }
+      .jcw-plan-span-5 {
+        grid-column: span 5;
+      }
+      .jcw-plan-span-4 {
+        grid-column: span 4;
+      }
+      .jcw-plan-card ul {
+        list-style: disc;
+        padding-left: 20px;
+      }
+      .jcw-plan-card li {
+        margin-bottom: 8px;
+      }
+      @media (max-width: 1024px) {
+        .jcw-plan-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .jcw-plan-grid [class*="jcw-plan-span-"] {
+          grid-column: span 2;
+        }
+        .jcw-plan-span-4 {
+          grid-column: span 1;
+        }
+      }
+      @media (max-width: 640px) {
+        .jcw-plan-grid {
+          grid-template-columns: 1fr;
+        }
+        .jcw-plan-grid [class*="jcw-plan-span-"] {
+          grid-column: span 1;
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium">
+    <div class="min-h-screen ltr" data-locale="{{ LANGUAGE_CODE }}">
+      {% include 'core/main_nav.html' %}
+      <div class="min-h-screen">
+        <div class="relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
+            <div class="absolute inset-0 opacity-20">
+              <div class="absolute top-0 left-0 w-2 h-2 bg-white rounded-full animate-ping">
+              </div>
+              <div class="absolute top-10 left-20 w-1 h-1 bg-blue-300 rounded-full animate-pulse">
+              </div>
+              <div class="absolute top-20 right-10 w-1 h-1 bg-purple-300 rounded-full animate-ping">
+              </div>
+              <div class="absolute bottom-20 left-10 w-2 h-2 bg-pink-300 rounded-full animate-pulse">
+              </div>
+            </div>
+            <div class="absolute top-0 left-0 w-full h-full">
+              <div class="absolute top-20 left-20 w-32 h-32 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob">
+              </div>
+              <div class="absolute top-40 right-20 w-32 h-32 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000">
+              </div>
+              <div class="absolute -bottom-8 left-40 w-32 h-32 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000">
+              </div>
+            </div>
+          </div>
+          <div class="relative z-10 max-w-7xl mx-auto px-4 py-20 sm:py-32">
+            <div class="text-center text-white">
+              <div class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm font-medium mb-8">
+                <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                {% trans "One Page Website" %}
+              </div>
+              <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent leading-tight">
+                {% trans "One Page Website" %}
+              </h1>
+              <p class="text-xl md:text-2xl mb-12 text-blue-100 max-w-4xl mx-auto leading-relaxed">
+                {% trans "A single-page website designed to get you online fast, with one clear message and a strong call to action." %}
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a class="px-8 py-4 bg-white text-blue-900 font-bold rounded-xl hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 shadow-xl" href="{{ sections_by_key.hero.content.cta_primary_url|default:'#' }}">
+                  {% trans "Start now" %}
+                </a>
+                <button class="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300">
+                  {% trans "See plans" %}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="py-20 bg-gray-50">
+          <div class="max-w-7xl mx-auto px-4">
+            <div class="jcw-plan-grid">
+              <div class="jcw-plan-card jcw-plan-card--blue jcw-plan-span-12 jcw-interactive-border">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+                  {% trans "One Page Website" %}
+                </h2>
+                <p class="text-lg text-gray-700 mb-6">
+                  {% trans "A single-page website designed to get you online fast, with one clear message and a strong call to action." %}
+                </p>
+                <a class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors" href="{{ sections_by_key.hero.content.cta_primary_url|default:'#' }}">
+                  {% trans "Start now" %}
+                </a>
+              </div>
+
+              <div class="jcw-plan-card jcw-plan-card--slate jcw-plan-span-7">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                  {% trans "What this plan is for" %}
+                </h3>
+                <p class="text-gray-700 mb-4">
+                  {% blocktrans %}This plan is perfect when you want a simple online presence without complexity. Everything lives on one clear page, so visitors immediately understand what you offer and how to contact you.{% endblocktrans %}
+                </p>
+                <ul class="text-gray-700">
+                  <li>{% trans "One clear page with a strong call to action" %}</li>
+                  <li>{% trans "Ideal when you want customers to contact you fast" %}</li>
+                  <li>{% trans "Perfect for services, freelancers, and small businesses" %}</li>
+                  <li>{% trans "No unnecessary pages or features" %}</li>
+                </ul>
+              </div>
+
+              <div class="jcw-plan-card jcw-plan-card--green jcw-plan-span-5">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                  {% trans "What's included" %}
+                </h3>
+                <p class="text-gray-700 mb-4">
+                  {% trans "Your one-page website includes everything you need to present your business clearly and professionally." %}
+                </p>
+                <ul class="text-gray-700">
+                  <li>{% trans "Up to 6 content sections on one page" %}</li>
+                  <li>{% trans "Clear call-to-action buttons (contact, call, or request)" %}</li>
+                  <li>{% trans "Mobile-optimized layout for all devices" %}</li>
+                  <li>{% trans "Clean structure ready for basic SEO" %}</li>
+                  <li>{% trans "Translation-ready for multiple languages" %}</li>
+                </ul>
+              </div>
+
+              <div class="jcw-plan-card jcw-plan-card--purple jcw-plan-span-4">
+                <div class="text-3xl mb-3">📱</div>
+                <h4 class="text-xl font-bold text-gray-900 mb-2">
+                  {% trans "Mobile-friendly" %}
+                </h4>
+                <p class="text-gray-700">
+                  {% trans "Your website works smoothly on phones, tablets, and desktops, so customers can reach you anywhere." %}
+                </p>
+              </div>
+
+              <div class="jcw-plan-card jcw-plan-card--amber jcw-plan-span-4">
+                <div class="text-3xl mb-3">🔍</div>
+                <h4 class="text-xl font-bold text-gray-900 mb-2">
+                  {% trans "Built to be found" %}
+                </h4>
+                <p class="text-gray-700">
+                  {% trans "Fast loading pages, proper headings, and a clean structure that search engines understand." %}
+                </p>
+              </div>
+
+              <div class="jcw-plan-card jcw-plan-card--green jcw-plan-span-4">
+                <div class="text-3xl mb-3">🌍</div>
+                <h4 class="text-xl font-bold text-gray-900 mb-2">
+                  {% trans "Multiple languages" %}
+                </h4>
+                <p class="text-gray-700">
+                  {% trans "Add translations when you're ready and reach customers in different languages without rebuilding your site." %}
+                </p>
+              </div>
+
+              <div class="jcw-plan-card jcw-plan-card--slate jcw-plan-span-6">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                  {% trans "What's NOT included" %}
+                </h3>
+                <p class="text-gray-700 mb-4">
+                  {% trans "To keep this plan simple and affordable, some advanced features are intentionally not included." %}
+                </p>
+                <ul class="text-gray-700">
+                  <li>{% trans "Multiple separate pages" %}</li>
+                  <li>{% trans "Online store or payment systems" %}</li>
+                  <li>{% trans "Complex custom integrations" %}</li>
+                </ul>
+              </div>
+
+              <div class="jcw-plan-card jcw-plan-card--blue jcw-plan-span-6">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                  {% trans "Upgrade anytime" %}
+                </h3>
+                <p class="text-gray-700 mb-4">
+                  {% blocktrans %}Your website is not locked in. You can start simple and upgrade whenever your business grows. Move to a multi-page website, add SEO features, or connect other tools later without losing your content.{% endblocktrans %}
+                </p>
+                <ul class="text-gray-700">
+                  <li>{% trans "Upgrade to a multi-page website" %}</li>
+                  <li>{% trans "Add service pages when needed" %}</li>
+                  <li>{% trans "Connect online store or POS features later" %}</li>
+                </ul>
+              </div>
+
+              <div class="jcw-plan-card jcw-plan-card--purple jcw-plan-span-12">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                  <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">
+                      {% trans "Not sure if this is enough?" %}
+                    </h3>
+                    <p class="text-gray-700">
+                      {% blocktrans %}Start with a one-page website and upgrade later if needed. If you're unsure, we're happy to guide you to the right option.{% endblocktrans %}
+                    </p>
+                  </div>
+                  {% if sections_by_key.cta.content.cta_primary_url %}
+                  <a class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors" href="{{ sections_by_key.cta.content.cta_primary_url }}">
+                    {% trans "Start now" %}
+                  </a>
+                  {% else %}
+                  <a class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors" href="{% url 'core:help_center' %}">
+                    {% trans "Start now" %}
+                  </a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% include 'core/footer.html' %}
+    </div>
+    <script src="{% static 'jcw/js/jcw-ui.js' %}"></script>
+    {% include 'core/right_sidebar.html' %}
+  </body>
+</html>
+

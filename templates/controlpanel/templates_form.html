@@ -1,0 +1,63 @@
+{% extends "controlpanel/base_controlpanel.html" %}
+{% load i18n %}
+
+{% block title %}
+  {% if template_obj %}
+    {% trans "Edit template" %}
+  {% else %}
+    {% trans "New template" %}
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">
+    {% if template_obj %}
+      {% trans "Edit template" %}
+    {% else %}
+      {% trans "New template" %}
+    {% endif %}
+  </h1>
+  <form method="post" class="dashboard-card dashboard-card--auto">
+    {% csrf_token %}
+    <div class="dashboard-list">
+      <label>
+        <span class="dashboard-muted">{% trans "Name" %}</span>
+        {{ form.name }}
+        {% if form.name.errors %}<div class="dashboard-muted">{{ form.name.errors }}</div>{% endif %}
+      </label>
+      <label>
+        <span class="dashboard-muted">{% trans "Slug" %}</span>
+        {{ form.slug }}
+        {% if form.slug.errors %}<div class="dashboard-muted">{{ form.slug.errors }}</div>{% endif %}
+      </label>
+      <label>
+        <span class="dashboard-muted">{% trans "Description" %}</span>
+        {{ form.description }}
+        {% if form.description.errors %}<div class="dashboard-muted">{{ form.description.errors }}</div>{% endif %}
+      </label>
+      <label>
+        <span class="dashboard-muted">{% trans "Languages" %}</span>
+        {{ form.languages }}
+        <div class="dashboard-muted">{% trans "Comma-separated, e.g. nl,en,fr" %}</div>
+        {% if form.languages.errors %}<div class="dashboard-muted">{{ form.languages.errors }}</div>{% endif %}
+      </label>
+      <label>
+        <span class="dashboard-muted">{% trans "Sections JSON" %}</span>
+        {{ form.sections }}
+        <div class="dashboard-muted">{% trans "Example JSON:" %}</div>
+        <pre class="dashboard-code">[
+  {"key":"home.hero","type":"hero","defaults":{"title":"...","subtitle":"...","cta_text":"...","cta_url":"..."}},
+  {"key":"home.services","type":"services","defaults":{"items":[{"title":"Service 1","text":"..."}]}},
+  {"key":"home.cta","type":"cta","defaults":{"title":"...","text":"...","button_text":"...","button_url":"..."}}
+]</pre>
+        {% if form.sections.errors %}<div class="dashboard-muted">{{ form.sections.errors }}</div>{% endif %}
+      </label>
+    </div>
+    <div class="dashboard-cta-actions">
+      <button class="dashboard-button" type="submit">{% trans "Save template" %}</button>
+      <a class="dashboard-link" href="{% url 'controlpanel:templates_list' %}">{% trans "Back to list" %}</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

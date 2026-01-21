@@ -1,0 +1,68 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
+    <link rel="icon" href="{% static 'favicon.png' %}">
+    <title>
+      {{ post.localized_title|default:seo_title|default:"JustCodeWorks" }}
+    </title>
+    <meta name="robots" content="{{ seo_robots|default:'index, follow' }}">
+    {% if launch_noindex %}
+    <meta name="robots" content="noindex,nofollow">
+    {% endif %}
+    <meta name="description" content="{{ seo_description|default:'Website builder and content management platform' }}">
+  </head>
+  <body class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium">
+    <div class="min-h-screen ltr" data-locale="{{ LANGUAGE_CODE }}">
+      {% include 'core/main_nav.html' %}
+      <div class="min-h-screen">
+        <div class="relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
+            <div class="absolute inset-0 opacity-20">
+              <div class="absolute top-0 left-0 w-2 h-2 bg-white rounded-full animate-ping"></div>
+              <div class="absolute top-10 left-20 w-1 h-1 bg-blue-300 rounded-full animate-pulse"></div>
+              <div class="absolute top-20 right-10 w-1 h-1 bg-purple-300 rounded-full animate-ping"></div>
+              <div class="absolute bottom-20 left-10 w-2 h-2 bg-pink-300 rounded-full animate-pulse"></div>
+            </div>
+            <div class="absolute top-0 left-0 w-full h-full">
+              <div class="absolute top-20 left-20 w-32 h-32 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+              <div class="absolute top-40 right-20 w-32 h-32 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+              <div class="absolute -bottom-8 left-40 w-32 h-32 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+            </div>
+          </div>
+          <div class="relative z-10 max-w-7xl mx-auto px-4 py-20 sm:py-32">
+            {% trans "Blog" as blog_label %}
+            <div class="text-center text-white">
+              <div class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm font-medium mb-8">
+                <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                {{ post.localized_category_name|default:blog_label }}
+              </div>
+              <h1 class="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent leading-tight">
+                {{ post.localized_title }}
+              </h1>
+              <p class="text-lg md:text-xl mb-8 text-blue-100 max-w-4xl mx-auto leading-relaxed">
+                {% blocktrans with published_date=post.published_at|date:"DATE_FORMAT" excerpt=post.localized_excerpt %}
+                  Published {{ published_date }} - {{ excerpt }}
+                {% endblocktrans %}
+              </p>
+              <a class="inline-flex items-center px-6 py-3 bg-white text-blue-900 font-semibold rounded-xl hover:bg-blue-50 transition-all duration-300" href="{% url 'core:blog_index' %}">
+                {% trans "Back to blog" %}
+              </a>
+            </div>
+          </div>
+        </div>
+        <section class="py-16 bg-white">
+          <div class="max-w-3xl mx-auto px-4 text-slate-700 leading-relaxed space-y-6">
+            {{ post.localized_body|safe }}
+          </div>
+        </section>
+      </div>
+      {% include 'core/footer.html' %}
+    </div>
+    <script src="{% static 'jcw/js/jcw-ui.js' %}"></script>
+    {% include 'core/right_sidebar.html' %}
+  </body>
+</html>

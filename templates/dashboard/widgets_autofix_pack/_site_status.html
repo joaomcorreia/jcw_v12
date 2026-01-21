@@ -1,0 +1,23 @@
+{% load i18n %}
+<div class="dashboard-card dashboard-card--auto">
+  <div class="dashboard-card-header">
+    <h3 class="dashboard-card-title">{% trans "Site status" %}</h3>
+    {% if site_status.is_online %}
+    <span class="dashboard-badge">{% trans "Online" %}</span>
+    {% else %}
+    <span class="dashboard-badge dashboard-badge--muted">{% trans "Offline" %}</span>
+    {% endif %}
+  </div>
+  <div class="dashboard-list">
+    <div class="dashboard-list-item">
+      <span>{% trans "Response time" %}</span>
+      <span class="dashboard-status">{{ site_status.response_time_ms }} ms</span>
+    </div>
+    <div class="dashboard-list-item">
+      <span>{% trans "SSL expiry" %}</span>
+      <span class="dashboard-status">
+        {% blocktrans with days=site_status.ssl_days_left %}{{ days }} days{% endblocktrans %}
+      </span>
+    </div>
+  </div>
+</div>

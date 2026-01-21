@@ -1,0 +1,785 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
+    <link rel="icon" href="{% static 'favicon.png' %}">
+    
+    <title>
+      {{ seo_title|default:"JustCodeWorks" }}
+    </title>
+        <meta name="robots" content="{{ seo_robots|default:'index, follow' }}">
+    {% if launch_noindex %}
+    <meta name="robots" content="noindex,nofollow">
+    {% endif %}
+<meta name="description" content="{{ seo_description|default:'Website builder and content management platform' }}">
+    __SCRIPT_4____STYLE_0__
+  </head>
+  <body class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium">
+    <div class="min-h-screen ltr" data-locale="{{ LANGUAGE_CODE }}">
+      {% include 'core/main_nav.html' %}
+      <div class="jsx-e826c9b2f8ec5a67 min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 dark:from-slate-900 dark:via-slate-800 dark:to-indigo-900 overflow-hidden">
+        <div class="jsx-e826c9b2f8ec5a67 fixed inset-0 overflow-hidden pointer-events-none">
+          <div class="jsx-e826c9b2f8ec5a67 absolute -top-40 -right-40 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob">
+          </div>
+          <div class="jsx-e826c9b2f8ec5a67 absolute -bottom-40 -left-40 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000">
+          </div>
+          <div class="jsx-e826c9b2f8ec5a67 absolute top-1/2 left-1/2 w-96 h-96 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000">
+          </div>
+        </div>
+        <div class="jsx-e826c9b2f8ec5a67 relative z-10">
+          <div class="jsx-e826c9b2f8ec5a67 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+            <div class="jsx-e826c9b2f8ec5a67 text-center transform transition-all duration-1000 translate-y-0 opacity-100">
+              <div class="jsx-e826c9b2f8ec5a67 inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 backdrop-blur-sm border border-blue-200/50 text-sm font-semibold mb-8">
+                <span class="jsx-e826c9b2f8ec5a67 w-2 h-2 bg-green-500 rounded-full mr-3 animate-pulse">
+                </span>
+                Professional Digital Services
+              </div>
+              <h1 class="jsx-e826c9b2f8ec5a67 text-6xl md:text-8xl font-black mb-6 bg-gradient-to-r from-slate-900 via-blue-700 to-purple-700 dark:from-white dark:via-blue-300 dark:to-purple-300 bg-clip-text text-transparent leading-tight animate-gradient-x">{{ sections_by_key.hero.content.heading }}</h1>
+
+    <div class="mt-6">
+      <p class="text-base text-gray-600">{{ sections_by_key.hero.content.subheading }}</p>
+    </div>
+
+              <p class="jsx-e826c9b2f8ec5a67 text-xl md:text-2xl text-slate-600 dark:text-slate-300 mb-12 max-w-4xl mx-auto leading-relaxed">
+                Comprehensive digital services to
+                <span class="jsx-e826c9b2f8ec5a67 font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  accelerate your success
+                </span>
+              </p>
+              <div class="jsx-e826c9b2f8ec5a67 flex flex-col sm:flex-row gap-4 justify-center mb-16">
+                <button class="jsx-e826c9b2f8ec5a67 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-2xl shadow-2xl hover:shadow-blue-500/25 transform hover:scale-105 transition-all duration-300">{{ sections_by_key.hero.content.cta_primary_text }}</button>
+                <button class="jsx-e826c9b2f8ec5a67 px-8 py-4 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm text-slate-800 dark:text-white font-bold rounded-2xl shadow-xl hover:bg-white/90 dark:hover:bg-slate-700/90 transform hover:scale-105 transition-all duration-300 border border-slate-200 dark:border-slate-600">{{ sections_by_key.hero.content.cta_secondary_text }}</button>
+              </div>
+              <div class="jsx-e826c9b2f8ec5a67 grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="jsx-e826c9b2f8ec5a67 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-2xl p-6 shadow-xl transform transition-all duration-500 hover:scale-110 translate-y-0 opacity-100 jcw-inline-50bfa5d9ac">
+                  <div class="jsx-e826c9b2f8ec5a67 text-3xl mb-2">
+                    🚀
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-3xl font-black text-slate-800 dark:text-white mb-1">
+                    500+
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                    Projects Delivered
+                  </div>
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-2xl p-6 shadow-xl transform transition-all duration-500 hover:scale-110 translate-y-0 opacity-100 jcw-inline-49d17959ab">
+                  <div class="jsx-e826c9b2f8ec5a67 text-3xl mb-2">
+                    ⭐
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-3xl font-black text-slate-800 dark:text-white mb-1">
+                    98%
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                    Client Satisfaction
+                  </div>
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-2xl p-6 shadow-xl transform transition-all duration-500 hover:scale-110 translate-y-0 opacity-100 jcw-inline-1187cbf008">
+                  <div class="jsx-e826c9b2f8ec5a67 text-3xl mb-2">
+                    🛡️
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-3xl font-black text-slate-800 dark:text-white mb-1">
+                    24/7
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                    Support Available
+                  </div>
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-2xl p-6 shadow-xl transform transition-all duration-500 hover:scale-110 translate-y-0 opacity-100 jcw-inline-98679de470">
+                  <div class="jsx-e826c9b2f8ec5a67 text-3xl mb-2">
+                    🏆
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-3xl font-black text-slate-800 dark:text-white mb-1">
+                    5+
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                    Years Experience
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+                              {% if plans %}
+          <div class="jsx-e826c9b2f8ec5a67 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+            <div class="jsx-e826c9b2f8ec5a67 text-center mb-10">
+              <h2 class="jsx-e826c9b2f8ec5a67 text-3xl md:text-4xl font-black text-slate-800 dark:text-white">Plans</h2>
+              <p class="jsx-e826c9b2f8ec5a67 text-sm text-slate-600 dark:text-slate-300">Choose the plan that fits your business.</p>
+              {% if subscription and subscription.status == 'active' %}
+              <p class="jsx-e826c9b2f8ec5a67 text-sm text-slate-600 dark:text-slate-300 mt-2">
+                Current plan: <span class="font-semibold">{{ subscription.plan.name }}</span>
+              </p>
+              {% endif %}
+            </div>
+            <div class="jsx-e826c9b2f8ec5a67 grid grid-cols-1 md:grid-cols-3 gap-6">
+              {% for plan in plans %}
+              <div class="jsx-e826c9b2f8ec5a67 rounded-2xl border border-slate-200/70 dark:border-slate-700 bg-white/70 dark:bg-slate-800/70 p-6 shadow-lg">
+                <div class="jsx-e826c9b2f8ec5a67 text-lg font-bold text-slate-900 dark:text-white">{{ plan.name }}</div>
+                <p class="jsx-e826c9b2f8ec5a67 text-sm text-slate-600 dark:text-slate-300 mt-2">{{ plan.description }}</p>
+                <div class="jsx-e826c9b2f8ec5a67 text-xl font-black text-slate-900 dark:text-white mt-4">{{ plan.price_display }}</div>
+                {% if subscription and subscription.status == 'active' and subscription.plan_id == plan.id %}
+                <button class="jsx-e826c9b2f8ec5a67 mt-4 w-full py-2 rounded-lg bg-slate-300 text-slate-600 font-semibold cursor-not-allowed" disabled>Current plan</button>
+                {% else %}
+                <button class="jsx-e826c9b2f8ec5a67 mt-4 w-full py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700" disabled>Subscribe</button>
+                <!-- Stripe Checkout will be wired here -->
+                {% endif %}
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+<div class="jsx-e826c9b2f8ec5a67 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="jsx-e826c9b2f8ec5a67 text-center mb-16">
+              <h2 class="jsx-e826c9b2f8ec5a67 text-5xl md:text-6xl font-black text-slate-800 dark:text-white mb-4">{{ sections_by_key.main.content.heading }}</h2>
+              <p class="jsx-e826c9b2f8ec5a67 text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">{{ sections_by_key.main.content.body }}</p>
+            </div>
+            <div class="jsx-e826c9b2f8ec5a67 grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
+              <div class="jsx-e826c9b2f8ec5a67 group relative overflow-hidden rounded-3xl shadow-2xl transform transition-all duration-700 hover:scale-[1.02] cursor-pointer ring-4 ring-blue-400/50 shadow-blue-500/30">
+                <div class="jsx-e826c9b2f8ec5a67 absolute inset-0 bg-gradient-to-br from-blue-600 to-cyan-500 opacity-90">
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 relative z-10 p-8 text-white">
+                  <div class="jsx-e826c9b2f8ec5a67 flex items-start justify-between mb-6">
+                    <div class="jsx-e826c9b2f8ec5a67 text-5xl transform group-hover:scale-110 transition-transform duration-300">
+                      🚀
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 text-right">
+                      <span class="jsx-e826c9b2f8ec5a67 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full mb-2 block animate-pulse">
+                        🔥 POPULAR
+                      </span>
+                      <div class="jsx-e826c9b2f8ec5a67 text-sm opacity-75">
+                        2-4 weeks
+                      </div>
+                    </div>
+                  </div>
+                  <h3 class="jsx-e826c9b2f8ec5a67 text-3xl font-black mb-2">
+                    Website Development
+                  </h3>
+                  <p class="jsx-e826c9b2f8ec5a67 text-xl font-semibold opacity-90 mb-4">
+                    From Concept to Launch
+                  </p>
+                  <p class="jsx-e826c9b2f8ec5a67 opacity-80 mb-6 leading-relaxed">
+                    Custom websites built with cutting-edge technology
+                  </p>
+                  <div class="jsx-e826c9b2f8ec5a67 grid grid-cols-2 gap-2 mb-6">
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                      <span class="jsx-e826c9b2f8ec5a67 mr-2 text-yellow-300">
+                        ✓
+                      </span>
+                      Responsive Design
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                      <span class="jsx-e826c9b2f8ec5a67 mr-2 text-yellow-300">
+                        ✓
+                      </span>
+                      SEO Optimized
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                      <span class="jsx-e826c9b2f8ec5a67 mr-2 text-yellow-300">
+                        ✓
+                      </span>
+                      Fast Loading
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                      <span class="jsx-e826c9b2f8ec5a67 mr-2 text-yellow-300">
+                        ✓
+                      </span>
+                      Mobile First
+                    </div>
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 flex flex-wrap gap-2 mb-6">
+                    <span class="jsx-e826c9b2f8ec5a67 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-medium border border-white/30">
+                      React
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-medium border border-white/30">
+                      Next.js
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-medium border border-white/30">
+                      TypeScript
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-medium border border-white/30">
+                      Tailwind
+                    </span>
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 flex justify-between items-center mb-6">
+                    <div class="jsx-e826c9b2f8ec5a67 text-sm">
+                      <div class="jsx-e826c9b2f8ec5a67 opacity-90">
+                        <span class="jsx-e826c9b2f8ec5a67 font-bold">
+                          150+
+                        </span>
+                        <!-- -->
+                        projects
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 opacity-90">
+                        <span class="jsx-e826c9b2f8ec5a67 font-bold">
+                          99%
+                        </span>
+                        <!-- -->
+                        satisfaction
+                      </div>
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 text-right">
+                      <div class="jsx-e826c9b2f8ec5a67 text-2xl font-black">
+                        From €2,500
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 text-sm opacity-75">
+                        Starting price
+                      </div>
+                    </div>
+                  </div>
+                  <button class="jsx-e826c9b2f8ec5a67 w-full py-4 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 border border-white/30">
+                    Get Started →
+                  </button>
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                </div>
+              </div>
+              <div class="jsx-e826c9b2f8ec5a67 group relative overflow-hidden rounded-3xl shadow-2xl transform transition-all duration-700 hover:scale-[1.02] cursor-pointer ">
+                <div class="jsx-e826c9b2f8ec5a67 absolute inset-0 bg-gradient-to-br from-purple-600 to-pink-500 opacity-90">
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 relative z-10 p-8 text-white">
+                  <div class="jsx-e826c9b2f8ec5a67 flex items-start justify-between mb-6">
+                    <div class="jsx-e826c9b2f8ec5a67 text-5xl transform group-hover:scale-110 transition-transform duration-300">
+                      📈
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 text-right">
+                      <div class="jsx-e826c9b2f8ec5a67 text-sm opacity-75">
+                        Ongoing
+                      </div>
+                    </div>
+                  </div>
+                  <h3 class="jsx-e826c9b2f8ec5a67 text-3xl font-black mb-2">
+                    Digital Marketing
+                  </h3>
+                  <p class="jsx-e826c9b2f8ec5a67 text-xl font-semibold opacity-90 mb-4">
+                    Grow Your Online Presence
+                  </p>
+                  <p class="jsx-e826c9b2f8ec5a67 opacity-80 mb-6 leading-relaxed">
+                    Comprehensive marketing strategies that drive results
+                  </p>
+                  <div class="jsx-e826c9b2f8ec5a67 grid grid-cols-2 gap-2 mb-6">
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                      <span class="jsx-e826c9b2f8ec5a67 mr-2 text-yellow-300">
+                        ✓
+                      </span>
+                      SEO Strategy
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                      <span class="jsx-e826c9b2f8ec5a67 mr-2 text-yellow-300">
+                        ✓
+                      </span>
+                      Social Media
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                      <span class="jsx-e826c9b2f8ec5a67 mr-2 text-yellow-300">
+                        ✓
+                      </span>
+                      PPC Campaigns
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                      <span class="jsx-e826c9b2f8ec5a67 mr-2 text-yellow-300">
+                        ✓
+                      </span>
+                      Analytics
+                    </div>
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 flex flex-wrap gap-2 mb-6">
+                    <span class="jsx-e826c9b2f8ec5a67 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-medium border border-white/30">
+                      Google Ads
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-medium border border-white/30">
+                      Facebook
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-medium border border-white/30">
+                      Instagram
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-medium border border-white/30">
+                      Analytics
+                    </span>
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 flex justify-between items-center mb-6">
+                    <div class="jsx-e826c9b2f8ec5a67 text-sm">
+                      <div class="jsx-e826c9b2f8ec5a67 opacity-90">
+                        <span class="jsx-e826c9b2f8ec5a67 font-bold">
+                          85+
+                        </span>
+                        <!-- -->
+                        clients
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 opacity-90">
+                        <span class="jsx-e826c9b2f8ec5a67 font-bold">
+                          340%
+                        </span>
+                        <!-- -->
+                        growth
+                      </div>
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 text-right">
+                      <div class="jsx-e826c9b2f8ec5a67 text-2xl font-black">
+                        From €800/month
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 text-sm opacity-75">
+                        Starting price
+                      </div>
+                    </div>
+                  </div>
+                  <button class="jsx-e826c9b2f8ec5a67 w-full py-4 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 border border-white/30">
+                    Get Started →
+                  </button>
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                </div>
+              </div>
+              <div class="jsx-e826c9b2f8ec5a67 group relative overflow-hidden rounded-3xl shadow-2xl transform transition-all duration-700 hover:scale-[1.02] cursor-pointer ">
+                <div class="jsx-e826c9b2f8ec5a67 absolute inset-0 bg-gradient-to-br from-emerald-600 to-teal-500 opacity-90">
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 relative z-10 p-8 text-white">
+                  <div class="jsx-e826c9b2f8ec5a67 flex items-start justify-between mb-6">
+                    <div class="jsx-e826c9b2f8ec5a67 text-5xl transform group-hover:scale-110 transition-transform duration-300">
+                      🎯
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 text-right">
+                      <div class="jsx-e826c9b2f8ec5a67 text-sm opacity-75">
+                        1-12 weeks
+                      </div>
+                    </div>
+                  </div>
+                  <h3 class="jsx-e826c9b2f8ec5a67 text-3xl font-black mb-2">
+                    Business Consulting
+                  </h3>
+                  <p class="jsx-e826c9b2f8ec5a67 text-xl font-semibold opacity-90 mb-4">
+                    Strategic Growth Solutions
+                  </p>
+                  <p class="jsx-e826c9b2f8ec5a67 opacity-80 mb-6 leading-relaxed">
+                    Expert guidance to transform your business operations
+                  </p>
+                  <div class="jsx-e826c9b2f8ec5a67 grid grid-cols-2 gap-2 mb-6">
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                      <span class="jsx-e826c9b2f8ec5a67 mr-2 text-yellow-300">
+                        ✓
+                      </span>
+                      Process Optimization
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                      <span class="jsx-e826c9b2f8ec5a67 mr-2 text-yellow-300">
+                        ✓
+                      </span>
+                      Digital Transformation
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                      <span class="jsx-e826c9b2f8ec5a67 mr-2 text-yellow-300">
+                        ✓
+                      </span>
+                      Team Training
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                      <span class="jsx-e826c9b2f8ec5a67 mr-2 text-yellow-300">
+                        ✓
+                      </span>
+                      Growth Strategy
+                    </div>
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 flex flex-wrap gap-2 mb-6">
+                    <span class="jsx-e826c9b2f8ec5a67 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-medium border border-white/30">
+                      CRM
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-medium border border-white/30">
+                      Analytics
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-medium border border-white/30">
+                      Automation
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-medium border border-white/30">
+                      Integration
+                    </span>
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 flex justify-between items-center mb-6">
+                    <div class="jsx-e826c9b2f8ec5a67 text-sm">
+                      <div class="jsx-e826c9b2f8ec5a67 opacity-90">
+                        <span class="jsx-e826c9b2f8ec5a67 font-bold">
+                          120+
+                        </span>
+                        <!-- -->
+                        businesses
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 opacity-90">
+                        <span class="jsx-e826c9b2f8ec5a67 font-bold">
+                          85%
+                        </span>
+                        <!-- -->
+                        efficiency
+                      </div>
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 text-right">
+                      <div class="jsx-e826c9b2f8ec5a67 text-2xl font-black">
+                        From €150/hour
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 text-sm opacity-75">
+                        Starting price
+                      </div>
+                    </div>
+                  </div>
+                  <button class="jsx-e826c9b2f8ec5a67 w-full py-4 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 border border-white/30">
+                    Get Started →
+                  </button>
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                </div>
+              </div>
+              <div class="jsx-e826c9b2f8ec5a67 group relative overflow-hidden rounded-3xl shadow-2xl transform transition-all duration-700 hover:scale-[1.02] cursor-pointer ">
+                <div class="jsx-e826c9b2f8ec5a67 absolute inset-0 bg-gradient-to-br from-orange-600 to-red-500 opacity-90">
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 relative z-10 p-8 text-white">
+                  <div class="jsx-e826c9b2f8ec5a67 flex items-start justify-between mb-6">
+                    <div class="jsx-e826c9b2f8ec5a67 text-5xl transform group-hover:scale-110 transition-transform duration-300">
+                      🛡️
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 text-right">
+                      <div class="jsx-e826c9b2f8ec5a67 text-sm opacity-75">
+                        24/7
+                      </div>
+                    </div>
+                  </div>
+                  <h3 class="jsx-e826c9b2f8ec5a67 text-3xl font-black mb-2">
+                    Maintenance &amp; Support
+                  </h3>
+                  <p class="jsx-e826c9b2f8ec5a67 text-xl font-semibold opacity-90 mb-4">
+                    Keep Everything Running
+                  </p>
+                  <p class="jsx-e826c9b2f8ec5a67 opacity-80 mb-6 leading-relaxed">
+                    Reliable ongoing support for your digital assets
+                  </p>
+                  <div class="jsx-e826c9b2f8ec5a67 grid grid-cols-2 gap-2 mb-6">
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                      <span class="jsx-e826c9b2f8ec5a67 mr-2 text-yellow-300">
+                        ✓
+                      </span>
+                      24/7 Monitoring
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                      <span class="jsx-e826c9b2f8ec5a67 mr-2 text-yellow-300">
+                        ✓
+                      </span>
+                      Security Updates
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                      <span class="jsx-e826c9b2f8ec5a67 mr-2 text-yellow-300">
+                        ✓
+                      </span>
+                      Performance Optimization
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 flex items-center text-sm">
+                      <span class="jsx-e826c9b2f8ec5a67 mr-2 text-yellow-300">
+                        ✓
+                      </span>
+                      Backup Management
+                    </div>
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 flex flex-wrap gap-2 mb-6">
+                    <span class="jsx-e826c9b2f8ec5a67 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-medium border border-white/30">
+                      CloudFlare
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-medium border border-white/30">
+                      AWS
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-medium border border-white/30">
+                      Security
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-medium border border-white/30">
+                      Monitoring
+                    </span>
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 flex justify-between items-center mb-6">
+                    <div class="jsx-e826c9b2f8ec5a67 text-sm">
+                      <div class="jsx-e826c9b2f8ec5a67 opacity-90">
+                        <span class="jsx-e826c9b2f8ec5a67 font-bold">
+                          99.9%
+                        </span>
+                        <!-- -->
+                        uptime
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 opacity-90">
+                        <span class="jsx-e826c9b2f8ec5a67 font-bold">
+                          &lt; 1hr
+                        </span>
+                        <!-- -->
+                        response
+                      </div>
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67 text-right">
+                      <div class="jsx-e826c9b2f8ec5a67 text-2xl font-black">
+                        From €299/month
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 text-sm opacity-75">
+                        Starting price
+                      </div>
+                    </div>
+                  </div>
+                  <button class="jsx-e826c9b2f8ec5a67 w-full py-4 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-xl font-bold transition-all duration-300 transform hover:scale-105 border border-white/30">
+                    Get Started →
+                  </button>
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                </div>
+              </div>
+            </div>
+            <div class="jsx-e826c9b2f8ec5a67 mb-20">
+              <h2 class="jsx-e826c9b2f8ec5a67 text-4xl md:text-5xl font-black text-center mb-16 text-slate-800 dark:text-white">
+                Our Process
+              </h2>
+              <div class="jsx-e826c9b2f8ec5a67 grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="jsx-e826c9b2f8ec5a67 relative p-8 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 text-white shadow-xl transform hover:scale-105 transition-all duration-300 hover:shadow-2xl">
+                  <div class="jsx-e826c9b2f8ec5a67 text-5xl mb-4">
+                    🔍
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-sm font-bold opacity-75 mb-2">
+                    STEP
+                    <!-- -->
+                    01
+                  </div>
+                  <h3 class="jsx-e826c9b2f8ec5a67 text-xl font-bold mb-3">
+                    Discovery
+                  </h3>
+                  <p class="jsx-e826c9b2f8ec5a67 opacity-90 text-sm leading-relaxed">
+                    We analyze your needs and objectives
+                  </p>
+                  <div class="jsx-e826c9b2f8ec5a67 hidden md:block absolute -right-3 top-1/2 transform -translate-y-1/2 text-3xl transition-all duration-300 text-slate-400">
+                    →
+                  </div>
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 relative p-8 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-400 text-white shadow-xl transform hover:scale-105 transition-all duration-300 hover:shadow-2xl">
+                  <div class="jsx-e826c9b2f8ec5a67 text-5xl mb-4">
+                    📋
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-sm font-bold opacity-75 mb-2">
+                    STEP
+                    <!-- -->
+                    02
+                  </div>
+                  <h3 class="jsx-e826c9b2f8ec5a67 text-xl font-bold mb-3">
+                    Strategy
+                  </h3>
+                  <p class="jsx-e826c9b2f8ec5a67 opacity-90 text-sm leading-relaxed">
+                    Custom solution planning and design
+                  </p>
+                  <div class="jsx-e826c9b2f8ec5a67 hidden md:block absolute -right-3 top-1/2 transform -translate-y-1/2 text-3xl transition-all duration-300 text-slate-400">
+                    →
+                  </div>
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 relative p-8 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-400 text-white shadow-xl transform hover:scale-105 transition-all duration-300 hover:shadow-2xl">
+                  <div class="jsx-e826c9b2f8ec5a67 text-5xl mb-4">
+                    ⚙️
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-sm font-bold opacity-75 mb-2">
+                    STEP
+                    <!-- -->
+                    03
+                  </div>
+                  <h3 class="jsx-e826c9b2f8ec5a67 text-xl font-bold mb-3">
+                    Development
+                  </h3>
+                  <p class="jsx-e826c9b2f8ec5a67 opacity-90 text-sm leading-relaxed">
+                    Building with attention to detail
+                  </p>
+                  <div class="jsx-e826c9b2f8ec5a67 hidden md:block absolute -right-3 top-1/2 transform -translate-y-1/2 text-3xl transition-all duration-300 text-slate-400">
+                    →
+                  </div>
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 relative p-8 rounded-2xl bg-gradient-to-br from-orange-500 to-red-400 text-white shadow-xl transform hover:scale-105 transition-all duration-300 hover:shadow-2xl">
+                  <div class="jsx-e826c9b2f8ec5a67 text-5xl mb-4">
+                    🎉
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 text-sm font-bold opacity-75 mb-2">
+                    STEP
+                    <!-- -->
+                    04
+                  </div>
+                  <h3 class="jsx-e826c9b2f8ec5a67 text-xl font-bold mb-3">
+                    Launch
+                  </h3>
+                  <p class="jsx-e826c9b2f8ec5a67 opacity-90 text-sm leading-relaxed">
+                    Delivery and ongoing support
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="jsx-e826c9b2f8ec5a67 mb-20">
+              <h2 class="jsx-e826c9b2f8ec5a67 text-4xl md:text-5xl font-black text-center mb-16 text-slate-800 dark:text-white">
+                Client Success Stories
+              </h2>
+              <div class="jsx-e826c9b2f8ec5a67 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="jsx-e826c9b2f8ec5a67 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-slate-200/50 dark:border-slate-700/50 transform hover:scale-105 transition-all duration-300">
+                  <div class="jsx-e826c9b2f8ec5a67 flex items-center mb-6">
+                    <div class="jsx-e826c9b2f8ec5a67 w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center text-white font-bold mr-4">
+                      S
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67">
+                      <div class="jsx-e826c9b2f8ec5a67 font-bold text-slate-800 dark:text-white">
+                        Sarah Johnson
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 text-sm text-slate-600 dark:text-slate-300">
+                        CEO
+                        <!-- -->
+                        ,
+                        <!-- -->
+                        TechStart Inc.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 flex mb-4">
+                    <span class="jsx-e826c9b2f8ec5a67 text-yellow-400 text-xl">
+                      ⭐
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 text-yellow-400 text-xl">
+                      ⭐
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 text-yellow-400 text-xl">
+                      ⭐
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 text-yellow-400 text-xl">
+                      ⭐
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 text-yellow-400 text-xl">
+                      ⭐
+                    </span>
+                  </div>
+                  <p class="jsx-e826c9b2f8ec5a67 text-slate-700 dark:text-slate-300 mb-4 italic">
+                    "
+                    <!-- -->
+                    Exceptional service that transformed our online presence. The team delivered beyond expectations.
+                    <!-- -->
+                    "
+                  </p>
+                  <div class="jsx-e826c9b2f8ec5a67 text-sm font-semibold text-blue-600 dark:text-blue-400">
+                    Service:
+                    <!-- -->
+                    Website Development
+                  </div>
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-slate-200/50 dark:border-slate-700/50 transform hover:scale-105 transition-all duration-300">
+                  <div class="jsx-e826c9b2f8ec5a67 flex items-center mb-6">
+                    <div class="jsx-e826c9b2f8ec5a67 w-12 h-12 bg-gradient-to-br from-green-400 to-teal-500 rounded-full flex items-center justify-center text-white font-bold mr-4">
+                      M
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67">
+                      <div class="jsx-e826c9b2f8ec5a67 font-bold text-slate-800 dark:text-white">
+                        Miguel Santos
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 text-sm text-slate-600 dark:text-slate-300">
+                        Owner
+                        <!-- -->
+                        ,
+                        <!-- -->
+                        Local Bistro
+                      </div>
+                    </div>
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 flex mb-4">
+                    <span class="jsx-e826c9b2f8ec5a67 text-yellow-400 text-xl">
+                      ⭐
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 text-yellow-400 text-xl">
+                      ⭐
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 text-yellow-400 text-xl">
+                      ⭐
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 text-yellow-400 text-xl">
+                      ⭐
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 text-yellow-400 text-xl">
+                      ⭐
+                    </span>
+                  </div>
+                  <p class="jsx-e826c9b2f8ec5a67 text-slate-700 dark:text-slate-300 mb-4 italic">
+                    "
+                    <!-- -->
+                    Our digital marketing results increased by 300%. Professional and results-driven approach.
+                    <!-- -->
+                    "
+                  </p>
+                  <div class="jsx-e826c9b2f8ec5a67 text-sm font-semibold text-blue-600 dark:text-blue-400">
+                    Service:
+                    <!-- -->
+                    Digital Marketing
+                  </div>
+                </div>
+                <div class="jsx-e826c9b2f8ec5a67 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-slate-200/50 dark:border-slate-700/50 transform hover:scale-105 transition-all duration-300">
+                  <div class="jsx-e826c9b2f8ec5a67 flex items-center mb-6">
+                    <div class="jsx-e826c9b2f8ec5a67 w-12 h-12 bg-gradient-to-br from-pink-400 to-rose-500 rounded-full flex items-center justify-center text-white font-bold mr-4">
+                      E
+                    </div>
+                    <div class="jsx-e826c9b2f8ec5a67">
+                      <div class="jsx-e826c9b2f8ec5a67 font-bold text-slate-800 dark:text-white">
+                        Emma Clarke
+                      </div>
+                      <div class="jsx-e826c9b2f8ec5a67 text-sm text-slate-600 dark:text-slate-300">
+                        Creative Director
+                        <!-- -->
+                        ,
+                        <!-- -->
+                        Design Studio
+                      </div>
+                    </div>
+                  </div>
+                  <div class="jsx-e826c9b2f8ec5a67 flex mb-4">
+                    <span class="jsx-e826c9b2f8ec5a67 text-yellow-400 text-xl">
+                      ⭐
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 text-yellow-400 text-xl">
+                      ⭐
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 text-yellow-400 text-xl">
+                      ⭐
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 text-yellow-400 text-xl">
+                      ⭐
+                    </span>
+                    <span class="jsx-e826c9b2f8ec5a67 text-yellow-400 text-xl">
+                      ⭐
+                    </span>
+                  </div>
+                  <p class="jsx-e826c9b2f8ec5a67 text-slate-700 dark:text-slate-300 mb-4 italic">
+                    "
+                    <!-- -->
+                    The consulting sessions helped streamline our processes and boost team productivity significantly.
+                    <!-- -->
+                    "
+                  </p>
+                  <div class="jsx-e826c9b2f8ec5a67 text-sm font-semibold text-blue-600 dark:text-blue-400">
+                    Service:
+                    <!-- -->
+                    Business Consulting
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="jsx-e826c9b2f8ec5a67 text-center bg-gradient-to-r from-slate-900 via-blue-900 to-purple-900 dark:from-slate-800 dark:via-blue-800 dark:to-purple-800 rounded-3xl p-12 shadow-2xl relative overflow-hidden">
+              <div class="jsx-e826c9b2f8ec5a67 absolute inset-0 opacity-10">
+                <div class="jsx-e826c9b2f8ec5a67 absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 animate-pulse">
+                </div>
+              </div>
+              <div class="jsx-e826c9b2f8ec5a67 relative z-10">
+                <h2 class="jsx-e826c9b2f8ec5a67 text-4xl md:text-5xl font-black text-white mb-6">{{ sections_by_key.cta.content.heading }}</h2>
+                <p class="jsx-e826c9b2f8ec5a67 text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+                  Join hundreds of successful businesses who trust us with their digital growth
+                </p>
+                <div class="jsx-e826c9b2f8ec5a67 flex flex-col sm:flex-row gap-4 justify-center">
+                  <button class="jsx-e826c9b2f8ec5a67 px-8 py-4 bg-white text-slate-900 font-bold rounded-2xl shadow-xl hover:bg-blue-50 transform hover:scale-105 transition-all duration-300">{{ sections_by_key.cta.content.cta_primary_text }}</button>
+                  <button class="jsx-e826c9b2f8ec5a67 px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-2xl hover:bg-white/10 transform hover:scale-105 transition-all duration-300">{{ sections_by_key.cta.content.cta_secondary_text }}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% include 'core/footer.html' %}
+    </div>
+
+<script src="{% static 'jcw/js/jcw-ui.js' %}"></script>
+
+    {% include 'core/right_sidebar.html' %}
+</body>
+</html>
+
+

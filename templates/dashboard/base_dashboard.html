@@ -1,0 +1,94 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'dashboard/dashboard.css' %}">
+    <link rel="icon" href="{% static 'favicon.png' %}">
+    {% block extra_css %}{% endblock %}
+    <title>{% block title %}Dashboard{% endblock %}</title>
+  </head>
+  <body class="dashboard-body">
+    <div class="dashboard-app" data-dashboard data-current-url="{{ request.resolver_match.url_name }}">
+      <header class="dashboard-topbar">
+        <div class="dashboard-topbar-left">
+          <a class="dashboard-brand" href="{% url 'core:home' %}">Just Code Works</a>
+        </div>
+        <div class="dashboard-topbar-right">
+          {% if request.user.is_staff and request.session.impersonate_tenant_id %}
+          <div class="dashboard-impersonation">
+            <span class="dashboard-badge dashboard-badge--warning">
+              {% blocktrans with tenant_name=request.tenant.name|default:"" %}Viewing: {{ tenant_name }}{% endblocktrans %}
+            </span>
+            <a class="dashboard-link" href="{% url 'controlpanel:tenant_stop_impersonate' %}">{% trans "Exit" %}</a>
+          </div>
+          {% endif %}
+          <a class="dashboard-top-link" href="{% url 'core:home' %}">{% trans "Main Site" %}</a>
+          <a class="dashboard-top-link" href="{% url 'logout' %}">{% trans "Logout" %}</a>
+        </div>
+      </header>
+
+      <div class="dashboard-shell">
+        <aside class="dashboard-sidebar" data-dashboard-sidebar>
+          <button class="dashboard-toggle dashboard-toggle-left" type="button" data-dashboard-toggle="sidebar" aria-label="Collapse sidebar">
+            <
+          </button>
+          <nav class="dashboard-nav">
+            <a class="dashboard-nav-item{% if request.resolver_match.url_name == 'dashboard' or request.resolver_match.url_name == 'dashboard_home' %} is-active{% endif %}" href="{% url 'core:dashboard' %}">{% trans "Dashboard" %}</a>
+            <a class="dashboard-nav-item{% if request.resolver_match.url_name == 'dashboard_users' %} is-active{% endif %}" href="{% url 'core:dashboard_users' %}">{% trans "Users" %}</a>
+            <div class="dashboard-nav-group" data-dashboard-group="frontend">
+              <button class="dashboard-nav-heading dashboard-nav-heading-button" type="button" data-dashboard-group-toggle="frontend">
+                {% trans "Frontend" %}
+              </button>
+              <div class="dashboard-nav-group-links">
+                <a class="dashboard-nav-subitem{% if request.resolver_match.url_name == 'dashboard_pages' %} is-active{% endif %}" href="{% url 'core:dashboard_pages' %}">{% trans "Pages" %}</a>
+                <a class="dashboard-nav-subitem{% if request.resolver_match.url_name == 'dashboard_blog' %} is-active{% endif %}" href="{% url 'core:dashboard_blog' %}">{% trans "Blog" %}</a>
+              </div>
+            </div>
+            <div class="dashboard-nav-separator"></div>
+            <a class="dashboard-nav-item" href="{% url 'admin:index' %}" target="_blank" rel="noopener">{% trans "Admin" %}</a>
+            <a class="dashboard-nav-item{% if request.resolver_match.url_name == 'dashboard_billing' %} is-active{% endif %}" href="{% url 'core:dashboard_billing' %}">{% trans "Billing" %}</a>
+            <a class="dashboard-nav-item{% if request.resolver_match.url_name == 'dashboard_print_studio' %} is-active{% endif %}" href="{% url 'core:dashboard_print_studio' %}">{% trans "Print Studio" %}</a>
+            <a class="dashboard-nav-item" href="{% url 'controlpanel:home' %}">{% trans "Control Panel" %}</a>
+          </nav>
+        </aside>
+
+        <main class="dashboard-content">
+          {% if request.tenant or not request.user.is_staff %}
+            {% block content %}{% endblock %}
+          {% else %}
+            <div class="dashboard-page">
+              <h1 class="dashboard-title">{% trans "No active site selected" %}</h1>
+              <p class="dashboard-muted">{% trans "Select a tenant to view the customer dashboard." %}</p>
+              <a class="dashboard-button" href="{% url 'controlpanel:tenants' %}">{% trans "Open tenants" %}</a>
+            </div>
+          {% endif %}
+        </main>
+
+        <aside class="dashboard-drawer" data-dashboard-drawer>
+          <button class="dashboard-toggle dashboard-toggle-right" type="button" data-dashboard-toggle="drawer" aria-label="Collapse drawer">
+            >
+          </button>
+          <div class="dashboard-drawer-inner">
+            {% block drawer %}{% endblock %}
+          </div>
+        </aside>
+      </div>
+
+      <footer class="dashboard-footer">
+        Just Code Works
+      </footer>
+      {% if DEBUG_ENV %}
+      <div class="dashboard-debug-bar">
+        <span>JCW_12</span>
+        <span>{{ DEBUG_ENV.db }}</span>
+        <span>{{ DEBUG_ENV.user }}</span>
+        <span>{{ DEBUG_ENV.tenant }}</span>
+        <span>impersonate: {{ DEBUG_ENV.impersonate }}</span>
+      </div>
+      {% endif %}
+    </div>
+    <script src="{% static 'dashboard/dashboard.js' %}"></script>
+  </body>
+</html>

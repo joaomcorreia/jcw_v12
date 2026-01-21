@@ -1,0 +1,161 @@
+{% load static i18n %}
+<div class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <nav
+    data-jcw-nav class="bg-transparent border-transparent transition-all duration-300 sticky top-0 z-50"
+  >
+    <div
+      class="absolute -bottom-px left-0 w-full transition-all duration-700 ease-in-out opacity-0 transform translate-y-2 h-0 jcw-inline-ecb9870fdd"
+    >
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-20">
+        <div class="flex-shrink-0 flex items-center gap-3">
+          <a
+            class="text-xl font-bold transition-colors duration-300 jcw-inline-0895b29029"
+            href="{% url 'core:home' %}"
+          >
+            <img src="{% static 'brand/logo-light.png' %}" alt="JustCodeWorks" class="h-8 w-auto jcw-logo-light">
+            <img src="{% static 'brand/logo-dark.png' %}" alt="JustCodeWorks" class="h-8 w-auto jcw-logo-dark" style="display:none;">
+          </a>
+        </div>
+        <div class="hidden md:flex items-center space-x-8">
+          {% for item in nav_pages %}
+            {% if item.slug == "websites" %}
+            <div class="relative jcw-dropdown" data-jcw-dropdown>
+              <button class="px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 hover:opacity-80 jcw-inline-0895b29029" type="button" data-jcw-dropdown-toggle>
+                {{ item.label }}
+              </button>
+              <div class="absolute left-0 mt-2 w-72 rounded-xl bg-white shadow-lg border border-slate-200 jcw-dropdown-menu">
+                <div class="py-2">
+                  <div class="jcw-megamenu-grid">
+                    {% for sub in websites_dropdown_pages %}
+                      <a class="block px-5 py-4 hover:bg-slate-50 transition-colors rounded-lg" href="{{ sub.url }}">
+                        <div class="text-sm font-semibold text-slate-900 jcw-megamenu-title">{{ sub.label }}</div>
+                        <div class="text-xs text-slate-500 jcw-megamenu-subtitle">{{ sub.subtitle }}</div>
+                      </a>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% elif item.slug == "printlab" %}
+            <div class="relative jcw-dropdown" data-jcw-dropdown>
+              <button class="px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 hover:opacity-80 jcw-inline-0895b29029" type="button" data-jcw-dropdown-toggle>
+                {{ item.label }}
+              </button>
+              <div class="absolute left-0 mt-2 w-72 rounded-xl bg-white shadow-lg border border-slate-200 jcw-dropdown-menu">
+                <div class="py-2">
+                  <div class="jcw-megamenu-grid">
+                    {% for sub in printlab_dropdown_pages %}
+                    <a class="block px-5 py-4 hover:bg-slate-50 transition-colors rounded-lg" href="{{ sub.url }}">
+                      <div class="text-sm font-semibold text-slate-900 jcw-megamenu-title">{{ sub.label }}</div>
+                      <div class="text-xs text-slate-500 jcw-megamenu-subtitle">{{ sub.subtitle }}</div>
+                    </a>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% else %}
+            <a class="px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 hover:opacity-80 jcw-inline-0895b29029" href="{{ item.url }}">
+              {{ item.label }}
+            </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="flex items-center space-x-4">
+          <div class="flex items-center space-x-2">
+            <button
+              class="text-sm font-medium transition-colors duration-300 hover:opacity-80 jcw-inline-0895b29029"
+            >
+              {% trans "Login" %}
+            </button>
+            <button class="p-2 rounded-md transition-colors duration-300 md:hidden" data-jcw-mobile-toggle aria-label="{% trans 'Toggle menu' %}">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                </path>
+              </svg>
+            </button>
+            <button
+              class="p-2 rounded-md transition-colors duration-300 jcw-inline-1b83e6b7a5"
+              title="{% trans 'Contact & Support' %}"
+              data-jcw-sidebar-toggle
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                >
+                </path>
+              </svg>
+            </button>
+          </div>
+          <div class="relative">
+            <form action="{% url 'set_language' %}" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="next" value="{{ request.get_full_path }}">
+              <label class="sr-only" for="language-select">{% trans "Language" %}</label>
+              <select id="language-select" name="language" class="px-3 py-2 border rounded-lg transition-all duration-300 text-sm font-medium uppercase tracking-wide min-w-[50px] flex items-center justify-center bg-white/10 border-white/30 text-white hover:bg-white/20" onchange="this.form.submit()">
+                {% get_current_language as current_language %}
+                {% get_available_languages as available_languages %}
+                {% for code, name in available_languages %}
+                  <option value="{{ code }}"{% if code == current_language %} selected{% endif %}>{{ code }}</option>
+                {% endfor %}
+              </select>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="md:hidden" data-jcw-mobile-menu>
+        <div class="pt-2 pb-3 space-y-1">
+          {% for item in nav_pages %}
+            {% if item.slug == "websites" %}
+            <div class="jcw-dropdown" data-jcw-dropdown>
+              <button class="w-full text-left px-3 py-2 rounded-md text-base font-medium transition-colors duration-300 hover:opacity-80 jcw-inline-0895b29029" type="button" data-jcw-dropdown-toggle>
+                {{ item.label }}
+              </button>
+              <div class="pl-3 jcw-dropdown-menu">
+                <div class="jcw-megamenu-grid">
+                  {% for sub in websites_dropdown_pages %}
+                    <a class="block px-3 py-2 transition-colors duration-300 hover:opacity-80 jcw-inline-0895b29029" href="{{ sub.url }}">
+                      <div class="text-sm font-semibold jcw-megamenu-title">{{ sub.label }}</div>
+                      <div class="text-xs text-slate-500 jcw-megamenu-subtitle">{{ sub.subtitle }}</div>
+                    </a>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            {% elif item.slug == "printlab" %}
+            <div class="jcw-dropdown" data-jcw-dropdown>
+              <button class="w-full text-left px-3 py-2 rounded-md text-base font-medium transition-colors duration-300 hover:opacity-80 jcw-inline-0895b29029" type="button" data-jcw-dropdown-toggle>
+                {{ item.label }}
+              </button>
+              <div class="pl-3 jcw-dropdown-menu">
+                <div class="jcw-megamenu-grid">
+                  {% for sub in printlab_dropdown_pages %}
+                  <a class="block px-3 py-2 transition-colors duration-300 hover:opacity-80 jcw-inline-0895b29029" href="{{ sub.url }}">
+                    <div class="text-sm font-semibold jcw-megamenu-title">{{ sub.label }}</div>
+                    <div class="text-xs text-slate-500 jcw-megamenu-subtitle">{{ sub.subtitle }}</div>
+                  </a>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            {% else %}
+            <a class="block px-3 py-2 rounded-md text-base font-medium transition-colors duration-300 hover:opacity-80 jcw-inline-0895b29029" href="{{ item.url }}">
+              {{ item.label }}
+            </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>

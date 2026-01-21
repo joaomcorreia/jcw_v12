@@ -1,0 +1,30 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Choose a template" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">{% trans "Choose a template" %}</h1>
+  <div class="dashboard-grid">
+    {% for template in templates %}
+    <div class="dashboard-card dashboard-card--auto">
+      <div class="dashboard-card-header">
+        <h3 class="dashboard-card-title">{{ template.name }}</h3>
+      </div>
+      <p class="dashboard-muted">{{ template.description|default:"" }}</p>
+      <p class="dashboard-muted">
+        {% trans "Languages" %}:
+        {{ template.languages|join:", " }}
+      </p>
+      <a class="dashboard-button" href="{% url 'core:dashboard_use_template' template.id %}">{% trans "Use this template" %}</a>
+    </div>
+    {% empty %}
+    <div class="dashboard-card dashboard-card--auto">
+      <h3 class="dashboard-card-title">{% trans "No templates available" %}</h3>
+      <p class="dashboard-muted">{% trans "Check back later." %}</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

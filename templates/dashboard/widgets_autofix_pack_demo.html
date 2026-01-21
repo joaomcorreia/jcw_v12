@@ -1,0 +1,22 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% load i18n static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'dashboard/widgets_autofix_pack.css' %}">
+{% endblock %}
+
+{% block title %}{% trans "Widgets Demo" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">{% trans "AutoFix Widget Pack" %}</h1>
+  <div class="dashboard-grid">
+    {% include "dashboard/widgets_autofix_pack/_site_status.html" %}
+    {% include "dashboard/widgets_autofix_pack/_seo_progress.html" %}
+    {% include "dashboard/widgets_autofix_pack/_indexing_status.html" %}
+    {% include "dashboard/widgets_autofix_pack/_activity_feed.html" %}
+    {% include "dashboard/widgets_autofix_pack/_quick_links.html" %}
+    {% include "dashboard/widgets_autofix_pack/_milestones.html" %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% load i18n static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'dashboard/widgets_autofix_pack.css' %}">
+{% endblock %}
+
+{% block title %}{% trans "Dashboard" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">{% trans "Dashboard" %}</h1>
+  {% if not request.tenant %}
+    <div class="dashboard-card dashboard-card--auto">
+      <div class="dashboard-card-header">
+        <h3 class="dashboard-card-title">{% trans "Create your website" %}</h3>
+      </div>
+      <p class="dashboard-muted">{% trans "Choose a template to get started." %}</p>
+      <a class="dashboard-button" href="{% url 'core:dashboard_choose_template' %}">{% trans "Choose template" %}</a>
+    </div>
+  {% else %}
+    <div class="dashboard-card dashboard-card--auto">
+      <div class="dashboard-card-header">
+        <h3 class="dashboard-card-title">{% trans "Website overview" %}</h3>
+        {% if template_name %}
+          <span class="dashboard-badge">{{ template_name }}</span>
+        {% endif %}
+      </div>
+      <div class="dashboard-list">
+        <div class="dashboard-list-item">
+          <span>{% trans "Pages" %}</span>
+          <span class="dashboard-status">{{ pages_count }}</span>
+        </div>
+        <div class="dashboard-list-item">
+          <span>{% trans "Default language" %}</span>
+          <span class="dashboard-status">{{ default_language|default:"-" }}</span>
+        </div>
+      </div>
+      <div class="dashboard-cta-actions">
+        <a class="dashboard-button" href="{{ open_url }}">{% trans "Open website" %}</a>
+        <a class="dashboard-button dashboard-button--secondary" href="{% url 'core:dashboard_edit_home' %}">{% trans "Edit homepage" %}</a>
+        {% if request.user.is_staff and request.session.impersonate_tenant_id %}
+          <form method="post" action="{% url 'core:dashboard_reset_site' %}">
+            {% csrf_token %}
+            <button class="dashboard-button dashboard-button--secondary" type="submit">{% trans "Reset this site" %}</button>
+          </form>
+        {% endif %}
+      </div>
+    </div>
+    <div class="dashboard-grid">
+      {% include "dashboard/widgets_autofix_pack/_site_status.html" %}
+      {% if feature_flags.can_use_seo_widgets %}
+        {% include "dashboard/widgets_autofix_pack/_seo_progress.html" %}
+      {% else %}
+        {% include "components/upgrade_cta.html" with title=upgrade_ctas.seo.title message=upgrade_ctas.seo.message primary_button_text=upgrade_ctas.seo.primary_button_text primary_button_url=upgrade_ctas.seo.primary_button_url secondary_link_text=upgrade_ctas.seo.secondary_link_text secondary_link_url=upgrade_ctas.seo.secondary_link_url style=upgrade_ctas.seo.style %}
+      {% endif %}
+      {% if feature_flags.can_use_indexing_widget %}
+        {% include "dashboard/widgets_autofix_pack/_indexing_status.html" %}
+      {% else %}
+        {% include "components/upgrade_cta.html" with title=upgrade_ctas.indexing.title message=upgrade_ctas.indexing.message primary_button_text=upgrade_ctas.indexing.primary_button_text primary_button_url=upgrade_ctas.indexing.primary_button_url secondary_link_text=upgrade_ctas.indexing.secondary_link_text secondary_link_url=upgrade_ctas.indexing.secondary_link_url style=upgrade_ctas.indexing.style %}
+      {% endif %}
+      {% if feature_flags.can_use_activity_feed %}
+        {% include "dashboard/widgets_autofix_pack/_activity_feed.html" %}
+      {% endif %}
+      {% include "dashboard/widgets_autofix_pack/_quick_links.html" %}
+      {% include "dashboard/widgets_autofix_pack/_milestones.html" %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

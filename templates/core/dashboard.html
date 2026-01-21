@@ -1,0 +1,55 @@
+﻿{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
+    <link rel="icon" href="{% static 'favicon.png' %}">
+    <title>{% trans "Dashboard" %}</title>
+  </head>
+  <body class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium">
+    <div class="min-h-screen">
+      <header class="border-b border-slate-200 bg-white">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+          <a class="text-xl font-bold" href="{% url 'core:home' %}">JustCodeWorks</a>
+          <a class="text-sm font-semibold text-blue-700" href="{% url 'logout' %}">{% trans "Logout" %}</a>
+        </div>
+      </header>
+      <main class="max-w-6xl mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 bg-white rounded-2xl border border-slate-200 shadow-lg p-8">
+            <h1 class="text-3xl font-bold mb-4">{% trans "Your dashboard" %}</h1>
+            {% if site %}
+            <div class="rounded-xl border border-slate-200 bg-slate-50 p-6">
+              <h2 class="text-xl font-semibold mb-2">{{ site.name }}</h2>
+              <p class="text-sm text-slate-600 mb-4">{% trans "Status" %}: {{ site.status }}</p>
+              <div class="flex flex-wrap gap-3">
+                <button class="px-5 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">{% trans "Continue editing" %}</button>
+                <a class="px-5 py-3 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-50" href="{% url 'core:home' %}">{% trans "Preview site" %}</a>
+              </div>
+            </div>
+            {% else %}
+            <div class="rounded-xl border border-slate-200 bg-slate-50 p-6">
+              <h2 class="text-xl font-semibold mb-2">{% trans "Create your first site" %}</h2>
+              <p class="text-sm text-slate-600 mb-4">{% trans "Start designing a new site in a few minutes." %}</p>
+              <a class="px-5 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors inline-flex" href="{% url 'core:start_design' %}">{% trans "Start designing" %}</a>
+            </div>
+            {% endif %}
+          </div>
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-lg p-6 space-y-4">
+            <h2 class="text-lg font-semibold">{% trans "Quick links" %}</h2>
+            <div class="space-y-2 text-sm">
+              <a class="block text-blue-700 hover:text-blue-800" href="{% url 'admin:index' %}">{% trans "Admin" %}</a>
+              <a class="block text-blue-700 hover:text-blue-800" href="{% url 'core:billing' %}">{% trans "Billing" %}</a>
+              <a class="block text-blue-700 hover:text-blue-800" href="{% url 'core:print_lab' %}">{% trans "Print Studio" %}</a>
+              {% if request.user.is_staff %}
+              <a class="block text-blue-700 hover:text-blue-800" href="/admin-panel/">{% trans "Control Panel" %}</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+{% extends "site/base.html" %}
+{% load i18n %}
+
+{% block content %}
+  {% if sections %}
+    {% for section in sections %}
+      {% if section.type == "hero" %}
+        {% include "site/sections/hero.html" with data=section.data %}
+      {% elif section.type == "services" %}
+        {% include "site/sections/services.html" with data=section.data %}
+      {% elif section.type == "cta" %}
+        {% include "site/sections/cta.html" with data=section.data %}
+      {% else %}
+        {% include "site/sections/unknown.html" with section=section data=section.data %}
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    <section>
+      <h1>{% trans "Coming soon" %}</h1>
+      <p>{% trans "This website is still being prepared." %}</p>
+    </section>
+  {% endif %}
+{% endblock %}

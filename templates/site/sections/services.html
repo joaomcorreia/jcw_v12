@@ -1,0 +1,12 @@
+{% load i18n %}
+<section>
+  <h2>{{ data.title|default:"" }}</h2>
+  <div>
+    {% for item in data.items %}
+      <div>
+        <h3>{{ item.title|default:"" }}</h3>
+        <p>{{ item.text|default:"" }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>

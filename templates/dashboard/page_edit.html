@@ -1,0 +1,64 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Edit page" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">
+    {% blocktrans with page_slug=page.slug %}Edit page: {{ page_slug }}{% endblocktrans %}
+  </h1>
+  {% if saved %}
+    <div class="dashboard-card dashboard-card--auto">
+      <p class="dashboard-muted">{% trans "Hero content saved." %}</p>
+    </div>
+  {% endif %}
+  <div class="dashboard-card dashboard-card--auto">
+    <form method="post" class="dashboard-form">
+      {% csrf_token %}
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="hero-title">{% trans "Title" %}</label>
+        <input
+          id="hero-title"
+          name="title"
+          class="dashboard-input"
+          type="text"
+          value="{{ title_value }}">
+        {% if errors.title %}
+          <p class="dashboard-error">{{ errors.title }}</p>
+        {% endif %}
+      </div>
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="hero-subtitle">{% trans "Subtitle" %}</label>
+        <textarea
+          id="hero-subtitle"
+          name="subtitle"
+          class="dashboard-input"
+          rows="4">{{ subtitle_value }}</textarea>
+      </div>
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="hero-cta-text">{% trans "CTA text" %}</label>
+        <input
+          id="hero-cta-text"
+          name="cta_text"
+          class="dashboard-input"
+          type="text"
+          value="{{ cta_text_value }}">
+      </div>
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="hero-cta-url">{% trans "CTA URL" %}</label>
+        <input
+          id="hero-cta-url"
+          name="cta_url"
+          class="dashboard-input"
+          type="text"
+          value="{{ cta_url_value }}">
+      </div>
+      <div class="dashboard-form-actions">
+        <button class="dashboard-button" type="submit">{% trans "Save changes" %}</button>
+        <a class="dashboard-link" href="{% url 'core:dashboard_pages' %}">{% trans "Back to pages" %}</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

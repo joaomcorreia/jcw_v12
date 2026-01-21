@@ -1,0 +1,174 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
+    <link rel="icon" href="{% static 'favicon.png' %}">
+    <title>
+      {{ seo_title|default:"JustCodeWorks" }}
+    </title>
+    <meta name="robots" content="{{ seo_robots|default:'index, follow' }}">
+    {% if launch_noindex %}
+    <meta name="robots" content="noindex,nofollow">
+    {% endif %}
+    <meta name="description" content="{{ seo_description|default:'Website builder and content management platform' }}">
+  </head>
+  <body class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium">
+    <div class="min-h-screen ltr" data-locale="{{ LANGUAGE_CODE }}">
+      {% include 'core/main_nav.html' %}
+      <div class="min-h-screen">
+        <div class="relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
+            <div class="absolute inset-0 opacity-20">
+              <div class="absolute top-0 left-0 w-2 h-2 bg-white rounded-full animate-ping">
+              </div>
+              <div class="absolute top-10 left-20 w-1 h-1 bg-blue-300 rounded-full animate-pulse">
+              </div>
+              <div class="absolute top-20 right-10 w-1 h-1 bg-purple-300 rounded-full animate-ping">
+              </div>
+              <div class="absolute bottom-20 left-10 w-2 h-2 bg-pink-300 rounded-full animate-pulse">
+              </div>
+            </div>
+            <div class="absolute top-0 left-0 w-full h-full">
+              <div class="absolute top-20 left-20 w-32 h-32 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob">
+              </div>
+              <div class="absolute top-40 right-20 w-32 h-32 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000">
+              </div>
+              <div class="absolute -bottom-8 left-40 w-32 h-32 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000">
+              </div>
+            </div>
+          </div>
+          <div class="relative z-10 max-w-7xl mx-auto px-4 py-20 sm:py-32">
+            <div class="text-center text-white">
+              <div class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm font-medium mb-8">
+                <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                {{ page.title|default:"Product" }}
+              </div>
+              <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent leading-tight">{{ sections_by_key.hero.content.heading }}</h1>
+              <p class="text-xl md:text-2xl mb-12 text-blue-100 max-w-4xl mx-auto leading-relaxed">{{ sections_by_key.hero.content.subheading }}</p>
+              <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="px-8 py-4 bg-white text-blue-900 font-bold rounded-xl hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 shadow-xl">{{ sections_by_key.hero.content.cta_primary_text }}</button>
+                <button class="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300">{{ sections_by_key.hero.content.cta_secondary_text }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="py-20 bg-gray-50">
+          <div class="max-w-7xl mx-auto px-4">
+            {% if page and page.slug == "printlab" %}
+            <section class="text-center mb-16"><h2 class="text-4xl font-bold text-gray-900 mb-4">{% trans "What is PrintLab?" %}</h2>
+<p class="text-lg text-gray-600 max-w-3xl mx-auto">
+  {% blocktrans %}
+    PrintLab is your place for professional printing and branded goods. From business cards to clothing and merch:
+    choose a category, upload your design, and we handle production and delivery.
+  {% endblocktrans %}
+</p>
+</section>
+
+<section class="mb-16">
+  <h3 class="text-3xl font-bold text-gray-900 mb-8 text-center">{% trans "Product categories" %}</h3>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <a class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow" href="/printlab/start/?category=cards-flyers">
+      <h4 class="text-xl font-semibold text-gray-900 mb-2">{% trans "Cards & flyers" %}</h4>
+      <p class="text-sm text-gray-600">{% trans "Business cards, flyers, brochures, and posters." %}</p>
+    </a>
+
+    <a class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow" href="/printlab/start/?category=clothing">
+      <h4 class="text-xl font-semibold text-gray-900 mb-2">{% trans "Clothing" %}</h4>
+      <p class="text-sm text-gray-600">{% trans "T-shirts, hoodies, and workwear with your branding." %}</p>
+    </a>
+
+    <a class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow" href="/printlab/start/?category=merch-gifts">
+      <h4 class="text-xl font-semibold text-gray-900 mb-2">{% trans "Merch & gifts" %}</h4>
+      <p class="text-sm text-gray-600">{% trans "Giveaways, gifts, and promotional items." %}</p>
+    </a>
+
+    <a class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow" href="/printlab/start/?category=home">
+      <h4 class="text-xl font-semibold text-gray-900 mb-2">{% trans "Home & office" %}</h4>
+      <p class="text-sm text-gray-600">{% trans "Notebooks, mugs, and office items." %}</p>
+    </a>
+  </div>
+</section>
+
+<section class="mb-16">
+  <h3 class="text-3xl font-bold text-gray-900 mb-8 text-center">{% trans "How it works" %}</h3>
+
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 text-center">
+      <div class="text-2xl font-bold text-blue-600 mb-2">1</div>
+      <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Choose" %}</h4>
+      <p class="text-sm text-gray-600">{% trans "Select a category and product." %}</p>
+    </div>
+
+    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 text-center">
+      <div class="text-2xl font-bold text-blue-600 mb-2">2</div>
+      <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Upload" %}</h4>
+      <p class="text-sm text-gray-600">{% trans "Upload your design or ask for help." %}</p>
+    </div>
+
+    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 text-center">
+      <div class="text-2xl font-bold text-blue-600 mb-2">3</div>
+      <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Review" %}</h4>
+      <p class="text-sm text-gray-600">{% trans "We check and confirm your order." %}</p>
+    </div>
+
+    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 text-center">
+      <div class="text-2xl font-bold text-blue-600 mb-2">4</div>
+      <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Receive" %}</h4>
+      <p class="text-sm text-gray-600">{% trans "Fast delivery to you or your customer." %}</p>
+    </div>
+  </div>
+</section>
+
+<section class="mb-16">
+  <h3 class="text-3xl font-bold text-gray-900 mb-8 text-center">{% trans "Why PrintLab through Just Code Works" %}</h3>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
+      <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Fair pricing" %}</h4>
+      <p class="text-sm text-gray-600">{% trans "Transparent quotes with no surprises." %}</p>
+    </div>
+
+    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
+      <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Design support" %}</h4>
+      <p class="text-sm text-gray-600">{% trans "We help with preparation and optimization." %}</p>
+    </div>
+
+    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
+      <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Everything in one flow" %}</h4>
+      <p class="text-sm text-gray-600">{% trans "Web, print, and tools work together in one system." %}</p>
+    </div>
+  </div>
+</section>
+
+<section class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl p-10 text-white text-center shadow-xl">
+  <h3 class="text-3xl font-bold mb-4">{% trans "Start your PrintLab order" %}</h3>
+
+  <p class="text-blue-100 mb-6 max-w-2xl mx-auto">
+    {% trans "Tell us what you need and get a proposal quickly. We handle the rest." %}
+  </p>
+
+  <div class="flex flex-col sm:flex-row gap-4 justify-center">
+    <a class="px-6 py-3 bg-white text-blue-700 font-semibold rounded-lg hover:bg-blue-50 transition-colors" href="/printlab/start/">
+      {% trans "Start now" %}
+    </a>
+    <a class="px-6 py-3 border border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-colors" href="{% url 'core:services' %}">
+      {% trans "Talk to us" %}
+    </a>
+  </div>
+</section>
+            {% endif %}
+
+          </div>
+        </div>
+      </div>
+      {% include 'core/footer.html' %}
+    </div>
+    <script src="{% static 'jcw/js/jcw-ui.js' %}"></script>
+    {% include 'core/right_sidebar.html' %}
+</body>
+</html>
+

@@ -1,0 +1,20 @@
+{% load i18n %}
+<div class="dashboard-card dashboard-card--auto">
+  <div class="dashboard-card-header">
+    <h3 class="dashboard-card-title">{% trans "Indexing status" %}</h3>
+  </div>
+  <div class="dashboard-indexing-grid">
+    <div class="dashboard-indexing-item">
+      <span class="dashboard-indexing-label">{% trans "Indexed" %}</span>
+      <span class="dashboard-card-value">{{ indexing.indexed }}</span>
+    </div>
+    <div class="dashboard-indexing-item">
+      <span class="dashboard-indexing-label">{% trans "Crawled" %}</span>
+      <span class="dashboard-card-value">{{ indexing.crawled }}</span>
+    </div>
+    <div class="dashboard-indexing-item">
+      <span class="dashboard-indexing-label">{% trans "Not indexed" %}</span>
+      <span class="dashboard-card-value">{{ indexing.not_indexed }}</span>
+    </div>
+  </div>
+</div>

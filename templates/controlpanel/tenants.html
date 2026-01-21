@@ -1,0 +1,39 @@
+{% extends "controlpanel/base_controlpanel.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Tenants" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">{% trans "Tenants" %}</h1>
+  <div class="dashboard-card dashboard-card--auto">
+    <div class="dashboard-table">
+      <div class="dashboard-table-row dashboard-table-header">
+        <div>{% trans "Name" %}</div>
+        <div>{% trans "Domain" %}</div>
+        <div>{% trans "Owner" %}</div>
+        <div>{% trans "Actions" %}</div>
+      </div>
+      {% for site in sites %}
+      <div class="dashboard-table-row">
+        <div>{{ site.name }}</div>
+        <div class="dashboard-muted">--</div>
+        <div>{{ site.owner.get_username }}</div>
+        <div>
+          <a class="dashboard-link" href="{% url 'controlpanel:tenant_impersonate' site.id %}">
+            {% trans "View as customer" %}
+          </a>
+        </div>
+      </div>
+      {% empty %}
+      <div class="dashboard-table-row dashboard-table-empty">
+        <div>{% trans "No tenants yet" %}</div>
+        <div>--</div>
+        <div>--</div>
+        <div>--</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,3739 @@
+msgid ""
+msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-20 05:39+0100\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#: .\core\context_processors.py:36 .\core\context_processors.py:126
+#: .\templates\core\home.html:941
+msgid "Home"
+msgstr "Accueil"
+
+#: .\core\context_processors.py:37 .\templates\core\footer.html:33
+msgid "Services"
+msgstr "Services"
+
+#: .\core\context_processors.py:38 .\core\context_processors.py:64
+msgid "Websites"
+msgstr "Sites web"
+
+#: .\core\context_processors.py:39 .\core\context_processors.py:106
+msgid "Print Lab"
+msgstr "PrintLab"
+
+#: .\core\context_processors.py:40 .\templates\core\footer.html:43
+#: .\templates\core\home.html:76
+msgid "POS Systems"
+msgstr "Systèmes POS"
+
+#: .\core\context_processors.py:41 .\core\views.py:127 .\core\views.py:148
+#: .\templates\core\blog_detail.html:37 .\templates\core\blog_index.html:40
+#: .\templates\core\footer.html:90
+msgid "Blog"
+msgstr "Blog"
+
+#: .\core\context_processors.py:42 .\templates\core\footer.html:149
+msgid "Help Center"
+msgstr "Centre d’aide"
+
+#: .\core\context_processors.py:69 .\templates\core\home.html:184
+#: .\templates\core\websites.html:84
+msgid "One-page websites"
+msgstr "Sites one-page"
+
+#: .\core\context_processors.py:74 .\templates\core\home.html:241
+#: .\templates\core\websites.html:158
+msgid "Multi-page websites"
+msgstr "Sites multi-pages"
+
+#: .\core\context_processors.py:79
+msgid "Multi-page SEO"
+msgstr "SEO multi-pages"
+
+#: .\core\context_processors.py:84
+msgid "Catalog websites"
+msgstr "Sites catalogue"
+
+#: .\core\context_processors.py:89 .\templates\core\home.html:466
+#: .\templates\pages\websites\premium_estore_plan.html:263
+#: .\templates\pages\websites\starter_estore_plan.html:102
+#: .\templates\pages\websites\starter_estore_plan.html:105
+msgid "Starter eStore"
+msgstr "Boutique Starter"
+
+#: .\core\context_processors.py:94 .\templates\core\home.html:503
+msgid "Premium eStores"
+msgstr "Boutiques Premium"
+
+#: .\core\context_processors.py:99 .\templates\core\websites.html:304
+msgid "Custom websites"
+msgstr "Sites sur mesure"
+
+#: .\core\context_processors.py:111 .\templates\core\home.html:932
+#: .\templates\core\home.html:953 .\templates\core\home.html:1058
+msgid "Business cards"
+msgstr "Cartes de visite"
+
+#: .\core\context_processors.py:116 .\core\views.py:316
+#: .\templates\core\home.html:935 .\templates\core\product_page.html:80
+msgid "Clothing"
+msgstr "Vêtements"
+
+#: .\core\context_processors.py:121 .\core\views.py:317
+#: .\templates\core\home.html:938 .\templates\core\product_page.html:85
+msgid "Merch & gifts"
+msgstr "Merch & cadeaux"
+
+#: .\core\views.py:61
+msgid "Your business"
+msgstr "Votre entreprise"
+
+#: .\core\views.py:62
+#, python-format
+msgid "Preview for %(name)s"
+msgstr "Aperçu pour %(name)s"
+
+#: .\core\views.py:63
+msgid "This is a draft preview. Create an account to save it."
+msgstr "Ceci est un aperçu en brouillon. Créez un compte pour l’enregistrer."
+
+#: .\core\views.py:128
+msgid "News and updates from Just Code Works."
+msgstr "Actualités et mises à jour de Just Code Works."
+
+#: .\core\views.py:315
+msgid "Business cards & flyers"
+msgstr "Cartes de visite & flyers"
+
+#: .\core\views.py:318
+msgid "Home & office items"
+msgstr "Articles pour la maison et le bureau"
+
+#: .\core\views.py:320
+msgid "PrintLab category"
+msgstr "Catégorie PrintLab"
+
+#: .\core\views.py:345
+msgid "Business name is required."
+msgstr "Le nom de l’entreprise est obligatoire."
+
+#: .\core\views.py:362
+msgid "Starter Template"
+msgstr "Modèle Starter"
+
+#: .\core\views.py:363
+msgid "Bold Template"
+msgstr "Modèle Audacieux"
+
+#: .\core\views.py:364
+msgid "Minimal Template"
+msgstr "Modèle Minimal"
+
+#: .\core\views.py:370
+msgid "Please select a template."
+msgstr "Veuillez sélectionner un modèle."
+
+#: .\core\views.py:407
+msgid "My site"
+msgstr "Mon site"
+
+#: .\templates\components\blog_latest_slider.html:67
+msgid "Latest from the blog"
+msgstr "Derniers articles du blog"
+
+#: .\templates\components\blog_latest_slider.html:70
+msgid "View all"
+msgstr "Tout voir"
+
+#: .\templates\components\blog_latest_slider.html:74
+msgid "Scroll left"
+msgstr "Défiler vers la gauche"
+
+#: .\templates\components\blog_latest_slider.html:116
+#: .\templates\core\blog_index.html:99
+msgid "Read more"
+msgstr "Lire la suite"
+
+#: .\templates\components\blog_latest_slider.html:122
+msgid "Scroll right"
+msgstr "Défiler vers la droite"
+
+#: .\templates\core\blog_detail.html:47
+#, python-format
+msgid ""
+"\n"
+"                  Published %(published_date)s - %(excerpt)s\n"
+"                "
+msgstr ""
+
+#: .\templates\core\blog_detail.html:52
+msgid "Back to blog"
+msgstr "Retour au blog"
+
+#: .\templates\core\blog_index.html:43
+msgid "News & Updates"
+msgstr "Actus & mises à jour"
+
+#: .\templates\core\blog_index.html:46
+msgid ""
+"Practical updates, tips, and behind-the-scenes notes from Just Code Works."
+msgstr ""
+"Des mises à jour pratiques, des conseils et des notes en coulisses de Just "
+"Code Works."
+
+#: .\templates\core\blog_index.html:50
+#: .\templates\pages\websites\catalog_site_plan.html:190
+#: .\templates\pages\websites\multi_page_seo_plan.html:200
+#: .\templates\pages\websites\premium_estore_plan.html:126
+#: .\templates\pages\websites\premium_estore_plan.html:298
+msgid "Start building"
+msgstr "Commencer"
+
+#: .\templates\core\blog_index.html:53
+msgid "Contact"
+msgstr "Contact"
+
+#: .\templates\core\blog_index.html:107
+msgid "No posts yet. Check back soon."
+msgstr "Aucun article pour le moment. Revenez bientôt."
+
+#: .\templates\core\dashboard.html:9
+msgid "Dashboard"
+msgstr "Tableau de bord"
+
+#: .\templates\core\dashboard.html:16
+msgid "Logout"
+msgstr "Déconnexion"
+
+#: .\templates\core\dashboard.html:22
+msgid "Your dashboard"
+msgstr "Votre tableau de bord"
+
+#: .\templates\core\dashboard.html:26
+msgid "Status"
+msgstr "Statut"
+
+#: .\templates\core\dashboard.html:28
+msgid "Continue editing"
+msgstr "Continuer l’édition"
+
+#: .\templates\core\dashboard.html:29
+msgid "Preview site"
+msgstr "Aperçu du site"
+
+#: .\templates\core\dashboard.html:34
+msgid "Create your first site"
+msgstr "Créez votre premier site"
+
+#: .\templates\core\dashboard.html:35
+msgid "Start designing a new site in a few minutes."
+msgstr "Commencez à créer un nouveau site en quelques minutes."
+
+#: .\templates\core\dashboard.html:36 .\templates\core\onboarding_step1.html:9
+msgid "Start designing"
+msgstr "Commencer la création"
+
+#: .\templates\core\dashboard.html:41
+msgid "Quick links"
+msgstr "Liens rapides"
+
+#: .\templates\core\dashboard.html:43
+msgid "Admin"
+msgstr "Admin"
+
+#: .\templates\core\dashboard.html:44
+msgid "Billing"
+msgstr "Facturation"
+
+#: .\templates\core\dashboard.html:45 .\templates\core\right_sidebar.html:53
+msgid "Print Studio"
+msgstr "Print Studio"
+
+#: .\templates\core\dashboard.html:47
+msgid "Control Panel"
+msgstr "Panneau de contrôle"
+
+#: .\templates\core\footer.html:11
+msgid ""
+"We help small EU businesses get online with modern websites, matching print "
+"materials, and simple tools - all connected in one system."
+msgstr ""
+"Nous aidons les petites entreprises européennes à se lancer en ligne avec "
+"des sites web modernes, des supports imprimés assortis et des outils simples "
+"— le tout connecté dans un seul système."
+
+#: .\templates\core\footer.html:38 .\templates\core\home.html:2055
+msgid "Website Design"
+msgstr "Conception de sites web"
+
+#: .\templates\core\footer.html:48
+msgid "Print Design"
+msgstr "Design d’impression"
+
+#: .\templates\core\footer.html:53 .\templates\core\services.html:310
+#: .\templates\core\services.html:714
+msgid "Business Consulting"
+msgstr "Conseil aux entreprises"
+
+#: .\templates\core\footer.html:58
+msgid "Website Maintenance"
+msgstr "Maintenance de site web"
+
+#: .\templates\core\footer.html:63
+msgid "Web Hosting"
+msgstr "Hébergement web"
+
+#: .\templates\core\footer.html:70
+msgid "Company"
+msgstr "Entreprise"
+
+#: .\templates\core\footer.html:75 .\templates\core\home.html:1928
+msgid "About Us"
+msgstr "À propos"
+
+#: .\templates\core\footer.html:80 .\templates\core\home.html:1925
+msgid "Our Team"
+msgstr "Notre équipe"
+
+#: .\templates\core\footer.html:85
+msgid "Careers"
+msgstr "Carrières"
+
+#: .\templates\core\footer.html:95 .\templates\core\pos_systems.html:121
+msgid "Partners"
+msgstr "Partenaires"
+
+#: .\templates\core\footer.html:100 .\templates\core\home.html:1864
+msgid "Testimonials"
+msgstr "Témoignages"
+
+#: .\templates\core\footer.html:107
+msgid "Tools"
+msgstr "Outils"
+
+#: .\templates\core\footer.html:112
+msgid "JSON Reader"
+msgstr "Lecteur JSON"
+
+#: .\templates\core\footer.html:117
+msgid "QR Generator"
+msgstr "Générateur QR"
+
+#: .\templates\core\footer.html:122
+msgid "Password Checker"
+msgstr "Vérificateur de mot de passe"
+
+#: .\templates\core\footer.html:127
+msgid "Password Generator"
+msgstr "Générateur de mots de passe"
+
+#: .\templates\core\footer.html:132
+msgid "Image Resizer"
+msgstr "Redimensionneur d’images"
+
+#: .\templates\core\footer.html:137
+msgid "Image Cropper"
+msgstr "Outil de recadrage d’images"
+
+#: .\templates\core\footer.html:144
+msgid "Support"
+msgstr "Support"
+
+#: .\templates\core\footer.html:154
+msgid "Contact Us"
+msgstr "Contactez-nous"
+
+#: .\templates\core\footer.html:159 .\templates\core\home.html:1973
+#: .\templates\core\pos_systems.html:290
+msgid "FAQ"
+msgstr "FAQ"
+
+#: .\templates\core\footer.html:164
+msgid "Documentation"
+msgstr "Documentation"
+
+#: .\templates\core\footer.html:169
+msgid "Video Tutorials"
+msgstr "Tutoriels vidéo"
+
+#: .\templates\core\footer.html:174
+msgid "Community Forum"
+msgstr "Forum communautaire"
+
+#: .\templates\core\footer.html:186
+msgid "Privacy Policy"
+msgstr "Politique de confidentialité"
+
+#: .\templates\core\footer.html:189
+msgid "Terms of Service"
+msgstr "Conditions d’utilisation"
+
+#: .\templates\core\footer.html:192
+msgid "Cookie Policy"
+msgstr "Politique relative aux cookies"
+
+#: .\templates\core\footer.html:195
+msgid "GDPR Compliance"
+msgstr "Conformité RGPD"
+
+#: .\templates\core\footer.html:199
+msgid "Subscribe to our newsletter"
+msgstr "Abonnez-vous à notre newsletter"
+
+#: .\templates\core\footer.html:201
+msgid "Enter your email"
+msgstr "Entrez votre adresse e-mail"
+
+#: .\templates\core\footer.html:203
+msgid "Subscribe"
+msgstr "S’abonner"
+
+#: .\templates\core\footer.html:214
+msgid "All rights reserved."
+msgstr "Tous droits réservés."
+
+#: .\templates\core\footer.html:218
+msgid "Made with"
+msgstr "Conçu avec"
+
+#: .\templates\core\footer.html:220
+msgid "love"
+msgstr "amour"
+
+#: .\templates\core\footer.html:222
+msgid "in Portugal"
+msgstr "au Portugal"
+
+#: .\templates\core\footer.html:226
+msgid "Powered by"
+msgstr "Propulsé par"
+
+#: .\templates\core\footer.html:229 .\templates\core\services.html:157
+msgid "Next.js"
+msgstr "Next.js"
+
+#: .\templates\core\footer.html:231
+msgid "Django"
+msgstr "Django"
+
+#: .\templates\core\home.html:47
+msgid "Everything you need to succeed online."
+msgstr "Tout ce dont vous avez besoin pour réussir en ligne."
+
+#: .\templates\core\home.html:56
+msgid ""
+"Launch a modern website, order your print materials, connect simple POS "
+"tools and let your AI assistant do the heavy lifting - all from one place."
+msgstr ""
+"Lancez un site web moderne, commandez vos supports imprimés, connectez des "
+"outils de caisse simples et laissez votre assistant IA faire le travail — le "
+"tout depuis un seul endroit."
+
+#: .\templates\core\home.html:69 .\templates\core\home.html:1979
+msgid "Start in 2 minutes"
+msgstr "Commencez en 2 minutes"
+
+#: .\templates\core\home.html:82
+msgid "Printing"
+msgstr "Impression"
+
+#: .\templates\core\home.html:93 .\templates\core\websites.html:88
+msgid "Perfect for simple local businesses"
+msgstr "Parfait pour les petites entreprises locales"
+
+#: .\templates\core\home.html:96 .\templates\core\home.html:188
+msgid "Ideal if you have a few services and want everything on one"
+msgstr ""
+"Idéal si vous proposez quelques services et souhaitez tout regrouper sur une"
+
+#: .\templates\core\home.html:97 .\templates\core\home.html:189
+msgid "clean, scrollable page."
+msgstr "page claire et défilante."
+
+#: .\templates\core\home.html:105 .\templates\core\home.html:2058
+#: .\templates\core\websites.html:162
+msgid "Grow with dedicated pages for each service"
+msgstr "Évoluez avec des pages dédiées pour chaque service"
+
+#: .\templates\core\home.html:108 .\templates\core\home.html:245
+#: .\templates\core\home.html:2061
+msgid "Great for companies that want separate pages for services,"
+msgstr ""
+"Idéal pour les entreprises qui souhaitent des pages séparées pour les "
+"services,"
+
+#: .\templates\core\home.html:109 .\templates\core\home.html:246
+#: .\templates\core\home.html:2062
+msgid "projects, team, blog and more."
+msgstr "les projets, l’équipe, le blog et plus encore."
+
+#: .\templates\core\home.html:117 .\templates\core\home.html:2035
+#: .\templates\core\websites.html:234
+msgid "Sell your products with a simple store"
+msgstr "Vendez vos produits avec une boutique simple"
+
+#: .\templates\core\home.html:120
+msgid "For businesses ready to take online payments and manage orders"
+msgstr ""
+"Pour les entreprises prêtes à accepter des paiements en ligne et à gérer"
+
+#: .\templates\core\home.html:121
+msgid "without complex systems."
+msgstr "les commandes sans systèmes complexes."
+
+#: .\templates\core\home.html:151
+msgid "Choose Your Perfect Solution"
+msgstr "Choisissez la solution idéale"
+
+#: .\templates\core\home.html:154
+msgid "From simple landing pages to complex e-commerce platforms, we"
+msgstr "Des pages simples aux plateformes e-commerce complexes, nous"
+
+#: .\templates\core\home.html:155
+msgid "have the right solution for your business needs."
+msgstr "avons la solution adaptée aux besoins de votre entreprise."
+
+#: .\templates\core\home.html:180 .\templates\core\services.html:110
+msgid "POPULAR"
+msgstr "POPULAIRE"
+
+#: .\templates\core\home.html:196
+msgid "Fast setup"
+msgstr "Mise en place rapide"
+
+#: .\templates\core\home.html:202
+msgid "Mobile optimized"
+msgstr "Optimisé pour mobile"
+
+#: .\templates\core\home.html:208
+msgid "SEO ready"
+msgstr "Prêt pour le SEO"
+
+#: .\templates\core\home.html:214 .\templates\core\home.html:271
+#: .\templates\core\home.html:328 .\templates\core\home.html:2044
+#: .\templates\core\home.html:2067
+msgid "View example"
+msgstr "Voir un exemple"
+
+#: .\templates\core\home.html:237
+msgid "PROFESSIONAL"
+msgstr "PROFESSIONNEL"
+
+#: .\templates\core\home.html:253
+msgid "Multiple pages"
+msgstr "Pages multiples"
+
+#: .\templates\core\home.html:259
+msgid "Advanced features"
+msgstr "Fonctionnalités avancées"
+
+#: .\templates\core\home.html:265
+msgid "Custom design"
+msgstr "Design personnalisé"
+
+#: .\templates\core\home.html:294
+msgid "E-COMMERCE"
+msgstr "E-COMMERCE"
+
+#: .\templates\core\home.html:298 .\templates\core\websites.html:230
+msgid "Online stores"
+msgstr "Boutiques en ligne"
+
+#: .\templates\core\home.html:302 .\templates\core\home.html:2038
+msgid "For businesses ready to take online payments and manage"
+msgstr ""
+"Pour les entreprises prêtes à accepter des paiements en ligne et à gérer"
+
+#: .\templates\core\home.html:303 .\templates\core\home.html:2039
+msgid "orders without complex systems."
+msgstr "les commandes sans systèmes complexes."
+
+#: .\templates\core\home.html:310
+msgid "Product catalog"
+msgstr "Catalogue de produits"
+
+#: .\templates\core\home.html:316
+msgid "Payment processing"
+msgstr "Traitement des paiements"
+
+#: .\templates\core\home.html:322
+#: .\templates\pages\websites\premium_estore_plan.html:186
+msgid "Order management"
+msgstr "Gestion des commandes"
+
+#: .\templates\core\home.html:351
+msgid "SEO"
+msgstr "SEO"
+
+#: .\templates\core\home.html:355
+msgid "Multi Page SEO"
+msgstr "SEO multi-pages"
+
+#: .\templates\core\home.html:359
+msgid "Multi-page site + SEO foundations"
+msgstr "Site multi-pages avec bases SEO"
+
+#: .\templates\core\home.html:365 .\templates\core\home.html:402
+#: .\templates\core\home.html:439 .\templates\core\home.html:476
+#: .\templates\core\home.html:513
+msgid "View option"
+msgstr "Voir l’option"
+
+#: .\templates\core\home.html:388
+msgid "Catalog"
+msgstr "Catalogue"
+
+#: .\templates\core\home.html:392
+msgid "Catalog Websites"
+msgstr "Sites catalogue"
+
+#: .\templates\core\home.html:396
+msgid "Showcase products, optional prices, no checkout"
+msgstr "Présentation des produits, prix optionnels, sans paiement en ligne"
+
+#: .\templates\core\home.html:425
+msgid "Custom"
+msgstr "Sur mesure"
+
+#: .\templates\core\home.html:429
+msgid "Custom Websites"
+msgstr "Sites web sur mesure"
+
+#: .\templates\core\home.html:433
+msgid "Built to your requirements"
+msgstr "Conçu selon vos besoins"
+
+#: .\templates\core\home.html:462
+msgid "eStore"
+msgstr "Boutique en ligne"
+
+#: .\templates\core\home.html:470
+msgid "One-page shop up to 8 products"
+msgstr "Boutique sur une page jusqu’à 8 produits"
+
+#: .\templates\core\home.html:499
+msgid "Premium"
+msgstr "Premium"
+
+#: .\templates\core\home.html:507
+msgid "All features, built to scale"
+msgstr "Toutes les fonctionnalités, conçues pour évoluer"
+
+#: .\templates\core\home.html:536
+msgid "CTA"
+msgstr "Appel à l’action"
+
+#: .\templates\core\home.html:540
+msgid "Not sure yet?"
+msgstr "Vous hésitez encore ?"
+
+#: .\templates\core\home.html:544
+msgid "Tell us what you need and we'll recommend the best option."
+msgstr ""
+"Dites-nous ce dont vous avez besoin et nous vous recommanderons la meilleure "
+"option."
+
+#: .\templates\core\home.html:550 .\templates\core\home.html:1755
+msgid "Get a recommendation"
+msgstr "Obtenir une recommandation"
+
+#: .\templates\core\home.html:572
+msgid "Visibility"
+msgstr "Visibilité"
+
+#: .\templates\core\home.html:578
+msgid "Make sure customers can find you"
+msgstr "Assurez-vous que vos clients puissent vous trouver"
+
+#: .\templates\core\home.html:583
+msgid ""
+"We quietly take care of the technical things that help your website show up "
+"when people search for you."
+msgstr ""
+"Nous gérons discrètement les aspects techniques qui permettent à votre site "
+"d’apparaître lorsque des clients vous recherchent."
+
+#: .\templates\core\home.html:603
+msgid "Google-ready structure"
+msgstr "Structure optimisée pour Google"
+
+#: .\templates\core\home.html:606
+msgid "We build your website in a way Google understands from day one."
+msgstr ""
+"Nous construisons votre site de manière compréhensible pour Google dès le "
+"premier jour."
+
+#: .\templates\core\home.html:611
+msgid "Search basics"
+msgstr "Bases du référencement"
+
+#: .\templates\core\home.html:631
+msgid "Clear page titles"
+msgstr "Titres de pages clairs"
+
+#: .\templates\core\home.html:634
+msgid "Each page has a clear title so people know what they're clicking on."
+msgstr ""
+"Chaque page possède un titre clair pour que les visiteurs sachent sur quoi "
+"ils cliquent."
+
+#: .\templates\core\home.html:639
+msgid "Helpful labels"
+msgstr "Libellés utiles"
+
+#: .\templates\core\home.html:659
+msgid "Clean website addresses"
+msgstr "Adresses de pages propres"
+
+#: .\templates\core\home.html:662
+msgid "Your page links are simple and readable, not confusing numbers."
+msgstr "Les liens de vos pages sont simples et lisibles, sans chiffres confus."
+
+#: .\templates\core\home.html:667
+msgid "Readable links"
+msgstr "Liens lisibles"
+
+#: .\templates\core\home.html:687
+msgid "Fast-loading pages"
+msgstr "Pages à chargement rapide"
+
+#: .\templates\core\home.html:690
+msgid "Your website loads quickly so visitors don't leave."
+msgstr ""
+"Votre site se charge rapidement pour éviter que les visiteurs ne partent."
+
+#: .\templates\core\home.html:695
+msgid "Speed tuned"
+msgstr "Optimisé pour la vitesse"
+
+#: .\templates\core\home.html:715
+#: .\templates\pages\websites\starter_estore_plan.html:162
+msgid "Mobile-friendly design"
+msgstr "Design adapté au mobile"
+
+#: .\templates\core\home.html:718
+msgid "Your site works properly on phones, tablets, and computers."
+msgstr ""
+"Votre site fonctionne parfaitement sur téléphones, tablettes et ordinateurs."
+
+#: .\templates\core\home.html:723
+msgid "Responsive"
+msgstr "Responsive"
+
+#: .\templates\core\home.html:743
+msgid "Local visibility"
+msgstr "Visibilité locale"
+
+#: .\templates\core\home.html:746
+msgid "We help your website show up for people searching in your area."
+msgstr ""
+"Nous aidons votre site à apparaître pour les personnes qui recherchent dans "
+"votre région."
+
+#: .\templates\core\home.html:751
+msgid "Near me"
+msgstr "À proximité"
+
+#: .\templates\core\home.html:771
+msgid "Multiple languages supported"
+msgstr "Plusieurs langues prises en charge"
+
+#: .\templates\core\home.html:774
+msgid "Your website can speak to customers in their own language."
+msgstr "Votre site peut s’adresser à vos clients dans leur propre langue."
+
+#: .\templates\core\home.html:779
+msgid "Localized"
+msgstr "Localisé"
+
+#: .\templates\core\home.html:799
+msgid "Search-friendly content"
+msgstr "Contenu optimisé pour la recherche"
+
+#: .\templates\core\home.html:802
+msgid "We structure your text so search engines can read it easily."
+msgstr ""
+"Nous structurons vos textes pour qu’ils soient facilement lisibles par les "
+"moteurs de recherche."
+
+#: .\templates\core\home.html:807
+msgid "Readable text"
+msgstr "Texte lisible"
+
+#: .\templates\core\home.html:827
+msgid "Ongoing improvements"
+msgstr "Améliorations continues"
+
+#: .\templates\core\home.html:830
+msgid ""
+"As your website grows, we keep it tidy and up to date behind the scenes."
+msgstr ""
+"À mesure que votre site évolue, nous le maintenons propre et à jour en "
+"arrière-plan."
+
+#: .\templates\core\home.html:835
+msgid "Maintained"
+msgstr "Maintenu"
+
+#: .\templates\core\home.html:854 .\templates\core\home.html:914
+#: .\templates\core\home.html:1109 .\templates\core\home.html:1280
+#: .\templates\core\home.html:1451
+msgid "PrintLab"
+msgstr "PrintLab"
+
+#: .\templates\core\home.html:857
+msgid "Your brand, beautifully printed."
+msgstr "Votre marque, magnifiquement imprimée."
+
+#: .\templates\core\home.html:860
+msgid ""
+"PrintLab helps you turn your brand into real, physical products. From "
+"business cards to clothing and merchandise, everything starts with your "
+"design. Upload your files directly from your computer, preview how they "
+"look, and keep them ready for print. Orders can be completed later, with no "
+"payment required to start."
+msgstr ""
+"PrintLab vous aide à transformer votre marque en produits physiques réels. "
+"Des cartes de visite aux vêtements et objets promotionnels, tout commence "
+"par votre design. Téléchargez vos fichiers depuis votre ordinateur, "
+"prévisualisez leur rendu et préparez-les pour l’impression. Les commandes "
+"peuvent être finalisées plus tard, sans paiement requis pour commencer."
+
+#: .\templates\core\home.html:866
+#, python-format
+msgid "background-size: 200%% 100%%;"
+msgstr "background-size: 200%% 100%%;"
+
+#: .\templates\core\home.html:867
+msgid "transition: background-position 0.6s ease, filter 0.6s ease;"
+msgstr "transition: background-position 0.6s ease, filter 0.6s ease;"
+
+#: .\templates\core\home.html:870
+#, fuzzy, python-format
+#| msgid "background-size: 200%% 100%%;"
+msgid "background-position: 100%% 0;"
+msgstr "background-size: 200%% 100%%;"
+
+#: .\templates\core\home.html:871
+msgid "filter: brightness(1.05);"
+msgstr ""
+
+#: .\templates\core\home.html:874
+msgid "position: relative;"
+msgstr ""
+
+#: .\templates\core\home.html:877
+msgid "display: none;"
+msgstr ""
+
+#: .\templates\core\home.html:880
+msgid "display: block;"
+msgstr ""
+
+#: .\templates\core\home.html:883
+msgid "display: flex;"
+msgstr ""
+
+#: .\templates\core\home.html:884
+msgid "justify-content: center;"
+msgstr ""
+
+#: .\templates\core\home.html:885
+msgid "gap: 0.5rem;"
+msgstr ""
+
+#: .\templates\core\home.html:886
+msgid "margin-top: 0.75rem;"
+msgstr ""
+
+#: .\templates\core\home.html:889
+msgid "width: 0.5rem;"
+msgstr ""
+
+#: .\templates\core\home.html:890
+msgid "height: 0.5rem;"
+msgstr ""
+
+#: .\templates\core\home.html:891
+msgid "border-radius: 9999px;"
+msgstr ""
+
+#: .\templates\core\home.html:892
+msgid "background: rgba(148, 163, 184, 0.8);"
+msgstr ""
+
+#: .\templates\core\home.html:895
+msgid "background: rgba(37, 99, 235, 0.9);"
+msgstr ""
+
+#: .\templates\core\home.html:920 .\templates\core\home.html:1051
+msgid "Business cards and paper products"
+msgstr "Cartes de visite et supports papier"
+
+#: .\templates\core\home.html:925
+msgid ""
+"Create professional paper products that represent your business clearly. "
+"Design and upload business cards, flyers, brochures, and similar materials. "
+"Choose layouts that fit your brand and preview the final result. Perfect for "
+"local businesses, events, and everyday use."
+msgstr ""
+"Créez des supports papier professionnels qui représentent clairement votre "
+"entreprise. Concevez et téléchargez des cartes de visite, flyers, brochures "
+"et autres supports similaires. Choisissez des mises en page adaptées à votre "
+"marque et prévisualisez le résultat final. Idéal pour les entreprises "
+"locales, les événements et l’usage quotidien."
+
+#: .\templates\core\home.html:961
+msgid "Flyers"
+msgstr "Flyers"
+
+#: .\templates\core\home.html:969
+msgid "Trifolds"
+msgstr "Dépliants trois volets"
+
+#: .\templates\core\home.html:977
+msgid "Menus"
+msgstr "Menus"
+
+#: .\templates\core\home.html:989
+msgid "Posters"
+msgstr "Affiches"
+
+#: .\templates\core\home.html:997 .\templates\core\home.html:1320
+msgid "Stickers"
+msgstr "Autocollants"
+
+#: .\templates\core\home.html:1005
+msgid "Packaging"
+msgstr "Emballages"
+
+#: .\templates\core\home.html:1013
+msgid "Promos"
+msgstr "Supports promotionnels"
+
+#: .\templates\core\home.html:1019 .\templates\core\home.html:1199
+#: .\templates\core\home.html:1370 .\templates\core\home.html:1541
+msgid "Slide 1"
+msgstr "Diapositive 1"
+
+#: .\templates\core\home.html:1021 .\templates\core\home.html:1201
+#: .\templates\core\home.html:1372 .\templates\core\home.html:1543
+msgid "Slide 2"
+msgstr "Diapositive 2"
+
+#: .\templates\core\home.html:1027 .\templates\core\home.html:1207
+#: .\templates\core\home.html:1378 .\templates\core\home.html:1549
+msgid "PrintLab category preview"
+msgstr "Aperçu de la catégorie PrintLab"
+
+#: .\templates\core\home.html:1064
+msgid "Flyers and brochures"
+msgstr "Flyers et brochures"
+
+#: .\templates\core\home.html:1070
+msgid "Trifolds and paper handouts"
+msgstr "Dépliants et supports papier"
+
+#: .\templates\core\home.html:1076
+msgid "High-quality print preparation"
+msgstr "Préparation d’impression haute qualité"
+
+#: .\templates\core\home.html:1084
+msgid "Design print materials"
+msgstr "Concevoir des supports imprimés"
+
+#: .\templates\core\home.html:1087
+msgid "Fulfilled by Printful. Some paper products may use Bizay later."
+msgstr ""
+"Impression assurée par Printful. Certains produits papier pourront utiliser "
+"Bizay ultérieurement."
+
+#: .\templates\core\home.html:1115 .\templates\core\home.html:1231
+msgid "Clothing for your brand"
+msgstr "Vêtements pour votre marque"
+
+#: .\templates\core\home.html:1119
+msgid ""
+"Add your logo or design to clothing items for your business or team. This "
+"includes options for men, women, and children. Upload your design and see "
+"how it looks on different products. Ideal for workwear, promotions, and "
+"branded apparel."
+msgstr ""
+"Ajoutez votre logo ou votre design sur des vêtements pour votre entreprise "
+"ou votre équipe. Des options sont disponibles pour hommes, femmes et "
+"enfants. Téléchargez votre design et visualisez-le sur différents produits. "
+"Idéal pour les tenues professionnelles, les promotions et les vêtements de "
+"marque."
+
+#: .\templates\core\home.html:1133
+msgid "Men T-shirt"
+msgstr "T-shirt homme"
+
+#: .\templates\core\home.html:1141
+msgid "Women T-shirt"
+msgstr "T-shirt femme"
+
+#: .\templates\core\home.html:1149
+msgid "Kids T-shirt"
+msgstr "T-shirt enfant"
+
+#: .\templates\core\home.html:1157
+msgid "Hoodies"
+msgstr "Sweats à capuche"
+
+#: .\templates\core\home.html:1169
+msgid "Caps"
+msgstr "Casquettes"
+
+#: .\templates\core\home.html:1177
+msgid "Workwear"
+msgstr "Vêtements de travail"
+
+#: .\templates\core\home.html:1185
+msgid "Sweatshirts"
+msgstr "Sweatshirts"
+
+#: .\templates\core\home.html:1193 .\templates\core\home.html:1364
+msgid "Accessories"
+msgstr "Accessoires"
+
+#: .\templates\core\home.html:1238
+msgid "T-shirts and hoodies"
+msgstr "T-shirts et sweats à capuche"
+
+#: .\templates\core\home.html:1244
+msgid "Workwear and uniforms"
+msgstr "Tenues professionnelles et uniformes"
+
+#: .\templates\core\home.html:1250
+msgid "Multiple sizes and fits"
+msgstr "Plusieurs tailles et coupes"
+
+#: .\templates\core\home.html:1258
+msgid "Design clothing"
+msgstr "Concevoir des vêtements"
+
+#: .\templates\core\home.html:1286 .\templates\core\home.html:1402
+msgid "Merchandise and gifts"
+msgstr "Produits dérivés et cadeaux"
+
+#: .\templates\core\home.html:1290
+msgid ""
+"Create branded merchandise and gifts for customers or promotions. From mugs "
+"to bags and accessories, PrintLab helps you prepare designs easily. These "
+"products are great for giveaways, promotions, or online branding. All "
+"designs can be uploaded and previewed before ordering."
+msgstr ""
+"Créez des produits dérivés et des cadeaux personnalisés pour vos clients ou "
+"vos promotions. Des mugs aux sacs et accessoires, PrintLab vous aide à "
+"préparer vos designs facilement. Ces produits sont parfaits pour les "
+"cadeaux, les actions promotionnelles ou le branding en ligne. Tous les "
+"designs peuvent être téléchargés et prévisualisés avant commande."
+
+#: .\templates\core\home.html:1304
+msgid "Mugs"
+msgstr "Mugs"
+
+#: .\templates\core\home.html:1312
+msgid "Tote bags"
+msgstr "Sacs tote"
+
+#: .\templates\core\home.html:1328
+msgid "Gifts"
+msgstr "Cadeaux"
+
+#: .\templates\core\home.html:1340
+msgid "Phone cases"
+msgstr "Coques de téléphone"
+
+#: .\templates\core\home.html:1348
+msgid "Keychains"
+msgstr "Porte-clés"
+
+#: .\templates\core\home.html:1356
+msgid "Gadgets"
+msgstr "Gadgets"
+
+#: .\templates\core\home.html:1409
+msgid "Mugs and drinkware"
+msgstr "Mugs et articles pour boissons"
+
+#: .\templates\core\home.html:1415
+msgid "Bags and accessories"
+msgstr "Sacs et accessoires"
+
+#: .\templates\core\home.html:1421
+msgid "Promotional items"
+msgstr "Articles promotionnels"
+
+#: .\templates\core\home.html:1429
+msgid "Design merch & gifts"
+msgstr "Concevoir des produits et cadeaux"
+
+#: .\templates\core\home.html:1457 .\templates\core\home.html:1573
+msgid "More print options"
+msgstr "Plus d’options d’impression"
+
+#: .\templates\core\home.html:1461
+msgid ""
+"PrintLab supports a wide range of additional products. If it can be printed, "
+"it can usually be prepared here. Upload your design, preview the product, "
+"and keep it ready for production. More product types can be added over time."
+msgstr ""
+"PrintLab prend en charge une large gamme de produits supplémentaires. S’il "
+"peut être imprimé, il peut généralement être préparé ici. Téléchargez votre "
+"design, prévisualisez le produit et gardez-le prêt pour la production. De "
+"nouveaux types de produits pourront être ajoutés au fil du temps."
+
+#: .\templates\core\home.html:1475
+msgid "Prints"
+msgstr "Impressions"
+
+#: .\templates\core\home.html:1483
+msgid "Notebooks"
+msgstr "Cahiers"
+
+#: .\templates\core\home.html:1491
+msgid "Decor"
+msgstr "Décoration"
+
+#: .\templates\core\home.html:1499
+msgid "Desk items"
+msgstr "Articles de bureau"
+
+#: .\templates\core\home.html:1511
+msgid "Pillows"
+msgstr "Coussins"
+
+#: .\templates\core\home.html:1519
+msgid "Wall art"
+msgstr "Décoration murale"
+
+#: .\templates\core\home.html:1527
+msgid "Home extras"
+msgstr "Accessoires pour la maison"
+
+#: .\templates\core\home.html:1535
+msgid "Storage"
+msgstr "Rangement"
+
+#: .\templates\core\home.html:1580
+msgid "Home and office items, decor, and extras"
+msgstr "Articles pour la maison et le bureau, décoration et accessoires"
+
+#: .\templates\core\home.html:1586
+msgid "Perfect for studios, shops, and creators"
+msgstr "Parfait pour les studios, boutiques et créateurs"
+
+#: .\templates\core\home.html:1592
+msgid "Explore more products anytime"
+msgstr "Découvrez plus de produits à tout moment"
+
+#: .\templates\core\home.html:1600
+msgid "Explore Printful products"
+msgstr "Explorer les produits Printful"
+
+#: .\templates\core\home.html:1611
+msgid "POS systems that make checkout easy"
+msgstr "Des systèmes de caisse simples et efficaces"
+
+#: .\templates\core\home.html:1614
+msgid ""
+"We help you choose a reliable POS that fits your business. Simple, clear, "
+"and practical."
+msgstr ""
+"Nous vous aidons à choisir un système de caisse fiable et adapté à votre "
+"activité. Simple, clair et pratique."
+
+#: .\templates\core\home.html:1620
+msgid "Retail POS"
+msgstr "Caisse pour commerce"
+
+#: .\templates\core\home.html:1623
+msgid "Best for shops and boutiques"
+msgstr "Idéal pour les magasins et boutiques"
+
+#: .\templates\core\home.html:1628
+msgid "Fast checkout"
+msgstr "Encaissement rapide"
+
+#: .\templates\core\home.html:1632
+msgid "Barcode-ready"
+msgstr "Compatible codes-barres"
+
+#: .\templates\core\home.html:1636
+msgid "Simple inventory"
+msgstr "Gestion de stock simplifiée"
+
+#: .\templates\core\home.html:1640
+msgid "View retail options"
+msgstr "Voir les options pour le commerce"
+
+#: .\templates\core\home.html:1645
+msgid "Hospitality POS"
+msgstr "Caisse pour restauration"
+
+#: .\templates\core\home.html:1648
+msgid "Best for cafes, bars, and restaurants"
+msgstr "Idéal pour cafés, bars et restaurants"
+
+#: .\templates\core\home.html:1653
+msgid "Tables & split bills"
+msgstr "Tables et addition partagée"
+
+#: .\templates\core\home.html:1657
+msgid "Kitchen tickets"
+msgstr "Tickets cuisine"
+
+#: .\templates\core\home.html:1661
+msgid "Tip-friendly"
+msgstr "Gestion facile des pourboires"
+
+#: .\templates\core\home.html:1665
+msgid "View hospitality options"
+msgstr "Voir les options pour la restauration"
+
+#: .\templates\core\home.html:1670
+msgid "Services POS"
+msgstr "Caisse pour services"
+
+#: .\templates\core\home.html:1673
+msgid "Best for bookings and invoices"
+msgstr "Idéal pour réservations et factures"
+
+#: .\templates\core\home.html:1678
+msgid "Appointments"
+msgstr "Rendez-vous"
+
+#: .\templates\core\home.html:1682
+msgid "Invoices/receipts"
+msgstr "Factures / reçus"
+
+#: .\templates\core\home.html:1686
+msgid "Optional deposits"
+msgstr "Acomptes optionnels"
+
+#: .\templates\core\home.html:1690
+msgid "View service options"
+msgstr "Voir les options pour les services"
+
+#: .\templates\core\home.html:1697
+msgid "Lightspeed"
+msgstr "Lightspeed"
+
+#: .\templates\core\home.html:1700
+msgid "Good for: Retail"
+msgstr "Adapté pour : Commerce"
+
+#: .\templates\core\home.html:1703
+msgid "Inventory-focused POS with clear reports."
+msgstr "Caisse axée sur la gestion des stocks avec des rapports clairs."
+
+#: .\templates\core\home.html:1706 .\templates\core\home.html:1723
+#: .\templates\core\home.html:1740
+msgid "Check pricing"
+msgstr "Voir les tarifs"
+
+#: .\templates\core\home.html:1709 .\templates\core\home.html:1726
+#: .\templates\core\home.html:1743 .\templates\core\pos_systems.html:155
+#: .\templates\core\pos_systems.html:188 .\templates\core\pos_systems.html:221
+#: .\templates\core\pos_systems.html:254
+msgid "Affiliate link"
+msgstr "Lien affilié"
+
+#: .\templates\core\home.html:1714
+msgid "SumUp"
+msgstr "SumUp"
+
+#: .\templates\core\home.html:1717
+msgid "Good for: Hospitality"
+msgstr "Adapté pour : Restauration"
+
+#: .\templates\core\home.html:1720
+msgid "Simple checkout for cafes and small teams."
+msgstr "Encaissement simple pour cafés et petites équipes."
+
+#: .\templates\core\home.html:1731
+msgid "Square"
+msgstr "Square"
+
+#: .\templates\core\home.html:1734
+msgid "Good for: Services"
+msgstr "Adapté pour : Services"
+
+#: .\templates\core\home.html:1737
+msgid "Appointments and receipts in one place."
+msgstr "Rendez-vous et reçus réunis au même endroit."
+
+#: .\templates\core\home.html:1748
+msgid ""
+"Some links may be affiliate links. This does not change the price you pay."
+msgstr ""
+"Certains liens peuvent être des liens affiliés. Cela ne modifie pas le prix "
+"que vous payez."
+
+#: .\templates\core\home.html:1752
+msgid "Not sure which POS fits your business?"
+msgstr "Vous ne savez pas quelle caisse convient à votre activité ?"
+
+#: .\templates\core\home.html:1777
+msgid "Your all-in-one assistant"
+msgstr "Votre assistant tout-en-un"
+
+#: .\templates\core\home.html:1780
+msgid "Clippy 2.0 is ready"
+msgstr "Clippy 2.0 est prêt"
+
+#: .\templates\core\home.html:1783
+msgid ""
+"Build your website, order print materials, and connect POS tools - with help "
+"whenever you need it."
+msgstr ""
+"Créez votre site web, commandez vos supports imprimés et connectez vos "
+"outils de caisse – avec de l’aide à tout moment."
+
+#: .\templates\core\home.html:1794
+msgid "Start building your website"
+msgstr "Commencer à créer votre site"
+
+#: .\templates\core\home.html:1816
+#: .\templates\pages\websites\custom_website_plan.html:158
+msgid "See how it works"
+msgstr "Voir comment ça fonctionne"
+
+#: .\templates\core\home.html:1824 .\templates\core\home.html:1957
+msgid "50K+"
+msgstr "50K+"
+
+#: .\templates\core\home.html:1827
+msgid "Projects launched"
+msgstr "Projets lancés"
+
+#: .\templates\core\home.html:1835
+msgid "User satisfaction"
+msgstr "Satisfaction des utilisateurs"
+
+#: .\templates\core\home.html:1843
+msgid "Guided support"
+msgstr "Accompagnement guidé"
+
+#: .\templates\core\home.html:1858
+msgid "Customer Stories"
+msgstr "Témoignages clients"
+
+#: .\templates\core\home.html:1869
+msgid "See what our customers have to say about their experience with"
+msgstr "Découvrez ce que nos clients disent de leur expérience avec"
+
+#: .\templates\core\home.html:1920
+msgid "O"
+msgstr "O"
+
+#: .\templates\core\home.html:1940
+msgid "Average Rating"
+msgstr "Note moyenne"
+
+#: .\templates\core\home.html:1950
+msgid "Happy Customers"
+msgstr "Clients satisfaits"
+
+#: .\templates\core\home.html:1960
+msgid "Sites Created"
+msgstr "Sites créés"
+
+#: .\templates\core\home.html:1982
+msgid "No tech skills needed. Perfect for small businesses,"
+msgstr ""
+"Aucune compétence technique requise. Parfait pour les petites entreprises,"
+
+#: .\templates\core\home.html:1983
+msgid "freelancers and local shops."
+msgstr "les freelances et les commerces locaux."
+
+#: .\templates\core\home.html:1988
+msgid "MagicAI tools."
+msgstr "Outils MagicAI."
+
+#: .\templates\core\home.html:1991
+msgid "Placeholder for AI tool cards: content writer, blog generator,"
+msgstr ""
+"Espace réservé pour les outils IA : rédacteur de contenu, générateur de blog,"
+
+#: .\templates\core\home.html:1992
+msgid "screenshot-to-site, etc."
+msgstr "capture d’écran vers site, etc."
+
+#: .\templates\core\home.html:1997
+msgid "Simple pricing that grows with you."
+msgstr "Une tarification simple qui évolue avec vous."
+
+#: .\templates\core\home.html:2000
+msgid "Start small and upgrade later. All plans include hosting,"
+msgstr ""
+"Commencez petit et évoluez plus tard. Tous les plans incluent l’hébergement,"
+
+#: .\templates\core\home.html:2001
+msgid "security updates and basic support."
+msgstr "les mises à jour de sécurité et l’assistance de base."
+
+#: .\templates\core\home.html:2006
+msgid "Explore Our Website Types"
+msgstr "Découvrir nos types de sites web"
+
+#: .\templates\core\home.html:2009
+msgid "All websites are built with our smart system that makes"
+msgstr "Tous les sites sont créés avec notre système intelligent qui rend"
+
+#: .\templates\core\home.html:2010
+msgid "content creation simple and intuitive - so you can focus on"
+msgstr ""
+"la création de contenu simple et intuitive – afin que vous puissiez vous "
+"concentrer sur"
+
+#: .\templates\core\home.html:2011
+msgid "your business, not the tools."
+msgstr "votre activité, pas sur les outils."
+
+#: .\templates\core\home.html:2021 .\templates\core\home.html:2099
+msgid "News &amp; Updates"
+msgstr "Actualités et mises à jour"
+
+#: .\templates\core\home.html:2032 .\templates\core\websites.html:49
+msgid "Website Builder"
+msgstr "Créateur de sites"
+
+#: .\templates\core\home.html:2078
+#, fuzzy
+#| msgid "MagicAI tools."
+msgid "MagicAI Tools"
+msgstr "Outils MagicAI."
+
+#: .\templates\core\home.html:2081
+msgid "Texts for your pages in your tone"
+msgstr ""
+
+#: .\templates\core\home.html:2084
+msgid "Generate headlines, service descriptions and about pages"
+msgstr ""
+
+#: .\templates\core\home.html:2085
+msgid "using your business details and preferred style."
+msgstr ""
+
+#: .\templates\core\home.html:2090
+msgid "Based on your answers"
+msgstr ""
+
+#: .\templates\core\main_nav.html:71 .\templates\core\onboarding_step1.html:16
+#: .\templates\core\onboarding_step2.html:16
+#: .\templates\registration\login.html:9
+msgid "Login"
+msgstr "Connexion"
+
+#: .\templates\core\main_nav.html:73
+msgid "Toggle menu"
+msgstr "Afficher / masquer le menu"
+
+#: .\templates\core\main_nav.html:81
+msgid "Contact & Support"
+msgstr "Contact & assistance"
+
+#: .\templates\core\main_nav.html:104
+msgid "Language"
+msgstr "Langue"
+
+#: .\templates\core\onboarding_step1.html:21
+msgid "Tell us about your business"
+msgstr "Parlez-nous de votre entreprise"
+
+#: .\templates\core\onboarding_step1.html:22
+msgid "We will use this to personalize your draft site."
+msgstr ""
+"Nous utiliserons ces informations pour personnaliser votre site brouillon."
+
+#: .\templates\core\onboarding_step1.html:29
+msgid "Business name"
+msgstr "Nom de l’entreprise"
+
+#: .\templates\core\onboarding_step1.html:33
+msgid "Business type (optional)"
+msgstr "Type d’activité (optionnel)"
+
+#: .\templates\core\onboarding_step1.html:37
+msgid "Preferred language"
+msgstr "Langue préférée"
+
+#: .\templates\core\onboarding_step1.html:45
+#: .\templates\core\onboarding_step2.html:39
+msgid "Continue"
+msgstr "Continuer"
+
+#: .\templates\core\onboarding_step2.html:9
+msgid "Choose a template"
+msgstr "Choisissez un modèle"
+
+#: .\templates\core\onboarding_step2.html:21
+msgid "Pick a starting layout"
+msgstr "Choisissez une mise en page de départ"
+
+#: .\templates\core\onboarding_step2.html:22
+msgid "You can change this later."
+msgstr "Vous pourrez modifier ce choix plus tard."
+
+#: .\templates\core\onboarding_step2.html:38
+msgid "Back"
+msgstr "Retour"
+
+#: .\templates\core\onboarding_step3.html:9
+msgid "Preview your draft"
+msgstr "Aperçu de votre brouillon"
+
+#: .\templates\core\onboarding_step3.html:16
+msgid "Draft preview"
+msgstr "Aperçu du brouillon"
+
+#: .\templates\core\onboarding_step3.html:23
+msgid "Preview your homepage"
+msgstr "Aperçu de votre page d’accueil"
+
+#: .\templates\core\onboarding_step3.html:24
+msgid "Business"
+msgstr "Entreprise"
+
+#: .\templates\core\onboarding_step3.html:27
+msgid "Edit later"
+msgstr "Modifier plus tard"
+
+#: .\templates\core\onboarding_step3.html:28
+msgid "Create account to continue"
+msgstr "Créer un compte pour continuer"
+
+#: .\templates\core\onboarding_step3.html:35
+msgid "Back to templates"
+msgstr "Retour aux modèles"
+
+#: .\templates\core\onboarding_step3.html:36
+msgid "Save this draft"
+msgstr "Enregistrer ce brouillon"
+
+#: .\templates\core\printlab_start.html:9
+msgid "PrintLab category start"
+msgstr "Démarrage de la catégorie PrintLab"
+
+#: .\templates\core\printlab_start.html:15
+msgid "Designer coming soon. We're preparing this category for you now."
+msgstr "Le designer arrive bientôt. Nous préparons cette catégorie pour vous."
+
+#: .\templates\core\printlab_start.html:19
+msgid "Back to PrintLab"
+msgstr "Retour à PrintLab"
+
+#: .\templates\core\printlab_start.html:22
+msgid "Back to homepage"
+msgstr "Retour à l’accueil"
+
+#: .\templates\core\product_page.html:61
+#, fuzzy
+#| msgid "Wat is PrintLab?"
+msgid "What is PrintLab?"
+msgstr "Qu’est-ce que PrintLab ?"
+
+#: .\templates\core\product_page.html:63
+msgid ""
+"\n"
+"    PrintLab is your place for professional printing and branded goods. From "
+"business cards to clothing and merch:\n"
+"    choose a category, upload your design, and we handle production and "
+"delivery.\n"
+"  "
+msgstr ""
+
+#: .\templates\core\product_page.html:71
+#, fuzzy
+#| msgid "Product categorieen"
+msgid "Product categories"
+msgstr "Catégories de produits"
+
+#: .\templates\core\product_page.html:75
+#, fuzzy
+#| msgid "Kaarten & flyers"
+msgid "Cards & flyers"
+msgstr "Cartes et flyers"
+
+#: .\templates\core\product_page.html:76
+#, fuzzy
+#| msgid "Visitekaartjes, flyers, brochures en posters."
+msgid "Business cards, flyers, brochures, and posters."
+msgstr "Cartes de visite, flyers, brochures et affiches."
+
+#: .\templates\core\product_page.html:81
+#, fuzzy
+#| msgid "T-shirts, hoodies en werkkleding met jouw branding."
+msgid "T-shirts, hoodies, and workwear with your branding."
+msgstr "T-shirts, sweats à capuche et vêtements de travail à votre image."
+
+#: .\templates\core\product_page.html:86
+#, fuzzy
+#| msgid "Giveaways, geschenken en promomateriaal."
+msgid "Giveaways, gifts, and promotional items."
+msgstr "Goodies, cadeaux et matériel promotionnel."
+
+#: .\templates\core\product_page.html:90
+#, fuzzy
+#| msgid "Home & office items"
+msgid "Home & office"
+msgstr "Articles pour la maison et le bureau"
+
+#: .\templates\core\product_page.html:91
+#, fuzzy
+#| msgid "Home & office items"
+msgid "Notebooks, mugs, and office items."
+msgstr "Articles pour la maison et le bureau"
+
+#: .\templates\core\product_page.html:97
+#: .\templates\pages\websites\custom_website_plan.html:237
+msgid "How it works"
+msgstr "Comment ça fonctionne"
+
+#: .\templates\core\product_page.html:102
+msgid "Choose"
+msgstr ""
+
+#: .\templates\core\product_page.html:103
+#, fuzzy
+#| msgid "Selecteer een categorie en product."
+msgid "Select a category and product."
+msgstr "Sélectionnez une catégorie et un produit."
+
+#: .\templates\core\product_page.html:108
+msgid "Upload"
+msgstr "Téléversez"
+
+#: .\templates\core\product_page.html:109
+msgid "Upload your design or ask for help."
+msgstr ""
+
+#: .\templates\core\product_page.html:114
+#, fuzzy
+#| msgid "In review"
+msgid "Review"
+msgstr "En cours de validation"
+
+#: .\templates\core\product_page.html:115
+msgid "We check and confirm your order."
+msgstr ""
+
+#: .\templates\core\product_page.html:120
+msgid "Receive"
+msgstr ""
+
+#: .\templates\core\product_page.html:121
+#, fuzzy
+#| msgid "Clear structure for your customers"
+msgid "Fast delivery to you or your customer."
+msgstr "Une structure claire pour vos clients"
+
+#: .\templates\core\product_page.html:127
+#, fuzzy
+#| msgid "Waarom PrintLab via Just Code Works"
+msgid "Why PrintLab through Just Code Works"
+msgstr "Pourquoi choisir PrintLab via Just Code Works"
+
+#: .\templates\core\product_page.html:131
+#, fuzzy
+#| msgid "Check pricing"
+msgid "Fair pricing"
+msgstr "Voir les tarifs"
+
+#: .\templates\core\product_page.html:132
+msgid "Transparent quotes with no surprises."
+msgstr ""
+
+#: .\templates\core\product_page.html:136
+msgid "Design support"
+msgstr "Support design"
+
+#: .\templates\core\product_page.html:137
+#, fuzzy
+#| msgid "We helpen met voorbereiding en optimalisatie."
+msgid "We help with preparation and optimization."
+msgstr "Nous aidons à la préparation et à l’optimisation."
+
+#: .\templates\core\product_page.html:141
+msgid "Everything in one flow"
+msgstr ""
+
+#: .\templates\core\product_page.html:142
+#, fuzzy
+#| msgid "Web, print en tools werken samen in een systeem."
+msgid "Web, print, and tools work together in one system."
+msgstr ""
+"Le web, l’impression et les outils fonctionnent ensemble dans un seul "
+"système."
+
+#: .\templates\core\product_page.html:148
+#, fuzzy
+#| msgid "Start je PrintLab bestelling"
+msgid "Start your PrintLab order"
+msgstr "Démarrez votre commande PrintLab"
+
+#: .\templates\core\product_page.html:151
+#, fuzzy
+#| msgid "Tell us what you need and we'll recommend the best option."
+msgid "Tell us what you need and get a proposal quickly. We handle the rest."
+msgstr ""
+"Dites-nous ce dont vous avez besoin et nous vous recommanderons la meilleure "
+"option."
+
+#: .\templates\core\product_page.html:156
+#: .\templates\core\websites_one_page_plan.html:181
+#: .\templates\core\websites_one_page_plan.html:201
+#: .\templates\core\websites_one_page_plan.html:306
+#: .\templates\core\websites_one_page_plan.html:310
+#: .\templates\pages\websites\catalog_site_plan.html:121
+#: .\templates\pages\websites\catalog_site_plan.html:259
+#: .\templates\pages\websites\multi_page_plan.html:121
+#: .\templates\pages\websites\multi_page_plan.html:252
+#: .\templates\pages\websites\multi_page_seo_plan.html:99
+#: .\templates\pages\websites\multi_page_seo_plan.html:279
+msgid "Start now"
+msgstr "Commencer maintenant"
+
+#: .\templates\core\product_page.html:159
+msgid "Talk to us"
+msgstr ""
+
+#: .\templates\core\right_sidebar.html:55
+msgid "Print Studio available on higher plans."
+msgstr "Print Studio est disponible avec les formules supérieures."
+
+#: .\templates\core\services.html:18
+msgid "__SCRIPT_4____STYLE_0__"
+msgstr ""
+
+#: .\templates\core\services.html:38
+msgid "Professional Digital Services"
+msgstr "Services numériques professionnels"
+
+#: .\templates\core\services.html:55
+msgid "Projects Delivered"
+msgstr "Projets livrés"
+
+#: .\templates\core\services.html:66
+msgid "Client Satisfaction"
+msgstr "Satisfaction client"
+
+#: .\templates\core\services.html:77
+msgid "Support Available"
+msgstr "Support disponible"
+
+#: .\templates\core\services.html:88
+msgid "Years Experience"
+msgstr "Années d’expérience"
+
+#: .\templates\core\services.html:113
+msgid "2-4 weeks"
+msgstr "2 à 4 semaines"
+
+#: .\templates\core\services.html:118 .\templates\core\services.html:618
+msgid "Website Development"
+msgstr "Développement de sites web"
+
+#: .\templates\core\services.html:121
+msgid "From Concept to Launch"
+msgstr "Du concept à la mise en ligne"
+
+#: .\templates\core\services.html:124
+msgid "Custom websites built with cutting-edge technology"
+msgstr "Sites web sur mesure construits avec des technologies modernes"
+
+#: .\templates\core\services.html:131
+msgid "Responsive Design"
+msgstr "Design responsive"
+
+#: .\templates\core\services.html:137
+msgid "SEO Optimized"
+msgstr "Optimisé pour le SEO"
+
+#: .\templates\core\services.html:143
+msgid "Fast Loading"
+msgstr "Chargement rapide"
+
+#: .\templates\core\services.html:149
+msgid "Mobile First"
+msgstr "Pensé mobile en priorité"
+
+#: .\templates\core\services.html:154
+msgid "React"
+msgstr "React"
+
+#: .\templates\core\services.html:160
+msgid "TypeScript"
+msgstr "TypeScript"
+
+#: .\templates\core\services.html:163
+msgid "Tailwind"
+msgstr "Tailwind"
+
+#: .\templates\core\services.html:173
+msgid "projects"
+msgstr "projets"
+
+#: .\templates\core\services.html:180
+msgid "satisfaction"
+msgstr "satisfaction"
+
+#: .\templates\core\services.html:185 .\templates\core\services.html:281
+#: .\templates\core\services.html:377 .\templates\core\services.html:473
+msgid "From"
+msgstr "À partir de"
+
+#: .\templates\core\services.html:188 .\templates\core\services.html:284
+#: .\templates\core\services.html:380 .\templates\core\services.html:476
+msgid "Starting price"
+msgstr "Prix de départ"
+
+#: .\templates\core\services.html:193 .\templates\core\services.html:289
+#: .\templates\core\services.html:385 .\templates\core\services.html:481
+#: .\templates\core\websites.html:140 .\templates\core\websites.html:212
+#: .\templates\core\websites.html:286 .\templates\core\websites.html:359
+msgid "Get Started"
+msgstr "Commencer"
+
+#: .\templates\core\services.html:209
+msgid "Ongoing"
+msgstr "En continu"
+
+#: .\templates\core\services.html:214 .\templates\core\services.html:666
+msgid "Digital Marketing"
+msgstr "Marketing digital"
+
+#: .\templates\core\services.html:217
+msgid "Grow Your Online Presence"
+msgstr "Développez votre présence en ligne"
+
+#: .\templates\core\services.html:220
+msgid "Comprehensive marketing strategies that drive results"
+msgstr "Des stratégies marketing complètes qui génèrent des résultats"
+
+#: .\templates\core\services.html:227
+msgid "SEO Strategy"
+msgstr "Stratégie SEO"
+
+#: .\templates\core\services.html:233
+msgid "Social Media"
+msgstr "Réseaux sociaux"
+
+#: .\templates\core\services.html:239
+msgid "PPC Campaigns"
+msgstr "Campagnes PPC"
+
+#: .\templates\core\services.html:245 .\templates\core\services.html:259
+#: .\templates\core\services.html:349
+#: .\templates\pages\websites\premium_estore_plan.html:208
+msgid "Analytics"
+msgstr "Analytique"
+
+#: .\templates\core\services.html:250
+msgid "Google Ads"
+msgstr "Google Ads"
+
+#: .\templates\core\services.html:253
+msgid "Facebook"
+msgstr "Facebook"
+
+#: .\templates\core\services.html:256
+msgid "Instagram"
+msgstr "Instagram"
+
+#: .\templates\core\services.html:269
+msgid "clients"
+msgstr "clients"
+
+#: .\templates\core\services.html:276
+msgid "growth"
+msgstr "croissance"
+
+#: .\templates\core\services.html:281 .\templates\core\services.html:473
+msgid "month"
+msgstr "mois"
+
+#: .\templates\core\services.html:305
+msgid "1-12 weeks"
+msgstr "1 à 12 semaines"
+
+#: .\templates\core\services.html:313
+msgid "Strategic Growth Solutions"
+msgstr "Solutions de croissance stratégiques"
+
+#: .\templates\core\services.html:316
+msgid "Expert guidance to transform your business operations"
+msgstr "Un accompagnement expert pour transformer vos opérations"
+
+#: .\templates\core\services.html:323
+msgid "Process Optimization"
+msgstr "Optimisation des processus"
+
+#: .\templates\core\services.html:329
+msgid "Digital Transformation"
+msgstr "Transformation digitale"
+
+#: .\templates\core\services.html:335
+msgid "Team Training"
+msgstr "Formation des équipes"
+
+#: .\templates\core\services.html:341
+msgid "Growth Strategy"
+msgstr "Stratégie de croissance"
+
+#: .\templates\core\services.html:346
+msgid "CRM"
+msgstr "CRM"
+
+#: .\templates\core\services.html:352
+msgid "Automation"
+msgstr "Automatisation"
+
+#: .\templates\core\services.html:355
+msgid "Integration"
+msgstr "Intégration"
+
+#: .\templates\core\services.html:365
+msgid "businesses"
+msgstr "entreprises"
+
+#: .\templates\core\services.html:372
+msgid "efficiency"
+msgstr "efficacité"
+
+#: .\templates\core\services.html:377
+msgid "hour"
+msgstr "heure"
+
+#: .\templates\core\services.html:406
+msgid "Maintenance &amp; Support"
+msgstr "Maintenance &amp; support"
+
+#: .\templates\core\services.html:409
+msgid "Keep Everything Running"
+msgstr "Gardez tout opérationnel"
+
+#: .\templates\core\services.html:412
+msgid "Reliable ongoing support for your digital assets"
+msgstr "Un support continu fiable pour vos actifs numériques"
+
+#: .\templates\core\services.html:419
+msgid "24/7 Monitoring"
+msgstr "Surveillance 24/7"
+
+#: .\templates\core\services.html:425
+msgid "Security Updates"
+msgstr "Mises à jour de sécurité"
+
+#: .\templates\core\services.html:431
+msgid "Performance Optimization"
+msgstr "Optimisation des performances"
+
+#: .\templates\core\services.html:437
+msgid "Backup Management"
+msgstr "Gestion des sauvegardes"
+
+#: .\templates\core\services.html:442
+msgid "CloudFlare"
+msgstr "Cloudflare"
+
+#: .\templates\core\services.html:445
+msgid "AWS"
+msgstr "AWS"
+
+#: .\templates\core\services.html:448
+msgid "Security"
+msgstr "Sécurité"
+
+#: .\templates\core\services.html:451
+msgid "Monitoring"
+msgstr "Surveillance"
+
+#: .\templates\core\services.html:461
+msgid "uptime"
+msgstr "disponibilité"
+
+#: .\templates\core\services.html:465
+msgid "&lt; 1hr"
+msgstr "&lt; 1 h"
+
+#: .\templates\core\services.html:468
+msgid "response"
+msgstr "réponse"
+
+#: .\templates\core\services.html:490
+msgid "Our Process"
+msgstr "Notre processus"
+
+#: .\templates\core\services.html:498 .\templates\core\services.html:517
+#: .\templates\core\services.html:536 .\templates\core\services.html:555
+msgid "STEP"
+msgstr "ÉTAPE"
+
+#: .\templates\core\services.html:503
+msgid "Discovery"
+msgstr "Découverte"
+
+#: .\templates\core\services.html:506
+msgid "We analyze your needs and objectives"
+msgstr "Nous analysons vos besoins et vos objectifs"
+
+#: .\templates\core\services.html:522
+msgid "Strategy"
+msgstr "Stratégie"
+
+#: .\templates\core\services.html:525
+msgid "Custom solution planning and design"
+msgstr "Planification et conception d’une solution sur mesure"
+
+#: .\templates\core\services.html:541
+msgid "Development"
+msgstr "Développement"
+
+#: .\templates\core\services.html:544
+msgid "Building with attention to detail"
+msgstr "Construction avec le souci du détail"
+
+#: .\templates\core\services.html:560
+msgid "Launch"
+msgstr "Lancement"
+
+#: .\templates\core\services.html:563
+msgid "Delivery and ongoing support"
+msgstr "Livraison et support continu"
+
+#: .\templates\core\services.html:570
+msgid "Client Success Stories"
+msgstr "Témoignages clients"
+
+#: .\templates\core\services.html:576
+msgid "S"
+msgstr "S"
+
+#: .\templates\core\services.html:580
+msgid "Sarah Johnson"
+msgstr "Sarah Johnson"
+
+#: .\templates\core\services.html:583
+msgid "CEO"
+msgstr "PDG"
+
+#: .\templates\core\services.html:587
+msgid "TechStart Inc."
+msgstr "TechStart Inc."
+
+#: .\templates\core\services.html:611
+msgid ""
+"Exceptional service that transformed our online presence. The team delivered "
+"beyond expectations."
+msgstr ""
+"Un service exceptionnel qui a transformé notre présence en ligne. L’équipe a "
+"dépassé nos attentes."
+
+#: .\templates\core\services.html:616 .\templates\core\services.html:664
+#: .\templates\core\services.html:712
+#, fuzzy
+#| msgid "Services"
+msgid "Service:"
+msgstr "Services"
+
+#: .\templates\core\services.html:624
+msgid "M"
+msgstr ""
+
+#: .\templates\core\services.html:628
+msgid "Miguel Santos"
+msgstr ""
+
+#: .\templates\core\services.html:631
+msgid "Owner"
+msgstr ""
+
+#: .\templates\core\services.html:635
+#, fuzzy
+#| msgid "Local visibility"
+msgid "Local Bistro"
+msgstr "Visibilité locale"
+
+#: .\templates\core\services.html:659
+#, python-format
+msgid ""
+"Our digital marketing results increased by 300%%. Professional and results-"
+"driven approach."
+msgstr ""
+
+#: .\templates\core\services.html:672
+msgid "E"
+msgstr ""
+
+#: .\templates\core\services.html:676
+msgid "Emma Clarke"
+msgstr ""
+
+#: .\templates\core\services.html:679
+msgid "Creative Director"
+msgstr ""
+
+#: .\templates\core\services.html:683
+#, fuzzy
+#| msgid "Print Studio"
+msgid "Design Studio"
+msgstr "Print Studio"
+
+#: .\templates\core\services.html:707
+msgid ""
+"The consulting sessions helped streamline our processes and boost team "
+"productivity significantly."
+msgstr ""
+
+#: .\templates\core\services.html:727
+msgid ""
+"Join hundreds of successful businesses who trust us with their digital growth"
+msgstr ""
+
+#: .\templates\core\websites.html:73
+msgid "Most Popular"
+msgstr "Le plus populaire"
+
+#: .\templates\core\websites.html:91
+msgid ""
+"Ideal if you have a few services and want everything on one clean, "
+"scrollable page."
+msgstr ""
+"Idéal si vous proposez quelques services et souhaitez tout présenter sur une "
+"seule page claire et fluide."
+
+#: .\templates\core\websites.html:98 .\templates\core\websites.html:172
+#: .\templates\core\websites.html:244
+msgid "/month"
+msgstr "/mois"
+
+#: .\templates\core\websites.html:109
+msgid "Up to 6 services on one page"
+msgstr "Jusqu’à 6 services sur une seule page"
+
+#: .\templates\core\websites.html:119
+msgid "Contact / WhatsApp / call buttons"
+msgstr "Boutons Contact / WhatsApp / Appel"
+
+#: .\templates\core\websites.html:129
+msgid "Optimised for mobile visitors"
+msgstr "Optimisé pour les visiteurs mobiles"
+
+#: .\templates\core\websites.html:136 .\templates\core\websites.html:282
+#: .\templates\core\websites.html:355
+msgid "View Live Demo"
+msgstr "Voir la démo en direct"
+
+#: .\templates\core\websites.html:165
+msgid ""
+"Great for companies that want separate pages for services, projects, team, "
+"blog and more."
+msgstr ""
+"Parfait pour les entreprises souhaitant des pages séparées pour les "
+"services, projets, équipe, blog et plus encore."
+
+#: .\templates\core\websites.html:183
+msgid "Service pages that can rank on Google"
+msgstr "Pages de services optimisées pour Google"
+
+#: .\templates\core\websites.html:193
+msgid "Blog / news sections for updates"
+msgstr "Sections blog / actualités pour les mises à jour"
+
+#: .\templates\core\websites.html:203
+msgid "Structured contact &amp; quote forms"
+msgstr "Formulaires de contact et de devis structurés"
+
+#: .\templates\core\websites.html:209
+msgid "Demo Coming Soon"
+msgstr "Démo bientôt disponible"
+
+#: .\templates\core\websites.html:237
+msgid ""
+"For businesses ready to take online payments and manage orders without "
+"complex systems."
+msgstr ""
+"Pour les entreprises prêtes à accepter des paiements en ligne et gérer les "
+"commandes sans systèmes complexes."
+
+#: .\templates\core\websites.html:255
+msgid "Product catalogue and categories"
+msgstr "Catalogue produits et catégories"
+
+#: .\templates\core\websites.html:265
+msgid "Simple checkout and payment options"
+msgstr "Paiement simple et options de règlement"
+
+#: .\templates\core\websites.html:275
+msgid "Order notifications and basic reports"
+msgstr "Notifications de commandes et rapports de base"
+
+#: .\templates\core\websites.html:308
+msgid "Tailored solutions for unique needs"
+msgstr "Solutions sur mesure pour des besoins uniques"
+
+#: .\templates\core\websites.html:311
+msgid ""
+"Fully customized websites with advanced features and integrations specific "
+"to your business."
+msgstr ""
+"Sites entièrement personnalisés avec des fonctionnalités avancées et des "
+"intégrations adaptées à votre activité."
+
+#: .\templates\core\websites.html:315
+msgid "Personalizado"
+msgstr "Personnalisé"
+
+#: .\templates\core\websites.html:328
+msgid "Custom design and functionality"
+msgstr "Design et fonctionnalités personnalisés"
+
+#: .\templates\core\websites.html:338
+msgid "Advanced integrations"
+msgstr "Intégrations avancées"
+
+#: .\templates\core\websites.html:348
+msgid "Dedicated support and maintenance"
+msgstr "Support et maintenance dédiés"
+
+#: .\templates\core\websites.html:372
+msgid "Everything You Need to Succeed Online"
+msgstr "Tout ce dont vous avez besoin pour réussir en ligne"
+
+#: .\templates\core\websites.html:375
+msgid ""
+"Our website builder comes packed with professional features that help your "
+"business grow"
+msgstr ""
+"Notre créateur de sites inclut des fonctionnalités professionnelles pour "
+"faire grandir votre entreprise"
+
+#: .\templates\core\websites.html:384
+msgid "Launch in Minutes"
+msgstr "Lancez en quelques minutes"
+
+#: .\templates\core\websites.html:387
+msgid "Get your website online in under 10 minutes with our guided setup"
+msgstr ""
+"Mettez votre site en ligne en moins de 10 minutes grâce à notre assistant"
+
+#: .\templates\core\websites.html:395
+msgid "Mobile-First Design"
+msgstr "Design mobile-first"
+
+#: .\templates\core\websites.html:398
+msgid "All websites are optimized for smartphones, tablets, and desktops"
+msgstr "Tous les sites sont optimisés pour mobiles, tablettes et ordinateurs"
+
+#: .\templates\core\websites.html:406
+msgid "SEO Ready"
+msgstr "Prêt pour le SEO"
+
+#: .\templates\core\websites.html:409
+msgid "Built-in SEO optimization to help customers find you on Google"
+msgstr "Optimisation SEO intégrée pour être visible sur Google"
+
+#: .\templates\core\websites.html:417
+msgid "Lightning Fast"
+msgstr "Ultra rapide"
+
+#: .\templates\core\websites.html:420
+msgid "Optimized performance ensures your site loads in under 2 seconds"
+msgstr "Des performances optimisées pour un chargement en moins de 2 secondes"
+
+#: .\templates\core\websites.html:428
+msgid "Secure &amp; Reliable"
+msgstr "Sécurisé &amp; fiable"
+
+#: .\templates\core\websites.html:431
+#, python-format
+msgid "SSL certificates, backups, and 99.9%% uptime guarantee included"
+msgstr ""
+"Certificats SSL, sauvegardes et garantie de disponibilité de 99,9%% inclus"
+
+#: .\templates\core\websites.html:439
+msgid "Easy Customization"
+msgstr "Personnalisation facile"
+
+#: .\templates\core\websites.html:442
+msgid "Change colors, fonts, and layout without any coding skills"
+msgstr "Modifiez couleurs, polices et mise en page sans coder"
+
+#: .\templates\core\websites_one_page_plan.html:171
+#: .\templates\core\websites_one_page_plan.html:174
+#: .\templates\core\websites_one_page_plan.html:195
+msgid "One Page Website"
+msgstr "Site une page"
+
+#: .\templates\core\websites_one_page_plan.html:177
+#: .\templates\core\websites_one_page_plan.html:198
+msgid ""
+"A single-page website designed to get you online fast, with one clear "
+"message and a strong call to action."
+msgstr ""
+"Un site d’une seule page conçu pour vous mettre en ligne rapidement, avec un "
+"message clair et un appel à l’action fort."
+
+#: .\templates\core\websites_one_page_plan.html:184
+#: .\templates\pages\websites\multi_page_plan.html:124
+#: .\templates\pages\websites\starter_estore_plan.html:115
+msgid "See plans"
+msgstr "Voir les offres"
+
+#: .\templates\core\websites_one_page_plan.html:207
+msgid "What this plan is for"
+msgstr "À quoi sert cette offre"
+
+#: .\templates\core\websites_one_page_plan.html:210
+msgid ""
+"This plan is perfect when you want a simple online presence without "
+"complexity. Everything lives on one clear page, so visitors immediately "
+"understand what you offer and how to contact you."
+msgstr ""
+"Cette formule est idéale si vous souhaitez une présence en ligne simple, "
+"sans complexité. Tout est réuni sur une seule page claire, afin que les "
+"visiteurs comprennent immédiatement ce que vous proposez et comment vous "
+"contacter."
+
+#: .\templates\core\websites_one_page_plan.html:213
+msgid "One clear page with a strong call to action"
+msgstr "Une page claire avec un appel à l’action fort"
+
+#: .\templates\core\websites_one_page_plan.html:214
+msgid "Ideal when you want customers to contact you fast"
+msgstr "Idéal lorsque vous souhaitez être contacté rapidement"
+
+#: .\templates\core\websites_one_page_plan.html:215
+msgid "Perfect for services, freelancers, and small businesses"
+msgstr "Parfait pour les services, freelances et petites entreprises"
+
+#: .\templates\core\websites_one_page_plan.html:216
+msgid "No unnecessary pages or features"
+msgstr "Aucune page ni fonctionnalité inutile"
+
+#: .\templates\core\websites_one_page_plan.html:222
+#: .\templates\pages\websites\starter_estore_plan.html:152
+msgid "What's included"
+msgstr "Ce qui est inclus"
+
+#: .\templates\core\websites_one_page_plan.html:225
+msgid ""
+"Your one-page website includes everything you need to present your business "
+"clearly and professionally."
+msgstr ""
+"Votre site une page inclut tout le nécessaire pour présenter votre activité "
+"de manière claire et professionnelle."
+
+#: .\templates\core\websites_one_page_plan.html:228
+msgid "Up to 6 content sections on one page"
+msgstr "Jusqu’à 6 sections de contenu sur une seule page"
+
+#: .\templates\core\websites_one_page_plan.html:229
+msgid "Clear call-to-action buttons (contact, call, or request)"
+msgstr "Boutons d’appel à l’action clairs (contact, appel ou demande)"
+
+#: .\templates\core\websites_one_page_plan.html:230
+msgid "Mobile-optimized layout for all devices"
+msgstr "Mise en page optimisée pour mobiles et tous les appareils"
+
+#: .\templates\core\websites_one_page_plan.html:231
+msgid "Clean structure ready for basic SEO"
+msgstr "Structure propre, prête pour le SEO de base"
+
+#: .\templates\core\websites_one_page_plan.html:232
+msgid "Translation-ready for multiple languages"
+msgstr "Prêt pour la traduction en plusieurs langues"
+
+#: .\templates\core\websites_one_page_plan.html:239
+msgid "Mobile-friendly"
+msgstr "Adapté aux mobiles"
+
+#: .\templates\core\websites_one_page_plan.html:242
+msgid ""
+"Your website works smoothly on phones, tablets, and desktops, so customers "
+"can reach you anywhere."
+msgstr ""
+"Votre site fonctionne parfaitement sur téléphones, tablettes et ordinateurs, "
+"afin que vos clients puissent vous joindre partout."
+
+#: .\templates\core\websites_one_page_plan.html:249
+msgid "Built to be found"
+msgstr "Conçu pour être trouvé"
+
+#: .\templates\core\websites_one_page_plan.html:252
+msgid ""
+"Fast loading pages, proper headings, and a clean structure that search "
+"engines understand."
+msgstr ""
+"Pages à chargement rapide, titres bien structurés et organisation claire "
+"comprise par les moteurs de recherche."
+
+#: .\templates\core\websites_one_page_plan.html:259
+msgid "Multiple languages"
+msgstr "Plusieurs langues"
+
+#: .\templates\core\websites_one_page_plan.html:262
+msgid ""
+"Add translations when you're ready and reach customers in different "
+"languages without rebuilding your site."
+msgstr ""
+"Ajoutez des traductions lorsque vous le souhaitez et touchez des clients "
+"dans plusieurs langues sans reconstruire votre site."
+
+#: .\templates\core\websites_one_page_plan.html:268
+msgid "What's NOT included"
+msgstr "Ce qui n’est PAS inclus"
+
+#: .\templates\core\websites_one_page_plan.html:271
+msgid ""
+"To keep this plan simple and affordable, some advanced features are "
+"intentionally not included."
+msgstr ""
+"Pour garder cette formule simple et abordable, certaines fonctionnalités "
+"avancées ne sont volontairement pas incluses."
+
+#: .\templates\core\websites_one_page_plan.html:274
+msgid "Multiple separate pages"
+msgstr "Plusieurs pages séparées"
+
+#: .\templates\core\websites_one_page_plan.html:275
+msgid "Online store or payment systems"
+msgstr "Boutique en ligne ou systèmes de paiement"
+
+#: .\templates\core\websites_one_page_plan.html:276
+msgid "Complex custom integrations"
+msgstr "Intégrations personnalisées complexes"
+
+#: .\templates\core\websites_one_page_plan.html:282
+msgid "Upgrade anytime"
+msgstr "Mise à niveau à tout moment"
+
+#: .\templates\core\websites_one_page_plan.html:285
+msgid ""
+"Your website is not locked in. You can start simple and upgrade whenever "
+"your business grows. Move to a multi-page website, add SEO features, or "
+"connect other tools later without losing your content."
+msgstr ""
+"Votre site n’est pas figé. Vous pouvez commencer simplement et évoluer à "
+"mesure que votre activité grandit. Passez à un site multi-pages, ajoutez des "
+"fonctionnalités SEO ou connectez d’autres outils sans perdre votre contenu."
+
+#: .\templates\core\websites_one_page_plan.html:288
+msgid "Upgrade to a multi-page website"
+msgstr "Passer à un site multi-pages"
+
+#: .\templates\core\websites_one_page_plan.html:289
+msgid "Add service pages when needed"
+msgstr "Ajouter des pages de services si nécessaire"
+
+#: .\templates\core\websites_one_page_plan.html:290
+msgid "Connect online store or POS features later"
+msgstr "Connecter une boutique en ligne ou un système POS plus tard"
+
+#: .\templates\core\websites_one_page_plan.html:298
+msgid "Not sure if this is enough?"
+msgstr "Pas sûr que cela suffise ?"
+
+#: .\templates\core\websites_one_page_plan.html:301
+msgid ""
+"Start with a one-page website and upgrade later if needed. If you're unsure, "
+"we're happy to guide you to the right option."
+msgstr ""
+"Commencez avec un site une page et évoluez plus tard si nécessaire. En cas "
+"de doute, nous sommes là pour vous guider vers la bonne option."
+
+#: .\templates\pages\websites\catalog_site_plan.html:111
+#: .\templates\pages\websites\catalog_site_plan.html:114
+msgid "Catalog Site"
+msgstr "Site catalogue"
+
+#: .\templates\pages\websites\catalog_site_plan.html:117
+msgid ""
+"Show your products and prices (optional) without taking online payments."
+msgstr ""
+"Présentez vos produits et vos prix (optionnel) sans accepter de paiements en "
+"ligne."
+
+#: .\templates\pages\websites\catalog_site_plan.html:124
+msgid "See examples"
+msgstr "Voir des exemples"
+
+#: .\templates\pages\websites\catalog_site_plan.html:136
+msgid "Perfect for showcasing what you sell"
+msgstr "Parfait pour présenter ce que vous vendez"
+
+#: .\templates\pages\websites\catalog_site_plan.html:139
+msgid ""
+"A catalog site lets customers browse your products online without buying "
+"directly. It is ideal when sales happen through phone, email, WhatsApp, or "
+"in person. Your products are clearly presented with photos, descriptions, "
+"and optional prices. Simple for customers, simple for you."
+msgstr ""
+"Un site catalogue permet aux clients de parcourir vos produits en ligne sans "
+"acheter directement. Il est idéal lorsque les ventes se font par téléphone, "
+"email, WhatsApp ou en personne. Vos produits sont présentés clairement avec "
+"des photos, descriptions et prix optionnels. Simple pour les clients, simple "
+"pour vous."
+
+#: .\templates\pages\websites\catalog_site_plan.html:145
+msgid "Ceramic Mug"
+msgstr "Mug en céramique"
+
+#: .\templates\pages\websites\catalog_site_plan.html:150
+msgid "Canvas Tote"
+msgstr "Sac en toile"
+
+#: .\templates\pages\websites\catalog_site_plan.html:151
+#: .\templates\pages\websites\catalog_site_plan.html:166
+msgid "Price on request"
+msgstr "Prix sur demande"
+
+#: .\templates\pages\websites\catalog_site_plan.html:155
+msgid "Notebook Set"
+msgstr "Set de carnets"
+
+#: .\templates\pages\websites\catalog_site_plan.html:160
+msgid "Desk Lamp"
+msgstr "Lampe de bureau"
+
+#: .\templates\pages\websites\catalog_site_plan.html:165
+msgid "Gift Box"
+msgstr "Coffret cadeau"
+
+#: .\templates\pages\websites\catalog_site_plan.html:170
+msgid "Poster Print"
+msgstr "Affiche imprimée"
+
+#: .\templates\pages\websites\catalog_site_plan.html:183
+msgid "No payments, no checkout, no complexity."
+msgstr "Pas de paiement, pas de caisse, aucune complexité."
+
+#: .\templates\pages\websites\catalog_site_plan.html:186
+msgid ""
+"This plan removes the complexity of online payments. There is no checkout, "
+"no payment processing, and no transaction management. Customers contact you "
+"directly to place an order or request a quote. You stay in control of how "
+"sales are handled."
+msgstr ""
+"Cette formule supprime la complexité des paiements en ligne. Il n’y a pas de "
+"caisse, pas de traitement de paiement ni de gestion des transactions. Les "
+"clients vous contactent directement pour commander ou demander un devis. "
+"Vous gardez le contrôle total du processus de vente."
+
+#: .\templates\pages\websites\catalog_site_plan.html:200
+msgid "What customers can do on a Catalog Site"
+msgstr "Ce que les clients peuvent faire sur un site catalogue"
+
+#: .\templates\pages\websites\catalog_site_plan.html:203
+msgid "A catalog site focuses on clarity and presentation."
+msgstr "Un site catalogue met l’accent sur la clarté et la présentation."
+
+#: .\templates\pages\websites\catalog_site_plan.html:206
+msgid "Browse products by category"
+msgstr "Parcourir les produits par catégorie"
+
+#: .\templates\pages\websites\catalog_site_plan.html:207
+msgid "View descriptions, photos, and variations"
+msgstr "Voir les descriptions, photos et variantes"
+
+#: .\templates\pages\websites\catalog_site_plan.html:208
+msgid "See prices (optional)"
+msgstr "Voir les prix (optionnel)"
+
+#: .\templates\pages\websites\catalog_site_plan.html:209
+msgid "Contact you to order or request a quote"
+msgstr "Vous contacter pour commander ou demander un devis"
+
+#: .\templates\pages\websites\catalog_site_plan.html:212
+msgid ""
+"Best for businesses that sell through WhatsApp, phone, email, or in-store."
+msgstr ""
+"Idéal pour les entreprises qui vendent via WhatsApp, téléphone, email ou en "
+"magasin."
+
+#: .\templates\pages\websites\catalog_site_plan.html:219
+msgid "Great for local and service-based businesses"
+msgstr "Parfait pour les entreprises locales et de services"
+
+#: .\templates\pages\websites\catalog_site_plan.html:222
+msgid ""
+"Catalog sites work very well for local businesses and service providers. "
+"Customers can explore your offerings before contacting you. This helps "
+"qualify enquiries and saves time. Updates are easy when products or prices "
+"change."
+msgstr ""
+"Les sites catalogue fonctionnent très bien pour les entreprises locales et "
+"les prestataires de services. Les clients peuvent découvrir vos offres avant "
+"de vous contacter. Cela permet de qualifier les demandes et de gagner du "
+"temps. Les mises à jour sont simples lorsque les produits ou les prix "
+"changent."
+
+#: .\templates\pages\websites\catalog_site_plan.html:225
+msgid "Clear product pages"
+msgstr "Pages produits claires"
+
+#: .\templates\pages\websites\catalog_site_plan.html:226
+msgid "Fast, mobile-friendly browsing"
+msgstr "Navigation rapide et adaptée au mobile"
+
+#: .\templates\pages\websites\catalog_site_plan.html:227
+msgid "Easy to update products"
+msgstr "Produits faciles à mettre à jour"
+
+#: .\templates\pages\websites\catalog_site_plan.html:232
+msgid "Upgrade to a shop later"
+msgstr "Passer à une boutique plus tard"
+
+#: .\templates\pages\websites\catalog_site_plan.html:235
+msgid ""
+"You are not locked into this setup. When your business is ready, you can "
+"upgrade to a full online store. Your products and content stay in place. "
+"Payments and checkout can be added later without rebuilding the site."
+msgstr ""
+"Vous n’êtes pas bloqué avec cette configuration. Lorsque votre activité est "
+"prête, vous pouvez évoluer vers une boutique en ligne complète. Vos produits "
+"et contenus restent en place. Les paiements et la caisse peuvent être "
+"ajoutés plus tard sans reconstruire le site."
+
+#: .\templates\pages\websites\catalog_site_plan.html:238
+msgid "Switch to an online store when you're ready"
+msgstr "Passer à une boutique en ligne quand vous êtes prêt"
+
+#: .\templates\pages\websites\catalog_site_plan.html:239
+msgid "Keep your catalog content"
+msgstr "Conserver le contenu de votre catalogue"
+
+#: .\templates\pages\websites\catalog_site_plan.html:240
+msgid "Add payments only when it makes sense"
+msgstr "Ajouter les paiements uniquement quand c’est pertinent"
+
+#: .\templates\pages\websites\catalog_site_plan.html:252
+msgid "Ready to showcase your products?"
+msgstr "Prêt à présenter vos produits ?"
+
+#: .\templates\pages\websites\catalog_site_plan.html:255
+msgid ""
+"Start with a catalog site today and upgrade to an online store when it makes "
+"sense."
+msgstr ""
+"Commencez avec un site catalogue dès aujourd’hui et évoluez vers une "
+"boutique en ligne lorsque cela a du sens."
+
+#: .\templates\pages\websites\custom_website_plan.html:145
+#: .\templates\pages\websites\custom_website_plan.html:148
+msgid "Custom Website"
+msgstr "Site web sur mesure"
+
+#: .\templates\pages\websites\custom_website_plan.html:151
+msgid "Built around your business, your goals, and your workflow."
+msgstr ""
+"Conçu autour de votre activité, de vos objectifs et de votre méthode de "
+"travail."
+
+#: .\templates\pages\websites\custom_website_plan.html:155
+#: .\templates\pages\websites\custom_website_plan.html:325
+msgid "Request a proposal"
+msgstr "Demander une proposition"
+
+#: .\templates\pages\websites\custom_website_plan.html:169
+msgid "You need something unique"
+msgstr "Vous avez besoin de quelque chose d’unique"
+
+#: .\templates\pages\websites\custom_website_plan.html:171
+msgid ""
+"A custom layout, special flow, or a business model that doesn't fit "
+"templates."
+msgstr ""
+"Une mise en page personnalisée, un parcours spécifique ou un modèle "
+"commercial qui ne rentre pas dans des templates."
+
+#: .\templates\pages\websites\custom_website_plan.html:174
+msgid "Example: A niche service with a tailored quote funnel."
+msgstr "Exemple : un service de niche avec un tunnel de devis sur mesure."
+
+#: .\templates\pages\websites\custom_website_plan.html:178
+msgid "You need integrations"
+msgstr "Vous avez besoin d’intégrations"
+
+#: .\templates\pages\websites\custom_website_plan.html:180
+msgid "Connect with tools, CRMs, or platforms your team already uses."
+msgstr ""
+"Connexion aux outils, CRM ou plateformes déjà utilisés par votre équipe."
+
+#: .\templates\pages\websites\custom_website_plan.html:183
+msgid "Example: Booking tools, inventory systems, or custom forms."
+msgstr ""
+"Exemple : outils de réservation, systèmes d’inventaire ou formulaires "
+"personnalisés."
+
+#: .\templates\pages\websites\custom_website_plan.html:187
+msgid "You want premium design"
+msgstr "Vous souhaitez un design premium"
+
+#: .\templates\pages\websites\custom_website_plan.html:189
+msgid "High-end visuals, unique storytelling, and branded experiences."
+msgstr "Visuels haut de gamme, storytelling unique et expériences de marque."
+
+#: .\templates\pages\websites\custom_website_plan.html:192
+msgid "Example: A flagship site for a premium brand."
+msgstr "Exemple : un site vitrine pour une marque premium."
+
+#: .\templates\pages\websites\custom_website_plan.html:203
+msgid "Not a template. Not a guess."
+msgstr "Pas un template. Pas une approximation."
+
+#: .\templates\pages\websites\custom_website_plan.html:205
+msgid ""
+"We start with your goals, then design and build a site that fits your "
+"business."
+msgstr ""
+"Nous partons de vos objectifs, puis concevons et développons un site adapté "
+"à votre activité."
+
+#: .\templates\pages\websites\custom_website_plan.html:208
+msgid "Designed for your brand"
+msgstr "Conçu pour votre marque"
+
+#: .\templates\pages\websites\custom_website_plan.html:209
+msgid "Built for speed & mobile"
+msgstr "Conçu pour la rapidité et le mobile"
+
+#: .\templates\pages\websites\custom_website_plan.html:210
+msgid "Structured for SEO"
+msgstr "Structuré pour le SEO"
+
+#: .\templates\pages\websites\custom_website_plan.html:211
+msgid "Easy to maintain"
+msgstr "Facile à maintenir"
+
+#: .\templates\pages\websites\custom_website_plan.html:215
+msgid "Preview placeholder"
+msgstr "Aperçu (placeholder)"
+
+#: .\templates\pages\websites\custom_website_plan.html:218
+msgid "Homepage concept"
+msgstr "Concept de page d’accueil"
+
+#: .\templates\pages\websites\custom_website_plan.html:219
+msgid "Ready"
+msgstr "Prêt"
+
+#: .\templates\pages\websites\custom_website_plan.html:222
+msgid "Services layout"
+msgstr "Mise en page des services"
+
+#: .\templates\pages\websites\custom_website_plan.html:223
+msgid "In review"
+msgstr "En cours de validation"
+
+#: .\templates\pages\websites\custom_website_plan.html:226
+msgid "Contact flow"
+msgstr "Parcours de contact"
+
+#: .\templates\pages\websites\custom_website_plan.html:227
+msgid "Draft"
+msgstr "Brouillon"
+
+#: .\templates\pages\websites\custom_website_plan.html:241
+msgid "Discovery call"
+msgstr "Appel de découverte"
+
+#: .\templates\pages\websites\custom_website_plan.html:242
+msgid "Understand goals and constraints."
+msgstr "Comprendre les objectifs et les contraintes."
+
+#: .\templates\pages\websites\custom_website_plan.html:246
+msgid "Proposal & scope"
+msgstr "Proposition et périmètre"
+
+#: .\templates\pages\websites\custom_website_plan.html:247
+msgid "Clear scope, timeline, and budget."
+msgstr "Périmètre, planning et budget clairs."
+
+#: .\templates\pages\websites\custom_website_plan.html:251
+msgid "Design preview"
+msgstr "Aperçu du design"
+
+#: .\templates\pages\websites\custom_website_plan.html:252
+msgid "Review layouts and direction."
+msgstr "Validation des mises en page et de la direction."
+
+#: .\templates\pages\websites\custom_website_plan.html:256
+msgid "Build & review"
+msgstr "Développement et révision"
+
+#: .\templates\pages\websites\custom_website_plan.html:257
+msgid "Iterate until ready."
+msgstr "Itérations jusqu’à validation finale."
+
+#: .\templates\pages\websites\custom_website_plan.html:261
+msgid "Launch & support"
+msgstr "Lancement et accompagnement"
+
+#: .\templates\pages\websites\custom_website_plan.html:262
+msgid "Go live with guidance."
+msgstr "Mise en ligne avec accompagnement."
+
+#: .\templates\pages\websites\custom_website_plan.html:270
+msgid "What you get"
+msgstr "Ce que vous obtenez"
+
+#: .\templates\pages\websites\custom_website_plan.html:274
+msgid "Custom pages & layouts"
+msgstr "Pages et mises en page sur mesure"
+
+#: .\templates\pages\websites\custom_website_plan.html:278
+msgid "Contact forms (optional)"
+msgstr "Formulaires de contact (optionnels)"
+
+#: .\templates\pages\websites\custom_website_plan.html:282
+msgid "SEO-ready structure"
+msgstr "Structure prête pour le SEO"
+
+#: .\templates\pages\websites\custom_website_plan.html:286
+msgid "Translations ready"
+msgstr "Prêt pour les traductions"
+
+#: .\templates\pages\websites\custom_website_plan.html:290
+msgid "Performance optimizations"
+msgstr "Optimisations des performances"
+
+#: .\templates\pages\websites\custom_website_plan.html:294
+msgid "Training / handover"
+msgstr "Formation / passation"
+
+#: .\templates\pages\websites\custom_website_plan.html:303
+msgid "Pricing depends on scope"
+msgstr "Le prix dépend du périmètre"
+
+#: .\templates\pages\websites\custom_website_plan.html:305
+msgid ""
+"Every custom website is different. We define scope first, then quote clearly."
+msgstr ""
+"Chaque site web sur mesure est différent. Nous définissons d’abord le "
+"périmètre, puis établissons un devis clair."
+
+#: .\templates\pages\websites\custom_website_plan.html:307
+msgid "Most projects start with a quick call."
+msgstr "La plupart des projets commencent par un appel rapide."
+
+#: .\templates\pages\websites\custom_website_plan.html:317
+msgid "Tell us what you need"
+msgstr "Dites-nous ce dont vous avez besoin"
+
+#: .\templates\pages\websites\custom_website_plan.html:320
+msgid "We'll respond with a clear proposal and next steps."
+msgstr ""
+"Nous vous répondrons avec une proposition claire et les prochaines étapes."
+
+#: .\templates\pages\websites\custom_website_plan.html:328
+msgid "Contact us"
+msgstr "Contactez-nous"
+
+#: .\templates\pages\websites\multi_page_plan.html:111
+#: .\templates\pages\websites\multi_page_plan.html:114
+msgid "Multi Page Website"
+msgstr "Site web multipage"
+
+#: .\templates\pages\websites\multi_page_plan.html:117
+msgid ""
+"A structured website with multiple pages, so every part of your business has "
+"its own space. Each topic gets a clear home for your visitors."
+msgstr ""
+"Un site structuré avec plusieurs pages, afin que chaque partie de votre "
+"activité ait son propre espace. Chaque sujet dispose d’un emplacement clair "
+"pour vos visiteurs."
+
+#: .\templates\pages\websites\multi_page_plan.html:134
+#: .\templates\pages\websites\multi_page_seo_plan.html:113
+msgid "As featured"
+msgstr "Présenté sur"
+
+#: .\templates\pages\websites\multi_page_plan.html:137
+#: .\templates\pages\websites\multi_page_seo_plan.html:116
+msgid "Google"
+msgstr "Google"
+
+#: .\templates\pages\websites\multi_page_plan.html:138
+#: .\templates\pages\websites\multi_page_seo_plan.html:117
+msgid "Trustpilot"
+msgstr "Trustpilot"
+
+#: .\templates\pages\websites\multi_page_plan.html:139
+#: .\templates\pages\websites\multi_page_seo_plan.html:118
+#: .\templates\pages\websites\premium_estore_plan.html:206
+msgid "Printful"
+msgstr "Printful"
+
+#: .\templates\pages\websites\multi_page_plan.html:140
+#: .\templates\pages\websites\multi_page_seo_plan.html:119
+msgid "Stripe"
+msgstr "Stripe"
+
+#: .\templates\pages\websites\multi_page_plan.html:141
+#: .\templates\pages\websites\multi_page_seo_plan.html:120
+msgid "EU-ready"
+msgstr "Conforme UE"
+
+#: .\templates\pages\websites\multi_page_plan.html:164
+msgid "Clear structure for your customers"
+msgstr "Une structure claire pour vos clients"
+
+#: .\templates\pages\websites\multi_page_plan.html:167
+msgid ""
+"A multi-page website separates your content into clear sections. Instead of "
+"putting everything on one long page, each topic gets its own page. This "
+"makes your website easier to understand and more comfortable to use. "
+"Visitors can quickly find what they are looking for and feel more confident "
+"in what you offer."
+msgstr ""
+"Un site multipage sépare votre contenu en sections claires. Au lieu de tout "
+"regrouper sur une seule longue page, chaque sujet dispose de sa propre page. "
+"Cela rend votre site plus facile à comprendre et plus agréable à utiliser. "
+"Les visiteurs trouvent rapidement ce qu’ils cherchent et ont davantage "
+"confiance dans votre offre."
+
+#: .\templates\pages\websites\multi_page_plan.html:170
+msgid "Separate pages for services, about, and contact"
+msgstr "Pages distinctes pour les services, la présentation et le contact"
+
+#: .\templates\pages\websites\multi_page_plan.html:171
+msgid "Cleaner navigation and better user flow"
+msgstr "Navigation plus claire et meilleur parcours utilisateur"
+
+#: .\templates\pages\websites\multi_page_plan.html:172
+msgid "More professional appearance"
+msgstr "Apparence plus professionnelle"
+
+#: .\templates\pages\websites\multi_page_plan.html:192
+#: .\templates\pages\websites\premium_estore_plan.html:224
+msgid "Built to grow with your business"
+msgstr "Conçu pour évoluer avec votre entreprise"
+
+#: .\templates\pages\websites\multi_page_plan.html:195
+msgid ""
+"This plan is ideal when your business is growing or already offers multiple "
+"services. You can start with a few pages and add more later without "
+"rebuilding your site. New services, locations, or information can be added "
+"anytime. Your website grows together with your business and stays organized "
+"as you expand."
+msgstr ""
+"Cette formule est idéale lorsque votre entreprise se développe ou propose "
+"déjà plusieurs services. Vous pouvez commencer avec quelques pages et en "
+"ajouter d’autres plus tard sans reconstruire le site. De nouveaux services, "
+"lieux ou informations peuvent être ajoutés à tout moment. Votre site évolue "
+"avec votre activité tout en restant organisé."
+
+#: .\templates\pages\websites\multi_page_plan.html:198
+msgid "Add new pages when needed"
+msgstr "Ajouter de nouvelles pages si nécessaire"
+
+#: .\templates\pages\websites\multi_page_plan.html:199
+msgid "Flexible structure for future expansion"
+msgstr "Structure flexible pour une évolution future"
+
+#: .\templates\pages\websites\multi_page_plan.html:200
+msgid "Easy updates from one place"
+msgstr "Mises à jour faciles depuis un seul endroit"
+
+#: .\templates\pages\websites\multi_page_plan.html:210
+msgid "Better navigation"
+msgstr "Meilleure navigation"
+
+#: .\templates\pages\websites\multi_page_plan.html:213
+msgid "Separate pages make it easier for visitors to explore your website."
+msgstr ""
+"Des pages séparées facilitent l’exploration du site pour les visiteurs."
+
+#: .\templates\pages\websites\multi_page_plan.html:218
+msgid "More room for content"
+msgstr "Plus d’espace pour le contenu"
+
+#: .\templates\pages\websites\multi_page_plan.html:221
+msgid "Each service or topic has its own page, without clutter."
+msgstr "Chaque service ou sujet dispose de sa propre page, sans surcharge."
+
+#: .\templates\pages\websites\multi_page_plan.html:226
+msgid "Stronger foundation"
+msgstr "Base plus solide"
+
+#: .\templates\pages\websites\multi_page_plan.html:229
+msgid ""
+"A flexible structure that supports future upgrades like SEO or online stores."
+msgstr ""
+"Une structure flexible qui permet des évolutions futures comme le SEO ou les "
+"boutiques en ligne."
+
+#: .\templates\pages\websites\multi_page_plan.html:234
+msgid ""
+"You are not locked into this plan. You can upgrade later to add SEO "
+"features, more pages, or online selling. Your existing content stays in "
+"place, so you do not have to start over."
+msgstr ""
+"Vous n’êtes pas bloqué dans cette formule. Vous pouvez évoluer plus tard "
+"pour ajouter des fonctionnalités SEO, plus de pages ou la vente en ligne. "
+"Votre contenu existant reste en place, sans devoir tout recommencer."
+
+#: .\templates\pages\websites\multi_page_plan.html:245
+msgid "Need more than a single page?"
+msgstr "Besoin de plus qu’une seule page ?"
+
+#: .\templates\pages\websites\multi_page_plan.html:248
+msgid ""
+"A multi-page website gives your business more room to explain what you do."
+msgstr ""
+"Un site multipage offre à votre entreprise plus d’espace pour expliquer ce "
+"que vous faites."
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:89
+#: .\templates\pages\websites\multi_page_seo_plan.html:92
+msgid "Multi Page + SEO"
+msgstr "Site multipage + SEO"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:95
+msgid ""
+"A structured website with SEO foundations to help customers find you online."
+msgstr ""
+"Un site structuré avec des bases SEO pour aider les clients à vous trouver "
+"en ligne."
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:102
+msgid "See what's included"
+msgstr "Voir ce qui est inclus"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:133
+msgid "SEO-ready from day one"
+msgstr "Prêt pour le SEO dès le premier jour"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:136
+msgid ""
+"This plan combines a multi-page website with a solid SEO foundation. Your "
+"pages are structured in a way search engines can understand. Titles, "
+"headings, and page layout are set up correctly from the start. This helps "
+"your website appear more clearly in search results over time."
+msgstr ""
+"Cette formule combine un site multipage avec une base SEO solide. Vos pages "
+"sont structurées de manière compréhensible pour les moteurs de recherche. "
+"Les titres, en-têtes et mises en page sont correctement configurés dès le "
+"départ. Cela aide votre site à mieux apparaître dans les résultats de "
+"recherche au fil du temps."
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:139
+msgid "Clean structure Google understands"
+msgstr "Structure claire comprise par Google"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:140
+msgid "Proper headings and page titles"
+msgstr "Titres de pages et en-têtes corrects"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:141
+msgid "Fast pages, mobile-friendly"
+msgstr "Pages rapides, adaptées au mobile"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:160
+msgid "Local visibility support"
+msgstr "Support pour la visibilité locale"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:163
+msgid ""
+"If your business serves a specific area, structure matters. This plan helps "
+"search engines understand where you operate. It is especially useful for "
+"local services and regional businesses. You can expand to more locations "
+"later if needed."
+msgstr ""
+"Si votre entreprise opère dans une zone spécifique, la structure est "
+"essentielle. Cette formule aide les moteurs de recherche à comprendre où "
+"vous êtes actif. Elle est particulièrement utile pour les services locaux et "
+"les entreprises régionales. Vous pouvez étendre à d’autres zones plus tard "
+"si nécessaire."
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:166
+msgid "Clear location signals"
+msgstr "Signaux de localisation clairs"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:167
+msgid "Ideal for local services"
+msgstr "Idéal pour les services locaux"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:168
+msgid "Easy to expand later"
+msgstr "Facile à étendre plus tard"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:173
+msgid "Better content structure"
+msgstr "Meilleure structure de contenu"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:176
+msgid ""
+"Each service or topic gets its own page. This makes your content easier to "
+"read for visitors. It also makes it easier for search engines to understand "
+"what each page is about. Clear pages build trust and improve clarity."
+msgstr ""
+"Chaque service ou sujet dispose de sa propre page. Cela rend le contenu plus "
+"lisible pour les visiteurs et plus compréhensible pour les moteurs de "
+"recherche. Des pages claires renforcent la confiance et la lisibilité."
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:179
+msgid "Services get their own pages"
+msgstr "Les services ont leurs propres pages"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:180
+msgid "Visitors find answers faster"
+msgstr "Les visiteurs trouvent plus vite les réponses"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:181
+msgid "More trust, more clarity"
+msgstr "Plus de confiance, plus de clarté"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:193
+msgid "Want customers to find you on Google?"
+msgstr "Vous voulez que les clients vous trouvent sur Google ?"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:196
+msgid "Start with a website structure built for visibility and growth."
+msgstr ""
+"Commencez avec une structure de site conçue pour la visibilité et la "
+"croissance."
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:222
+msgid "Pages built for growth"
+msgstr "Des pages conçues pour évoluer"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:225
+msgid ""
+"This plan is designed for long-term use. You can add new pages as your "
+"business grows. Content updates are easy and do not require rebuilding your "
+"site. Your website stays flexible as your needs change."
+msgstr ""
+"Cette formule est conçue pour le long terme. Vous pouvez ajouter de "
+"nouvelles pages à mesure que votre entreprise grandit. Les mises à jour de "
+"contenu sont simples et ne nécessitent pas de reconstruire le site. Votre "
+"site reste flexible selon vos besoins."
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:228
+msgid "Add pages anytime"
+msgstr "Ajouter des pages à tout moment"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:229
+msgid "Strong long-term foundation"
+msgstr "Base solide sur le long terme"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:230
+msgid "Easy updates"
+msgstr "Mises à jour faciles"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:239
+msgid "Multilingual SEO-ready"
+msgstr "SEO multilingue prêt à l’emploi"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:242
+msgid ""
+"Your website can support multiple languages from the start. Each language "
+"has a clean structure and clear URLs. This helps both visitors and search "
+"engines. Perfect for businesses working in more than one market."
+msgstr ""
+"Votre site peut gérer plusieurs langues dès le départ. Chaque langue dispose "
+"d’une structure propre et d’URL claires. Cela aide à la fois les visiteurs "
+"et les moteurs de recherche. Idéal pour les entreprises actives sur "
+"plusieurs marchés."
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:245
+msgid "Multiple languages supported (NL, EN, FR, DE, ES, PT-PT)"
+msgstr "Plusieurs langues prises en charge (NL, EN, FR, DE, ES, PT-PT)"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:246
+msgid "Clean URLs per language"
+msgstr "URL propres par langue"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:247
+msgid "Central content management"
+msgstr "Gestion centralisée du contenu"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:252
+msgid "Simple reporting later"
+msgstr "Rapports simples ultérieurement"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:255
+msgid ""
+"You do not need complex tools to get started. This plan prepares your site "
+"for basic performance tracking. More detailed reporting can be added later "
+"when needed. Everything is built with future improvements in mind."
+msgstr ""
+"Vous n’avez pas besoin d’outils complexes pour commencer. Cette formule "
+"prépare votre site au suivi de performance de base. Des rapports plus "
+"détaillés pourront être ajoutés plus tard si nécessaire. Tout est conçu en "
+"pensant aux évolutions futures."
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:258
+msgid "See what pages are improving"
+msgstr "Voir quelles pages s’améliorent"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:259
+msgid "Track progress (future dashboard)"
+msgstr "Suivre la progression (tableau de bord futur)"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:260
+msgid "No complex tools needed"
+msgstr "Aucun outil complexe requis"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:272
+msgid "Ready to build your SEO-friendly website?"
+msgstr "Prêt à créer votre site optimisé pour le SEO ?"
+
+#: .\templates\pages\websites\multi_page_seo_plan.html:275
+msgid "Start now, grow later, and keep everything simple."
+msgstr "Commencez maintenant, évoluez plus tard et gardez les choses simples."
+
+#: .\templates\pages\websites\premium_estore_plan.html:116
+#: .\templates\pages\websites\premium_estore_plan.html:119
+#: .\templates\pages\websites\premium_estore_plan.html:273
+msgid "Premium eStore"
+msgstr "Boutique en ligne Premium"
+
+#: .\templates\pages\websites\premium_estore_plan.html:122
+msgid ""
+"A full-featured online store built for growing businesses and larger product "
+"ranges."
+msgstr ""
+"Une boutique en ligne complète conçue pour les entreprises en croissance et "
+"les catalogues de produits plus importants."
+
+#: .\templates\pages\websites\premium_estore_plan.html:129
+msgid "Compare plans"
+msgstr "Comparer les formules"
+
+#: .\templates\pages\websites\premium_estore_plan.html:139
+msgid "Built for serious online selling"
+msgstr "Conçu pour la vente en ligne à grande échelle"
+
+#: .\templates\pages\websites\premium_estore_plan.html:141
+msgid ""
+"The Premium eStore is designed for businesses that want to sell online at "
+"scale. It supports larger product catalogs, more categories, and advanced "
+"shop features. You get more control over how products are displayed and "
+"managed, so the store feels professional and reliable. It is ideal when "
+"online sales are an important part of your business, not just an add-on."
+msgstr ""
+"La boutique en ligne Premium est conçue pour les entreprises qui souhaitent "
+"vendre en ligne à grande échelle. Elle prend en charge des catalogues de "
+"produits plus vastes, davantage de catégories et des fonctionnalités de "
+"boutique avancées. Vous bénéficiez de plus de contrôle sur l’affichage et la "
+"gestion des produits, pour une boutique professionnelle et fiable. Idéale "
+"lorsque la vente en ligne est un élément clé de votre activité."
+
+#: .\templates\pages\websites\premium_estore_plan.html:144
+msgid ""
+"The Premium eStore includes everything from the Starter plan, plus more "
+"flexibility and control for teams that need room to grow."
+msgstr ""
+"La boutique en ligne Premium inclut tout ce qui est proposé dans la formule "
+"Starter, avec en plus davantage de flexibilité et de contrôle pour les "
+"équipes qui ont besoin d’évoluer."
+
+#: .\templates\pages\websites\premium_estore_plan.html:150
+msgid "Unlimited products"
+msgstr "Produits illimités"
+
+#: .\templates\pages\websites\premium_estore_plan.html:151
+msgid "Keep adding products as your catalog grows."
+msgstr "Ajoutez des produits au fur et à mesure que votre catalogue grandit."
+
+#: .\templates\pages\websites\premium_estore_plan.html:152
+#: .\templates\pages\websites\premium_estore_plan.html:158
+#: .\templates\pages\websites\premium_estore_plan.html:164
+#: .\templates\pages\websites\premium_estore_plan.html:170
+#: .\templates\pages\websites\premium_estore_plan.html:176
+#: .\templates\pages\websites\premium_estore_plan.html:182
+#: .\templates\pages\websites\premium_estore_plan.html:188
+#: .\templates\pages\websites\premium_estore_plan.html:194
+msgid "Included"
+msgstr "Inclus"
+
+#: .\templates\pages\websites\premium_estore_plan.html:156
+msgid "Categories & filters"
+msgstr "Catégories et filtres"
+
+#: .\templates\pages\websites\premium_estore_plan.html:157
+msgid "Organize products so customers find what they need."
+msgstr ""
+"Organisez les produits pour que les clients trouvent ce dont ils ont besoin."
+
+#: .\templates\pages\websites\premium_estore_plan.html:162
+msgid "Inventory & variants"
+msgstr "Stock et variantes"
+
+#: .\templates\pages\websites\premium_estore_plan.html:163
+msgid "Manage sizes, colors, and stock levels."
+msgstr "Gérez les tailles, les couleurs et les niveaux de stock."
+
+#: .\templates\pages\websites\premium_estore_plan.html:168
+msgid "Shipping options"
+msgstr "Options de livraison"
+
+#: .\templates\pages\websites\premium_estore_plan.html:169
+msgid "Set simple shipping rules and rates."
+msgstr "Définissez des règles et des tarifs de livraison simples."
+
+#: .\templates\pages\websites\premium_estore_plan.html:174
+msgid "Discount codes"
+msgstr "Codes promo"
+
+#: .\templates\pages\websites\premium_estore_plan.html:175
+msgid "Create offers for seasonal or loyal customers."
+msgstr "Créez des offres pour les clients saisonniers ou fidèles."
+
+#: .\templates\pages\websites\premium_estore_plan.html:180
+#: .\templates\pages\websites\premium_estore_plan.html:278
+msgid "Customer accounts"
+msgstr "Comptes clients"
+
+#: .\templates\pages\websites\premium_estore_plan.html:181
+msgid "Let buyers save details and reorder easily."
+msgstr ""
+"Permettez aux acheteurs d’enregistrer leurs informations et de recommander "
+"facilement."
+
+#: .\templates\pages\websites\premium_estore_plan.html:187
+msgid "Review orders and statuses in one place."
+msgstr "Consultez les commandes et les statuts au même endroit."
+
+#: .\templates\pages\websites\premium_estore_plan.html:192
+msgid "Email notifications"
+msgstr "Notifications e-mail"
+
+#: .\templates\pages\websites\premium_estore_plan.html:193
+msgid "Automatic updates for customers and staff."
+msgstr "Mises à jour automatiques pour les clients et l’équipe."
+
+#: .\templates\pages\websites\premium_estore_plan.html:204
+msgid "Payments"
+msgstr "Paiements"
+
+#: .\templates\pages\websites\premium_estore_plan.html:205
+msgid "Shipping"
+msgstr "Livraison"
+
+#: .\templates\pages\websites\premium_estore_plan.html:207
+msgid "POS"
+msgstr "POS"
+
+#: .\templates\pages\websites\premium_estore_plan.html:209
+msgid "Email"
+msgstr "E-mail"
+
+#: .\templates\pages\websites\premium_estore_plan.html:212
+msgid ""
+"The Premium eStore is ready to connect with the services you already use. "
+"This can include payment providers, shipping tools, and print-on-demand "
+"partners. You can add more integrations as your business grows, without "
+"changing your website structure."
+msgstr ""
+"La boutique en ligne Premium est prête à se connecter aux services que vous "
+"utilisez déjà. Cela peut inclure des prestataires de paiement, des outils de "
+"livraison et des partenaires d’impression à la demande. Vous pouvez ajouter "
+"d’autres intégrations à mesure que votre entreprise grandit, sans modifier "
+"la structure de votre site."
+
+#: .\templates\pages\websites\premium_estore_plan.html:226
+msgid ""
+"This plan is built for long-term use. You can add products, categories, and "
+"new features without restructuring your store. The shop remains fast, mobile-"
+"friendly, and easy to manage as you expand. It is a strong foundation for "
+"SEO, marketing, and future automation."
+msgstr ""
+"Cette formule est conçue pour le long terme. Vous pouvez ajouter des "
+"produits, des catégories et de nouvelles fonctionnalités sans restructurer "
+"votre boutique. La boutique reste rapide, adaptée au mobile et facile à "
+"gérer à mesure que vous vous développez. C’est une base solide pour le SEO, "
+"le marketing et l’automatisation future."
+
+#: .\templates\pages\websites\premium_estore_plan.html:229
+msgid "Add products and categories at any time"
+msgstr "Ajoutez des produits et des catégories à tout moment"
+
+#: .\templates\pages\websites\premium_estore_plan.html:230
+msgid "Better customer experience at scale"
+msgstr "Meilleure expérience client à grande échelle"
+
+#: .\templates\pages\websites\premium_estore_plan.html:231
+msgid "Ready for SEO and expansion"
+msgstr "Prêt pour le SEO et l’expansion"
+
+#: .\templates\pages\websites\premium_estore_plan.html:235
+msgid "Store dashboard preview"
+msgstr "Aperçu du tableau de bord de la boutique"
+
+#: .\templates\pages\websites\premium_estore_plan.html:238
+msgid "Orders today"
+msgstr "Commandes aujourd’hui"
+
+#: .\templates\pages\websites\premium_estore_plan.html:242
+msgid "Revenue"
+msgstr "Chiffre d’affaires"
+
+#: .\templates\pages\websites\premium_estore_plan.html:243
+msgid "EUR 1,240"
+msgstr "EUR 1 240"
+
+#: .\templates\pages\websites\premium_estore_plan.html:246
+msgid "Low stock alerts"
+msgstr "Alertes de stock faible"
+
+#: .\templates\pages\websites\premium_estore_plan.html:259
+msgid ""
+"The Starter eStore is perfect for small shops with a limited product range. "
+"The Premium eStore is designed for businesses that need more flexibility and "
+"control. If you plan to grow your catalog or sell more actively, Premium is "
+"the better choice. You can always start small and upgrade later without "
+"losing your content."
+msgstr ""
+"La boutique Starter est parfaite pour les petites boutiques avec une gamme "
+"de produits limitée. La boutique Premium est conçue pour les entreprises qui "
+"ont besoin de plus de flexibilité et de contrôle. Si vous prévoyez "
+"d’agrandir votre catalogue ou de vendre plus activement, Premium est le "
+"meilleur choix. Vous pouvez toujours commencer petit et évoluer plus tard "
+"sans perdre votre contenu."
+
+#: .\templates\pages\websites\premium_estore_plan.html:265
+#: .\templates\pages\websites\starter_estore_plan.html:120
+msgid "Up to 8 products"
+msgstr "Jusqu’à 8 produits"
+
+#: .\templates\pages\websites\premium_estore_plan.html:266
+msgid "Simple checkout"
+msgstr "Paiement simple"
+
+#: .\templates\pages\websites\premium_estore_plan.html:267
+msgid "Basic order emails"
+msgstr "E-mails de commande basiques"
+
+#: .\templates\pages\websites\premium_estore_plan.html:268
+msgid "Mobile-friendly layout"
+msgstr "Mise en page adaptée au mobile"
+
+#: .\templates\pages\websites\premium_estore_plan.html:269
+msgid "Great for first-time sellers"
+msgstr "Idéal pour les nouveaux vendeurs"
+
+#: .\templates\pages\websites\premium_estore_plan.html:275
+msgid "Unlimited products and categories"
+msgstr "Produits et catégories illimités"
+
+#: .\templates\pages\websites\premium_estore_plan.html:276
+msgid "Inventory and variants"
+msgstr "Stock et variantes"
+
+#: .\templates\pages\websites\premium_estore_plan.html:277
+msgid "Discounts and promotions"
+msgstr "Réductions et promotions"
+
+#: .\templates\pages\websites\premium_estore_plan.html:279
+msgid "Built for growth and SEO"
+msgstr "Conçu pour la croissance et le SEO"
+
+#: .\templates\pages\websites\premium_estore_plan.html:291
+msgid "Ready to build a scalable online store?"
+msgstr "Prêt à créer une boutique en ligne évolutive ?"
+
+#: .\templates\pages\websites\premium_estore_plan.html:294
+msgid ""
+"Start with a Premium eStore and grow your online business with confidence."
+msgstr ""
+"Commencez avec une boutique Premium et développez votre activité en ligne en "
+"toute confiance."
+
+#: .\templates\pages\websites\starter_estore_plan.html:108
+msgid ""
+"A simple online shop for selling a small number of products without "
+"complexity."
+msgstr ""
+"Une boutique en ligne simple pour vendre un petit nombre de produits sans "
+"complexité."
+
+#: .\templates\pages\websites\starter_estore_plan.html:112
+#: .\templates\pages\websites\starter_estore_plan.html:245
+msgid "Start selling"
+msgstr "Commencer à vendre"
+
+#: .\templates\pages\websites\starter_estore_plan.html:131
+msgid "Sell a few products easily"
+msgstr "Vendez quelques produits facilement"
+
+#: .\templates\pages\websites\starter_estore_plan.html:134
+msgid ""
+"The Starter eStore is designed for small shops and focused offers. It allows "
+"you to sell a limited number of products in a clean and simple way. "
+"Customers can browse, add products to their cart, and complete a purchase. "
+"Everything is kept straightforward so you can launch quickly."
+msgstr ""
+"La boutique Starter est conçue pour les petites boutiques et les offres "
+"ciblées. Elle vous permet de vendre un nombre limité de produits de manière "
+"claire et simple. Les clients peuvent parcourir, ajouter des produits au "
+"panier et finaliser leur achat. Tout est volontairement simple pour que vous "
+"puissiez lancer rapidement."
+
+#: .\templates\pages\websites\starter_estore_plan.html:139
+msgid "Simple checkout & payments"
+msgstr "Paiement et encaissement simples"
+
+#: .\templates\pages\websites\starter_estore_plan.html:142
+msgid ""
+"Your shop includes a clear and familiar checkout flow. Customers can review "
+"their order and complete payment without confusion. There are no unnecessary "
+"steps or advanced settings to manage. This makes it easier for customers to "
+"buy and for you to manage orders."
+msgstr ""
+"Votre boutique inclut un parcours de paiement clair et familier. Les clients "
+"peuvent vérifier leur commande et payer sans confusion. Il n’y a pas "
+"d’étapes inutiles ni de réglages avancés à gérer. Cela facilite l’achat pour "
+"les clients et la gestion des commandes pour vous."
+
+#: .\templates\pages\websites\starter_estore_plan.html:155
+msgid ""
+"The Starter eStore includes the essential tools needed to start selling "
+"online."
+msgstr ""
+"La boutique Starter inclut les outils essentiels pour commencer à vendre en "
+"ligne."
+
+#: .\templates\pages\websites\starter_estore_plan.html:158
+msgid "Product pages for up to 8 products"
+msgstr "Pages produits pour jusqu’à 8 produits"
+
+#: .\templates\pages\websites\starter_estore_plan.html:159
+msgid "Shopping cart and checkout"
+msgstr "Panier et passage en caisse"
+
+#: .\templates\pages\websites\starter_estore_plan.html:160
+msgid "Payment-ready structure"
+msgstr "Structure prête pour le paiement"
+
+#: .\templates\pages\websites\starter_estore_plan.html:161
+msgid "Order confirmation messages"
+msgstr "Messages de confirmation de commande"
+
+#: .\templates\pages\websites\starter_estore_plan.html:171
+msgid "Checkout preview"
+msgstr "Aperçu du paiement"
+
+#: .\templates\pages\websites\starter_estore_plan.html:174
+msgid "Product"
+msgstr "Produit"
+
+#: .\templates\pages\websites\starter_estore_plan.html:175
+msgid "Quantity"
+msgstr "Quantité"
+
+#: .\templates\pages\websites\starter_estore_plan.html:176
+msgid "Price"
+msgstr "Prix"
+
+#: .\templates\pages\websites\starter_estore_plan.html:179
+msgid "Handmade Candle"
+msgstr "Bougie artisanale"
+
+#: .\templates\pages\websites\starter_estore_plan.html:181
+msgid "EUR 18.00"
+msgstr "EUR 18,00"
+
+#: .\templates\pages\websites\starter_estore_plan.html:184
+msgid "Mini Soap Set"
+msgstr "Mini coffret de savons"
+
+#: .\templates\pages\websites\starter_estore_plan.html:186
+msgid "EUR 12.00"
+msgstr "EUR 12,00"
+
+#: .\templates\pages\websites\starter_estore_plan.html:189
+msgid "Total"
+msgstr "Total"
+
+#: .\templates\pages\websites\starter_estore_plan.html:190
+msgid "EUR 30.00"
+msgstr "EUR 30,00"
+
+#: .\templates\pages\websites\starter_estore_plan.html:194
+msgid "Pay now"
+msgstr "Payer maintenant"
+
+#: .\templates\pages\websites\starter_estore_plan.html:199
+msgid "A real online checkout"
+msgstr "Un vrai paiement en ligne"
+
+#: .\templates\pages\websites\starter_estore_plan.html:202
+msgid ""
+"This plan includes a real checkout experience, not just a product showcase."
+msgstr ""
+"Cette formule inclut un véritable parcours de paiement, pas seulement une "
+"vitrine de produits."
+
+#: .\templates\pages\websites\starter_estore_plan.html:203
+msgid "Customers can place orders directly through your website."
+msgstr "Les clients peuvent passer commande directement sur votre site."
+
+#: .\templates\pages\websites\starter_estore_plan.html:204
+msgid "The flow is designed to feel familiar and trustworthy."
+msgstr "Le parcours est conçu pour être familier et inspirer confiance."
+
+#: .\templates\pages\websites\starter_estore_plan.html:207
+msgid "You can focus on selling instead of managing technical details."
+msgstr ""
+"Vous pouvez vous concentrer sur la vente plutôt que sur la gestion technique."
+
+#: .\templates\pages\websites\starter_estore_plan.html:217
+msgid "Designed for small shops"
+msgstr "Conçu pour les petites boutiques"
+
+#: .\templates\pages\websites\starter_estore_plan.html:220
+msgid "This plan is intentionally kept simple."
+msgstr "Cette formule est volontairement simple."
+
+#: .\templates\pages\websites\starter_estore_plan.html:223
+msgid "Best suited for small product ranges and starter shops"
+msgstr "Idéal pour une petite gamme de produits et les boutiques qui démarrent"
+
+#: .\templates\pages\websites\starter_estore_plan.html:224
+msgid ""
+"Advanced features like large catalogs or complex inventory are not included"
+msgstr ""
+"Les fonctionnalités avancées comme les grands catalogues ou la gestion de "
+"stock complexe ne sont pas incluses"
+
+#: .\templates\pages\websites\starter_estore_plan.html:225
+msgid "You can upgrade later if your shop grows"
+msgstr "Vous pourrez évoluer plus tard si votre boutique grandit"
+
+#: .\templates\pages\websites\starter_estore_plan.html:228
+msgid ""
+"You are not locked into this plan. As your business grows, you can move to a "
+"more advanced eStore. Your products and content stay in place. Upgrading "
+"does not require rebuilding your site."
+msgstr ""
+"Vous n’êtes pas bloqué sur cette formule. À mesure que votre activité "
+"grandit, vous pouvez passer à une boutique plus avancée. Vos produits et "
+"votre contenu restent en place. L’évolution ne nécessite pas de refaire "
+"votre site."
+
+#: .\templates\pages\websites\starter_estore_plan.html:238
+msgid "Ready to start selling online?"
+msgstr "Prêt à commencer à vendre en ligne ?"
+
+#: .\templates\pages\websites\starter_estore_plan.html:241
+msgid "Launch your Starter eStore today and grow at your own pace."
+msgstr ""
+"Lancez votre boutique Starter dès aujourd’hui et évoluez à votre rythme."
+
+#: .\templates\registration\login.html:15
+msgid "Welcome back"
+msgstr "Bon retour"
+
+#: .\templates\registration\login.html:16
+msgid "Log in to continue."
+msgstr "Connectez-vous pour continuer."
+
+#: .\templates\registration\login.html:20
+#: .\templates\registration\signup.html:25
+msgid "Log in"
+msgstr "Se connecter"
+
+#: .\templates\registration\login.html:23
+msgid "No account yet?"
+msgstr "Pas encore de compte ?"
+
+#: .\templates\registration\login.html:24
+msgid "Create one"
+msgstr "Créer un compte"
+
+#: .\templates\registration\signup.html:9
+#: .\templates\registration\signup.html:21
+msgid "Create account"
+msgstr "Créer un compte"
+
+#: .\templates\registration\signup.html:15
+msgid "Create your account"
+msgstr "Créez votre compte"
+
+#: .\templates\registration\signup.html:16
+msgid "Create an account to save and manage your website."
+msgstr "Créez un compte pour enregistrer et gérer votre site."
+
+#: .\templates\registration\signup.html:24
+msgid "Already have an account?"
+msgstr "Vous avez déjà un compte ?"
+
+#~ msgid ""
+#~ "\n"
+#~ "                  PrintLab is jouw plek voor professioneel drukwerk en "
+#~ "merkgoods. Van visitekaartjes tot kleding en merch:\n"
+#~ "                  kies een categorie, lever je design aan, en wij regelen "
+#~ "productie en levering.\n"
+#~ "                "
+#~ msgstr ""
+#~ "\n"
+#~ "                  PrintLab est votre espace dédié à l’impression "
+#~ "professionnelle et aux produits de marque. Des cartes de visite aux "
+#~ "vêtements et objets promotionnels :\n"
+#~ "                  choisissez une catégorie, fournissez votre design, et "
+#~ "nous nous occupons de la production et de la livraison.\n"
+#~ "                "
+
+#~ msgid "Kleding"
+#~ msgstr "Vêtements"
+
+#~ msgid "Merch & cadeaus"
+#~ msgstr "Merchandising et cadeaux"
+
+#~ msgid "Home & kantoor"
+#~ msgstr "Maison et bureau"
+
+#~ msgid "Notitieboeken, mokken en kantooritems."
+#~ msgstr "Carnets, mugs et accessoires de bureau."
+
+#~ msgid "Hoe het werkt"
+#~ msgstr "Comment ça fonctionne"
+
+#~ msgid "Kies"
+#~ msgstr "Choisissez"
+
+#~ msgid "Lever je design aan of vraag hulp."
+#~ msgstr "Fournissez votre design ou demandez de l’aide."
+
+#~ msgid "Controleer"
+#~ msgstr "Vérifiez"
+
+#~ msgid "We checken en bevestigen je bestelling."
+#~ msgstr "Nous vérifions et confirmons votre commande."
+
+#~ msgid "Ontvang"
+#~ msgstr "Recevez"
+
+#~ msgid "Snelle levering bij jou of je klant."
+#~ msgstr "Livraison rapide chez vous ou chez votre client."
+
+#~ msgid "Eerlijke prijzen"
+#~ msgstr "Prix transparents"
+
+#~ msgid "Transparante offertes zonder verrassingen."
+#~ msgstr "Devis clairs, sans mauvaises surprises."
+
+#~ msgid "Alles in een flow"
+#~ msgstr "Tout dans un seul flux"
+
+#~ msgid ""
+#~ "Vertel ons wat je nodig hebt en ontvang snel een voorstel. Wij regelen de "
+#~ "rest."
+#~ msgstr ""
+#~ "Dites-nous ce dont vous avez besoin et recevez rapidement une "
+#~ "proposition. Nous nous occupons du reste."
+
+#~ msgid "Start nu"
+#~ msgstr "Commencer maintenant"
+
+#~ msgid "Praat met ons"
+#~ msgstr "Parlez avec nous"

@@ -1,0 +1,118 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
+    <link rel="icon" href="{% static 'favicon.png' %}">
+    <title>
+      {{ seo_title|default:"JustCodeWorks" }}
+    </title>
+    <meta name="robots" content="{{ seo_robots|default:'index, follow' }}">
+    {% if launch_noindex %}
+    <meta name="robots" content="noindex,nofollow">
+    {% endif %}
+    <meta name="description" content="{{ seo_description|default:'Website builder and content management platform' }}">
+  </head>
+  <body class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium">
+    <div class="min-h-screen ltr" data-locale="{{ LANGUAGE_CODE }}">
+      {% include 'core/main_nav.html' %}
+      <div class="min-h-screen">
+        <div class="relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
+            <div class="absolute inset-0 opacity-20">
+              <div class="absolute top-0 left-0 w-2 h-2 bg-white rounded-full animate-ping"></div>
+              <div class="absolute top-10 left-20 w-1 h-1 bg-blue-300 rounded-full animate-pulse"></div>
+              <div class="absolute top-20 right-10 w-1 h-1 bg-purple-300 rounded-full animate-ping"></div>
+              <div class="absolute bottom-20 left-10 w-2 h-2 bg-pink-300 rounded-full animate-pulse"></div>
+            </div>
+            <div class="absolute top-0 left-0 w-full h-full">
+              <div class="absolute top-20 left-20 w-32 h-32 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+              <div class="absolute top-40 right-20 w-32 h-32 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+              <div class="absolute -bottom-8 left-40 w-32 h-32 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+            </div>
+          </div>
+          <div class="relative z-10 max-w-7xl mx-auto px-4 py-20 sm:py-32">
+            <div class="text-center text-white">
+              <div class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm font-medium mb-8">
+                <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                {% trans "Blog" %}
+              </div>
+              <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent leading-tight">
+                {% trans "News & Updates" %}
+              </h1>
+              <p class="text-xl md:text-2xl mb-12 text-blue-100 max-w-4xl mx-auto leading-relaxed">
+                {% trans "Practical updates, tips, and behind-the-scenes notes from Just Code Works." %}
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a class="px-8 py-4 bg-white text-blue-900 font-bold rounded-xl hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 shadow-xl" href="{% url 'core:services' %}">
+                  {% trans "Start building" %}
+                </a>
+                <a class="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300" href="{% url 'core:help_center' %}">
+                  {% trans "Contact" %}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <section class="py-16 bg-gray-50">
+          <div class="max-w-7xl mx-auto px-4">
+            {% if posts %}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {% for post in posts %}
+              <article class="bg-white rounded-2xl border border-slate-100 shadow-md overflow-hidden">
+                <a href="{% url 'core:blog_detail' slug=post.slug %}">
+                  {% if post.featured_image %}
+                  <img class="w-full h-48 object-cover" src="{{ post.featured_image.url }}" alt="{{ post.localized_title }}">
+                  {% else %}
+                    {% with category_slug=post.category.slug|default:"default" %}
+                      {% if category_slug == "website-tips" %}
+                        <img class="w-full h-48 object-cover" src="{% static 'jcw/placeholders/blog/blog-1.svg' %}" alt="{{ post.localized_title }}">
+                      {% elif category_slug == "visibility-seo" %}
+                        <img class="w-full h-48 object-cover" src="{% static 'jcw/placeholders/blog/blog-2.svg' %}" alt="{{ post.localized_title }}">
+                      {% elif category_slug == "printlab" %}
+                        <img class="w-full h-48 object-cover" src="{% static 'jcw/placeholders/blog/blog-3.svg' %}" alt="{{ post.localized_title }}">
+                      {% elif category_slug == "updates" %}
+                        <img class="w-full h-48 object-cover" src="{% static 'jcw/placeholders/blog/blog-4.svg' %}" alt="{{ post.localized_title }}">
+                      {% else %}
+                        <img class="w-full h-48 object-cover" src="{% static 'jcw/placeholders/blog/blog-1.svg' %}" alt="{{ post.localized_title }}">
+                      {% endif %}
+                    {% endwith %}
+                  {% endif %}
+                </a>
+                <div class="p-6">
+                  {% if post.localized_category_name %}
+                  <div class="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold mb-3">
+                    {{ post.localized_category_name }}
+                  </div>
+                  {% endif %}
+                  <h2 class="text-2xl font-semibold text-slate-900 mb-2">
+                    <a class="hover:text-blue-700 transition-colors" href="{% url 'core:blog_detail' slug=post.slug %}">
+                      {{ post.localized_title }}
+                    </a>
+                  </h2>
+                  <p class="text-sm text-slate-600 mb-4">
+                    {{ post.localized_excerpt }}
+                  </p>
+                  <a class="text-blue-600 font-semibold hover:text-blue-700 transition-colors" href="{% url 'core:blog_detail' slug=post.slug %}">
+                    {% trans "Read more" %}
+                  </a>
+                </div>
+              </article>
+              {% endfor %}
+            </div>
+            {% else %}
+            <div class="text-center text-slate-600">
+              {% trans "No posts yet. Check back soon." %}
+            </div>
+            {% endif %}
+          </div>
+        </section>
+      </div>
+      {% include 'core/footer.html' %}
+    </div>
+    <script src="{% static 'jcw/js/jcw-ui.js' %}"></script>
+    {% include 'core/right_sidebar.html' %}
+  </body>
+</html>

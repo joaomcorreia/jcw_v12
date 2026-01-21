@@ -1,0 +1,74 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Pages" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">{% trans "Pages" %}</h1>
+  {% if not request.tenant %}
+    <div class="dashboard-card dashboard-card--auto">
+      <h3 class="dashboard-card-title">{% trans "No website found" %}</h3>
+      <p class="dashboard-muted">{% trans "Please choose a template first." %}</p>
+      <a class="dashboard-button" href="{% url 'core:dashboard_choose_template' %}">{% trans "Choose template" %}</a>
+    </div>
+  {% else %}
+    <div class="dashboard-toolbar">
+      <input class="dashboard-input" type="text" placeholder="{% trans 'Search pages' %}" {% if not feature_flags.can_use_custom_pages %}disabled{% endif %}>
+      {% if feature_flags.can_use_custom_pages %}
+        <a class="dashboard-button" href="{% url 'core:dashboard_pages_create' %}">{% trans "Create page" %}</a>
+      {% else %}
+        <button class="dashboard-button" type="button" disabled>{% trans "Create page" %}</button>
+      {% endif %}
+    </div>
+    {% if debug_counts %}
+      <p class="dashboard-muted">
+        {% trans "Debug" %}:
+        site={{ debug_counts.site_id }}
+        pages(site)={{ debug_counts.count_site }}
+        pages(global)={{ debug_counts.count_global }}
+        pages(site=null)={{ debug_counts.count_null }}
+      </p>
+    {% endif %}
+    <div class="dashboard-card dashboard-card--auto">
+      <div class="dashboard-table">
+        <div class="dashboard-table-row dashboard-table-header">
+          <div>{% trans "Title" %}</div>
+          <div>{% trans "Slug" %}</div>
+          <div>{% trans "Active" %}</div>
+          <div>{% trans "Updated" %}</div>
+          <div>{% trans "Actions" %}</div>
+        </div>
+        {% for row in page_rows %}
+        <div class="dashboard-table-row">
+          <div>{{ row.title }}</div>
+          <div class="dashboard-muted">{{ row.slug }}</div>
+          <div>
+            {% if row.is_active %}
+              <span class="dashboard-badge">{% trans "Active" %}</span>
+            {% else %}
+              <span class="dashboard-badge dashboard-badge--muted">{% trans "Inactive" %}</span>
+            {% endif %}
+          </div>
+          <div class="dashboard-muted">{{ row.updated_at|date:"Y-m-d" }}</div>
+          <div>
+            <a class="dashboard-link" href="{% url 'core:dashboard_edit_page' row.id %}">{% trans "Edit" %}</a>
+          </div>
+        </div>
+        {% empty %}
+        <div class="dashboard-table-row dashboard-table-empty">
+          <div>{% trans "No pages yet" %}</div>
+          <div>--</div>
+          <div>--</div>
+          <div>--</div>
+          <div>--</div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% if not feature_flags.can_use_custom_pages %}
+      {% include "components/upgrade_cta.html" with title=upgrade_ctas.custom_pages.title message=upgrade_ctas.custom_pages.message primary_button_text=upgrade_ctas.custom_pages.primary_button_text primary_button_url=upgrade_ctas.custom_pages.primary_button_url secondary_link_text=upgrade_ctas.custom_pages.secondary_link_text secondary_link_url=upgrade_ctas.custom_pages.secondary_link_url style=upgrade_ctas.custom_pages.style %}
+    {% endif %}
+  {% endif %}
+</div>
+{% endblock %}

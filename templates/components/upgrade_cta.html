@@ -1,0 +1,13 @@
+{% load i18n %}
+<div class="dashboard-card dashboard-upgrade-cta{% if style %} {{ style }}{% endif %}">
+  <div class="dashboard-card-header">
+    <h3 class="dashboard-card-title">{{ title }}</h3>
+  </div>
+  <p class="dashboard-muted">{{ message }}</p>
+  <div class="dashboard-cta-actions">
+    <a class="dashboard-button" href="{{ primary_button_url }}">{{ primary_button_text }}</a>
+    {% if secondary_link_text and secondary_link_url %}
+    <a class="dashboard-link" href="{{ secondary_link_url }}">{{ secondary_link_text }}</a>
+    {% endif %}
+  </div>
+</div>

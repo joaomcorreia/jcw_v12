@@ -1,0 +1,61 @@
+{% load static i18n %}
+{% if sidebar_panel %}
+<div class="jcw-right-sidebar-overlay" data-jcw-right-sidebar-overlay></div>
+<aside class="jcw-right-sidebar" data-jcw-right-sidebar>
+  <div class="p-6 space-y-5">
+    <div class="flex items-center gap-3">
+      <img src="{% static 'jcw/img/logo.svg' %}" alt="JustCodeWorks" class="h-10 w-auto">
+      <span class="text-base font-semibold text-slate-900">JustCodeWorks</span>
+    </div>
+
+    {% if sidebar_panel.headline %}
+    <h3 class="text-lg font-semibold text-slate-900">{{ sidebar_panel.headline }}</h3>
+    {% endif %}
+
+    {% if sidebar_panel.intro %}
+    <p class="text-sm text-slate-600">{{ sidebar_panel.intro }}</p>
+    {% endif %}
+
+    <div class="space-y-2 text-sm text-slate-700">
+      {% if sidebar_panel.phone %}
+      <div>
+        <a href="tel:{{ sidebar_panel.phone }}" class="hover:underline">{{ sidebar_panel.phone }}</a>
+      </div>
+      {% endif %}
+      {% if sidebar_panel.email %}
+      <div>
+        <a href="mailto:{{ sidebar_panel.email }}" class="hover:underline">{{ sidebar_panel.email }}</a>
+      </div>
+      {% endif %}
+      {% if sidebar_panel.address %}
+      <div>
+        {% if sidebar_panel.maps_url %}
+        <a href="{{ sidebar_panel.maps_url }}" target="_blank" rel="noopener" class="hover:underline">{{ sidebar_panel.address }}</a>
+        {% else %}
+        <span>{{ sidebar_panel.address }}</span>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+
+    {% if sidebar_panel.cta_text and sidebar_panel.cta_url %}
+    <a href="{{ sidebar_panel.cta_url }}" class="inline-flex items-center justify-center px-4 py-2 rounded-md bg-blue-600 text-white text-sm font-semibold hover:bg-blue-700">
+      {{ sidebar_panel.cta_text }}
+    </a>
+    {% endif %}
+
+    {% if sidebar_panel.extra_html %}
+    <div class="text-sm text-slate-600">{{ sidebar_panel.extra_html|safe }}</div>
+    {% endif %}
+
+    <div class="pt-4 border-t border-slate-200">
+      {% if feature_print_studio %}
+      <a href="{% url 'core:print_lab' %}" class="text-sm font-semibold text-blue-700 hover:underline">{% trans "Print Studio" %}</a>
+      {% else %}
+      <div class="text-sm text-slate-500">{% trans "Print Studio available on higher plans." %}</div>
+      {% endif %}
+    </div>
+
+  </div>
+</aside>
+{% endif %}

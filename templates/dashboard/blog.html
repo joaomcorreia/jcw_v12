@@ -1,0 +1,23 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Blog" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">{% trans "Blog" %}</h1>
+  {% if feature_flags.can_use_blog %}
+    <div class="dashboard-toolbar">
+      <input class="dashboard-input" type="text" placeholder="{% trans 'Search posts' %}" disabled>
+      <button class="dashboard-button" type="button" disabled>{% trans "Create post" %}</button>
+    </div>
+    <div class="dashboard-card dashboard-card--auto">
+      <h3 class="dashboard-card-title">{% trans "No posts yet" %}</h3>
+      <p class="dashboard-muted">{% trans "Create your first post to get started." %}</p>
+      <button class="dashboard-button" type="button" disabled>{% trans "Create your first post" %}</button>
+    </div>
+  {% else %}
+    {% include "components/upgrade_cta.html" with title=upgrade_ctas.blog.title message=upgrade_ctas.blog.message primary_button_text=upgrade_ctas.blog.primary_button_text primary_button_url=upgrade_ctas.blog.primary_button_url secondary_link_text=upgrade_ctas.blog.secondary_link_text secondary_link_url=upgrade_ctas.blog.secondary_link_url style=upgrade_ctas.blog.style %}
+  {% endif %}
+</div>
+{% endblock %}

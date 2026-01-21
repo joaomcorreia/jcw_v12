@@ -1,0 +1,49 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Create page" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">{% trans "Create page" %}</h1>
+  <div class="dashboard-card dashboard-card--auto">
+    <form method="post" class="dashboard-form">
+      {% csrf_token %}
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="page-title">{% trans "Title" %}</label>
+        <input
+          id="page-title"
+          name="title"
+          class="dashboard-input"
+          type="text"
+          value="{{ title_value }}">
+        {% if errors.title %}
+          <p class="dashboard-error">{{ errors.title }}</p>
+        {% endif %}
+      </div>
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="page-slug">{% trans "Slug" %}</label>
+        <input
+          id="page-slug"
+          name="slug"
+          class="dashboard-input"
+          type="text"
+          value="{{ slug_value }}">
+        {% if errors.slug %}
+          <p class="dashboard-error">{{ errors.slug }}</p>
+        {% endif %}
+      </div>
+      <div class="dashboard-form-row">
+        <label class="dashboard-checkbox">
+          <input type="checkbox" name="is_active" {% if is_active %}checked{% endif %}>
+          <span>{% trans "Active" %}</span>
+        </label>
+      </div>
+      <div class="dashboard-form-actions">
+        <button class="dashboard-button" type="submit">{% trans "Create page" %}</button>
+        <a class="dashboard-link" href="{% url 'core:dashboard_pages' %}">{% trans "Back to pages" %}</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

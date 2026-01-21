@@ -1,0 +1,8 @@
+{% load i18n %}
+<section>
+  <h2>{{ data.title|default:"" }}</h2>
+  <p>{{ data.text|default:"" }}</p>
+  {% if data.button_text and data.button_url %}
+    <a href="{{ data.button_url }}">{{ data.button_text }}</a>
+  {% endif %}
+</section>

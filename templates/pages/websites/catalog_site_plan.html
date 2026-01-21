@@ -1,0 +1,271 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
+    <link rel="icon" href="{% static 'favicon.png' %}">
+    <title>
+      {{ seo_title|default:"JustCodeWorks" }}
+    </title>
+    <meta name="robots" content="{{ seo_robots|default:'index, follow' }}">
+    {% if launch_noindex %}
+    <meta name="robots" content="noindex,nofollow">
+    {% endif %}
+    <meta name="description" content="{{ seo_description|default:'Website builder and content management platform' }}">
+    <style>
+      .plan-section {
+        border: 2px solid rgba(15, 23, 42, 0.08);
+        border-left-width: 6px;
+        border-radius: 16px;
+        background: #ffffff;
+        box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+      }
+      .plan-b1 { border-left-color: #3b82f6; }
+      .plan-b2 { border-left-color: #22c55e; }
+      .plan-b3 { border-left-color: #a855f7; }
+      .plan-b4 { border-left-color: #f97316; }
+      .plan-b5 { border-left-color: #06b6d4; }
+      .plan-cta-band {
+        background: linear-gradient(120deg, #0f172a, #312e81);
+        color: #ffffff;
+      }
+      .catalog-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 20px;
+      }
+      .catalog-card {
+        border-radius: 16px;
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        background: #f8fafc;
+        padding: 16px;
+        box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
+      }
+      .catalog-image {
+        background: linear-gradient(135deg, #e0f2fe, #f3e8ff);
+        border-radius: 12px;
+        height: 120px;
+        margin-bottom: 12px;
+      }
+      .catalog-price {
+        display: inline-block;
+        margin-top: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #1e3a8a;
+        background: #e0f2fe;
+        padding: 4px 10px;
+        border-radius: 999px;
+      }
+      .plan-medium-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+      }
+      @media (max-width: 1024px) {
+        .catalog-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .plan-medium-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 640px) {
+        .catalog-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium">
+    <div class="min-h-screen ltr" data-locale="{{ LANGUAGE_CODE }}">
+      {% include 'core/main_nav.html' %}
+      <div class="min-h-screen">
+        <div class="relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
+            <div class="absolute inset-0 opacity-20">
+              <div class="absolute top-0 left-0 w-2 h-2 bg-white rounded-full animate-ping">
+              </div>
+              <div class="absolute top-10 left-20 w-1 h-1 bg-blue-300 rounded-full animate-pulse">
+              </div>
+              <div class="absolute top-20 right-10 w-1 h-1 bg-purple-300 rounded-full animate-ping">
+              </div>
+              <div class="absolute bottom-20 left-10 w-2 h-2 bg-pink-300 rounded-full animate-pulse">
+              </div>
+            </div>
+            <div class="absolute top-0 left-0 w-full h-full">
+              <div class="absolute top-20 left-20 w-32 h-32 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob">
+              </div>
+              <div class="absolute top-40 right-20 w-32 h-32 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000">
+              </div>
+              <div class="absolute -bottom-8 left-40 w-32 h-32 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000">
+              </div>
+            </div>
+          </div>
+          <div class="relative z-10 max-w-7xl mx-auto px-4 py-20 sm:py-32">
+            <div class="text-center text-white">
+              <div class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm font-medium mb-8">
+                <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                {% trans "Catalog Site" %}
+              </div>
+              <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent leading-tight">
+                {% trans "Catalog Site" %}
+              </h1>
+              <p class="text-xl md:text-2xl mb-12 text-blue-100 max-w-4xl mx-auto leading-relaxed">
+                {% trans "Show your products and prices (optional) without taking online payments." %}
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a class="px-8 py-4 bg-white text-blue-900 font-bold rounded-xl hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 shadow-xl" href="{{ sections_by_key.hero.content.cta_primary_url|default:'#' }}">
+                  {% trans "Start now" %}
+                </a>
+                <a class="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300" href="#catalog-tiles">
+                  {% trans "See examples" %}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="py-16 bg-gray-50">
+          <div class="max-w-7xl mx-auto px-4 space-y-8">
+            <section id="catalog-tiles" class="plan-section plan-b1 p-8">
+              <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-3">
+                  {% trans "Perfect for showcasing what you sell" %}
+                </h2>
+                <p class="text-gray-700">
+                  {% blocktrans %}A catalog site lets customers browse your products online without buying directly. It is ideal when sales happen through phone, email, WhatsApp, or in person. Your products are clearly presented with photos, descriptions, and optional prices. Simple for customers, simple for you.{% endblocktrans %}
+                </p>
+              </div>
+              <div class="catalog-grid">
+                <div class="catalog-card">
+                  <div class="catalog-image"></div>
+                  <div class="text-sm font-semibold text-gray-900">{% trans "Ceramic Mug" %}</div>
+                  <span class="catalog-price">€12.50</span>
+                </div>
+                <div class="catalog-card">
+                  <div class="catalog-image"></div>
+                  <div class="text-sm font-semibold text-gray-900">{% trans "Canvas Tote" %}</div>
+                  <span class="catalog-price">{% trans "Price on request" %}</span>
+                </div>
+                <div class="catalog-card">
+                  <div class="catalog-image"></div>
+                  <div class="text-sm font-semibold text-gray-900">{% trans "Notebook Set" %}</div>
+                  <span class="catalog-price">€24.00</span>
+                </div>
+                <div class="catalog-card">
+                  <div class="catalog-image"></div>
+                  <div class="text-sm font-semibold text-gray-900">{% trans "Desk Lamp" %}</div>
+                  <span class="catalog-price">€44.00</span>
+                </div>
+                <div class="catalog-card">
+                  <div class="catalog-image"></div>
+                  <div class="text-sm font-semibold text-gray-900">{% trans "Gift Box" %}</div>
+                  <span class="catalog-price">{% trans "Price on request" %}</span>
+                </div>
+                <div class="catalog-card">
+                  <div class="catalog-image"></div>
+                  <div class="text-sm font-semibold text-gray-900">{% trans "Poster Print" %}</div>
+                  <span class="catalog-price">€18.00</span>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <section class="plan-cta-band py-16">
+          <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+              <div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-3">
+                  {% trans "No payments, no checkout, no complexity." %}
+                </h2>
+                <p class="text-blue-100 text-lg">
+                  {% blocktrans %}This plan removes the complexity of online payments. There is no checkout, no payment processing, and no transaction management. Customers contact you directly to place an order or request a quote. You stay in control of how sales are handled.{% endblocktrans %}
+                </p>
+              </div>
+              <a class="inline-flex items-center px-6 py-3 bg-white text-blue-900 font-semibold rounded-lg hover:bg-blue-50 transition-colors" href="{{ sections_by_key.hero.content.cta_primary_url|default:'#' }}">
+                {% trans "Start building" %}
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <div class="py-16 bg-gray-50">
+          <div class="max-w-7xl mx-auto px-4 space-y-10">
+            <section class="plan-section plan-b2 p-8">
+              <h2 class="text-3xl font-bold text-gray-900 mb-4">
+                {% trans "What customers can do on a Catalog Site" %}
+              </h2>
+              <p class="text-gray-700 mb-4">
+                {% trans "A catalog site focuses on clarity and presentation." %}
+              </p>
+              <ul class="text-gray-700 space-y-2">
+                <li>{% trans "Browse products by category" %}</li>
+                <li>{% trans "View descriptions, photos, and variations" %}</li>
+                <li>{% trans "See prices (optional)" %}</li>
+                <li>{% trans "Contact you to order or request a quote" %}</li>
+              </ul>
+              <p class="text-sm text-gray-500 mt-4">
+                {% trans "Best for businesses that sell through WhatsApp, phone, email, or in-store." %}
+              </p>
+            </section>
+
+            <div class="plan-medium-grid">
+              <section class="plan-section plan-b3 p-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                  {% trans "Great for local and service-based businesses" %}
+                </h3>
+                <p class="text-gray-700 mb-4">
+                  {% blocktrans %}Catalog sites work very well for local businesses and service providers. Customers can explore your offerings before contacting you. This helps qualify enquiries and saves time. Updates are easy when products or prices change.{% endblocktrans %}
+                </p>
+                <ul class="text-gray-700 space-y-2">
+                  <li>{% trans "Clear product pages" %}</li>
+                  <li>{% trans "Fast, mobile-friendly browsing" %}</li>
+                  <li>{% trans "Easy to update products" %}</li>
+                </ul>
+              </section>
+              <section class="plan-section plan-b4 p-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                  {% trans "Upgrade to a shop later" %}
+                </h3>
+                <p class="text-gray-700 mb-4">
+                  {% blocktrans %}You are not locked into this setup. When your business is ready, you can upgrade to a full online store. Your products and content stay in place. Payments and checkout can be added later without rebuilding the site.{% endblocktrans %}
+                </p>
+                <ul class="text-gray-700 space-y-2">
+                  <li>{% trans "Switch to an online store when you're ready" %}</li>
+                  <li>{% trans "Keep your catalog content" %}</li>
+                  <li>{% trans "Add payments only when it makes sense" %}</li>
+                </ul>
+              </section>
+            </div>
+          </div>
+        </div>
+
+        <section class="plan-cta-band py-16">
+          <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+              <div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-3">
+                  {% trans "Ready to showcase your products?" %}
+                </h2>
+                <p class="text-blue-100 text-lg">
+                  {% trans "Start with a catalog site today and upgrade to an online store when it makes sense." %}
+                </p>
+              </div>
+              <a class="inline-flex items-center px-6 py-3 bg-white text-blue-900 font-semibold rounded-lg hover:bg-blue-50 transition-colors" href="{{ sections_by_key.hero.content.cta_primary_url|default:'#' }}">
+                {% trans "Start now" %}
+              </a>
+            </div>
+          </div>
+        </section>
+      </div>
+      {% include 'core/footer.html' %}
+    </div>
+    <script src="{% static 'jcw/js/jcw-ui.js' %}"></script>
+    {% include 'core/right_sidebar.html' %}
+  </body>
+</html>
+
