@@ -3,9 +3,6 @@
 
 {% block content %}
 {% if sections %}
-  {% if hero_settings_json %}
-    {{ hero_settings_json|json_script:"jcw-hero-settings" }}
-  {% endif %}
   {% for section in sections %}
       {% if section.type == "hero" %}
         {% include "site/sections/hero.html" with section=section data=section.data %}

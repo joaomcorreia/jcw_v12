@@ -37,45 +37,13 @@
       body.embed-mode .cookie-banner,
       body.embed-mode .site-messages { display: none !important; }
     </style>
-    {% if is_edit_mode %}
-    <link rel="stylesheet" href="{% static 'editor/editor.css' %}">
-    {% endif %}
     <style>
       .site-messages { padding: 12px 16px; background: #f8fafc; border-bottom: 1px solid #e2e8f0; }
       .site-message { color: #0f172a; font-size: 14px; }
     </style>
   </head>
-  <body{% if embed_mode or is_edit_mode %} class="{% if embed_mode %}embed-mode{% endif %}{% if is_edit_mode %} edit-mode{% endif %}"{% endif %}>
-    {% if is_edit_mode %}
-      <div id="jcw-editor-bar" class="jcw-edit-bar" role="status" aria-live="polite">
-        <div class="jcw-edit-bar__left">
-          {% trans "Editing ON" %}
-          <span class="jcw-edit-bar__badge">
-            {% if jcw_site_mode == "main" %}
-              {% trans "MAIN SITE" %}
-            {% elif jcw_site_mode == "tenant" %}
-              {% trans "TENANT" %}
-            {% else %}
-              {% trans "OTHER" %}
-            {% endif %}
-          </span>
-        </div>
-        <div class="jcw-edit-bar__center">
-          <span id="jcw-save-status">{% trans "Saved" %}</span>
-        </div>
-        <div class="jcw-edit-bar__right">
-          <button type="button" class="jcw-edit-bar__btn" id="jcw-edit-toggle" aria-pressed="true">
-            {% trans "Preview" %}
-          </button>
-          <a class="jcw-edit-bar__btn jcw-edit-bar__link" href="{% url 'tenant_dashboard:dashboard' %}">
-            {% trans "Back to Dashboard" %}
-          </a>
-        </div>
-      </div>
-      <script>
-        window.JCW_SITE_MODE = "{{ jcw_site_mode|default:'other' }}";
-      </script>
-    {% endif %}
+  <body{% if embed_mode %} class="embed-mode"{% endif %}>
+    <script>window.JCW_SITE_MODE = "tenant";</script>
     {% if messages %}
       <div class="site-messages" role="status" aria-live="polite">
         {% for message in messages %}
@@ -115,8 +83,5 @@
         window.addEventListener("resize", setOffset);
       })();
     </script>
-    {% if is_edit_mode %}
-    <script src="{% static 'editor/editor.js' %}"></script>
-    {% endif %}
   </body>
 </html>

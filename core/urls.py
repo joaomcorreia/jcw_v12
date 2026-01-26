@@ -20,7 +20,10 @@ app_name = "core"
 urlpatterns = [
     # Main site public pages
     path("", views.home, name="home"),
-    path("dashboard/api/section-settings/", views.main_section_settings, name="main_section_settings"),
+    # Main site API endpoints (used by marketing editor)
+    path("main/api/main-section-settings/", views.main_section_settings, name="main_section_settings"),
+    # Legacy endpoint - deprecated, will be removed
+    path("dashboard/api/section-settings/", views.main_section_settings, name="main_section_settings_legacy"),
     path("signup/", views.signup_view, name="signup"),
     path("start/", views.start_design, name="start_design"),
     path("onboarding/step-1/", views.onboarding_step1, name="onboarding_step1"),

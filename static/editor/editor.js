@@ -8,13 +8,30 @@
   }
 
   ready(function () {
+    var siteMode = window.JCW_SITE_MODE || "other";
+    var debugEnabled = window.location.search.indexOf("debug_editor=1") !== -1;
+
+    // Kill-switch: only run editor on main marketing site
+    if (siteMode !== "main") {
+      if (debugEnabled && window.console && typeof window.console.log === "function") {
+        window.console.log("JCW editor: skipping (siteMode=" + siteMode + ")");
+      }
+      return;
+    }
+
+    if (window.__JCW_EDITOR_INIT__) {
+      return;
+    }
+    window.__JCW_EDITOR_INIT__ = true;
+
     if (window.console && typeof window.console.log === "function") {
       window.console.log("JCW editor loaded");
     }
     var toggle = document.getElementById("jcw-edit-toggle");
     var previewToggle = document.getElementById("jcw-preview-toggle");
     var heroSettingsToggle = document.getElementById("jcw-hero-settings-toggle");
-    if (!toggle && !previewToggle && !heroSettingsToggle) {
+    var stateToggle = previewToggle || toggle;
+    if (!stateToggle && !heroSettingsToggle) {
       return;
     }
     var body = document.body;
@@ -32,23 +49,23 @@
     var modal = null;
     var modalBackdrop = null;
     var activeSection = null;
-    var siteMode = window.JCW_SITE_MODE || "other";
-
-    var debugEnabled = window.location.search.indexOf("debug_editor=1") !== -1;
 
     var hasHeroSlider = function () {
       return Boolean(document.querySelector('[data-jcw-hero-slider="1"]'));
     };
 
     var setState = function (isPreview) {
+      if (!stateToggle) {
+        return;
+      }
       if (isPreview) {
         body.classList.add(previewClass);
-        toggle.textContent = "Editing";
-        toggle.setAttribute("aria-pressed", "false");
+        stateToggle.textContent = "Editing";
+        stateToggle.setAttribute("aria-pressed", "false");
       } else {
         body.classList.remove(previewClass);
-        toggle.textContent = "Preview";
-        toggle.setAttribute("aria-pressed", "true");
+        stateToggle.textContent = "Preview";
+        stateToggle.setAttribute("aria-pressed", "true");
       }
     };
 
@@ -149,6 +166,15 @@
         normalized = normalized.slice(1);
       }
       return "/" + lang + "/dashboard/api/" + normalized;
+    };
+
+    var getMainApiUrl = function (path) {
+      var lang = document.documentElement.lang || "en";
+      var normalized = path;
+      while (normalized.charAt(0) === "/") {
+        normalized = normalized.slice(1);
+      }
+      return "/" + lang + "/main/api/" + normalized;
     };
 
     var saveField = function (field, value) {
@@ -552,7 +578,7 @@
         }
       });
       setStatus("Saving...", false);
-      return fetch(getApiUrl("section-settings/"), {
+      return fetch(getMainApiUrl("main-section-settings/"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -614,7 +640,9 @@
       field.focus();
     };
 
-    setState(false);
+    if (stateToggle) {
+      setState(false);
+    }
     applyEditorOffset();
     window.requestAnimationFrame(applyEditorOffset);
     setTimeout(applyEditorOffset, 100);
@@ -630,26 +658,21 @@
     };
 
     var updatePreviewButton = function (isPreview) {
-      if (!previewToggle) {
+      if (!stateToggle) {
         return;
       }
-      previewToggle.textContent = isPreview ? "Preview ON" : "Preview OFF";
-      previewToggle.setAttribute("aria-pressed", isPreview ? "true" : "false");
+      if (stateToggle === previewToggle) {
+        stateToggle.textContent = isPreview ? "Preview ON" : "Preview OFF";
+      } else {
+        stateToggle.textContent = isPreview ? "Editing" : "Preview";
+      }
+      stateToggle.setAttribute("aria-pressed", isPreview ? "true" : "false");
     };
 
     var heroAvailable = hasHeroSlider();
     if (heroSettingsToggle && !(heroAvailable && siteMode === "main")) {
       heroSettingsToggle.style.display = "none";
       heroSettingsToggle.setAttribute("aria-disabled", "true");
-    }
-
-    if (toggle) {
-      toggle.addEventListener("click", function () {
-        var isPreview = body.classList.contains(previewClass);
-        setState(!isPreview);
-        setPreviewAttr(!isPreview);
-        updatePreviewButton(!isPreview);
-      });
     }
 
     if (previewToggle) {
@@ -665,6 +688,13 @@
         setPreviewAttr(next);
         updatePreviewButton(next);
       });
+    } else if (toggle) {
+      toggle.addEventListener("click", function () {
+        var isPreview = body.classList.contains(previewClass);
+        setState(!isPreview);
+        setPreviewAttr(!isPreview);
+        updatePreviewButton(!isPreview);
+      });
     }
 
     var heroSection = document.querySelector("[data-jcw-section='home.hero'], [data-jcw-section='page.hero'], [data-jcw-section='hero']");
@@ -675,7 +705,7 @@
     }
 
     document.addEventListener("mousemove", function (event) {
-      if (!body.classList.contains("edit-mode")) {
+      if (!body.classList.contains("jcw-edit-mode")) {
         return;
       }
       if (body.classList.contains(previewClass)) {
@@ -693,7 +723,7 @@
     });
 
     document.addEventListener("click", function (event) {
-      if (!body.classList.contains("edit-mode")) {
+      if (!body.classList.contains("jcw-edit-mode")) {
         return;
       }
       if (body.classList.contains(previewClass)) {
@@ -800,8 +830,7 @@
         stopEditing(false);
       });
     }, true);
-  });
-})();
+
     if (typeof window.JCW_HERO_APPLY !== "function") {
       window.JCW_HERO_APPLY = function (config) {
         window.JCW_HERO = config;
@@ -816,3 +845,5 @@
         }
       };
     }
+  });
+})();

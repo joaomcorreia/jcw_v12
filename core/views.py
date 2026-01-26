@@ -1815,6 +1815,20 @@ def dashboard_section_settings(request):
     if not site or getattr(site, "is_main", False):
         return JsonResponse({"ok": False, "error": "Forbidden"}, status=403)
 
+    # Verify request is NOT from main site host
+    raw_host = request.get_host()
+    host = (raw_host or "").split(":", 1)[0].lower().strip()
+    main_domain = getattr(settings, "MAIN_DOMAIN", "justcodeworks.local").lower()
+    main_hosts = {
+        "localhost",
+        "127.0.0.1",
+        main_domain,
+        "justcodeworks.local",
+        f"www.{main_domain}",
+    }
+    if host in main_hosts:
+        return JsonResponse({"ok": False, "error": "Forbidden: tenant endpoint only"}, status=403)
+
     impersonating = request.session.get("impersonate_tenant_id") == site.id
     if not (
         request.user.is_staff
@@ -1851,6 +1865,20 @@ def dashboard_section_settings(request):
 def main_section_settings(request):
     if not (request.user.is_staff or request.user.is_superuser):
         return JsonResponse({"ok": False, "error": "Forbidden"}, status=403)
+
+    # Verify request is from main site (not tenant subdomain)
+    raw_host = request.get_host()
+    host = (raw_host or "").split(":", 1)[0].lower().strip()
+    main_domain = getattr(settings, "MAIN_DOMAIN", "justcodeworks.local").lower()
+    main_hosts = {
+        "localhost",
+        "127.0.0.1",
+        main_domain,
+        "justcodeworks.local",
+        f"www.{main_domain}",
+    }
+    if host not in main_hosts:
+        return JsonResponse({"ok": False, "error": "Forbidden: main site only"}, status=403)
 
     try:
         payload = json.loads(request.body.decode("utf-8"))

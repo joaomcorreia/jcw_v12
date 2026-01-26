@@ -3,6 +3,7 @@
 <!doctype html>
 <html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
   <head>
+    <script>window.JCW_SITE_MODE = "main";</script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
@@ -30,6 +31,8 @@
     <link rel="alternate" hreflang="{{ alternate.lang }}" href="{{ alternate.url }}">
       {% endfor %}
     {% endif %}</head>
+
+    
   <body
     class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium{% if embed_mode %} embed-mode{% endif %}{% if is_edit_mode %} jcw-edit-mode edit-mode{% endif %}">
     {% if is_edit_mode %}
