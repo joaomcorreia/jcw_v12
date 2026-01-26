@@ -1,0 +1,23 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Site settings" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">{% trans "Site settings" %}</h1>
+  <div class="dashboard-card dashboard-card--auto">
+    <p class="dashboard-muted">{% trans "Settings editor coming soon." %}</p>
+    <div class="dashboard-list">
+      <div class="dashboard-list-item">
+        <span>{% trans "Noindex enabled" %}</span>
+        <span class="dashboard-status">{{ settings.launch_noindex }}</span>
+      </div>
+      <div class="dashboard-list-item">
+        <span>{% trans "Disallow robots" %}</span>
+        <span class="dashboard-status">{{ settings.launch_disallow_robots }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

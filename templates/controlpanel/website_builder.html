@@ -1,0 +1,185 @@
+{% extends "controlpanel/base_controlpanel.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Website builder" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <div class="dashboard-card-header">
+    <h1 class="dashboard-title">{% trans "Website builder" %}</h1>
+    <div class="dashboard-muted">{% trans "Editing homepage hero" %} ({{ lang }})</div>
+  </div>
+  <div class="dashboard-card dashboard-card--auto">
+    <div class="dashboard-card-header dashboard-builder-header">
+      <h3 class="dashboard-card-title">{% trans "Preview" %}</h3>
+      <div class="dashboard-builder-toggle" role="group" aria-label="{% trans 'Preview mode' %}">
+        <a
+          class="dashboard-button dashboard-button--secondary{% if view_mode == 'desktop' %} is-active{% endif %}"
+          href="?{{ toggle_query_desktop }}">{% trans "Desktop" %}</a>
+        <a
+          class="dashboard-button dashboard-button--secondary{% if view_mode == 'mobile' %} is-active{% endif %}"
+          href="?{{ toggle_query_mobile }}">{% trans "Mobile" %}</a>
+      </div>
+    </div>
+    <div class="dashboard-builder-preview{% if view_mode == 'mobile' %} is-mobile{% endif %}" data-builder-preview>
+      <div class="dashboard-builder-frame" data-builder-frame>
+        <iframe
+          title="{% trans 'Homepage preview' %}"
+          src="{{ preview_url }}"
+          loading="lazy">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .dashboard-shell {
+    grid-template-columns: 260px 1fr 370px;
+  }
+  .dashboard-drawer {
+    width: min(370px, 100%);
+  }
+  .dashboard-builder-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .dashboard-builder-toggle .dashboard-button {
+    padding: 6px 12px;
+  }
+  .dashboard-builder-preview {
+    width: 100%;
+    height: 75vh;
+    min-height: 600px;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    overflow: auto;
+    background: #f8fafc;
+    display: block;
+  }
+  .dashboard-builder-frame {
+    width: 100%;
+    height: 100%;
+  }
+  .dashboard-builder-preview:not(.is-mobile) .dashboard-builder-frame {
+    min-width: 900px;
+  }
+  .dashboard-builder-preview iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .dashboard-builder-preview.is-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+  }
+  .dashboard-builder-preview.is-mobile .dashboard-builder-frame {
+    width: 390px;
+    height: 780px;
+    border-radius: 28px;
+    border: 1px solid #cbd5f5;
+    background: #fff;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+    transform-origin: top center;
+  }
+  .dashboard-builder-preview.is-mobile iframe {
+    width: 390px;
+    height: 780px;
+  }
+  @media (max-width: 1200px) {
+    .dashboard-shell {
+      grid-template-columns: 220px 1fr 300px;
+    }
+    .dashboard-drawer {
+      width: min(300px, 100%);
+    }
+  }
+  @media (max-width: 900px) {
+    .dashboard-drawer {
+      width: 100%;
+    }
+  }
+</style>
+<script>
+  (function () {
+    const toggleLinks = document.querySelectorAll(".dashboard-builder-toggle a");
+    const currentView = "{{ view_mode }}";
+    if (currentView) {
+      localStorage.setItem("jcw_builder_view", currentView);
+    }
+    toggleLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        localStorage.setItem(
+          "jcw_builder_view",
+          link.href.includes("view=mobile") ? "mobile" : "desktop"
+        );
+      });
+    });
+    const stored = localStorage.getItem("jcw_builder_view");
+    if (stored && stored !== currentView) {
+      const query = stored === "mobile" ? "{{ toggle_query_mobile }}" : "{{ toggle_query_desktop }}";
+      if (query) {
+        window.location.search = "?" + query;
+      }
+    }
+    const preview = document.querySelector("[data-builder-preview]");
+    const frame = document.querySelector("[data-builder-frame]");
+    if (!preview || !frame) {
+      return;
+    }
+    const isMobile = preview.classList.contains("is-mobile");
+    if (!isMobile) {
+      return;
+    }
+    const resize = function () {
+      const available = preview.clientWidth - 24;
+      const target = 390;
+      const scale = Math.min(1, available / target);
+      frame.style.transform = "scale(" + scale.toFixed(3) + ")";
+    };
+    resize();
+    window.addEventListener("resize", resize);
+  })();
+</script>
+{% endblock %}
+
+{% block drawer %}
+<div class="dashboard-card-header">
+  <h3 class="dashboard-card-title">{% trans "Hero fields" %}</h3>
+</div>
+<form method="post" class="dashboard-form">
+  {% csrf_token %}
+  <div class="dashboard-form-row">
+    <label class="dashboard-label" for="hero_title">{% trans "Hero title" %}</label>
+    <input class="dashboard-input" id="hero_title" name="hero_title" type="text" value="{{ hero_title }}">
+  </div>
+  <div class="dashboard-form-row">
+    <label class="dashboard-label" for="hero_subtitle">{% trans "Hero subtitle" %}</label>
+    <textarea class="dashboard-input" id="hero_subtitle" name="hero_subtitle" rows="3">{{ hero_subtitle }}</textarea>
+  </div>
+  <div class="dashboard-form-row">
+    <label class="dashboard-label" for="hero_primary_cta_label">{% trans "Primary CTA label" %}</label>
+    <input class="dashboard-input" id="hero_primary_cta_label" name="hero_primary_cta_label" type="text" value="{{ hero_primary_cta_label }}">
+  </div>
+  <div class="dashboard-form-row">
+    <label class="dashboard-label" for="hero_primary_cta_url">{% trans "Primary CTA URL" %}</label>
+    <input class="dashboard-input" id="hero_primary_cta_url" name="hero_primary_cta_url" type="url" value="{{ hero_primary_cta_url }}">
+  </div>
+  <div class="dashboard-form-row">
+    <label class="dashboard-label" for="hero_secondary_cta_label">{% trans "Secondary CTA label" %}</label>
+    <input class="dashboard-input" id="hero_secondary_cta_label" name="hero_secondary_cta_label" type="text" value="{{ hero_secondary_cta_label }}">
+  </div>
+  <div class="dashboard-form-row">
+    <label class="dashboard-label" for="hero_secondary_cta_url">{% trans "Secondary CTA URL" %}</label>
+    <input class="dashboard-input" id="hero_secondary_cta_url" name="hero_secondary_cta_url" type="url" value="{{ hero_secondary_cta_url }}">
+  </div>
+  <div class="dashboard-form-actions">
+    <button class="dashboard-button" type="submit">{% trans "Save hero" %}</button>
+  </div>
+</form>
+{% endblock %}

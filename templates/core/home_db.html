@@ -1,0 +1,31 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+
+{% block content %}
+  {% if sections %}
+    {% for section in sections %}
+      {% if section.type == "hero" %}
+        {% include "site/sections/hero.html" with data=section.data %}
+      {% elif section.type == "features" %}
+        {% include "site/sections/features.html" with data=section.data %}
+      {% elif section.type == "pricing" %}
+        {% include "site/sections/pricing.html" with data=section.data %}
+      {% elif section.type == "printlab" %}
+        {% include "site/sections/printlab.html" with data=section.data %}
+      {% elif section.type == "faq" %}
+        {% include "site/sections/faq.html" with data=section.data %}
+      {% elif section.type == "services" %}
+        {% include "site/sections/services.html" with data=section.data %}
+      {% elif section.type == "cta" %}
+        {% include "site/sections/cta.html" with data=section.data %}
+      {% else %}
+        {% include "site/sections/unknown.html" with section=section data=section.data %}
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    <section>
+      <h1>{% trans "Coming soon" %}</h1>
+      <p>{% trans "This page is still being prepared." %}</p>
+    </section>
+  {% endif %}
+{% endblock %}

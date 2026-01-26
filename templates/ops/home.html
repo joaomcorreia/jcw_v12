@@ -1,0 +1,22 @@
+{% extends "ops/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Operator Overview" %}{% endblock %}
+
+{% block content %}
+  <div class="ops-card">
+    <h1 class="ops-title">{% trans "Operator Overview" %}</h1>
+    <p class="ops-subtitle">{% trans "Manage tenant sites and visibility settings." %}</p>
+    <div class="ops-grid">
+      <div class="ops-card">
+        <div class="ops-subtitle">{% trans "Sites" %}</div>
+        <div class="ops-title">{{ site_count }}</div>
+        <a class="ops-button" href="{% url 'ops:sites' %}">{% trans "View sites" %}</a>
+      </div>
+      <div class="ops-card">
+        <div class="ops-subtitle">{% trans "Plans" %}</div>
+        <div class="ops-title">{{ plan_count }}</div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

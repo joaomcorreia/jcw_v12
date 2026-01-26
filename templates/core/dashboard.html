@@ -1,4 +1,4 @@
-﻿{% load static i18n %}
+{% load static i18n %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
   <head>
@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
     <link rel="icon" href="{% static 'favicon.png' %}">
     <title>{% trans "Dashboard" %}</title>
-  </head>
+    </head>
   <body class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium">
     <div class="min-h-screen">
       <header class="border-b border-slate-200 bg-white">
@@ -40,7 +40,10 @@
           <div class="bg-white rounded-2xl border border-slate-200 shadow-lg p-6 space-y-4">
             <h2 class="text-lg font-semibold">{% trans "Quick links" %}</h2>
             <div class="space-y-2 text-sm">
-              <a class="block text-blue-700 hover:text-blue-800" href="{% url 'admin:index' %}">{% trans "Admin" %}</a>
+              {% url 'admin:index' as admin_url %}
+              {% if admin_url and request.user.is_staff %}
+              <a class="block text-blue-700 hover:text-blue-800" href="{{ admin_url }}">{% trans "Admin" %}</a>
+              {% endif %}
               <a class="block text-blue-700 hover:text-blue-800" href="{% url 'core:billing' %}">{% trans "Billing" %}</a>
               <a class="block text-blue-700 hover:text-blue-800" href="{% url 'core:print_lab' %}">{% trans "Print Studio" %}</a>
               {% if request.user.is_staff %}
@@ -53,3 +56,4 @@
     </div>
   </body>
 </html>
+

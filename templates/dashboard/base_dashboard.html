@@ -7,13 +7,19 @@
     <link rel="stylesheet" href="{% static 'dashboard/dashboard.css' %}">
     <link rel="icon" href="{% static 'favicon.png' %}">
     {% block extra_css %}{% endblock %}
-    <title>{% block title %}Dashboard{% endblock %}</title>
+    <title>{% block title %}{% if dashboard_title %}{{ dashboard_title }} - {% trans "Dashboard" %}{% else %}{% trans "Dashboard" %}{% endif %}{% endblock %}</title>
   </head>
   <body class="dashboard-body">
     <div class="dashboard-app" data-dashboard data-current-url="{{ request.resolver_match.url_name }}">
       <header class="dashboard-topbar">
         <div class="dashboard-topbar-left">
+          {% if dashboard_title %}
+          <a class="dashboard-brand" href="{% url 'core:home' %}">
+            {{ dashboard_title }} - {% trans "Dashboard" %}
+          </a>
+          {% else %}
           <a class="dashboard-brand" href="{% url 'core:home' %}">Just Code Works</a>
+          {% endif %}
         </div>
         <div class="dashboard-topbar-right">
           {% if request.user.is_staff and request.session.impersonate_tenant_id %}
@@ -21,7 +27,10 @@
             <span class="dashboard-badge dashboard-badge--warning">
               {% blocktrans with tenant_name=request.tenant.name|default:"" %}Viewing: {{ tenant_name }}{% endblocktrans %}
             </span>
-            <a class="dashboard-link" href="{% url 'controlpanel:tenant_stop_impersonate' %}">{% trans "Exit" %}</a>
+            {% url 'control_panel:tenant_stop_impersonate' as cp_exit_url %}
+            {% if cp_exit_url %}
+            <a class="dashboard-link" href="{{ cp_exit_url }}">{% trans "Exit" %}</a>
+            {% endif %}
           </div>
           {% endif %}
           <a class="dashboard-top-link" href="{% url 'core:home' %}">{% trans "Main Site" %}</a>
@@ -35,33 +44,67 @@
             <
           </button>
           <nav class="dashboard-nav">
-            <a class="dashboard-nav-item{% if request.resolver_match.url_name == 'dashboard' or request.resolver_match.url_name == 'dashboard_home' %} is-active{% endif %}" href="{% url 'core:dashboard' %}">{% trans "Dashboard" %}</a>
-            <a class="dashboard-nav-item{% if request.resolver_match.url_name == 'dashboard_users' %} is-active{% endif %}" href="{% url 'core:dashboard_users' %}">{% trans "Users" %}</a>
+            <a class="dashboard-nav-item{% if request.resolver_match.url_name == 'dashboard' or request.resolver_match.url_name == 'dashboard_home' %} is-active{% endif %}" href="{% url 'tenant_dashboard:dashboard' %}">{% trans "Dashboard" %}</a>
+            <a class="dashboard-nav-item{% if request.resolver_match.url_name == 'dashboard_users' %} is-active{% endif %}" href="{% url 'tenant_dashboard:dashboard_users' %}">{% trans "Users" %}</a>
             <div class="dashboard-nav-group" data-dashboard-group="frontend">
               <button class="dashboard-nav-heading dashboard-nav-heading-button" type="button" data-dashboard-group-toggle="frontend">
                 {% trans "Frontend" %}
               </button>
               <div class="dashboard-nav-group-links">
-                <a class="dashboard-nav-subitem{% if request.resolver_match.url_name == 'dashboard_pages' %} is-active{% endif %}" href="{% url 'core:dashboard_pages' %}">{% trans "Pages" %}</a>
-                <a class="dashboard-nav-subitem{% if request.resolver_match.url_name == 'dashboard_blog' %} is-active{% endif %}" href="{% url 'core:dashboard_blog' %}">{% trans "Blog" %}</a>
+                <a class="dashboard-nav-subitem{% if request.resolver_match.url_name == 'dashboard_pages' %} is-active{% endif %}" href="{% url 'tenant_dashboard:dashboard_pages' %}">{% trans "Pages" %}</a>
+                <a class="dashboard-nav-subitem{% if request.resolver_match.url_name == 'content_map' %} is-active{% endif %}" href="{% url 'tenant_dashboard:content_map' %}">{% trans "Content map" %}</a>
+                <a class="dashboard-nav-subitem{% if request.resolver_match.url_name == 'menu' or request.resolver_match.url_name == 'dashboard_menu' %} is-active{% endif %}" href="{% url 'tenant_dashboard:menu' %}">{% trans "Menu" %}</a>
+                <a class="dashboard-nav-subitem{% if request.resolver_match.url_name == 'visibility' or request.resolver_match.url_name == 'dashboard_visibility' %} is-active{% endif %}" href="{% url 'tenant_dashboard:visibility' %}">{% trans "Visibility" %}</a>
+                <a class="dashboard-nav-subitem{% if request.resolver_match.url_name == 'dashboard_blog' %} is-active{% endif %}" href="{% url 'tenant_dashboard:dashboard_blog' %}">{% trans "Blog" %}</a>
+              </div>
+            </div>
+            <div class="dashboard-nav-group" data-dashboard-group="marketplace">
+              <button class="dashboard-nav-heading dashboard-nav-heading-button" type="button" data-dashboard-group-toggle="marketplace">
+                {% trans "Marketplace" %}
+              </button>
+              <div class="dashboard-nav-group-links">
+                <a class="dashboard-nav-subitem{% if request.resolver_match.url_name == 'marketplace_jcw' %} is-active{% endif %}" href="{% url 'tenant_dashboard:marketplace_jcw' %}">{% trans "Just Code Works" %}</a>
+                <a class="dashboard-nav-subitem{% if request.resolver_match.url_name == 'marketplace_printlab' %} is-active{% endif %}" href="{% url 'tenant_dashboard:marketplace_printlab' %}">{% trans "PrintLab" %}</a>
+                <a class="dashboard-nav-subitem{% if request.resolver_match.url_name == 'marketplace_card_payments' %} is-active{% endif %}" href="{% url 'tenant_dashboard:marketplace_card_payments' %}">{% trans "Card Payments" %}</a>
               </div>
             </div>
             <div class="dashboard-nav-separator"></div>
-            <a class="dashboard-nav-item" href="{% url 'admin:index' %}" target="_blank" rel="noopener">{% trans "Admin" %}</a>
-            <a class="dashboard-nav-item{% if request.resolver_match.url_name == 'dashboard_billing' %} is-active{% endif %}" href="{% url 'core:dashboard_billing' %}">{% trans "Billing" %}</a>
-            <a class="dashboard-nav-item{% if request.resolver_match.url_name == 'dashboard_print_studio' %} is-active{% endif %}" href="{% url 'core:dashboard_print_studio' %}">{% trans "Print Studio" %}</a>
-            <a class="dashboard-nav-item" href="{% url 'controlpanel:home' %}">{% trans "Control Panel" %}</a>
+            {% url 'admin:index' as admin_url %}
+            {% if admin_url and request.user.is_staff %}
+            <a class="dashboard-nav-item" href="{{ admin_url }}" target="_blank" rel="noopener">{% trans "Admin" %}</a>
+            {% endif %}
+            {% if request.user.is_staff %}
+            <a class="dashboard-nav-item{% if request.resolver_match.url_name == 'main_site_pages' or request.resolver_match.url_name == 'main_site_page_edit' %} is-active{% endif %}" href="{% url 'tenant_dashboard:main_site_pages' %}">{% trans "Main Site" %}</a>
+            {% endif %}
+            <a class="dashboard-nav-item{% if request.resolver_match.url_name == 'dashboard_billing' %} is-active{% endif %}" href="{% url 'tenant_dashboard:dashboard_billing' %}">{% trans "Billing" %}</a>
+            <a class="dashboard-nav-item{% if request.resolver_match.url_name == 'dashboard_print_studio' %} is-active{% endif %}" href="{% url 'tenant_dashboard:dashboard_print_studio' %}">{% trans "Print Studio" %}</a>
+            {% url 'control_panel:home' as cp_home_url %}
+            {% if cp_home_url %}
+            <a class="dashboard-nav-item" href="{{ cp_home_url }}">{% trans "Control Panel" %}</a>
+            {% endif %}
           </nav>
         </aside>
 
         <main class="dashboard-content">
+          {% if messages %}
+            <div class="dashboard-page">
+              {% for message in messages %}
+                <div class="dashboard-card dashboard-card--auto">
+                  <p class="dashboard-muted">{{ message }}</p>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
           {% if request.tenant or not request.user.is_staff %}
             {% block content %}{% endblock %}
           {% else %}
             <div class="dashboard-page">
               <h1 class="dashboard-title">{% trans "No active site selected" %}</h1>
               <p class="dashboard-muted">{% trans "Select a tenant to view the customer dashboard." %}</p>
-              <a class="dashboard-button" href="{% url 'controlpanel:tenants' %}">{% trans "Open tenants" %}</a>
+              {% url 'control_panel:tenants' as cp_tenants_url %}
+              {% if cp_tenants_url %}
+              <a class="dashboard-button" href="{{ cp_tenants_url }}">{% trans "Open tenants" %}</a>
+              {% endif %}
             </div>
           {% endif %}
         </main>

@@ -16,7 +16,7 @@
         <h3 class="dashboard-card-title">{% trans "Create your website" %}</h3>
       </div>
       <p class="dashboard-muted">{% trans "Choose a template to get started." %}</p>
-      <a class="dashboard-button" href="{% url 'core:dashboard_choose_template' %}">{% trans "Choose template" %}</a>
+      <a class="dashboard-button" href="{% url 'tenant_dashboard:dashboard_choose_template' %}">{% trans "Choose template" %}</a>
     </div>
   {% else %}
     <div class="dashboard-card dashboard-card--auto">
@@ -38,9 +38,9 @@
       </div>
       <div class="dashboard-cta-actions">
         <a class="dashboard-button" href="{{ open_url }}">{% trans "Open website" %}</a>
-        <a class="dashboard-button dashboard-button--secondary" href="{% url 'core:dashboard_edit_home' %}">{% trans "Edit homepage" %}</a>
+        <a class="dashboard-button dashboard-button--secondary" href="{% url 'tenant_dashboard:dashboard_edit_home' %}">{% trans "Edit homepage" %}</a>
         {% if request.user.is_staff and request.session.impersonate_tenant_id %}
-          <form method="post" action="{% url 'core:dashboard_reset_site' %}">
+          <form method="post" action="{% url 'tenant_dashboard:dashboard_reset_site' %}">
             {% csrf_token %}
             <button class="dashboard-button dashboard-button--secondary" type="submit">{% trans "Reset this site" %}</button>
           </form>

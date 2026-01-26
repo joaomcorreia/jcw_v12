@@ -4,6 +4,17 @@ from dashboard.plan_features import build_upgrade_cta, get_feature_flags, get_pl
 
 
 def dashboard_plan_flags(request):
+    # Skip for main site - dashboard URLs only exist on tenant subdomains
+    if not getattr(request, "tenant", None):
+        return {}
+    if getattr(request, "urlconf", None) != "config.tenants.urls":
+        return {}
+
+    tenant = getattr(request, "tenant", None)
+    tenant_name = (getattr(tenant, "name", "") or "").strip()
+    tenant_subdomain = (getattr(tenant, "subdomain", "") or "").strip()
+    dashboard_title = tenant_name or tenant_subdomain or _("Site")
+
     plan_name = get_plan_name_for_request(request)
     feature_flags = get_feature_flags(plan_name)
     upgrade_ctas = {
@@ -50,6 +61,7 @@ def dashboard_plan_flags(request):
     }
 
     return {
+        "dashboard_title": dashboard_title,
         "current_plan_name": plan_name,
         "feature_flags": feature_flags,
         "upgrade_ctas": upgrade_ctas,

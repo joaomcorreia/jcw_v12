@@ -1,3 +1,15 @@
+"""
+Main Site URL Configuration (core app)
+
+This URLConf is included by config/urls.py for the MAIN site only (justcodeworks.local).
+Tenant sites use config/tenants/urls.py which includes core/urls_tenant.py instead.
+
+ROUTING INVARIANTS:
+- Dashboard routes are NOT included here - they live in core/urls_dashboard.py
+- Dashboard (/dashboard/) is only available on tenant subdomains
+- Control panel (/control-panel/) is only available on main site (config/urls.py)
+- Main site never exposes /dashboard/ - users access their tenant dashboard via subdomain
+"""
 from django.urls import path
 from django.views.generic import RedirectView
 
@@ -6,35 +18,17 @@ from . import views
 app_name = "core"
 
 urlpatterns = [
+    # Main site public pages
     path("", views.home, name="home"),
+    path("dashboard/api/section-settings/", views.main_section_settings, name="main_section_settings"),
+    path("signup/", views.signup_view, name="signup"),
     path("start/", views.start_design, name="start_design"),
     path("onboarding/step-1/", views.onboarding_step1, name="onboarding_step1"),
     path("onboarding/step-2/", views.onboarding_step2, name="onboarding_step2"),
     path("onboarding/step-3/", views.onboarding_step3, name="onboarding_step3"),
     path("onboarding/complete/", views.complete_draft, name="complete_draft"),
-    path("dashboard/", views.dashboard, name="dashboard"),
-    path("dashboard/users/", views.dashboard_users, name="dashboard_users"),
-    path("dashboard/frontend/pages/", views.dashboard_pages, name="dashboard_pages"),
-    path(
-        "dashboard/frontend/pages/create/",
-        views.dashboard_create_page,
-        name="dashboard_pages_create",
-    ),
-    path(
-        "dashboard/frontend/pages/<int:page_id>/edit/",
-        views.dashboard_edit_page,
-        name="dashboard_edit_page",
-    ),
-    path("dashboard/frontend/blog/", views.dashboard_blog, name="dashboard_blog"),
-    path("dashboard/billing/", views.dashboard_billing, name="dashboard_billing"),
-    path("dashboard/print-studio/", views.dashboard_print_studio, name="dashboard_print_studio"),
-    path("dashboard/control-panel/", views.dashboard_control_panel, name="dashboard_control_panel"),
-    path("dashboard/widgets-demo/", views.dashboard_widgets_demo, name="dashboard_widgets_demo"),
-    path("dashboard/choose-template/", views.dashboard_choose_template, name="dashboard_choose_template"),
-    path("dashboard/use-template/<int:template_id>/", views.dashboard_use_template, name="dashboard_use_template"),
-    path("dashboard/edit-home/", views.dashboard_edit_home, name="dashboard_edit_home"),
-    path("dashboard/reset-site/", views.dashboard_reset_site, name="dashboard_reset_site"),
     path("accounts/signup/", views.signup, name="signup"),
+    # Products & services
     path("websites/", views.websites, name="websites"),
     path("products/", views.products_index, name="products_index"),
     path("products/websites/", views.product_websites, name="product_websites"),
@@ -48,11 +42,7 @@ urlpatterns = [
     path("products/ecommerce/", views.product_ecommerce, name="product_ecommerce"),
     path("websites/one-page/", views.websites_one_page, name="websites_one_page"),
     path("websites/multi-page/", views.websites_multi_page, name="websites_multi_page"),
-    path(
-        "websites/multi-page-seo/",
-        views.websites_multi_page_seo,
-        name="websites_multi_page_seo",
-    ),
+    path("websites/multi-page-seo/", views.websites_multi_page_seo, name="websites_multi_page_seo"),
     path("websites/catalog-site/", views.websites_catalog_site, name="websites_catalog_site"),
     path("websites/eshop-starter/", views.websites_eshop_starter, name="websites_eshop_starter"),
     path("websites/starter-estore/", views.websites_eshop_starter, name="websites_starter_estore"),
@@ -60,15 +50,18 @@ urlpatterns = [
     path("websites/custom/", views.websites_custom, name="websites_custom"),
     path("websites/custom-website/", views.websites_custom, name="websites_custom_website"),
     path("services/", views.services, name="services"),
+    # POS systems
     path("pos-systems/", views.pos_systems, name="pos_systems"),
     path("pos-systems/retail/", views.pos_systems_retail, name="pos_systems_retail"),
     path("pos-systems/hospitality/", views.pos_systems_hospitality, name="pos_systems_hospitality"),
     path("pos-systems/services/", views.pos_systems_services, name="pos_systems_services"),
     path("pos-systems/compare/", views.pos_systems_compare, name="pos_systems_compare"),
     path("pos-systems/faq/", views.pos_systems_faq, name="pos_systems_faq"),
+    # Help & blog
     path("help-center/", views.help_center, name="help_center"),
     path("blog/", views.blog_index, name="blog_index"),
     path("blog/<slug:slug>/", views.blog_detail, name="blog_detail"),
+    # Print lab (with legacy redirects)
     path("print-lab/", RedirectView.as_view(pattern_name="core:printlab", permanent=False), name="print_lab"),
     path("print-lab/products/", RedirectView.as_view(pattern_name="core:printlab", permanent=False)),
     path("print-lab/how-it-works/", RedirectView.as_view(pattern_name="core:printlab", permanent=False)),
@@ -81,13 +74,19 @@ urlpatterns = [
     path("printlab/stickers/", views.printlab_stickers, name="printlab_stickers"),
     path("printlab/apparel/", views.printlab_apparel, name="printlab_apparel"),
     path("printlab/merch/", views.printlab_merch, name="printlab_merch"),
+    # Billing (main site user billing, not tenant dashboard billing)
     path("billing/", views.billing, name="billing"),
     path("billing/checkout/", views.billing_checkout, name="billing_checkout"),
     path("billing/success/", views.billing_success, name="billing_success"),
     path("billing/cancel/", views.billing_cancel, name="billing_cancel"),
     path("billing/portal/", views.billing_portal, name="billing_portal"),
+    # Printful integration
     path("printful/", views.printful, name="printful"),
     path("printful/products/", views.printful_products, name="printful_products"),
     path("printful/orders/", views.printful_orders, name="printful_orders"),
+    # Location pages
+    path("locations/<str:country>/", views.location_country, name="public_location_country"),
+    path("locations/<str:country>/<slug:city>/", views.location_city, name="public_location"),
+    # Catch-all for dynamic pages (must be last)
     path("<slug:slug>/", views.public_page, name="public_page"),
 ]

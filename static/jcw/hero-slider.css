@@ -1,0 +1,71 @@
+﻿.jcw-hero-slider {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.jcw-hero-slides {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.jcw-hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.jcw-hero-slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.jcw-hero-dots {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  gap: 8px;
+  z-index: 5;
+}
+
+.jcw-hero-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+.jcw-hero-dot.is-active {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.jcw-hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(15, 23, 42, 0.35);
+  color: #ffffff;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.jcw-hero-arrow--prev {
+  left: 24px;
+}
+
+.jcw-hero-arrow--next {
+  right: 24px;
+}

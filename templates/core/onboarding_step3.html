@@ -1,4 +1,4 @@
-﻿{% load static i18n %}
+{% load static i18n %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
   <head>
@@ -7,15 +7,17 @@
     <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
     <link rel="icon" href="{% static 'favicon.png' %}">
     <title>{% trans "Preview your draft" %}</title>
-  </head>
+      {% if canonical_url %}
+    <link rel="canonical" href="{{ canonical_url }}">
+    {% endif %}
+    {% if hreflang_urls %}
+      {% for alternate in hreflang_urls %}
+    <link rel="alternate" hreflang="{{ alternate.lang }}" href="{{ alternate.url }}">
+      {% endfor %}
+    {% endif %}</head>
   <body class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium">
     <div class="min-h-screen">
-      <header class="border-b border-slate-200 bg-white">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <a class="text-xl font-bold" href="{% url 'core:home' %}">JustCodeWorks</a>
-          <span class="text-sm text-slate-600">{% trans "Draft preview" %}</span>
-        </div>
-      </header>
+      {% include 'core/main_nav.html' %}
       <main class="max-w-6xl mx-auto px-4 py-8">
         <div class="bg-white rounded-2xl border border-slate-200 shadow-lg p-6">
           <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
@@ -40,3 +42,4 @@
     </div>
   </body>
 </html>
+

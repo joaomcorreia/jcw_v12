@@ -1,0 +1,61 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Menu" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">{% trans "Menu" %}</h1>
+  {% if messages %}
+    <div class="dashboard-card dashboard-card--auto">
+      {% for message in messages %}
+        <p class="dashboard-muted">{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+  <div class="dashboard-card dashboard-card--auto">
+    <form method="post" class="dashboard-form">
+      {% csrf_token %}
+      <div class="dashboard-list">
+        {% for page in page_rows %}
+          <div class="dashboard-card dashboard-card--auto">
+            <div class="dashboard-form-row">
+              <strong>{{ page.title }}</strong>
+              <span class="dashboard-muted">/{{ page.slug }}/</span>
+            </div>
+            <div class="dashboard-form-row">
+              <label class="dashboard-checkbox">
+                <input type="checkbox" name="show_in_nav_{{ page.id }}" {% if page.show_in_nav %}checked{% endif %}>
+                {% trans "Show in menu" %}
+              </label>
+            </div>
+            <div class="dashboard-form-row">
+              <label class="dashboard-label" for="nav-label-{{ page.id }}">{% trans "Label" %}</label>
+              <input
+                id="nav-label-{{ page.id }}"
+                name="nav_label_{{ page.id }}"
+                class="dashboard-input"
+                type="text"
+                value="{{ page.nav_label }}">
+            </div>
+            <div class="dashboard-form-row">
+              <label class="dashboard-label" for="nav-order-{{ page.id }}">{% trans "Order" %}</label>
+              <input
+                id="nav-order-{{ page.id }}"
+                name="nav_order_{{ page.id }}"
+                class="dashboard-input"
+                type="number"
+                value="{{ page.nav_order }}">
+            </div>
+          </div>
+        {% empty %}
+          <p class="dashboard-muted">{% trans "No pages found." %}</p>
+        {% endfor %}
+      </div>
+      <div class="dashboard-form-actions">
+        <button class="dashboard-button" type="submit">{% trans "Save menu" %}</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

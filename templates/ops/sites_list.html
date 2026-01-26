@@ -1,0 +1,39 @@
+{% extends "ops/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Sites" %}{% endblock %}
+
+{% block content %}
+  <div class="ops-card">
+    <h1 class="ops-title">{% trans "Sites" %}</h1>
+    <p class="ops-subtitle">{% trans "Select a site to manage plan and visibility." %}</p>
+    <table class="ops-table">
+      <thead>
+        <tr>
+          <th>{% trans "Site" %}</th>
+          <th>{% trans "Owner" %}</th>
+          <th>{% trans "Plan" %}</th>
+          <th>{% trans "Status" %}</th>
+          <th>{% trans "Created" %}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for site in sites %}
+          <tr>
+            <td>{{ site.name }}</td>
+            <td>{{ site.owner.username }}</td>
+            <td>{{ site.plan.key|default:"-" }}</td>
+            <td>{{ site.status }}</td>
+            <td>{{ site.created_at|date:"Y-m-d" }}</td>
+            <td><a href="{% url 'ops:site_detail' site.id %}">{% trans "Manage" %}</a></td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="6" class="ops-muted">{% trans "No sites found." %}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

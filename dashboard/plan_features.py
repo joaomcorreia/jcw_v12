@@ -9,9 +9,8 @@ PLAN_NAMES = {
     "pro": "Pro",
 }
 
-
 def get_plan_name_for_request(request):
-    plan = resolve_active_plan()
+    plan = resolve_active_plan(getattr(request, "tenant", None))
     if plan and plan.key in PLAN_NAMES:
         return PLAN_NAMES[plan.key]
     return "Starter"
@@ -54,6 +53,12 @@ def get_feature_flags(plan_name):
 
 
 def build_upgrade_cta(feature_key, plan_name, lang=None):
+    """
+    Build upgrade CTA context for tenant dashboard pages.
+
+    Note: This function uses tenant_dashboard namespace URLs, so it should only
+    be called in tenant context (where request.tenant exists).
+    """
     titles = {
         "seo": _("Unlock SEO insights"),
         "indexing": _("Unlock indexing insights"),
@@ -72,8 +77,8 @@ def build_upgrade_cta(feature_key, plan_name, lang=None):
         "title": titles.get(feature_key, _("Upgrade your plan")),
         "message": messages.get(feature_key, _("Upgrade to access this feature.")),
         "primary_button_text": _("See upgrades"),
-        "primary_button_url": reverse("core:dashboard_billing"),
+        "primary_button_url": reverse("tenant_dashboard:dashboard_billing"),
         "secondary_link_text": _("Contact support"),
-        "secondary_link_url": reverse("core:services"),
+        "secondary_link_url": reverse("core:home"),  # Tenant home
         "style": "dashboard-upgrade-cta--compact",
     }

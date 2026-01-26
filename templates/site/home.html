@@ -2,14 +2,19 @@
 {% load i18n %}
 
 {% block content %}
-  {% if sections %}
-    {% for section in sections %}
+{% if sections %}
+  {% if hero_settings_json %}
+    {{ hero_settings_json|json_script:"jcw-hero-settings" }}
+  {% endif %}
+  {% for section in sections %}
       {% if section.type == "hero" %}
-        {% include "site/sections/hero.html" with data=section.data %}
+        {% include "site/sections/hero.html" with section=section data=section.data %}
       {% elif section.type == "services" %}
-        {% include "site/sections/services.html" with data=section.data %}
+        {% include "site/sections/services.html" with section=section data=section.data %}
       {% elif section.type == "cta" %}
-        {% include "site/sections/cta.html" with data=section.data %}
+        {% include "site/sections/cta.html" with section=section data=section.data %}
+      {% elif section.type == "contact" %}
+        {% include "site/sections/contact.html" with section=section data=section.data %}
       {% else %}
         {% include "site/sections/unknown.html" with section=section data=section.data %}
       {% endif %}

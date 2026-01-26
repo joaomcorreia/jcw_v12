@@ -28,7 +28,7 @@ class Command(BaseCommand):
                     "heading": "Everything you need to get your business online.",
                     "subheading": "Websites, print, POS and AI in one place.",
                     "cta_primary_text": "Start designing",
-                    "cta_secondary_text": "POS Systems",
+                    "cta_secondary_text": "Card Payments",
                     "body": "Printing",
                 },
                 "cards": [
@@ -719,9 +719,9 @@ class Command(BaseCommand):
             },
             "pos-systems": {
                 "en": {
-                    "title": "POS Systems",
-                    "nav_label": "POS Systems",
-                    "meta_title": "POS Systems",
+                    "title": "Card Payments",
+                    "nav_label": "Card Payments",
+                    "meta_title": "Card Payments",
                     "meta_description": "POS systems and partner recommendations for retail, hospitality, and services.",
                     "hero": {
                         "heading": "POS systems that make checkout easy",
@@ -3427,7 +3427,7 @@ class Command(BaseCommand):
                 "websites": "Websites",
                 "seo": "SEO",
                 "print_studio": "Print Studio",
-                "pos_systems": "POS Systems",
+                "pos_systems": "Card Payments",
                 "ads": "Ads",
                 "uptime": "Uptime Status",
                 "support": "Support",
@@ -4463,7 +4463,7 @@ class Command(BaseCommand):
             defaults={
                 "name": "Particles Hero",
                 "description": "Particles background for the homepage hero.",
-                "is_enabled": True,
+                "is_enabled": False,
                 "is_paid": True,
             },
         )
@@ -4487,19 +4487,19 @@ class Command(BaseCommand):
         pos_affiliates_feature, _ = Feature.objects.get_or_create(
             key="pos_affiliates",
             defaults={
-                "name": "POS Systems",
+                "name": "Card Payments",
                 "description": "Affiliate-driven POS comparisons and information.",
                 "is_enabled": True,
                 "is_paid": False,
             },
         )
-        if pos_affiliates_feature.name != "POS Systems":
-            pos_affiliates_feature.name = "POS Systems"
+        if pos_affiliates_feature.name != "Card Payments":
+            pos_affiliates_feature.name = "Card Payments"
             pos_affiliates_feature.save(update_fields=["name"])
 
         HeroParticlesSettings.objects.get_or_create(
             feature=feature,
-            defaults={"apply_to": "home"},
+            defaults={"apply_to": "home", "is_enabled": False},
         )
 
         plan_translations = {
@@ -4536,8 +4536,12 @@ class Command(BaseCommand):
                 defaults={
                     "is_active": True,
                     "sort_order": plan_order.get(plan_key, 0),
+                    "slug": plan_key,
                 },
             )
+            plan.set_current_language("en")
+            plan.name = plan_key.title()
+            plan.save()
             if plan.sort_order != plan_order.get(plan_key, 0):
                 plan.sort_order = plan_order.get(plan_key, 0)
                 plan.save(update_fields=["sort_order"])
@@ -4759,7 +4763,7 @@ class Command(BaseCommand):
                 "pt": ("Print Studio", "Impressao white label via Printful."),
             },
             "products-pos-systems": {
-                "en": ("POS Systems", "Neutral POS guidance and partners."),
+                "en": ("Card Payments", "Neutral POS guidance and partners."),
                 "nl": ("POS-systemen", "Neutraal POS advies en partners."),
                 "fr": ("Systemes POS", "Conseils POS et partenaires."),
                 "de": ("POS-Systeme", "Neutrale POS Beratung."),

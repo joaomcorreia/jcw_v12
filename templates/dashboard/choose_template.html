@@ -17,7 +17,7 @@
         {% trans "Languages" %}:
         {{ template.languages|join:", " }}
       </p>
-      <a class="dashboard-button" href="{% url 'core:dashboard_use_template' template.id %}">{% trans "Use this template" %}</a>
+      <a class="dashboard-button" href="{% url 'tenant_dashboard:dashboard_use_template' template.id %}">{% trans "Use this template" %}</a>
     </div>
     {% empty %}
     <div class="dashboard-card dashboard-card--auto">

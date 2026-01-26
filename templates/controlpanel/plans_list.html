@@ -1,0 +1,61 @@
+{% extends "controlpanel/base_controlpanel.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Plans" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <div class="dashboard-page-header">
+    <h1 class="dashboard-title">{% trans "Plans" %}</h1>
+    <a class="dashboard-button" href="{% url 'control_panel:plans_create' %}">{% trans "Create plan" %}</a>
+  </div>
+  {% if messages %}
+    <div class="dashboard-card dashboard-card--auto">
+      {% for message in messages %}
+        <p class="dashboard-muted">{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+  <div class="dashboard-card dashboard-card--auto">
+    <div class="dashboard-table">
+      <div class="dashboard-table-row dashboard-table-header">
+        <div>{% trans "Name" %}</div>
+        <div>{% trans "Slug" %}</div>
+        <div>{% trans "Tier" %}</div>
+        <div>{% trans "Status" %}</div>
+        <div>{% trans "Actions" %}</div>
+      </div>
+      {% for plan in plans %}
+      <div class="dashboard-table-row">
+        <div>{{ plan.display_name }}</div>
+        <div class="dashboard-muted">{{ plan.slug }}</div>
+        <div class="dashboard-muted">
+          {% if plan.seo_settings %}{{ plan.seo_settings.seo_tier }}{% else %}local{% endif %}
+        </div>
+        <div class="dashboard-muted">
+          {% if plan.is_active %}{% trans "Active" %}{% else %}{% trans "Inactive" %}{% endif %}
+          {% if plan.is_frozen %} · {% trans "Frozen" %}{% endif %}
+        </div>
+        <div>
+          <a class="dashboard-link" href="{% url 'control_panel:plans_edit' plan.id %}">{% trans "Edit" %}</a>
+          {% if not plan.is_frozen %}
+            <form method="post" action="{% url 'control_panel:plans_freeze' plan.id %}" style="display:inline;">
+              {% csrf_token %}
+              <button class="dashboard-link" type="submit">{% trans "Freeze" %}</button>
+            </form>
+          {% endif %}
+        </div>
+      </div>
+      {% empty %}
+      <div class="dashboard-table-row dashboard-table-empty">
+        <div>{% trans "No plans yet" %}</div>
+        <div>--</div>
+        <div>--</div>
+        <div>--</div>
+        <div>--</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

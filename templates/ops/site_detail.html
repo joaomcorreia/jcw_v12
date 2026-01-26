@@ -1,0 +1,90 @@
+{% extends "ops/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ site.name }}{% endblock %}
+
+{% block content %}
+  <div class="ops-card">
+    <h1 class="ops-title">{{ site.name }}</h1>
+    <p class="ops-subtitle">{% trans "Site details and operator controls." %}</p>
+    <div class="ops-links">
+      <a class="ops-button" href="{{ dashboard_link }}" target="_blank" rel="noopener">{% trans "Open tenant dashboard" %}</a>
+      <a class="ops-button" href="{{ public_link }}" target="_blank" rel="noopener">{% trans "Open public site" %}</a>
+    </div>
+  </div>
+
+  <div class="ops-card">
+    <h2 class="ops-title">{% trans "Plan assignment" %}</h2>
+    <form method="post">
+      {% csrf_token %}
+      <div class="ops-form-row">
+        <label for="id_plan">{% trans "Plan" %}</label>
+        {{ plan_form.plan }}
+      </div>
+      <button class="ops-button" type="submit" name="save_plan">{% trans "Save plan" %}</button>
+    </form>
+  </div>
+
+  <div class="ops-card">
+    <h2 class="ops-title">{% trans "Visibility settings" %}</h2>
+    <p class="ops-subtitle">{% trans "Visibility mode is synced to the current plan unless overridden." %}</p>
+    <div class="ops-form-row">
+      <strong>{% trans "Current mode" %}:</strong>
+      <span class="ops-chip">{{ visibility_mode_label }}</span>
+      {% if not allow_mode_change %}
+        <span class="ops-muted">{% trans "(Synced)" %}</span>
+      {% endif %}
+    </div>
+    <form method="post">
+      {% csrf_token %}
+      {% if allow_mode_change %}
+        <div class="ops-form-row">
+          <label for="id_visibility_mode">{% trans "Override mode" %}</label>
+          {{ visibility_form.visibility_mode }}
+        </div>
+      {% endif %}
+      <div class="ops-form-row">
+        <label>{% trans "Allowed countries" %}</label>
+        <div class="ops-grid">
+          {% for country in countries %}
+            <label class="ops-checkbox">
+              <input
+                type="checkbox"
+                name="countries"
+                value="{{ country.code|lower }}"
+                {% if country.code|lower in selected_countries %}checked{% endif %}>
+              {{ country.name }}
+            </label>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="ops-form-row">
+        <label>{% trans "Allowed cities" %}</label>
+        {% for country in countries %}
+          {% if country.code|lower in selected_countries %}
+            <div class="ops-country-card">
+              <strong>{{ country.name }}</strong>
+              <div class="ops-grid">
+                {% for city in country.cities %}
+                  {% with city_slug=city|slugify %}
+                  {% with city_key=country.code|lower|add:"|"|add:city_slug %}
+                  <label class="ops-checkbox">
+                    <input
+                      type="checkbox"
+                      name="cities"
+                      value="{{ city_key }}"
+                      {% if city_key in selected_city_keys %}checked{% endif %}>
+                    {{ city }}
+                  </label>
+                  {% endwith %}
+                  {% endwith %}
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <button class="ops-button" type="submit" name="save_visibility">{% trans "Save visibility" %}</button>
+    </form>
+  </div>
+{% endblock %}

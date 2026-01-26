@@ -1,0 +1,142 @@
+{% load i18n builder_tags %}
+{% if marketing_particles_enabled %}
+<div id="particles-js" class="jcw-particles-layer" aria-hidden="true"></div>
+{% endif %}
+<div id="jcw-hero-slider" class="jcw-hero-slider" data-jcw-hero-slider>
+  <div class="jcw-hero-slides">
+    <div class="jcw-hero-slide is-active" data-jcw-hero-slide data-jcw-slide-index="0">
+      <div class="absolute inset-0 bg-black/20 jcw-hero-overlay">
+      </div>
+      <div
+        class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10">
+      </div>
+      <div
+        class="relative h-full flex items-center justify-center px-4 sm:px-6 lg:px-8 jcw-hero-content">
+        <div class="text-center max-w-4xl mx-auto">
+          {% trans "Everything you need to succeed online." as default_hero_title %}
+          {% trans "Launch a modern website, order your print materials, connect simple POS tools and let your AI assistant do the heavy lifting - all from one place." as default_hero_subtitle %}
+          {% trans "Start in 2 minutes" as default_hero_primary_label %}
+          {% url 'core:pos_systems' as default_hero_secondary_url %}
+          {% trans "Card Payments" as default_hero_secondary_label %}
+          {% site_field request.site "home" "home.hero" "heading" LANGUAGE_CODE default_hero_title as hero_title %}
+          {% site_field request.site "home" "home.hero" "subheading" LANGUAGE_CODE default_hero_subtitle as hero_subtitle %}
+          {% site_field request.site "home" "home.hero" "cta_primary_text" LANGUAGE_CODE default_hero_primary_label as hero_primary_label %}
+          {% site_field request.site "home" "home.hero" "cta_primary_url" LANGUAGE_CODE "#" as hero_primary_url %}
+          {% site_field request.site "home" "home.hero" "cta_secondary_text" LANGUAGE_CODE default_hero_secondary_label as hero_secondary_label %}
+          {% site_field request.site "home" "home.hero" "cta_secondary_url" LANGUAGE_CODE default_hero_secondary_url as hero_secondary_url %}
+          <h1
+            class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight jcw-inline-7117e3abfb"
+            data-jcw-field="hero.title"
+            data-jcw-field-id=""
+            data-jcw-type="text">
+            {{ hero_title }}
+          </h1>
+          <p
+            class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed jcw-inline-84c8c1be91"
+            data-jcw-field="hero.subtitle"
+            data-jcw-field-id=""
+            data-jcw-type="text">
+            {{ hero_subtitle }}
+          </p>
+          <div
+            class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a
+              class="bg-yellow-400 hover:bg-yellow-300 text-gray-900 font-semibold px-8 py-4 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 shadow-xl"
+              href="{{ hero_primary_url }}"
+              data-jcw-field="hero.cta_label"
+              data-jcw-field-id=""
+              data-jcw-type="text">
+              {{ hero_primary_label }}
+            </a>
+            <a
+              class="bg-transparent border-2 border-white font-semibold px-8 py-4 rounded-lg text-lg transition-all duration-300 hover:bg-white hover:text-gray-900 jcw-inline-7117e3abfb"
+              href="{{ hero_secondary_url }}"
+              data-jcw-field="hero.cta_secondary_label"
+              data-jcw-field-id=""
+              data-jcw-type="text">
+              {{ hero_secondary_label }}
+            </a>
+            <a
+              class="bg-transparent border-2 border-yellow-400 text-yellow-400 font-semibold px-8 py-4 rounded-lg text-lg transition-all duration-300 hover:bg-yellow-400 hover:text-gray-900"
+              href="{% url 'core:print_lab' %}"
+              data-jcw-field="hero.cta_print_label"
+              data-jcw-field-id=""
+              data-jcw-type="text">
+              {% trans "Printing" %}
+            </a>
+          </div>
+          <div
+            class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div>
+              <div class="text-3xl mb-3">
+                ðŸš€
+              </div>
+              <h3 class="text-lg font-semibold mb-2 jcw-inline-7117e3abfb"
+                  data-jcw-field="hero.card1_title"
+                  data-jcw-field-id=""
+                  data-jcw-type="text">
+                {% trans "Perfect for simple local businesses" %}
+              </h3>
+              <p class="text-sm jcw-inline-8eb7f71d57"
+                 data-jcw-field="hero.card1_text"
+                 data-jcw-field-id=""
+                 data-jcw-type="text">
+                {% trans "Simple, focused site for a few services. Easy to launch and easy to update." %}
+                {% trans "" %}
+              </p>
+            </div>
+            <div>
+              <div class="text-3xl mb-3">
+                ðŸ¢
+              </div>
+              <h3 class="text-lg font-semibold mb-2 jcw-inline-7117e3abfb"
+                  data-jcw-field="hero.card2_title"
+                  data-jcw-field-id=""
+                  data-jcw-type="text">
+                {% trans "Grow with dedicated pages for each service" %}
+              </h3>
+              <p class="text-sm jcw-inline-8eb7f71d57"
+                 data-jcw-field="hero.card2_text"
+                 data-jcw-field-id=""
+                 data-jcw-type="text">
+                {% trans "Add pages for services, projects, team, and FAQs without rebuilding your site." %}
+              </p>
+            </div>
+            <div>
+              <div class="text-3xl mb-3">
+                ðŸ›’
+              </div>
+              <h3 class="text-lg font-semibold mb-2 jcw-inline-7117e3abfb"
+                  data-jcw-field="hero.card3_title"
+                  data-jcw-field-id=""
+                  data-jcw-type="text">
+                {% trans "Sell your products with a simple store" %}
+              </h3>
+              <p class="text-sm jcw-inline-8eb7f71d57"
+                 data-jcw-field="hero.card3_text"
+                 data-jcw-field-id=""
+                 data-jcw-type="text">
+                {% trans "Sell products or bookings with a simple store, and upgrade as your catalog grows." %}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce jcw-inline-7117e3abfb">
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 14l-7 7m0 0l-7-7m7 7V3">
+          </path>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>

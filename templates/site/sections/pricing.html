@@ -1,0 +1,19 @@
+<section>
+  {% if data.heading %}
+    <h2>{{ data.heading }}</h2>
+  {% endif %}
+  {% if data.intro %}
+    <p>{{ data.intro }}</p>
+  {% endif %}
+  {% if data.items %}
+    <div>
+      {% for item in data.items %}
+        <div>
+          {% if item.title %}<h3>{{ item.title }}</h3>{% endif %}
+          {% if item.body %}<p>{{ item.body }}</p>{% endif %}
+          {% if item.price %}<div>{{ item.price }}</div>{% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</section>

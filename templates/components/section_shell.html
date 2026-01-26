@@ -1,0 +1,8 @@
+<section data-jcw-section="{{ key }}" data-jcw-section-id="{{ section_id|default:'0' }}"{% if extra_attrs %} {{ extra_attrs|safe }}{% endif %} class="{{ class|default:'' }}">
+  {% if content %}
+    {{ content|safe }}
+  {% endif %}
+  {% if content_template %}
+    {% include content_template %}
+  {% endif %}
+</section>

@@ -1,0 +1,82 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Edit contact section" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">
+    {% blocktrans with page_slug=page.slug %}Edit contact: {{ page_slug }}{% endblocktrans %}
+  </h1>
+  <div class="dashboard-toolbar">
+    <a class="dashboard-button" href="{{ public_url }}" target="_blank" rel="noopener">{% trans "View page" %}</a>
+    <a class="dashboard-link" href="{% url 'tenant_dashboard:dashboard_pages' %}">{% trans "Back to pages" %}</a>
+  </div>
+  {% if messages %}
+    <div class="dashboard-card dashboard-card--auto">
+      {% for message in messages %}
+        <p class="dashboard-muted">{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+  <div class="dashboard-card dashboard-card--auto">
+    <form method="post" class="dashboard-form">
+      {% csrf_token %}
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="contact-heading">{% trans "Heading" %}</label>
+        <input id="contact-heading" name="heading" class="dashboard-input" type="text" value="{{ heading_value }}">
+        {% if errors.heading %}
+          <p class="dashboard-error">{{ errors.heading }}</p>
+        {% endif %}
+      </div>
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="contact-intro">{% trans "Intro" %}</label>
+        <textarea id="contact-intro" name="intro" class="dashboard-input" rows="4">{{ intro_value }}</textarea>
+      </div>
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="contact-phone">{% trans "Phone" %}</label>
+        <input id="contact-phone" name="phone" class="dashboard-input" type="text" value="{{ phone_value }}">
+      </div>
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="contact-email">{% trans "Email" %}</label>
+        <input id="contact-email" name="email" class="dashboard-input" type="email" value="{{ email_value }}">
+      </div>
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="contact-address1">{% trans "Address line 1" %}</label>
+        <input id="contact-address1" name="address_line1" class="dashboard-input" type="text" value="{{ address_line1_value }}">
+      </div>
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="contact-address2">{% trans "Address line 2" %}</label>
+        <input id="contact-address2" name="address_line2" class="dashboard-input" type="text" value="{{ address_line2_value }}">
+      </div>
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="contact-postal">{% trans "Postal code" %}</label>
+        <input id="contact-postal" name="postal_code" class="dashboard-input" type="text" value="{{ postal_code_value }}">
+      </div>
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="contact-city">{% trans "City" %}</label>
+        <input id="contact-city" name="city" class="dashboard-input" type="text" value="{{ city_value }}">
+      </div>
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="contact-country">{% trans "Country" %}</label>
+        <input id="contact-country" name="country" class="dashboard-input" type="text" value="{{ country_value }}">
+      </div>
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="contact-map">{% trans "Map embed URL" %}</label>
+        <input id="contact-map" name="map_embed_url" class="dashboard-input" type="text" value="{{ map_embed_url_value }}">
+      </div>
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="contact-cta-text">{% trans "CTA text" %}</label>
+        <input id="contact-cta-text" name="cta_text" class="dashboard-input" type="text" value="{{ cta_text_value }}">
+      </div>
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="contact-cta-url">{% trans "CTA URL" %}</label>
+        <input id="contact-cta-url" name="cta_url" class="dashboard-input" type="text" value="{{ cta_url_value }}">
+      </div>
+      <div class="dashboard-form-actions">
+        <button class="dashboard-button" type="submit">{% trans "Save changes" %}</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% trans "Operator Control Panel" %}{% endblock %}</title>
+    <style>
+      body { font-family: "Segoe UI", "Trebuchet MS", sans-serif; margin: 0; background: #f6f7fb; color: #1b1f2a; }
+      .ops-banner { background: #111827; color: #f9fafb; padding: 18px 24px; font-size: 18px; letter-spacing: 0.4px; }
+      .ops-shell { display: flex; min-height: 100vh; }
+      .ops-nav { width: 220px; background: #0f172a; color: #e2e8f0; padding: 24px; }
+      .ops-nav a { color: #e2e8f0; text-decoration: none; display: block; padding: 8px 0; }
+      .ops-content { flex: 1; padding: 28px 32px; }
+      .ops-card { background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08); }
+      .ops-title { margin: 0 0 12px; font-size: 24px; }
+      .ops-subtitle { margin: 0 0 12px; color: #64748b; }
+      .ops-table { width: 100%; border-collapse: collapse; }
+      .ops-table th, .ops-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #e2e8f0; }
+      .ops-input, .ops-select, .ops-textarea { width: 100%; padding: 8px 10px; border: 1px solid #cbd5f5; border-radius: 8px; }
+      .ops-button { background: #2563eb; color: #fff; border: 0; padding: 10px 16px; border-radius: 8px; cursor: pointer; }
+      .ops-chip { display: inline-block; background: #e2e8f0; padding: 4px 10px; border-radius: 999px; font-size: 12px; }
+      .ops-links a { margin-right: 12px; }
+      .ops-muted { color: #64748b; }
+      .ops-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+      .ops-checkbox { display: inline-flex; align-items: center; gap: 8px; margin: 4px 0; }
+      .ops-country-card { border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; margin: 10px 0; background: #f8fafc; }
+      .ops-form-row { margin-bottom: 12px; }
+    </style>
+  </head>
+  <body>
+    <div class="ops-banner">JCW Operator Control Panel</div>
+    <div class="ops-shell">
+      <nav class="ops-nav">
+        <div class="ops-subtitle">{% trans "Operator" %}</div>
+        <a href="{% url 'ops:home' %}">{% trans "Overview" %}</a>
+        <a href="{% url 'ops:sites' %}">{% trans "Sites" %}</a>
+        {% url 'admin:index' as admin_url %}
+        {% if admin_url and request.user.is_staff %}
+        <a href="{{ admin_url }}" target="_blank" rel="noopener">{% trans "Admin" %}</a>
+        {% endif %}
+        <a href="{% url 'logout' %}">{% trans "Logout" %}</a>
+      </nav>
+      <main class="ops-content">
+        {% if messages %}
+          <div class="ops-card">
+            {% for message in messages %}
+              <p class="ops-subtitle">{{ message }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+  </body>
+</html>

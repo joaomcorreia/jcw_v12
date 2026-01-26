@@ -5,18 +5,30 @@
 
 {% block content %}
 <div class="dashboard-page">
-  <h1 class="dashboard-title">{% trans "Pages" %}</h1>
-  {% if not request.tenant %}
+  <h1 class="dashboard-title">
+    {% if main_site %}
+      {% trans "Main Site Pages" %}
+    {% else %}
+      {% trans "Pages" %}
+    {% endif %}
+  </h1>
+  {% if not request.tenant and not main_site %}
     <div class="dashboard-card dashboard-card--auto">
       <h3 class="dashboard-card-title">{% trans "No website found" %}</h3>
       <p class="dashboard-muted">{% trans "Please choose a template first." %}</p>
-      <a class="dashboard-button" href="{% url 'core:dashboard_choose_template' %}">{% trans "Choose template" %}</a>
+      <a class="dashboard-button" href="{% url 'tenant_dashboard:dashboard_choose_template' %}">{% trans "Choose template" %}</a>
     </div>
   {% else %}
     <div class="dashboard-toolbar">
       <input class="dashboard-input" type="text" placeholder="{% trans 'Search pages' %}" {% if not feature_flags.can_use_custom_pages %}disabled{% endif %}>
+      {% if not has_home %}
+        <form method="post" action="{% url 'tenant_dashboard:create_home' %}">
+          {% csrf_token %}
+          <button class="dashboard-button dashboard-button--secondary" type="submit">{% trans "Create Home Page" %}</button>
+        </form>
+      {% endif %}
       {% if feature_flags.can_use_custom_pages %}
-        <a class="dashboard-button" href="{% url 'core:dashboard_pages_create' %}">{% trans "Create page" %}</a>
+        <a class="dashboard-button" href="{% url 'tenant_dashboard:dashboard_pages_create' %}">{% trans "Create page" %}</a>
       {% else %}
         <button class="dashboard-button" type="button" disabled>{% trans "Create page" %}</button>
       {% endif %}
@@ -52,7 +64,15 @@
           </div>
           <div class="dashboard-muted">{{ row.updated_at|date:"Y-m-d" }}</div>
           <div>
-            <a class="dashboard-link" href="{% url 'core:dashboard_edit_page' row.id %}">{% trans "Edit" %}</a>
+            <a class="dashboard-link" href="{% url edit_url_name row.id %}">{% trans "Edit content" %}</a>
+            {% if not main_site %}
+              <span class="dashboard-muted">|</span>
+              <a class="dashboard-link" href="{% url 'tenant_dashboard:page_edit_services' row.id %}">{% trans "Edit Services Section" %}</a>
+              <span class="dashboard-muted">|</span>
+              <a class="dashboard-link" href="{% url 'tenant_dashboard:page_edit_contact' row.id %}">{% trans "Edit Contact Section" %}</a>
+              <span class="dashboard-muted">|</span>
+              <a class="dashboard-link" href="{% url 'tenant_dashboard:page_seo' row.id %}">{% trans "SEO" %}</a>
+            {% endif %}
           </div>
         </div>
         {% empty %}

@@ -7,7 +7,7 @@
 <div class="dashboard-page">
   <div class="dashboard-card-header">
     <h1 class="dashboard-title">{% trans "Templates" %}</h1>
-    <a class="dashboard-button" href="{% url 'controlpanel:templates_create' %}">{% trans "New template" %}</a>
+    <a class="dashboard-button" href="{% url 'control_panel:templates_create' %}">{% trans "New template" %}</a>
   </div>
   <div class="dashboard-card dashboard-card--auto">
     <div class="dashboard-table">
@@ -31,8 +31,8 @@
         </div>
         <div class="dashboard-muted">{{ template.updated_at|date:"Y-m-d" }}</div>
         <div class="dashboard-cta-actions">
-          <a class="dashboard-link" href="{% url 'controlpanel:templates_edit' template.id %}">{% trans "Edit" %}</a>
-          <form method="post" action="{% url 'controlpanel:templates_toggle_publish' template.id %}">
+          <a class="dashboard-link" href="{% url 'control_panel:templates_edit' template.id %}">{% trans "Edit" %}</a>
+          <form method="post" action="{% url 'control_panel:templates_toggle_publish' template.id %}">
             {% csrf_token %}
             <button class="dashboard-link" type="submit">
               {% if template.is_published %}

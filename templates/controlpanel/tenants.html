@@ -12,6 +12,7 @@
         <div>{% trans "Name" %}</div>
         <div>{% trans "Domain" %}</div>
         <div>{% trans "Owner" %}</div>
+        <div>{% trans "Plan" %}</div>
         <div>{% trans "Actions" %}</div>
       </div>
       {% for site in sites %}
@@ -19,8 +20,12 @@
         <div>{{ site.name }}</div>
         <div class="dashboard-muted">--</div>
         <div>{{ site.owner.get_username }}</div>
+        <div class="dashboard-muted">
+          {% if site.plan %}{{ site.plan.display_name }}{% else %}--{% endif %}
+        </div>
         <div>
-          <a class="dashboard-link" href="{% url 'controlpanel:tenant_impersonate' site.id %}">
+          <a class="dashboard-link" href="{% url 'control_panel:tenant_edit' site.id %}">{% trans "Edit" %}</a>
+          <a class="dashboard-link" href="{% url 'control_panel:tenant_impersonate' site.id %}">
             {% trans "View as customer" %}
           </a>
         </div>
@@ -28,6 +33,7 @@
       {% empty %}
       <div class="dashboard-table-row dashboard-table-empty">
         <div>{% trans "No tenants yet" %}</div>
+        <div>--</div>
         <div>--</div>
         <div>--</div>
         <div>--</div>

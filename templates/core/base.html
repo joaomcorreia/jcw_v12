@@ -12,16 +12,64 @@
     <meta name="description" content="{{ seo_description|default:"Website builder and content management platform" }}">
     <meta name="description" content="{{ seo_description|default:"Website builder and content management platform" }}">
     <meta name="description" content="{{ seo_description|default:"Website builder and content management platform" }}">
-    <meta name="robots" content="{{ seo_robots|default:"index, follow" }}">
-    {% if launch_noindex %}
-    <meta name="robots" content="noindex,nofollow">
+    <meta name="robots" content="{% if launch_noindex %}noindex, nofollow{% else %}{{ seo_robots|default:'index, follow' }}{% endif %}">
+    {% if canonical_url %}
+    <link rel="canonical" href="{{ canonical_url }}">
+    {% endif %}
+    {% if hreflang_urls %}
+      {% for alternate in hreflang_urls %}
+    <link rel="alternate" hreflang="{{ alternate.lang }}" href="{{ alternate.url }}">
+      {% endfor %}
     {% endif %}
     {% block head %}{% endblock %}
+    <style>
+      body.embed-mode .cookie-banner { display: none !important; }
+    </style>
+    {% if is_edit_mode %}
+    <link rel="stylesheet" href="{% static 'editor/editor.css' %}">
+    {% endif %}
   </head>
-  <body class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium">
+  <body class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium{% if embed_mode %} embed-mode{% endif %}{% if is_edit_mode %} jcw-edit-mode edit-mode{% endif %}">
+    {% if is_edit_mode %}
+      <div id="jcw-editor-bar" class="jcw-edit-bar" role="status" aria-live="polite">
+        <div class="jcw-edit-bar__left">
+          {% trans "Editing ON" %}
+          <span class="jcw-edit-bar__badge">
+            {% if jcw_site_mode == "main" %}
+              {% trans "MAIN SITE" %}
+            {% elif jcw_site_mode == "tenant" %}
+              {% trans "TENANT" %}
+            {% else %}
+              {% trans "OTHER" %}
+            {% endif %}
+          </span>
+        </div>
+        <div class="jcw-edit-bar__center">
+          <span id="jcw-save-status">{% trans "Saved" %}</span>
+        </div>
+        <div class="jcw-edit-bar__right">
+          <button type="button" class="jcw-edit-bar__btn" id="jcw-hero-settings-toggle">
+            {% trans "Hero Settings" %}
+          </button>
+          <button type="button" class="jcw-edit-bar__btn" id="jcw-preview-toggle" aria-pressed="false">
+            {% trans "Preview OFF" %}
+          </button>
+          <a class="jcw-edit-bar__btn jcw-edit-bar__link" href="/{{ LANGUAGE_CODE }}/dashboard/">
+            {% trans "Back to Dashboard" %}
+          </a>
+        </div>
+      </div>
+      <script>
+        window.JCW_SITE_MODE = "{{ jcw_site_mode|default:'other' }}";
+      </script>
+    {% endif %}
+    {% include 'core/main_nav.html' %}
     {% block content %}{% endblock %}
     {% include 'core/right_sidebar.html' %}
     <script src="{% static 'jcw/js/jcw-ui.js' %}"></script>
+    {% if is_edit_mode %}
+    <script src="{% static 'editor/editor.js' %}" defer></script>
+    {% endif %}
   </body>
 </html>
 

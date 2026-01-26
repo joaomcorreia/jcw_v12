@@ -1,0 +1,88 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Edit services section" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">
+    {% blocktrans with page_slug=page.slug %}Edit services: {{ page_slug }}{% endblocktrans %}
+  </h1>
+  <div class="dashboard-toolbar">
+    <a class="dashboard-button" href="{{ public_url }}" target="_blank" rel="noopener">{% trans "View page" %}</a>
+    <a class="dashboard-link" href="{% url 'tenant_dashboard:dashboard_pages' %}">{% trans "Back to pages" %}</a>
+  </div>
+  {% if messages %}
+    <div class="dashboard-card dashboard-card--auto">
+      {% for message in messages %}
+        <p class="dashboard-muted">{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+  <div class="dashboard-card dashboard-card--auto">
+    <form method="post" class="dashboard-form">
+      {% csrf_token %}
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="services-heading">{% trans "Heading" %}</label>
+        <input id="services-heading" name="heading" class="dashboard-input" type="text" value="{{ heading_value }}">
+        {% if errors.heading %}
+          <p class="dashboard-error">{{ errors.heading }}</p>
+        {% endif %}
+      </div>
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="services-intro">{% trans "Intro" %}</label>
+        <textarea id="services-intro" name="intro" class="dashboard-input" rows="4">{{ intro_value }}</textarea>
+      </div>
+
+      <input type="hidden" name="item_count" value="{{ item_count }}">
+
+      <div class="dashboard-form-row">
+        <label class="dashboard-label">{% trans "Items" %}</label>
+        <div class="dashboard-list">
+          {% for item in items %}
+            <div class="dashboard-card dashboard-card--auto">
+              <div class="dashboard-form-row">
+                <label class="dashboard-label" for="item-title-{{ forloop.counter0 }}">
+                  {% blocktrans with number=forloop.counter %}Title {{ number }}{% endblocktrans %}
+                </label>
+                <input
+                  id="item-title-{{ forloop.counter0 }}"
+                  name="item_title_{{ forloop.counter0 }}"
+                  class="dashboard-input"
+                  type="text"
+                  value="{{ item.title }}">
+              </div>
+              <div class="dashboard-form-row">
+                <label class="dashboard-label" for="item-desc-{{ forloop.counter0 }}">
+                  {% blocktrans with number=forloop.counter %}Description {{ number }}{% endblocktrans %}
+                </label>
+                <textarea
+                  id="item-desc-{{ forloop.counter0 }}"
+                  name="item_desc_{{ forloop.counter0 }}"
+                  class="dashboard-input"
+                  rows="3">{{ item.description }}</textarea>
+              </div>
+              <div class="dashboard-form-row">
+                <label class="dashboard-label" for="item-icon-{{ forloop.counter0 }}">
+                  {% blocktrans with number=forloop.counter %}Icon {{ number }}{% endblocktrans %}
+                </label>
+                <input
+                  id="item-icon-{{ forloop.counter0 }}"
+                  name="item_icon_{{ forloop.counter0 }}"
+                  class="dashboard-input"
+                  type="text"
+                  value="{{ item.icon }}">
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="dashboard-form-actions">
+        <button class="dashboard-button" type="submit" name="action" value="save">{% trans "Save changes" %}</button>
+        <button class="dashboard-button dashboard-button--secondary" type="submit" name="action" value="add_item">{% trans "Add item" %}</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -8,6 +8,8 @@ def ensure_draft_site(request):
     draft = {
         "business_name": "",
         "business_type": "",
+        "city": "",
+        "country": "",
         "preferred_language": request.LANGUAGE_CODE,
         "selected_template_key": "",
         "created_at": timezone.now().isoformat(),

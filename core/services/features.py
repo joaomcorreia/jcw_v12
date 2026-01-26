@@ -32,7 +32,12 @@ def get_active_subscription():
     )
 
 
-def resolve_active_plan():
+def resolve_active_plan(site=None):
+    if site is not None:
+        site_plan = getattr(site, "plan", None)
+        if site_plan:
+            return site_plan
+
     subscription = get_active_subscription()
     if subscription:
         return subscription.plan

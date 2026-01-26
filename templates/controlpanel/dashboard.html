@@ -15,7 +15,10 @@
           <h1 class="text-3xl font-bold">Control Panel</h1>
           <p class="text-sm text-slate-600">Staff-only dashboard for core system objects.</p>
         </div>
-        <a href="{% url 'admin:index' %}" class="text-sm font-semibold text-blue-700 hover:underline">Open Django Admin</a>
+        {% url 'admin:index' as admin_url %}
+        {% if admin_url and request.user.is_staff %}
+        <a href="{{ admin_url }}" class="text-sm font-semibold text-blue-700 hover:underline">Open Django Admin</a>
+        {% endif %}
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

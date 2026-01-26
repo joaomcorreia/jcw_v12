@@ -1,0 +1,314 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Visibility" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">{% trans "Visibility" %}</h1>
+
+  <div class="dashboard-card dashboard-card--auto">
+    <div class="dashboard-card-header">
+      <h2 class="dashboard-card-title">{% trans "Current plan" %}</h2>
+      <span class="dashboard-badge">{{ plan_name }}</span>
+    </div>
+    <p class="dashboard-muted">
+      {% blocktrans with level=seo_level %}SEO level: {{ level }}{% endblocktrans %}
+    </p>
+  </div>
+
+  <div class="dashboard-card dashboard-card--auto">
+    <h2 class="dashboard-card-title">{% trans "Visibility mode" %}</h2>
+    <p class="dashboard-muted">{{ visibility_mode_label }}</p>
+    <p class="dashboard-muted">{% trans "Visibility is controlled by your current plan." %}</p>
+  </div>
+
+  <div class="dashboard-card dashboard-card--auto">
+    <h2 class="dashboard-card-title">{% trans "Location visibility" %}</h2>
+    {% if seo_is_local %}
+      <p class="dashboard-muted">{% trans "Local plan uses the city selected during setup." %}</p>
+      <p class="dashboard-muted">{% trans "Visible within ~50km of your active city." %}</p>
+      {% if active_city_label %}
+        <p class="dashboard-muted">
+          {% trans "Active city" %}: {{ active_city_label }}
+          {% if active_country_label %}({{ active_country_label }}){% endif %}
+        </p>
+      {% else %}
+        <p class="dashboard-muted">{% trans "No city is set yet. Ask support to update your setup city in Admin -> CORE -> Tenant SEO Settings." %}</p>
+      {% endif %}
+      <div class="dashboard-card dashboard-card--auto">
+        <p class="dashboard-muted">{% trans "Country and EU visibility are locked on Starter." %}</p>
+        <button class="dashboard-button" type="button" disabled>{% trans "Upgrade to Country SEO" %}</button>
+        <button class="dashboard-button" type="button" disabled>{% trans "Upgrade to EU SEO" %}</button>
+      </div>
+    {% elif visibility_mode == "basic" and not seo_is_local %}
+      <p class="dashboard-muted">{% trans "Upgrade to control visibility by location." %}</p>
+      {% if location_locked_hint %}
+        <p class="dashboard-muted">{{ location_locked_hint }}</p>
+      {% endif %}
+      <div class="dashboard-grid">
+        <div class="dashboard-form-row">
+          <label class="dashboard-label" for="visibility-country">{% trans "Countries" %}</label>
+          <input id="visibility-country" class="dashboard-input" type="text" disabled placeholder="{% trans 'Select countries' %}">
+        </div>
+        <div class="dashboard-form-row">
+          <label class="dashboard-label" for="visibility-city">{% trans "Cities" %}</label>
+          <input id="visibility-city" class="dashboard-input" type="text" disabled placeholder="{% trans 'Select cities' %}">
+        </div>
+      </div>
+    {% elif visibility_mode == "eu" %}
+      <p class="dashboard-muted">{% trans "EU-wide visibility is enabled for your plan." %}</p>
+    {% else %}
+      {% if not allow_location_pages %}
+        <p class="dashboard-muted">{% trans "Location pages are disabled for this plan." %}</p>
+        {% if location_locked_hint %}
+          <p class="dashboard-muted">{{ location_locked_hint }}</p>
+        {% endif %}
+      {% endif %}
+      {% if seo_is_local %}
+        <p class="dashboard-muted">{% trans "Local plan: visibility is limited to one city." %}</p>
+        <p class="dashboard-muted">{% trans "Upgrade to Country SEO to unlock country-level visibility." %}</p>
+      {% elif max_cities == 6 %}
+        <p class="dashboard-muted">{% trans "Country visibility: choose up to six cities from the list." %}</p>
+      {% endif %}
+      {% if errors %}
+        <div class="dashboard-card dashboard-card--auto">
+          {% for error in errors %}
+            <p class="dashboard-error">{{ error }}</p>
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% if not seo_is_local %}
+      <form method="post" class="dashboard-form">
+        {% csrf_token %}
+        <input type="hidden" name="visibility_submit" value="1">
+        {% if max_countries %}
+          <p class="dashboard-muted">
+            {% blocktrans with count=selected_countries|length max=max_countries %}Countries selected: {{ count }} / {{ max }}{% endblocktrans %}
+          </p>
+        {% endif %}
+        {% if max_cities %}
+          <p class="dashboard-muted">
+            {% if max_cities == 1 %}
+              {% blocktrans with count=selected_city_keys|length %}City selected: {{ count }} / 1{% endblocktrans %}
+            {% else %}
+              {% blocktrans with count=selected_city_keys|length max=max_cities %}Cities selected: {{ count }} / {{ max }}{% endblocktrans %}
+            {% endif %}
+          </p>
+        {% endif %}
+        <div class="dashboard-form-row">
+          <label class="dashboard-label">{% trans "Countries" %}</label>
+          <div class="dashboard-list">
+            {% for country in countries %}
+              {% if max_countries == 1 %}
+                <label class="dashboard-checkbox">
+                  <input
+                    type="radio"
+                    name="countries"
+                    value="{{ country.code }}"
+                    {% if not allow_location_pages %}disabled{% endif %}
+                    {% if seo_is_local %}disabled{% endif %}
+                    {% if country.code in selected_countries %}checked{% endif %}>
+                  {{ country.name }}
+                </label>
+              {% else %}
+                <label class="dashboard-checkbox">
+                  <input
+                    type="checkbox"
+                    name="countries"
+                    value="{{ country.code }}"
+                    {% if not allow_location_pages %}disabled{% endif %}
+                    {% if seo_is_local %}disabled{% endif %}
+                    {% if max_countries and selected_countries|length >= max_countries and country.code not in selected_countries %}disabled{% endif %}
+                    {% if country.code in selected_countries %}checked{% endif %}>
+                  {{ country.name }}
+                </label>
+              {% endif %}
+            {% endfor %}
+          </div>
+          {% if max_countries_reached %}
+            <p class="dashboard-muted">{% trans "Country limit reached for this plan." %}</p>
+          {% endif %}
+          {% if seo_is_local %}
+            <p class="dashboard-muted">{% trans "Available on Country plan." %}</p>
+          {% endif %}
+        </div>
+        <div class="dashboard-form-row">
+          <label class="dashboard-label">{% trans "Cities" %}</label>
+          {% for country in countries %}
+            {% if country.code in selected_countries %}
+              <div class="dashboard-card dashboard-card--auto">
+                <strong>{{ country.name }}</strong>
+                <div class="dashboard-list">
+                  {% if max_cities == 1 %}
+                    {% for city in country.cities %}
+                      {% with city_key=country.code|add:"|"|add:city %}
+                      <label class="dashboard-checkbox">
+                          <input
+                            type="radio"
+                            name="cities"
+                            value="{{ city_key }}"
+                            {% if not allow_location_pages %}disabled{% endif %}
+                            {% if seo_is_local %}disabled{% endif %}
+                            {% if city_key in selected_city_keys %}checked{% endif %}>
+                        {{ city }}
+                      </label>
+                      {% endwith %}
+                    {% endfor %}
+                  {% elif max_cities == 6 %}
+                    {% for city in country.cities|slice:":6" %}
+                      {% with city_key=country.code|add:"|"|add:city %}
+                      <label class="dashboard-checkbox">
+                          <input
+                            type="checkbox"
+                            name="cities"
+                            value="{{ city_key }}"
+                            {% if not allow_location_pages %}disabled{% endif %}
+                            {% if seo_is_local %}disabled{% endif %}
+                            {% if max_cities and selected_city_keys|length >= max_cities and city_key not in selected_city_keys %}disabled{% endif %}
+                            {% if city_key in selected_city_keys %}checked{% endif %}>
+                        {{ city }}
+                      </label>
+                      {% endwith %}
+                    {% endfor %}
+                  {% else %}
+                    {% for city in country.cities %}
+                      {% with city_key=country.code|add:"|"|add:city %}
+                      <label class="dashboard-checkbox">
+                          <input
+                            type="checkbox"
+                            name="cities"
+                            value="{{ city_key }}"
+                            {% if not allow_location_pages %}disabled{% endif %}
+                            {% if seo_is_local %}disabled{% endif %}
+                            {% if max_cities and selected_city_keys|length >= max_cities and city_key not in selected_city_keys %}disabled{% endif %}
+                            {% if city_key in selected_city_keys %}checked{% endif %}>
+                        {{ city }}
+                      </label>
+                      {% endwith %}
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+          {% if max_cities_reached %}
+            <p class="dashboard-muted">{% trans "City limit reached for this plan." %}</p>
+          {% endif %}
+          {% if seo_is_local %}
+            <p class="dashboard-muted">{% trans "Available on Country plan." %}</p>
+          {% endif %}
+        </div>
+        <div class="dashboard-form-actions">
+          <button class="dashboard-button" type="submit">{% trans "Save visibility" %}</button>
+        </div>
+      </form>
+      {% endif %}
+    {% endif %}
+  </div>
+
+  <div class="dashboard-card dashboard-card--auto">
+    <h2 class="dashboard-card-title">{% trans "SEO targeting" %}</h2>
+    {% if seo_is_local %}
+      <p class="dashboard-muted">{% trans "Local plan: active city is set during setup." %}</p>
+      {% if active_city_label %}
+        <p class="dashboard-muted">
+          {% trans "Active city" %}: {{ active_city_label }}
+          {% if active_country_label %}({{ active_country_label }}){% endif %}
+        </p>
+      {% else %}
+        <p class="dashboard-muted">{% trans "No city is set yet. Ask support to update your setup city in Admin -> CORE -> Tenant SEO Settings." %}</p>
+      {% endif %}
+    {% elif seo_is_country %}
+      <p class="dashboard-muted">{% trans "You can focus on up to 6 key cities nationwide." %}</p>
+    {% else %}
+      <p class="dashboard-muted">{% trans "EU plan: select multiple focus cities." %}</p>
+    {% endif %}
+    {% if show_city_change_warning %}
+      <p class="dashboard-muted">{% trans "You recently changed your active city. Frequent changes may delay indexing." %}</p>
+    {% endif %}
+    {% if seo_errors %}
+      <div class="dashboard-card dashboard-card--auto">
+        {% for error in seo_errors %}
+          <p class="dashboard-error">{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% if not seo_is_local %}
+    <form method="post" class="dashboard-form">
+      {% csrf_token %}
+      <input type="hidden" name="seo_settings_submit" value="1">
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="target-country">{% trans "Target country" %}</label>
+        <select id="target-country" name="target_country" class="dashboard-input" {% if not allow_location_pages or seo_is_local %}disabled{% endif %}>
+          <option value="">{% trans "Select country" %}</option>
+          {% for country in countries %}
+            <option value="{{ country.code }}" {% if country.code == target_country_code %}selected{% endif %}>
+              {{ country.name }}
+            </option>
+          {% endfor %}
+        </select>
+        {% if not allow_location_pages and location_locked_hint %}
+          <p class="dashboard-muted">{{ location_locked_hint }}</p>
+        {% endif %}
+        {% if seo_is_local %}
+          <p class="dashboard-muted">{% trans "Available on Country plan." %}</p>
+        {% endif %}
+      </div>
+      {% if seo_is_local %}
+        <div class="dashboard-form-row">
+          <label class="dashboard-label" for="active-city">{% trans "Active city" %}</label>
+          <select id="active-city" name="active_city" class="dashboard-input" {% if not allow_city_switching or not allow_location_pages %}disabled{% endif %}>
+            <option value="">{% trans "Select city" %}</option>
+            {% for city in available_cities %}
+              <option value="{{ city.id }}" {% if city.id == active_city_id %}selected{% endif %}>
+                {{ city.name }}
+              </option>
+            {% endfor %}
+          </select>
+          <p class="dashboard-muted">{% trans "Changing your city may affect local rankings." %}</p>
+          {% if not allow_city_switching and city_switch_locked_hint %}
+            <p class="dashboard-muted">{{ city_switch_locked_hint }}</p>
+          {% endif %}
+        </div>
+      {% else %}
+        <div class="dashboard-form-row">
+          <label class="dashboard-label">{% trans "Focus cities" %}</label>
+          <div class="dashboard-list">
+            {% for city in available_cities %}
+              <label class="dashboard-checkbox">
+                <input
+                  type="checkbox"
+                  name="focus_cities"
+                  value="{{ city.id }}"
+                  {% if not allow_location_pages %}disabled{% endif %}
+                  {% if max_focus_cities and focus_city_ids|length >= max_focus_cities and city.id not in focus_city_ids %}disabled{% endif %}
+                  {% if city.id in focus_city_ids %}checked{% endif %}>
+                {{ city.name }}
+              </label>
+            {% endfor %}
+          </div>
+          {% if max_focus_cities %}
+            <p class="dashboard-muted">{% blocktrans with max=max_focus_cities %}Max cities: {{ max }}{% endblocktrans %}</p>
+          {% endif %}
+          {% if max_focus_reached and max_focus_hint %}
+            <p class="dashboard-muted">{{ max_focus_hint }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+      <div class="dashboard-form-actions">
+        <button class="dashboard-button" type="submit" {% if not allow_city_switching %}disabled{% endif %}>
+          {% trans "Save SEO targeting" %}
+        </button>
+      </div>
+    </form>
+    {% else %}
+      <div class="dashboard-card dashboard-card--auto">
+        <p class="dashboard-muted">{% trans "Country and EU targeting options are locked on Starter." %}</p>
+        <button class="dashboard-button" type="button" disabled>{% trans "Upgrade to Country SEO" %}</button>
+        <button class="dashboard-button" type="button" disabled>{% trans "Upgrade to EU SEO" %}</button>
+      </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -12,7 +12,7 @@
     <div class="dashboard-app" data-dashboard data-current-url="{{ request.resolver_match.url_name }}" data-current-namespace="{{ request.resolver_match.namespace }}">
       <header class="dashboard-topbar">
         <div class="dashboard-topbar-left">
-          <a class="dashboard-brand" href="{% url 'core:home' %}">Just Code Works</a>
+          <a class="dashboard-brand" href="{% url 'core:home' %}">Just Code Works - Control Panel</a>
         </div>
         <div class="dashboard-topbar-right">
           <a class="dashboard-top-link" href="{% url 'core:home' %}">{% trans "Main Site" %}</a>
@@ -26,15 +26,20 @@
             <
           </button>
           <nav class="dashboard-nav">
-            <a class="dashboard-nav-item{% if request.resolver_match.namespace == 'controlpanel' and request.resolver_match.url_name == 'home' %} is-active{% endif %}" href="{% url 'controlpanel:home' %}">{% trans "Overview" %}</a>
-            <a class="dashboard-nav-item{% if request.resolver_match.namespace == 'controlpanel' and request.resolver_match.url_name == 'domains_hosting' %} is-active{% endif %}" href="{% url 'controlpanel:domains_hosting' %}">{% trans "Domains & Hosting" %}</a>
-            <a class="dashboard-nav-item{% if request.resolver_match.namespace == 'controlpanel' and request.resolver_match.url_name == 'templates_list' or request.resolver_match.url_name == 'templates_create' or request.resolver_match.url_name == 'templates_edit' %} is-active{% endif %}" href="{% url 'controlpanel:templates_list' %}">{% trans "Templates" %}</a>
-            <a class="dashboard-nav-item{% if request.resolver_match.namespace == 'controlpanel' and request.resolver_match.url_name == 'users' %} is-active{% endif %}" href="{% url 'controlpanel:users' %}">{% trans "Users" %}</a>
-            <a class="dashboard-nav-item{% if request.resolver_match.namespace == 'controlpanel' and request.resolver_match.url_name == 'billing' %} is-active{% endif %}" href="{% url 'controlpanel:billing' %}">{% trans "Billing" %}</a>
-            <a class="dashboard-nav-item{% if request.resolver_match.namespace == 'controlpanel' and request.resolver_match.url_name == 'tenants' %} is-active{% endif %}" href="{% url 'controlpanel:tenants' %}">{% trans "Tenants" %}</a>
+            <a class="dashboard-nav-item{% if request.resolver_match.namespace == 'control_panel' and request.resolver_match.url_name == 'home' %} is-active{% endif %}" href="{% url 'control_panel:home' %}">{% trans "Overview" %}</a>
+            <a class="dashboard-nav-item{% if request.resolver_match.namespace == 'control_panel' and request.resolver_match.url_name == 'website_builder' %} is-active{% endif %}" href="{% url 'control_panel:website_builder' %}">{% trans "Website builder" %}</a>
+            <a class="dashboard-nav-item{% if request.resolver_match.namespace == 'control_panel' and request.resolver_match.url_name == 'domains_hosting' %} is-active{% endif %}" href="{% url 'control_panel:domains_hosting' %}">{% trans "Domains & Hosting" %}</a>
+            <a class="dashboard-nav-item{% if request.resolver_match.namespace == 'control_panel' and request.resolver_match.url_name == 'templates_list' or request.resolver_match.url_name == 'templates_create' or request.resolver_match.url_name == 'templates_edit' %} is-active{% endif %}" href="{% url 'control_panel:templates_list' %}">{% trans "Templates" %}</a>
+            <a class="dashboard-nav-item{% if request.resolver_match.namespace == 'control_panel' and request.resolver_match.url_name == 'users' %} is-active{% endif %}" href="{% url 'control_panel:users' %}">{% trans "Users" %}</a>
+            <a class="dashboard-nav-item{% if request.resolver_match.namespace == 'control_panel' and request.resolver_match.url_name == 'billing' %} is-active{% endif %}" href="{% url 'control_panel:billing' %}">{% trans "Billing" %}</a>
+            <a class="dashboard-nav-item{% if request.resolver_match.namespace == 'control_panel' and request.resolver_match.url_name == 'content_map' %} is-active{% endif %}" href="{% url 'control_panel:content_map' %}">{% trans "Content map" %}</a>
+            <a class="dashboard-nav-item{% if request.resolver_match.namespace == 'control_panel' and request.resolver_match.url_name|slice:":5" == 'plans' %} is-active{% endif %}" href="{% url 'control_panel:plans_list' %}">{% trans "Plans" %}</a>
+            <a class="dashboard-nav-item{% if request.resolver_match.namespace == 'control_panel' and request.resolver_match.url_name|slice:":6" == 'tenant' %} is-active{% endif %}" href="{% url 'control_panel:tenants' %}">{% trans "Tenants" %}</a>
             <div class="dashboard-nav-separator"></div>
-            <a class="dashboard-nav-item" href="{% url 'core:dashboard' %}">{% trans "Back to Dashboard" %}</a>
-            <a class="dashboard-nav-item" href="{% url 'admin:index' %}" target="_blank" rel="noopener">{% trans "Admin" %}</a>
+            {% url 'admin:index' as admin_url %}
+            {% if admin_url and request.user.is_staff %}
+            <a class="dashboard-nav-item" href="{{ admin_url }}" target="_blank" rel="noopener">{% trans "Admin" %}</a>
+            {% endif %}
           </nav>
         </aside>
 

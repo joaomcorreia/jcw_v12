@@ -10,11 +10,14 @@
   const drawerToggle = app.querySelector('[data-dashboard-toggle="drawer"]');
   const frontendGroup = app.querySelector('[data-dashboard-group="frontend"]');
   const frontendToggle = app.querySelector('[data-dashboard-group-toggle="frontend"]');
+  const marketplaceGroup = app.querySelector('[data-dashboard-group="marketplace"]');
+  const marketplaceToggle = app.querySelector('[data-dashboard-group-toggle="marketplace"]');
   const currentUrl = app.getAttribute("data-current-url");
 
   const sidebarKey = "jcw-dashboard-sidebar-collapsed";
   const drawerKey = "jcw-dashboard-drawer-collapsed";
   const frontendKey = "jcw_nav_frontend_open";
+  const marketplaceKey = "jcw_nav_marketplace_open";
 
   const setCollapsed = (element, key, value) => {
     if (!element) {
@@ -42,6 +45,18 @@
         localStorage.setItem(frontendKey, "1");
       }
     }
+    if (marketplaceGroup) {
+      const stored = localStorage.getItem(marketplaceKey);
+      const autoOpen =
+        currentUrl === "marketplace_jcw" ||
+        currentUrl === "marketplace_printlab" ||
+        currentUrl === "marketplace_card_payments";
+      const shouldOpen = autoOpen || (stored === null ? true : stored === "1");
+      marketplaceGroup.classList.toggle("is-open", shouldOpen);
+      if (autoOpen) {
+        localStorage.setItem(marketplaceKey, "1");
+      }
+    }
   };
 
   restoreState();
@@ -62,6 +77,12 @@
     frontendToggle.addEventListener("click", () => {
       const isOpen = frontendGroup.classList.toggle("is-open");
       localStorage.setItem(frontendKey, isOpen ? "1" : "0");
+    });
+  }
+  if (marketplaceGroup && marketplaceToggle) {
+    marketplaceToggle.addEventListener("click", () => {
+      const isOpen = marketplaceGroup.classList.toggle("is-open");
+      localStorage.setItem(marketplaceKey, isOpen ? "1" : "0");
     });
   }
 })();

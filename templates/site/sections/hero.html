@@ -1,8 +1,8 @@
 {% load i18n %}
-<section>
-  <h1>{{ data.title|default:"" }}</h1>
-  <p>{{ data.subtitle|default:"" }}</p>
+<section data-jcw-section="{{ section.key }}" data-jcw-section-id="{{ section.id }}">
+  <h1 data-jcw-field="hero.title" data-jcw-field-id="p{{ page.id }}-s{{ section.id }}-hero.title" data-jcw-type="text">{{ data.title|default:"" }}</h1>
+  <p data-jcw-field="hero.subtitle" data-jcw-field-id="p{{ page.id }}-s{{ section.id }}-hero.subtitle" data-jcw-type="text">{{ data.subtitle|default:"" }}</p>
   {% if data.cta_text and data.cta_url %}
-    <a href="{{ data.cta_url }}">{{ data.cta_text }}</a>
+    <a href="{{ data.cta_url }}" data-jcw-field="hero.cta_text" data-jcw-field-id="p{{ page.id }}-s{{ section.id }}-hero.cta_text" data-jcw-type="text">{{ data.cta_text }}</a>
   {% endif %}
 </section>

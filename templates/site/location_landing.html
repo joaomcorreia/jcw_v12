@@ -1,0 +1,13 @@
+{% extends "site/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<section>
+  <h1>{{ city }}, {{ country }} | {{ business_name }}</h1>
+  <p>{% blocktrans with city_name=city %}You are viewing our visibility landing page for {{ city_name }}.{% endblocktrans %}</p>
+  <div>
+    <a href="{{ services_url }}">{% trans "Services" %}</a>
+    <a href="{{ contact_url }}">{% trans "Contact" %}</a>
+  </div>
+</section>
+{% endblock %}

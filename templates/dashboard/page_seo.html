@@ -1,0 +1,62 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "SEO settings" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">
+    {% blocktrans with page_slug=page.slug %}SEO: {{ page_slug }}{% endblocktrans %}
+  </h1>
+  {% if messages %}
+    <div class="dashboard-card dashboard-card--auto">
+      {% for message in messages %}
+        <p class="dashboard-muted">{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+  {% if plan_blocks_indexing %}
+    <div class="dashboard-card dashboard-card--auto">
+      <p class="dashboard-muted">{% trans "Your current plan doesn’t allow this page to be indexed. Upgrade to enable indexing." %}</p>
+    </div>
+  {% endif %}
+  {% if not allow_indexing %}
+    <div class="dashboard-card dashboard-card--auto">
+      <p class="dashboard-muted">{{ indexing_locked_hint }}</p>
+    </div>
+  {% endif %}
+  <div class="dashboard-card dashboard-card--auto">
+    <form method="post" class="dashboard-form">
+      {% csrf_token %}
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="{{ form.meta_title.id_for_label }}">{{ form.meta_title.label }}</label>
+        {{ form.meta_title }}
+        <p class="dashboard-muted">{% trans "Length" %}: {{ title_count }} / 70</p>
+        {% for error in form.meta_title.errors %}
+          <p class="dashboard-error">{{ error }}</p>
+        {% endfor %}
+      </div>
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="{{ form.meta_description.id_for_label }}">{{ form.meta_description.label }}</label>
+        {{ form.meta_description }}
+        <p class="dashboard-muted">{% trans "Length" %}: {{ description_count }} / 160</p>
+        {% for error in form.meta_description.errors %}
+          <p class="dashboard-error">{{ error }}</p>
+        {% endfor %}
+      </div>
+      <div class="dashboard-form-row">
+        <label class="dashboard-checkbox">
+          {{ form.noindex }}
+          {% trans "Disallow indexing (noindex, nofollow)" %}
+        </label>
+        {% if not allow_indexing %}
+          <p class="dashboard-muted">{{ indexing_locked_hint }}</p>
+        {% endif %}
+      </div>
+      <div class="dashboard-form-actions">
+        <button class="dashboard-button" type="submit">{% trans "Save SEO" %}</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

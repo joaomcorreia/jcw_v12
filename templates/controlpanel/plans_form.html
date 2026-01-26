@@ -1,0 +1,54 @@
+{% extends "controlpanel/base_controlpanel.html" %}
+{% load i18n %}
+
+{% block title %}
+  {% if is_create %}{% trans "Create plan" %}{% else %}{% trans "Edit plan" %}{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">
+    {% if is_create %}{% trans "Create plan" %}{% else %}{% trans "Edit plan" %}{% endif %}
+  </h1>
+  {% if is_frozen %}
+    <div class="dashboard-card dashboard-card--auto">
+      <p class="dashboard-muted">{% trans "This plan is frozen and cannot be edited." %}</p>
+    </div>
+  {% endif %}
+  <div class="dashboard-card dashboard-card--auto">
+    <form method="post" class="dashboard-form">
+      {% csrf_token %}
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="{{ plan_form.name.id_for_label }}">{% trans "Name" %}</label>
+        {{ plan_form.name }}
+        {% for error in plan_form.name.errors %}
+          <p class="dashboard-error">{{ error }}</p>
+        {% endfor %}
+      </div>
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="{{ plan_form.slug.id_for_label }}">{% trans "Slug" %}</label>
+        {{ plan_form.slug }}
+        {% for error in plan_form.slug.errors %}
+          <p class="dashboard-error">{{ error }}</p>
+        {% endfor %}
+      </div>
+      <div class="dashboard-form-row">
+        <label class="dashboard-checkbox">
+          {{ plan_form.is_active }}
+          {% trans "Active" %}
+        </label>
+      </div>
+      <div class="dashboard-card dashboard-card--auto">
+        <p class="dashboard-muted">
+          {% trans "SEO plan rules are managed in Django Admin (CORE -> Plan SEO settings)." %}
+        </p>
+      </div>
+      <div class="dashboard-form-actions">
+        <button class="dashboard-button" type="submit">
+          {% if is_create %}{% trans "Create plan" %}{% else %}{% trans "Save plan" %}{% endif %}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -26,7 +26,32 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "dev-insecure-secret-key")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+MAIN_DOMAIN = os.environ.get("JCW_MAIN_DOMAIN", "justcodeworks.local")
+JCW_ALLOW_IFRAME_PREVIEW = os.environ.get("JCW_ALLOW_IFRAME_PREVIEW", "").lower() in {"1", "true", "yes"}
+
+allowed_hosts_env = os.environ.get("DJANGO_ALLOWED_HOSTS", "")
+if allowed_hosts_env:
+    ALLOWED_HOSTS = [
+        host.strip() for host in allowed_hosts_env.split(",") if host.strip()
+    ]
+else:
+    ALLOWED_HOSTS = [
+        "127.0.0.1",
+        "localhost",
+        "justcodeworks.local",
+        ".justcodeworks.local",
+    ]
+
+csrf_trusted_env = os.environ.get("DJANGO_CSRF_TRUSTED", "")
+if csrf_trusted_env:
+    CSRF_TRUSTED_ORIGINS = [
+        origin.strip() for origin in csrf_trusted_env.split(",") if origin.strip()
+    ]
+else:
+    CSRF_TRUSTED_ORIGINS = [
+        "http://justcodeworks.local:8000",
+        "http://mim.justcodeworks.local:8000",
+    ]
 
 
 # Application definition
@@ -44,7 +69,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'core.tenant_routing.TenantRoutingMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'core.middleware.SiteResolverMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -55,6 +82,14 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if DEBUG:
+    MIDDLEWARE += [
+        'core.middleware_debug.DebugRouteHeadersMiddleware',
+        'core.middleware_debug.IframePreviewHeadersMiddleware',
+    ]
+elif JCW_ALLOW_IFRAME_PREVIEW:
+    MIDDLEWARE += ['core.middleware_debug.IframePreviewHeadersMiddleware']
 
 ROOT_URLCONF = 'config.urls'
 
@@ -67,12 +102,16 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.request',
                 'core.context_processors.seo_context',
+                'core.context_processors.canonical_context',
                 'core.context_processors.nav_pages',
                 'core.context_processors.feature_flags',
                 'core.context_processors.launch_settings',
                 'core.context_processors.latest_blog_posts',
                 'core.context_processors.dashboard_plan_context',
                 'dashboard.context_processors.dashboard_plan_flags',
+                'core.context_processors.embed_mode',
+                'core.context_processors.edit_mode',
+                'core.context_processors.site_mode_context',
                 'core.context_processors.debug_env',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -162,7 +201,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
 LOGIN_URL = "/accounts/login/"
-LOGIN_REDIRECT_URL = "/dashboard/"
+LOGIN_REDIRECT_URL = "core:home"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -171,3 +210,21 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Basic plan SEO indexing whitelist (slugs).
+BASIC_INDEXABLE_SLUGS = ["home", "services", "contact"]
+
+# SEO targeting limits by tier.
+SEO_TIER_FOCUS_CITY_LIMITS = {
+    "local": 0,
+    "country": 6,
+    "eu": 50,
+}
+
+SEO_TIER_ACTIVE_CITY_REQUIRED = {
+    "local": True,
+    "country": False,
+    "eu": False,
+}
+
+SEO_ACTIVE_CITY_COOLDOWN_DAYS = 30

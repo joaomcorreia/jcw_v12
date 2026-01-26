@@ -1,0 +1,236 @@
+:root {
+  --jcw-editorbar-h: 56px;
+}
+
+.jcw-edit-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: #0f172a;
+  color: #ffffff;
+  font-size: 13px;
+  z-index: 99999 !important;
+}
+
+.jcw-edit-bar__center {
+  text-align: center;
+  flex: 1;
+}
+
+.jcw-edit-bar__left,
+.jcw-edit-bar__right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 120px;
+}
+
+.jcw-edit-bar__badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.jcw-edit-bar__right {
+  justify-content: flex-end;
+}
+
+.jcw-edit-bar__btn {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: transparent;
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.jcw-edit-bar__btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+body.jcw-edit-mode {
+  padding-top: var(--jcw-editorbar-h);
+}
+
+body.jcw-edit-mode > div.min-h-screen,
+body.edit-mode > div.min-h-screen {
+  padding-top: calc(var(--jcw-editorbar-h) + var(--jcw-nav-h)) !important;
+}
+
+body.edit-mode .jcw-edit-bar {
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.25);
+}
+
+body.jcw-edit-mode [data-jcw-main-nav],
+body.edit-mode [data-jcw-main-nav] {
+  z-index: 9999 !important;
+}
+
+
+.jcw-hover {
+  outline: 2px solid rgba(59, 130, 246, 0.35);
+  outline-offset: 2px;
+}
+
+.jcw-selected {
+  outline: 2px solid rgba(59, 130, 246, 0.9);
+  outline-offset: 2px;
+}
+
+.jcw-field-badge {
+  position: absolute;
+  z-index: 1001;
+  background: #0f172a;
+  color: #ffffff;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  pointer-events: none;
+  white-space: nowrap;
+  display: none;
+}
+
+body.edit-mode.jcw-edit-preview .jcw-field-badge {
+  display: none !important;
+}
+
+.jcw-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 1000;
+}
+
+.jcw-modal-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.jcw-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: min(520px, 90vw);
+  transform: translate(-50%, -50%) scale(0.98);
+  background: #ffffff;
+  color: #0f172a;
+  border-radius: 12px;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 1001;
+}
+
+.jcw-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.jcw-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.jcw-modal__header h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.jcw-modal__close {
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+  color: #0f172a;
+}
+
+.jcw-modal__body {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.jcw-modal__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.jcw-modal__slides {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.jcw-modal__slide-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.jcw-modal__slide-row label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.jcw-modal__button--ghost {
+  background: transparent;
+  color: #1d4ed8;
+  border: 1px dashed #cbd5f5;
+}
+
+.jcw-modal__row input[type="range"] {
+  flex: 1;
+}
+
+.jcw-modal__divider {
+  margin-top: 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748b;
+}
+
+.jcw-modal__footer {
+  padding: 16px 20px;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.jcw-modal__button {
+  background: #1d4ed8;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}

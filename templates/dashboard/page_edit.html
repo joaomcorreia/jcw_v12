@@ -6,57 +6,57 @@
 {% block content %}
 <div class="dashboard-page">
   <h1 class="dashboard-title">
-    {% blocktrans with page_slug=page.slug %}Edit page: {{ page_slug }}{% endblocktrans %}
+    {% blocktrans with page_title=display_title %}Edit page: {{ page_title }}{% endblocktrans %}
   </h1>
-  {% if saved %}
+  <div class="dashboard-toolbar">
+    <a class="dashboard-button" href="{{ public_url }}" target="_blank" rel="noopener">{% trans "View page" %}</a>
+    <a class="dashboard-link" href="{% url 'tenant_dashboard:dashboard_pages' %}">{% trans "Back to pages" %}</a>
+  </div>
+  {% if messages %}
     <div class="dashboard-card dashboard-card--auto">
-      <p class="dashboard-muted">{% trans "Hero content saved." %}</p>
+      {% for message in messages %}
+        <p class="dashboard-muted">{{ message }}</p>
+      {% endfor %}
     </div>
   {% endif %}
   <div class="dashboard-card dashboard-card--auto">
     <form method="post" class="dashboard-form">
       {% csrf_token %}
+      {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+          <p class="dashboard-error">{{ error }}</p>
+        {% endfor %}
+      {% endif %}
       <div class="dashboard-form-row">
-        <label class="dashboard-label" for="hero-title">{% trans "Title" %}</label>
-        <input
-          id="hero-title"
-          name="title"
-          class="dashboard-input"
-          type="text"
-          value="{{ title_value }}">
-        {% if errors.title %}
-          <p class="dashboard-error">{{ errors.title }}</p>
-        {% endif %}
+        <label class="dashboard-label" for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+        {{ form.title }}
+        {% for error in form.title.errors %}
+          <p class="dashboard-error">{{ error }}</p>
+        {% endfor %}
       </div>
       <div class="dashboard-form-row">
-        <label class="dashboard-label" for="hero-subtitle">{% trans "Subtitle" %}</label>
-        <textarea
-          id="hero-subtitle"
-          name="subtitle"
-          class="dashboard-input"
-          rows="4">{{ subtitle_value }}</textarea>
+        <label class="dashboard-label" for="{{ form.subtitle.id_for_label }}">{{ form.subtitle.label }}</label>
+        {{ form.subtitle }}
+        {% for error in form.subtitle.errors %}
+          <p class="dashboard-error">{{ error }}</p>
+        {% endfor %}
       </div>
       <div class="dashboard-form-row">
-        <label class="dashboard-label" for="hero-cta-text">{% trans "CTA text" %}</label>
-        <input
-          id="hero-cta-text"
-          name="cta_text"
-          class="dashboard-input"
-          type="text"
-          value="{{ cta_text_value }}">
+        <label class="dashboard-label" for="{{ form.cta_text.id_for_label }}">{{ form.cta_text.label }}</label>
+        {{ form.cta_text }}
+        {% for error in form.cta_text.errors %}
+          <p class="dashboard-error">{{ error }}</p>
+        {% endfor %}
       </div>
       <div class="dashboard-form-row">
-        <label class="dashboard-label" for="hero-cta-url">{% trans "CTA URL" %}</label>
-        <input
-          id="hero-cta-url"
-          name="cta_url"
-          class="dashboard-input"
-          type="text"
-          value="{{ cta_url_value }}">
+        <label class="dashboard-label" for="{{ form.cta_url.id_for_label }}">{{ form.cta_url.label }}</label>
+        {{ form.cta_url }}
+        {% for error in form.cta_url.errors %}
+          <p class="dashboard-error">{{ error }}</p>
+        {% endfor %}
       </div>
       <div class="dashboard-form-actions">
         <button class="dashboard-button" type="submit">{% trans "Save changes" %}</button>
-        <a class="dashboard-link" href="{% url 'core:dashboard_pages' %}">{% trans "Back to pages" %}</a>
       </div>
     </form>
   </div>

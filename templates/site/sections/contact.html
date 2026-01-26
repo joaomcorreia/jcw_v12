@@ -1,0 +1,34 @@
+{% load i18n %}
+<section data-jcw-section="{{ section.key }}" data-jcw-section-id="{{ section.id }}">
+  {% trans "Contact" as contact_label %}
+  <h2 data-jcw-field="contact.heading" data-jcw-field-id="p{{ page.id }}-s{{ section.id }}-contact.heading" data-jcw-type="text">{{ data.heading|default:"" }}</h2>
+  {% if data.intro %}
+    <p data-jcw-field="contact.intro" data-jcw-field-id="p{{ page.id }}-s{{ section.id }}-contact.intro" data-jcw-type="text">{{ data.intro }}</p>
+  {% endif %}
+  <div>
+    {% if data.phone %}
+      <p data-jcw-field="contact.phone" data-jcw-field-id="p{{ page.id }}-s{{ section.id }}-contact.phone" data-jcw-type="text">{{ data.phone }}</p>
+    {% endif %}
+    {% if data.email %}
+      <p data-jcw-field="contact.email" data-jcw-field-id="p{{ page.id }}-s{{ section.id }}-contact.email" data-jcw-type="text">{{ data.email }}</p>
+    {% endif %}
+    {% if data.address_line1 %}
+      <p data-jcw-field="contact.address_line1" data-jcw-field-id="p{{ page.id }}-s{{ section.id }}-contact.address_line1" data-jcw-type="text">{{ data.address_line1 }}</p>
+    {% endif %}
+    {% if data.address_line2 %}
+      <p data-jcw-field="contact.address_line2" data-jcw-field-id="p{{ page.id }}-s{{ section.id }}-contact.address_line2" data-jcw-type="text">{{ data.address_line2 }}</p>
+    {% endif %}
+    {% if data.postal_code or data.city %}
+      <p data-jcw-field="contact.city_line" data-jcw-field-id="p{{ page.id }}-s{{ section.id }}-contact.city_line" data-jcw-type="text">{{ data.postal_code }}{% if data.postal_code and data.city %} {% endif %}{{ data.city }}</p>
+    {% endif %}
+    {% if data.country %}
+      <p data-jcw-field="contact.country" data-jcw-field-id="p{{ page.id }}-s{{ section.id }}-contact.country" data-jcw-type="text">{{ data.country }}</p>
+    {% endif %}
+  </div>
+  {% if data.map_embed_url %}
+    <iframe src="{{ data.map_embed_url }}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  {% endif %}
+  {% if data.cta_url %}
+    <a href="{{ data.cta_url }}" data-jcw-field="contact.cta_text" data-jcw-field-id="p{{ page.id }}-s{{ section.id }}-contact.cta_text" data-jcw-type="text">{{ data.cta_text|default:contact_label }}</a>
+  {% endif %}
+</section>

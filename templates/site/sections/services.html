@@ -1,11 +1,17 @@
 {% load i18n %}
-<section>
-  <h2>{{ data.title|default:"" }}</h2>
+<section data-jcw-section="{{ section.key }}" data-jcw-section-id="{{ section.id }}">
+  <h2 data-jcw-field="services.heading" data-jcw-field-id="p{{ page.id }}-s{{ section.id }}-services.heading" data-jcw-type="text">{{ data.heading|default:"" }}</h2>
+  {% if data.intro %}
+    <p data-jcw-field="services.intro" data-jcw-field-id="p{{ page.id }}-s{{ section.id }}-services.intro" data-jcw-type="text">{{ data.intro }}</p>
+  {% endif %}
   <div>
     {% for item in data.items %}
-      <div>
-        <h3>{{ item.title|default:"" }}</h3>
-        <p>{{ item.text|default:"" }}</p>
+      <div data-jcw-section="{{ section.key }}.item.{{ forloop.counter0 }}" data-jcw-section-id="{{ section.id }}">
+        {% if item.icon %}
+          <span data-jcw-field="services.items.{{ forloop.counter0 }}.icon" data-jcw-field-id="p{{ page.id }}-s{{ section.id }}-services.items.{{ forloop.counter0 }}.icon" data-jcw-type="text">{{ item.icon }}</span>
+        {% endif %}
+        <h3 data-jcw-field="services.items.{{ forloop.counter0 }}.title" data-jcw-field-id="p{{ page.id }}-s{{ section.id }}-services.items.{{ forloop.counter0 }}.title" data-jcw-type="text">{{ item.title|default:"" }}</h3>
+        <p data-jcw-field="services.items.{{ forloop.counter0 }}.description" data-jcw-field-id="p{{ page.id }}-s{{ section.id }}-services.items.{{ forloop.counter0 }}.description" data-jcw-type="text">{{ item.description|default:"" }}</p>
       </div>
     {% endfor %}
   </div>

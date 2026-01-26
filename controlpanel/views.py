@@ -1,14 +1,34 @@
 import json
+import time
+from urllib.parse import urlencode, urlsplit, urlunsplit, parse_qsl
 
 from django import forms
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib import messages
 from django.core.exceptions import ValidationError
+from django.conf import settings
+from django.http import HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import gettext as _
+from django.utils.translation import get_language
+from django.db.models import Count, Q
 
-from core.models import Feature, MediaAsset, Page, PageSection, RightSidebarPanel, Site, WebsiteTemplate
+from core.models import (
+    Feature,
+    MediaAsset,
+    Page,
+    PageSection,
+    Plan,
+    PlanSEOSettings,
+    RightSidebarPanel,
+    SectionContent,
+    Site,
+    WebsiteTemplate,
+)
+from core.tenant import tenant_site_url
+from core.seo_utils import build_language_url_for_path
 from controlpanel.models import ManagedSite
 
 
@@ -106,6 +126,88 @@ def home(request):
 
 
 @staff_required
+def website_builder(request):
+    main_site = Site.objects.filter(is_main=True).first()
+    if not main_site:
+        messages.error(request, _("Main site not found. Run seed_pages first."))
+        return redirect("control_panel:home")
+
+    page, _ = Page.objects.get_or_create(
+        site=main_site,
+        slug="home",
+        defaults={"is_active": True, "template_key": main_site.template_key},
+    )
+    section, _ = PageSection.objects.get_or_create(
+        page=page,
+        key="home.hero",
+        defaults={"order": 0, "is_visible": True},
+    )
+    content, _ = SectionContent.objects.get_or_create(section=section)
+
+    lang = get_language()
+    if hasattr(content, "set_current_language"):
+        content.set_current_language(lang)
+    if hasattr(content, "has_translation") and not content.has_translation(lang):
+        content.heading = ""
+        content.subheading = ""
+        content.cta_primary_text = ""
+        content.cta_primary_url = ""
+        content.cta_secondary_text = ""
+        content.cta_secondary_url = ""
+        content.save()
+
+    view_mode = (request.GET.get("view") or "desktop").strip().lower()
+    if view_mode not in {"desktop", "mobile"}:
+        view_mode = "desktop"
+
+    if request.method == "POST":
+        content.heading = (request.POST.get("hero_title") or "").strip()
+        content.subheading = (request.POST.get("hero_subtitle") or "").strip()
+        content.cta_primary_text = (request.POST.get("hero_primary_cta_label") or "").strip()
+        content.cta_primary_url = (request.POST.get("hero_primary_cta_url") or "").strip()
+        content.cta_secondary_text = (request.POST.get("hero_secondary_cta_label") or "").strip()
+        content.cta_secondary_url = (request.POST.get("hero_secondary_cta_url") or "").strip()
+        content.save()
+        messages.success(request, _("Homepage hero saved."))
+        cache_buster = int(time.time())
+        return redirect(
+            f"{reverse('control_panel:website_builder')}?v={cache_buster}&view={view_mode}"
+        )
+
+    preview_url = build_language_url_for_path(request, lang, "/")
+    cache_buster = request.GET.get("v")
+    parts = urlsplit(preview_url)
+    query = dict(parse_qsl(parts.query, keep_blank_values=True))
+    query["embed"] = "1"
+    if cache_buster:
+        query["v"] = cache_buster
+    preview_url = urlunsplit(
+        (parts.scheme, parts.netloc, parts.path, urlencode(query, doseq=True), parts.fragment)
+    )
+
+    toggle_query_base = {}
+    if cache_buster:
+        toggle_query_base["v"] = cache_buster
+    toggle_query_desktop = urlencode({**toggle_query_base, "view": "desktop"})
+    toggle_query_mobile = urlencode({**toggle_query_base, "view": "mobile"})
+
+    context = {
+        "preview_url": preview_url,
+        "lang": lang,
+        "view_mode": view_mode,
+        "toggle_query_desktop": toggle_query_desktop,
+        "toggle_query_mobile": toggle_query_mobile,
+        "hero_title": content.safe_translation_getter("heading", default="", language_code=lang),
+        "hero_subtitle": content.safe_translation_getter("subheading", default="", language_code=lang),
+        "hero_primary_cta_label": content.safe_translation_getter("cta_primary_text", default="", language_code=lang),
+        "hero_primary_cta_url": content.safe_translation_getter("cta_primary_url", default="", language_code=lang),
+        "hero_secondary_cta_label": content.safe_translation_getter("cta_secondary_text", default="", language_code=lang),
+        "hero_secondary_cta_url": content.safe_translation_getter("cta_secondary_url", default="", language_code=lang),
+    }
+    return render(request, "controlpanel/website_builder.html", context)
+
+
+@staff_required
 def domains_hosting(request):
     return render(request, "controlpanel/domains_hosting.html")
 
@@ -123,24 +225,254 @@ def billing(request):
 
 
 @staff_required
+def content_map(request):
+    lang = request.LANGUAGE_CODE or get_language()
+    main_site = Site.objects.filter(is_main=True).first()
+    pages = (
+        Page.objects.filter(Q(site__isnull=True) | Q(site=main_site))
+        .prefetch_related("translations", "sections__content")
+        .order_by("slug")
+    )
+    duplicate_keys = set(
+        PageSection.objects.filter(page__in=pages)
+        .values("page_id", "key")
+        .annotate(total=Count("id"))
+        .filter(total__gt=1)
+        .values_list("page_id", "key")
+    )
+
+    rows = []
+    for page in pages:
+        if hasattr(page, "set_current_language"):
+            page.set_current_language(lang)
+        page_title = (
+            page.safe_translation_getter("title", any_language=True)
+            if hasattr(page, "safe_translation_getter")
+            else ""
+        )
+        page_title = page_title or page.slug
+        page_path = "/" if page.slug == "home" else f"/{page.slug}/"
+        page_url = build_language_url_for_path(request, lang, page_path)
+
+        sections = list(page.sections.all().order_by("order", "id"))
+        if not sections:
+            changelist_url = reverse("admin:core_pagesection_changelist")
+            query = urlencode({"page__id__exact": page.id})
+            rows.append(
+                {
+                    "page_slug": page.slug,
+                    "page_title": page_title,
+                    "section_key": _("(no sections)"),
+                    "status": _("Missing"),
+                    "status_class": "dashboard-badge--warning",
+                    "edit_section_url": f"{changelist_url}?{query}",
+                    "page_url": page_url,
+                }
+            )
+            continue
+
+        for section in sections:
+            is_duplicate = (section.page_id, section.key) in duplicate_keys
+            has_content = bool(getattr(section, "content", None))
+            if is_duplicate:
+                status = _("Duplicate")
+                status_class = "dashboard-badge--warning"
+            elif not has_content:
+                status = _("Missing")
+                status_class = "dashboard-badge--warning"
+            else:
+                status = _("OK")
+                status_class = "dashboard-badge--success"
+
+            edit_section_url = ""
+            if hasattr(section, "content") and section.content:
+                edit_section_url = reverse(
+                    "admin:core_sectioncontent_change", args=[section.content.id]
+                )
+            else:
+                edit_section_url = reverse(
+                    "admin:core_pagesection_change", args=[section.id]
+                )
+
+            if is_duplicate:
+                query = urlencode({"page__id__exact": section.page_id, "key": section.key})
+                edit_section_url = f"{reverse('admin:core_pagesection_changelist')}?{query}"
+
+            rows.append(
+                {
+                    "page_slug": page.slug,
+                    "page_title": page_title,
+                    "section_key": section.key,
+                    "status": status,
+                    "status_class": status_class,
+                    "edit_section_url": edit_section_url,
+                    "page_url": page_url,
+                }
+            )
+
+    return render(
+        request,
+        "controlpanel/content_map.html",
+        {
+            "rows": rows,
+        },
+    )
+
+
+@staff_required
 def tenants(request):
-    sites = Site.objects.select_related("owner").order_by("-created_at")
+    sites = Site.objects.select_related("owner", "plan").order_by("-created_at")
     return render(request, "controlpanel/tenants.html", {"sites": sites})
+
+
+class PlanForm(forms.ModelForm):
+    name = forms.CharField(required=True, widget=forms.TextInput(attrs={"class": "dashboard-input"}))
+
+    class Meta:
+        model = Plan
+        fields = ("slug", "is_active")
+        widgets = {
+            "slug": forms.TextInput(attrs={"class": "dashboard-input"}),
+        }
+
+    def clean_slug(self):
+        slug = (self.cleaned_data.get("slug") or "").strip().lower()
+        if not slug:
+            raise ValidationError(_("Slug is required."))
+        return slug
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance and self.instance.pk:
+            name = self.instance.safe_translation_getter("name", any_language=True)
+            if name:
+                self.fields["name"].initial = name
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.key = instance.slug
+        lang = get_language() or "en"
+        if hasattr(instance, "set_current_language"):
+            instance.set_current_language(lang)
+            instance.name = self.cleaned_data.get("name") or instance.key
+        if commit:
+            instance.save()
+        return instance
+
+
+class TenantPlanForm(forms.ModelForm):
+    class Meta:
+        model = Site
+        fields = ("plan",)
+        widgets = {
+            "plan": forms.Select(attrs={"class": "dashboard-input"}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["plan"].queryset = Plan.objects.filter(is_active=True).order_by("sort_order", "key")
+
+
+@staff_required
+def plans_list(request):
+    plans = Plan.objects.select_related("seo_settings").order_by("sort_order", "key")
+    return render(request, "controlpanel/plans_list.html", {"plans": plans})
+
+
+@staff_required
+def plans_create(request):
+    if request.method == "POST":
+        plan_form = PlanForm(request.POST)
+        if plan_form.is_valid():
+            plan = plan_form.save()
+            PlanSEOSettings.objects.get_or_create(plan=plan)
+            messages.success(request, _("Plan created."))
+            return redirect("control_panel:plans_list")
+    else:
+        plan_form = PlanForm()
+    return render(
+        request,
+        "controlpanel/plans_form.html",
+        {"plan_form": plan_form, "is_create": True},
+    )
+
+
+@staff_required
+def plans_edit(request, plan_id):
+    plan = get_object_or_404(Plan, id=plan_id)
+    is_frozen = plan.is_frozen
+    if request.method == "POST":
+        if is_frozen:
+            messages.error(request, _("This plan is frozen and cannot be edited."))
+            return redirect("control_panel:plans_list")
+        plan_form = PlanForm(request.POST, instance=plan)
+        if plan_form.is_valid():
+            plan_form.save()
+            messages.success(request, _("Plan updated."))
+            return redirect("control_panel:plans_list")
+    else:
+        plan_form = PlanForm(instance=plan)
+    if is_frozen:
+        for field in plan_form.fields.values():
+            field.disabled = True
+    return render(
+        request,
+        "controlpanel/plans_form.html",
+        {
+            "plan_form": plan_form,
+            "plan_obj": plan,
+            "is_create": False,
+            "is_frozen": is_frozen,
+        },
+    )
+
+
+@staff_required
+def plans_freeze(request, plan_id):
+    plan = get_object_or_404(Plan, id=plan_id)
+    if request.method == "POST":
+        plan.is_frozen = True
+        plan.save(update_fields=["is_frozen"])
+        messages.success(request, _("Plan frozen."))
+    return redirect("control_panel:plans_list")
+
+
+@staff_required
+def tenant_edit(request, tenant_id):
+    site = get_object_or_404(Site, id=tenant_id)
+    if request.method == "POST":
+        form = TenantPlanForm(request.POST, instance=site)
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Tenant updated."))
+            return redirect("control_panel:tenants")
+    else:
+        form = TenantPlanForm(instance=site)
+    return render(
+        request,
+        "controlpanel/tenant_edit.html",
+        {"site": site, "form": form},
+    )
 
 
 @staff_required
 def tenant_impersonate(request, tenant_id):
     site = Site.objects.filter(id=tenant_id).first()
-    if site:
+    if site and not site.is_main:
         request.session["impersonate_tenant_id"] = site.id
-    return redirect("core:dashboard")
+    lang = get_language() or "en"
+    try:
+        target = tenant_site_url(site, f"/{lang}/dashboard/", request=request)
+    except ValueError as exc:
+        return HttpResponseBadRequest(str(exc))
+    return redirect(target)
 
 
 @staff_required
 def tenant_stop_impersonate(request):
     if "impersonate_tenant_id" in request.session:
         del request.session["impersonate_tenant_id"]
-    return redirect("controlpanel:tenants")
+    return redirect("control_panel:tenants")
 
 
 @staff_required
@@ -155,7 +487,7 @@ def templates_create(request):
         form = WebsiteTemplateForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("controlpanel:templates_list")
+            return redirect("control_panel:templates_list")
     else:
         form = WebsiteTemplateForm()
     return render(request, "controlpanel/templates_form.html", {"form": form})
@@ -168,7 +500,7 @@ def templates_edit(request, template_id):
         form = WebsiteTemplateForm(request.POST, instance=template)
         if form.is_valid():
             form.save()
-            return redirect("controlpanel:templates_list")
+            return redirect("control_panel:templates_list")
     else:
         form = WebsiteTemplateForm(instance=template)
     return render(
@@ -184,4 +516,4 @@ def templates_toggle_publish(request, template_id):
     if request.method == "POST":
         template.is_published = not template.is_published
         template.save(update_fields=["is_published", "updated_at"])
-    return redirect("controlpanel:templates_list")
+    return redirect("control_panel:templates_list")

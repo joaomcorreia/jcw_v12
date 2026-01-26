@@ -21,6 +21,11 @@ class Page(TranslatableModel):
     slug = models.SlugField()
     is_active = models.BooleanField(default=True)
     template_key = models.CharField(max_length=100, blank=True)
+    show_in_nav = models.BooleanField(default=True)
+    nav_order = models.PositiveIntegerField(default=100)
+    seo_title = models.CharField(max_length=70, blank=True)
+    seo_description = models.CharField(max_length=160, blank=True)
+    noindex = models.BooleanField(default=False)
     site = models.ForeignKey(
         "Site",
         on_delete=models.CASCADE,
@@ -39,6 +44,7 @@ class Page(TranslatableModel):
         meta_description=models.TextField(blank=True),
         meta_robots_index=models.BooleanField(default=True),
         meta_robots_follow=models.BooleanField(default=True),
+        canonical_override=models.CharField(max_length=300, blank=True),
     )
 
     class Meta:
@@ -109,7 +115,9 @@ class Feature(models.Model):
 
 class Plan(TranslatableModel):
     key = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(unique=True)
     is_active = models.BooleanField(default=True)
+    is_frozen = models.BooleanField(default=False)
     sort_order = models.IntegerField(default=0)
     stripe_product_id = models.CharField(
         max_length=120,
@@ -122,6 +130,8 @@ class Plan(TranslatableModel):
         help_text="Paste Stripe IDs here when activating payments",
     )
     billing_interval = models.CharField(max_length=20, default="month")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     translations = TranslatedFields(
         name=models.CharField(max_length=200),
@@ -134,6 +144,68 @@ class Plan(TranslatableModel):
 
     def __str__(self):
         return self.key
+
+    @property
+    def display_name(self):
+        name = ""
+        if hasattr(self, "safe_translation_getter"):
+            name = self.safe_translation_getter("name", any_language=True) or ""
+        return name or self.key
+
+
+class PlanSEOSettings(models.Model):
+    SCHEMA_NONE = "none"
+    SCHEMA_BASIC = "basic"
+    SCHEMA_FULL = "full"
+    SCHEMA_LEVEL_CHOICES = [
+        (SCHEMA_NONE, "None"),
+        (SCHEMA_BASIC, "Basic"),
+        (SCHEMA_FULL, "Full"),
+    ]
+
+    META_BASIC = "basic"
+    META_FULL = "full"
+    META_LEVEL_CHOICES = [
+        (META_BASIC, "Basic"),
+        (META_FULL, "Full"),
+    ]
+
+    SEO_TIER_CHOICES = [
+        ("local", "Local"),
+        ("country", "Country"),
+        ("eu", "EU"),
+    ]
+
+    plan = models.OneToOneField(
+        Plan,
+        on_delete=models.CASCADE,
+        related_name="seo_settings",
+    )
+    seo_tier = models.CharField(max_length=20, choices=SEO_TIER_CHOICES, default="local")
+    max_cities = models.PositiveIntegerField(default=1)
+    schema_level = models.CharField(
+        max_length=20,
+        choices=SCHEMA_LEVEL_CHOICES,
+        default=SCHEMA_BASIC,
+    )
+    sitemap_url_cap = models.PositiveIntegerField(default=200)
+    multilingual_meta_level = models.CharField(
+        max_length=20,
+        choices=META_LEVEL_CHOICES,
+        default=META_BASIC,
+    )
+    allow_location_pages = models.BooleanField(default=True)
+    allow_service_location_pages = models.BooleanField(default=False)
+    allow_city_switching = models.BooleanField(default=True)
+    allow_country_visibility = models.BooleanField(default=False)
+    allow_eu_visibility = models.BooleanField(default=False)
+    allow_custom_canonical = models.BooleanField(default=False)
+    allow_hreflang = models.BooleanField(default=True)
+    allow_indexing = models.BooleanField(default=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"seo:{self.plan.key}"
 
 
 class PlanFeature(models.Model):
@@ -219,6 +291,7 @@ class HeroParticlesSettings(models.Model):
         limit_choices_to={"key": "particles_hero"},
     )
     apply_to = models.CharField(max_length=50, default="home")
+    is_enabled = models.BooleanField(default=False)
     config_json = models.JSONField(
         default=default_particles_config,
         help_text="particlesJS configuration object",
@@ -243,6 +316,25 @@ class MediaAsset(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class City(models.Model):
+    name = models.CharField(max_length=120)
+    slug = models.SlugField()
+    country_code = models.CharField(max_length=2)
+    is_top_city = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ["country_code", "name"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["slug", "country_code"],
+                name="uniq_city_slug_country",
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.name} ({self.country_code})"
 
 
 class BlogCategory(models.Model):
@@ -378,14 +470,34 @@ class Site(models.Model):
         on_delete=models.CASCADE,
         related_name="sites",
     )
+    plan = models.ForeignKey(
+        Plan,
+        on_delete=models.PROTECT,
+        related_name="sites",
+    )
     name = models.CharField(max_length=200)
+    subdomain = models.SlugField(
+        max_length=63,
+        blank=True,
+        unique=True,
+        null=True,
+        help_text="Subdomain for tenant routing (e.g., 'mim' for mim.justcodeworks.local)",
+    )
     language = models.CharField(max_length=20, default="nl")
     template_key = models.CharField(max_length=120, blank=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_DRAFT)
+    is_main = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ["-created_at"]
+        constraints = [
+            models.UniqueConstraint(
+                fields=["is_main"],
+                condition=Q(is_main=True),
+                name="unique_main_site",
+            )
+        ]
 
     def __str__(self):
         return self.name
@@ -394,6 +506,16 @@ class Site(models.Model):
 class SiteSettings(models.Model):
     launch_noindex = models.BooleanField(default=True)
     launch_disallow_robots = models.BooleanField(default=True)
+    business_name = models.CharField(max_length=200, blank=True)
+    phone = models.CharField(max_length=50, blank=True)
+    email = models.EmailField(blank=True)
+    address_line1 = models.CharField(max_length=200, blank=True)
+    address_line2 = models.CharField(max_length=200, blank=True)
+    postal_code = models.CharField(max_length=20, blank=True)
+    city = models.CharField(max_length=120, blank=True)
+    country = models.CharField(max_length=120, blank=True)
+    logo = models.ImageField(upload_to="site/", blank=True, null=True)
+    socials = models.JSONField(default=list, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -401,6 +523,98 @@ class SiteSettings(models.Model):
 
     def __str__(self):
         return "Site settings"
+
+
+class TenantHeroSettings(models.Model):
+    site = models.OneToOneField(
+        Site, related_name="hero_settings", on_delete=models.CASCADE
+    )
+    config_json = models.JSONField(default=dict, blank=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = "Tenant hero settings"
+
+    def __str__(self):
+        return f"{self.site.name} hero settings"
+
+
+class MainSiteSectionSettings(models.Model):
+    page_key = models.CharField(max_length=100)
+    section_key = models.CharField(max_length=100)
+    settings_json = models.JSONField(default=dict, blank=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ("page_key", "section_key")
+        verbose_name_plural = "Main site section settings"
+
+    def __str__(self):
+        return f"{self.page_key}:{self.section_key}"
+
+
+class SiteVisibility(models.Model):
+    MODE_BASIC = "basic"
+    MODE_LOCATIONS = "locations"
+    MODE_EU = "eu"
+
+    MODE_CHOICES = [
+        (MODE_BASIC, "Basic"),
+        (MODE_LOCATIONS, "Locations"),
+        (MODE_EU, "EU"),
+    ]
+
+    site = models.OneToOneField(
+        Site,
+        on_delete=models.CASCADE,
+        related_name="visibility",
+    )
+    seo_level = models.CharField(max_length=20, blank=True)
+    allowed_countries = models.JSONField(default=list, blank=True)
+    allowed_cities = models.JSONField(default=list, blank=True)
+    visibility_mode = models.CharField(
+        max_length=20,
+        choices=MODE_CHOICES,
+        default=MODE_BASIC,
+    )
+    is_manual_override = models.BooleanField(default=False)
+    last_updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"visibility:{self.site_id}"
+
+    def save(self, *args, **kwargs):
+        if not getattr(self, "_from_sync", False):
+            if self.pk:
+                previous = SiteVisibility.objects.filter(pk=self.pk).first()
+                if previous and previous.visibility_mode != self.visibility_mode:
+                    self.is_manual_override = True
+        return super().save(*args, **kwargs)
+
+
+class TenantSEOSettings(models.Model):
+    tenant = models.OneToOneField(
+        Site,
+        on_delete=models.CASCADE,
+        related_name="seo_settings",
+    )
+    target_country_code = models.CharField(max_length=2, blank=True)
+    active_city = models.ForeignKey(
+        City,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="active_tenants",
+    )
+    focus_cities = models.ManyToManyField(
+        City,
+        blank=True,
+        related_name="focused_tenants",
+    )
+    last_city_change_at = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return f"seo-settings:{self.tenant_id}"
 
 
 def default_template_languages():

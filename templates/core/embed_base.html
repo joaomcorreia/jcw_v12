@@ -1,0 +1,36 @@
+{% load static i18n %}
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
+    <link rel="icon" href="{% static 'favicon.png' %}">
+    <title>
+      {{ seo_title|default:"JustCodeWorks" }}
+    </title>
+    <meta name="description" content="{{ seo_description|default:'Website builder and content management platform' }}">
+    <meta name="robots" content="{% if launch_noindex %}noindex, nofollow{% else %}{{ seo_robots|default:'index, follow' }}{% endif %}">
+    {% if canonical_url %}
+    <link rel="canonical" href="{{ canonical_url }}">
+    {% endif %}
+    {% if hreflang_urls %}
+      {% for alternate in hreflang_urls %}
+    <link rel="alternate" hreflang="{{ alternate.lang }}" href="{{ alternate.url }}">
+      {% endfor %}
+    {% endif %}
+    {% block head %}{% endblock %}
+    <style>
+      html, body { height: 100%; }
+      body.embed-mode { margin: 0; padding: 0; }
+      main { padding: 0; }
+      body.embed-mode .cookie-banner { display: none !important; }
+    </style>
+  </head>
+  <body class="embed-mode">
+    {% include 'core/main_nav.html' %}
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>

@@ -10,12 +10,16 @@
     <title>
       {{ seo_title|default:"JustCodeWorks" }}
     </title>
-        <meta name="robots" content="{{ seo_robots|default:'index, follow' }}">
-    {% if launch_noindex %}
-    <meta name="robots" content="noindex,nofollow">
-    {% endif %}
+        <meta name="robots" content="{% if launch_noindex %}noindex, nofollow{% else %}{{ seo_robots|default:'index, follow' }}{% endif %}">
 <meta name="description" content="{{ seo_description|default:'Website builder and content management platform' }}">
-    </head>
+        {% if canonical_url %}
+    <link rel="canonical" href="{{ canonical_url }}">
+    {% endif %}
+    {% if hreflang_urls %}
+      {% for alternate in hreflang_urls %}
+    <link rel="alternate" hreflang="{{ alternate.lang }}" href="{{ alternate.url }}">
+      {% endfor %}
+    {% endif %}</head>
   <body class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium">
     <div class="min-h-screen ltr" data-locale="{{ LANGUAGE_CODE }}">
       {% include 'core/main_nav.html' %}
@@ -151,9 +155,6 @@
                   </a>
                   {% endif %}
                 </div>
-                <div class="text-xs text-gray-500 mt-3">
-                  {% trans "Affiliate link" %}
-                </div>
               </div>
               {% endif %}
               {% if sections_by_key.pos_affiliate_block_2 %}
@@ -183,9 +184,6 @@
                     {{ sections_by_key.pos_affiliate_block_2.content.cta_secondary_text }}
                   </a>
                   {% endif %}
-                </div>
-                <div class="text-xs text-gray-500 mt-3">
-                  {% trans "Affiliate link" %}
                 </div>
               </div>
               {% endif %}
@@ -217,9 +215,6 @@
                   </a>
                   {% endif %}
                 </div>
-                <div class="text-xs text-gray-500 mt-3">
-                  {% trans "Affiliate link" %}
-                </div>
               </div>
               {% endif %}
               {% if sections_by_key.pos_affiliate_block_4 %}
@@ -249,9 +244,6 @@
                     {{ sections_by_key.pos_affiliate_block_4.content.cta_secondary_text }}
                   </a>
                   {% endif %}
-                </div>
-                <div class="text-xs text-gray-500 mt-3">
-                  {% trans "Affiliate link" %}
                 </div>
               </div>
               {% endif %}
@@ -364,5 +356,6 @@
     {% include 'core/right_sidebar.html' %}
 </body>
 </html>
+
 
 

@@ -1,4 +1,4 @@
-﻿{% load static i18n %}
+{% load static i18n %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
   <head>
@@ -7,15 +7,17 @@
     <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
     <link rel="icon" href="{% static 'favicon.png' %}">
     <title>{% trans "Start designing" %}</title>
-  </head>
+      {% if canonical_url %}
+    <link rel="canonical" href="{{ canonical_url }}">
+    {% endif %}
+    {% if hreflang_urls %}
+      {% for alternate in hreflang_urls %}
+    <link rel="alternate" hreflang="{{ alternate.lang }}" href="{{ alternate.url }}">
+      {% endfor %}
+    {% endif %}</head>
   <body class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium">
     <div class="min-h-screen">
-      <header class="border-b border-slate-200 bg-white">
-        <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <a class="text-xl font-bold" href="{% url 'core:home' %}">JustCodeWorks</a>
-          <a class="text-sm font-semibold text-blue-700" href="{% url 'login' %}">{% trans "Login" %}</a>
-        </div>
-      </header>
+      {% include 'core/main_nav.html' %}
       <main class="max-w-4xl mx-auto px-4 py-12">
         <div class="bg-white rounded-2xl border border-slate-200 shadow-lg p-8">
           <h1 class="text-3xl font-bold mb-2">{% trans "Tell us about your business" %}</h1>
@@ -34,6 +36,14 @@
               <input id="business_type" name="business_type" type="text" value="{{ draft.business_type }}" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
             </div>
             <div>
+              <label class="block text-sm font-semibold mb-2" for="city">{% trans "City" %}</label>
+              <input id="city" name="city" type="text" value="{{ draft.city }}" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold mb-2" for="country">{% trans "Country code" %}</label>
+              <input id="country" name="country" type="text" value="{{ draft.country }}" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="{% trans 'e.g. PT' %}">
+            </div>
+            <div>
               <label class="block text-sm font-semibold mb-2" for="preferred_language">{% trans "Preferred language" %}</label>
               <select id="preferred_language" name="preferred_language" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                 {% for code, name in languages %}
@@ -50,3 +60,4 @@
     </div>
   </body>
 </html>
+

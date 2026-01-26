@@ -1,0 +1,19 @@
+{% load i18n %}
+<section>
+  <h1>{{ data.heading }}</h1>
+  <p>{{ data.description }}</p>
+  <div>
+    <a href="{{ data.services_url }}">{% trans "Services" %}</a>
+    <a href="{{ data.contact_url }}">{% trans "Contact" %}</a>
+  </div>
+  {% if city_links %}
+    <div>
+      <h2>{% trans "Other cities" %}</h2>
+      <ul>
+        {% for link in city_links %}
+          <li><a href="{{ link.url }}">{{ link.label }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+</section>

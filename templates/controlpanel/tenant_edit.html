@@ -1,0 +1,33 @@
+{% extends "controlpanel/base_controlpanel.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Edit tenant" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">{% blocktrans with name=site.name %}Edit tenant: {{ name }}{% endblocktrans %}</h1>
+  {% if messages %}
+    <div class="dashboard-card dashboard-card--auto">
+      {% for message in messages %}
+        <p class="dashboard-muted">{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+  <div class="dashboard-card dashboard-card--auto">
+    <form method="post" class="dashboard-form">
+      {% csrf_token %}
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="{{ form.plan.id_for_label }}">{% trans "Plan" %}</label>
+        {{ form.plan }}
+        {% for error in form.plan.errors %}
+          <p class="dashboard-error">{{ error }}</p>
+        {% endfor %}
+      </div>
+      <div class="dashboard-form-actions">
+        <button class="dashboard-button" type="submit">{% trans "Save tenant" %}</button>
+        <a class="dashboard-link" href="{% url 'control_panel:tenants' %}">{% trans "Back" %}</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

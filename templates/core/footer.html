@@ -40,7 +40,7 @@
           </li>
           <li>
             <a class="text-sm text-blue-100 hover:text-white transition-colors" href="{% url 'core:pos_systems' %}">
-              {% trans "POS Systems" %}
+              {% trans "Card Payments" %}
             </a>
           </li>
           <li>
@@ -213,24 +213,8 @@
         <div class="text-sm text-blue-200">
           {% now "Y" %} Just Code Works. {% trans "All rights reserved." %}
         </div>
-        <div class="flex items-center space-x-4 text-sm text-blue-200">
-          <span>
-            {% trans "Made with" %}
-          </span>
-          <span class="text-red-400">{% trans "love" %}</span>
-          <span>
-            {% trans "in Portugal" %}
-          </span>
-          <div class="flex items-center space-x-2 ml-4">
-            <span class="text-xs">
-              {% trans "Powered by" %}
-            </span>
-            <div class="flex items-center space-x-1">
-              <span class="text-xs font-semibold text-white">{% trans "Next.js" %}</span>
-              <span class="text-xs text-blue-300">-</span>
-              <span class="text-xs font-semibold text-white">{% trans "Django" %}</span>
-            </div>
-          </div>
+        <div class="text-sm text-blue-200">
+          {% trans "Just Code Works • The Netherlands" %}
         </div>
       </div>
     </div>

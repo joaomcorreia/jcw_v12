@@ -1,13 +1,60 @@
-import json
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import get_language, gettext as _
 
 from core.models import BlogPost, Feature, HeroParticlesSettings, Page
+from core.seo_caps import get_seo_caps
+from core.seo_utils import (
+    build_canonical_url,
+    build_hreflang_urls,
+    is_public_path,
+    resolve_canonical_override,
+    resolve_page_seo,
+)
 from core.services.blog import localize_posts
 from core.services.site_settings import get_site_settings
 from core.services.features import get_enabled_features_for_plan, resolve_active_plan
 from django.conf import settings
+
+
+def embed_mode(request):
+    return {"embed_mode": request.GET.get("embed") == "1"}
+
+
+def edit_mode(request):
+    if request.GET.get("edit") != "1":
+        return {"is_edit_mode": False}
+    if not request.user.is_authenticated:
+        return {"is_edit_mode": False}
+    if request.user.is_staff or request.user.is_superuser:
+        return {"is_edit_mode": True}
+    site = getattr(request, "tenant", None) or getattr(request, "site", None)
+    if not site or getattr(site, "is_main", False):
+        return {"is_edit_mode": False}
+    if getattr(site, "owner_id", None) == request.user.id:
+        return {"is_edit_mode": True}
+    return {"is_edit_mode": False}
+
+
+def site_mode_context(request):
+    raw_host = request.get_host()
+    host = (raw_host or "").split(":", 1)[0].lower().strip()
+    main_domain = getattr(settings, "MAIN_DOMAIN", "justcodeworks.local").lower()
+    main_hosts = {
+        "localhost",
+        "127.0.0.1",
+        main_domain,
+        "justcodeworks.local",
+        f"www.{main_domain}",
+    }
+    tenant = getattr(request, "tenant", None)
+    if tenant and not getattr(tenant, "is_main", False):
+        mode = "tenant"
+    elif host in main_hosts:
+        mode = "main"
+    else:
+        mode = "other"
+    return {"jcw_site_mode": mode, "jcw_site_host": host}
 
 
 def seo_context(request):
@@ -15,30 +62,48 @@ def seo_context(request):
     if not page:
         return {}
 
-    meta_title = page.safe_translation_getter("meta_title", any_language=True)
+    lang = getattr(request, "LANGUAGE_CODE", None) or get_language()
+    seo = resolve_page_seo(page, lang)
     title = page.safe_translation_getter("title", any_language=True)
-    meta_description = page.safe_translation_getter("meta_description", any_language=True)
-    index = page.safe_translation_getter("meta_robots_index", any_language=True)
-    follow = page.safe_translation_getter("meta_robots_follow", any_language=True)
-
-    robots_parts = []
-    robots_parts.append("index" if index else "noindex")
-    robots_parts.append("follow" if follow else "nofollow")
-
     return {
-        "seo_title": meta_title or title,
-        "seo_description": meta_description,
-        "seo_robots": ", ".join(robots_parts),
+        "seo_title": seo["seo_title"] or title,
+        "seo_description": seo["seo_description"],
+        "seo_robots": seo["seo_robots"],
+    }
+
+
+def canonical_context(request):
+    if not is_public_path(request.path):
+        return {}
+    caps = get_seo_caps(request=request, tenant=getattr(request, "tenant", None))
+    canonical_url = build_canonical_url(request)
+    page = getattr(request, "current_page", None)
+    if page:
+        lang = getattr(request, "LANGUAGE_CODE", None) or get_language()
+        seo = resolve_page_seo(page, lang)
+        if caps.get("allow_custom_canonical", False):
+            override = resolve_canonical_override(request, seo.get("canonical_override") or "")
+            if override:
+                canonical_url = override
+    return {
+        "canonical_url": canonical_url,
+        "hreflang_urls": build_hreflang_urls(request)
+        if caps.get("allow_hreflang", True)
+        else [],
     }
 
 
 def nav_pages(request):
+    # Skip for tenant host pages only; main site should always show marketing nav.
+    if getattr(request, "tenant", None) and not getattr(request, "is_main_site", False):
+        return {}
+
     nav_items = [
         ("home", _("Home"), "core:home"),
         ("services", _("Services"), "core:services"),
         ("websites", _("Websites"), "core:websites"),
         ("printlab", _("Print Lab"), "core:printlab"),
-        ("pos-systems", _("POS Systems"), "core:pos_systems"),
+        ("pos-systems", _("Card Payments"), "core:pos_systems"),
         ("blog", _("Blog"), "core:blog_index"),
         ("help-center", _("Help Center"), "core:help_center"),
     ]
@@ -170,26 +235,28 @@ def nav_pages(request):
 
 
 def feature_flags(request):
-    plan = resolve_active_plan()
+    tenant = getattr(request, "tenant", None)
+    plan = resolve_active_plan(tenant)
     enabled_map = None
-    if plan:
+    if tenant and plan:
         enabled_map = get_enabled_features_for_plan(plan.key)
 
-    feature = Feature.objects.filter(key="particles_hero").first()
-    if enabled_map is not None:
-        enabled = bool(enabled_map.get("particles_hero"))
-    else:
-        enabled = bool(feature and feature.is_enabled)
-    particles_settings = None
-    settings_json = "null"
-
-    if feature:
-        particles_settings = HeroParticlesSettings.objects.filter(feature=feature).first()
-        if particles_settings:
-            settings_json = json.dumps(particles_settings.config_json)
+    particles_settings = (
+        HeroParticlesSettings.objects.filter(
+            feature__key="particles_hero",
+            apply_to="home",
+            is_enabled=True,
+        ).first()
+    )
+    settings_json = None
+    enabled = False
+    if particles_settings:
+        enabled = True
+        settings_json = particles_settings.config_json
 
     return {
         "feature_particles_hero": enabled,
+        "marketing_particles_enabled": enabled,
         "feature_print_studio": bool(enabled_map.get("print_studio"))
         if enabled_map is not None
         else bool(Feature.objects.filter(key="print_studio", is_enabled=True).exists()),
@@ -239,7 +306,15 @@ def debug_env(request):
 
 
 def dashboard_plan_context(request):
-    plan = resolve_active_plan()
+    # Skip for main site - dashboard URLs only exist on tenant subdomains
+    # This context processor is only useful for tenant dashboard pages
+    if not getattr(request, "tenant", None):
+        return {}
+    if getattr(request, "urlconf", None) != "config.tenants.urls":
+        return {}
+
+    tenant = getattr(request, "tenant", None)
+    plan = resolve_active_plan(tenant)
     if plan:
         current_plan_name = plan.safe_translation_getter("name", any_language=True) or plan.key
     else:
@@ -251,9 +326,9 @@ def dashboard_plan_context(request):
             "Upgrade your plan to access advanced tools and higher limits."
         ),
         "primary_button_text": _("See upgrades"),
-        "primary_button_url": reverse("core:dashboard_billing"),
+        "primary_button_url": reverse("tenant_dashboard:dashboard_billing"),
         "secondary_link_text": _("Contact support"),
-        "secondary_link_url": reverse("core:services"),
+        "secondary_link_url": reverse("core:home"),  # Tenant home, not main site services
         "style": "dashboard-upgrade-cta--compact",
     }
 
