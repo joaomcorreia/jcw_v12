@@ -1,28 +1,32 @@
 {% extends "site/base.html" %}
-{% load i18n %}
+{% load i18n i18n_extras %}
 
 {% block content %}
 {% if sections %}
   {% if hero_settings_json %}
     {{ hero_settings_json|json_script:"jcw-hero-settings" }}
   {% endif %}
+
   {% for section in sections %}
+    {% with localized=section.data_i18n|t|default:section.data %}
       {% if section.type == "hero" %}
-        {% include "site/sections/hero.html" with section=section data=section.data %}
+        {% include "site/sections/hero.html" with section=section data=localized %}
       {% elif section.type == "services" %}
-        {% include "site/sections/services.html" with section=section data=section.data %}
+        {% include "site/sections/services.html" with section=section data=localized %}
       {% elif section.type == "cta" %}
-        {% include "site/sections/cta.html" with section=section data=section.data %}
+        {% include "site/sections/cta.html" with section=section data=localized %}
       {% elif section.type == "contact" %}
-        {% include "site/sections/contact.html" with section=section data=section.data %}
+        {% include "site/sections/contact.html" with section=section data=localized %}
       {% else %}
-        {% include "site/sections/unknown.html" with section=section data=section.data %}
+        {% include "site/sections/unknown.html" with section=section data=localized %}
       {% endif %}
-    {% endfor %}
-  {% else %}
-    <section>
-      <h1>{% trans "Coming soon" %}</h1>
-      <p>{% trans "This website is still being prepared." %}</p>
-    </section>
-  {% endif %}
+    {% endwith %}
+  {% endfor %}
+
+{% else %}
+  <section>
+    <h1>{% trans "Coming soon" context "site placeholder title" %}</h1>
+    <p>{% trans "This website is still being prepared." %}</p>
+  </section>
+{% endif %}
 {% endblock %}

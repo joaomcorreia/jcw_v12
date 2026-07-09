@@ -1,0 +1,16 @@
+{% load i18n %}
+<section class="plan-section plan-b3 p-8">
+  <h2 class="text-3xl font-bold text-gray-900 mb-4">{{ title }}</h2>
+  {% if intro %}
+  <p class="text-gray-700 mb-4">{{ intro }}</p>
+  {% endif %}
+  <ul class="text-gray-700 space-y-2 list-disc pl-5">
+    {% if include1 %}<li>{{ include1 }}</li>{% endif %}
+    {% if include2 %}<li>{{ include2 }}</li>{% endif %}
+    {% if include3 %}<li>{{ include3 }}</li>{% endif %}
+    {% if include4 %}<li>{{ include4 }}</li>{% endif %}
+    {% if include5 %}<li>{{ include5 }}</li>{% endif %}
+    {% if include6 %}<li>{{ include6 }}</li>{% endif %}
+    {% if include7 %}<li>{{ include7 }}</li>{% endif %}
+  </ul>
+</section>

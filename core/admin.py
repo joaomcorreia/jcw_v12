@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.db import models
+from django.forms import Textarea
 from parler.admin import TranslatableAdmin, TranslatableTabularInline
 
 from .models import (
@@ -13,6 +15,7 @@ from .models import (
     Plan,
     PlanFeature,
     PlanSEOSettings,
+    ProFormaInvoice,
     RightSidebarPanel,
     Subscription,
     SectionContent,
@@ -110,6 +113,9 @@ class PageSectionAdmin(admin.ModelAdmin):
 class SectionContentAdmin(TranslatableAdmin):
     list_display = ("section",)
     search_fields = ("section__key", "translations__heading")
+    formfield_overrides = {
+        models.JSONField: {"widget": Textarea(attrs={"rows": 8, "cols": 100})},
+    }
 
 
 @admin.register(Feature)
@@ -189,6 +195,22 @@ class SubscriptionAdmin(admin.ModelAdmin):
     list_display = ("plan", "status", "site", "started_at", "ends_at")
     list_filter = ("status", "plan")
     search_fields = ("plan__translations__name", "site__name")
+
+
+@admin.register(ProFormaInvoice)
+class ProFormaInvoiceAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "created_at",
+        "customer_name",
+        "customer_email",
+        "amount_eur",
+        "status",
+        "paid_at",
+    )
+    list_filter = ("status", "created_at")
+    search_fields = ("customer_name", "customer_email", "description", "stripe_checkout_session_id")
+    readonly_fields = ("created_at", "paid_at", "stripe_checkout_session_id")
 
 
 @admin.register(Site)

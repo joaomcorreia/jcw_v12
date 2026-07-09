@@ -79,6 +79,13 @@ class SectionContent(TranslatableModel):
         PageSection, related_name="content", on_delete=models.CASCADE
     )
     config_json = models.JSONField(default=dict, blank=True)
+    # Per-language section payloads, e.g. {"en": {...}, "nl": {...}, "pt": {...}}.
+    # Templates should use the i18n payload first and fall back to config_json.
+    config_json_i18n = models.JSONField(
+        default=dict,
+        blank=True,
+        help_text='Per-language content map, e.g. {"en": {...}, "nl": {...}, "pt": {...}}',
+    )
 
     translations = TranslatedFields(
         heading=models.CharField(max_length=200, blank=True),
@@ -456,6 +463,35 @@ class Subscription(models.Model):
         return f"{self.plan.key}:{self.status}"
 
 
+class ProFormaInvoice(models.Model):
+    STATUS_DRAFT = "draft"
+    STATUS_PENDING = "pending"
+    STATUS_PAID = "paid"
+    STATUS_CANCELED = "canceled"
+
+    STATUS_CHOICES = [
+        (STATUS_DRAFT, "Draft"),
+        (STATUS_PENDING, "Pending"),
+        (STATUS_PAID, "Paid"),
+        (STATUS_CANCELED, "Canceled"),
+    ]
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    customer_name = models.CharField(max_length=200)
+    customer_email = models.EmailField()
+    description = models.TextField()
+    amount_eur = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_DRAFT)
+    stripe_checkout_session_id = models.CharField(max_length=255, blank=True, null=True)
+    paid_at = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        ordering = ["-created_at", "-id"]
+
+    def __str__(self):
+        return f"invoice:{self.id}:{self.status}"
+
+
 class Site(models.Model):
     STATUS_DRAFT = "draft"
     STATUS_PUBLISHED = "published"
@@ -501,6 +537,31 @@ class Site(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class BusinessProfile(models.Model):
+    user = models.OneToOneField(
+        "auth.User",
+        on_delete=models.CASCADE,
+        related_name="business_profile",
+    )
+    business_name = models.CharField(max_length=200)
+    category = models.CharField(max_length=120)
+    city = models.CharField(max_length=120)
+    country = models.CharField(max_length=120)
+    phone = models.CharField(max_length=50, blank=True)
+    email_public = models.EmailField(blank=True)
+    website_goal = models.CharField(max_length=240)
+    brand_color = models.CharField(max_length=20, blank=True)
+    profile_completed = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-updated_at", "-created_at"]
+
+    def __str__(self):
+        return f"profile:{self.user_id}:{self.business_name}"
 
 
 class SiteSettings(models.Model):
@@ -551,6 +612,25 @@ class MainSiteSectionSettings(models.Model):
 
     def __str__(self):
         return f"{self.page_key}:{self.section_key}"
+
+
+class MainSiteContent(models.Model):
+    key = models.CharField(max_length=200, db_index=True)
+    language = models.CharField(max_length=12, db_index=True)
+    value = models.TextField(blank=True, default="")
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=("key", "language"),
+                name="unique_main_site_content_key_lang",
+            )
+        ]
+        verbose_name_plural = "Main site content"
+
+    def __str__(self):
+        return f"{self.key} [{self.language}]"
 
 
 class SiteVisibility(models.Model):

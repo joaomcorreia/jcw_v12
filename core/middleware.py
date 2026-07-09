@@ -18,8 +18,8 @@ class LaunchNoIndexMiddleware:
         response = self.get_response(request)
         content_type = response.get("Content-Type", "")
         if content_type.startswith("text/html"):
-            settings = get_site_settings()
-            if settings.launch_noindex:
+            settings_obj = get_site_settings()
+            if getattr(settings, "SEO_NOINDEX", False) or settings_obj.launch_noindex:
                 response["X-Robots-Tag"] = "noindex, nofollow"
         return response
 

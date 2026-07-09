@@ -16,6 +16,13 @@
     </div>
     <div class="dashboard-card dashboard-card--auto">
       <div class="dashboard-card-header">
+        <h3 class="dashboard-card-title">{% trans "Website status" %}</h3>
+      </div>
+      <p class="dashboard-card-value">{{ current_site_status }}</p>
+      <p class="dashboard-muted">{% trans "Your dashboard is connected to your current tenant website." %}</p>
+    </div>
+    <div class="dashboard-card dashboard-card--auto">
+      <div class="dashboard-card-header">
         <h3 class="dashboard-card-title">{% trans "Payment method" %}</h3>
       </div>
       <p class="dashboard-muted">{% trans "Add a payment method to enable upgrades." %}</p>

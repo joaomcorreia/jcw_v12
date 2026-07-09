@@ -1,0 +1,240 @@
+{% load static i18n builder_tags content_extras %}
+{% get_current_language as LANGUAGE_CODE %}
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
+  <head>
+    <script>window.JCW_SITE_MODE = "main";</script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
+    <link rel="icon" href="{% static 'favicon.png' %}">
+    <title>{{ seo_title|default:_("JustCodeWorks") }}</title>
+    <meta name="robots" content="{% if launch_noindex %}noindex, nofollow{% else %}{{ seo_robots|default:'index, follow' }}{% endif %}">
+    <meta name="description" content="{{ seo_description|default:_('Website builder and content management platform') }}" />
+    {% if is_edit_mode %}
+    <link rel="stylesheet" href="{% static 'editor/editor.css' %}">
+    {% endif %}
+    <link rel="stylesheet" href="{% static 'jcw/public-floating-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'jcw/hero-slider.css' %}">
+    {% if canonical_url %}
+    <link rel="canonical" href="{{ canonical_url }}">
+    {% endif %}
+    {% if hreflang_urls %}
+      {% for alternate in hreflang_urls %}
+    <link rel="alternate" hreflang="{{ alternate.lang }}" href="{{ alternate.url }}">
+      {% endfor %}
+    {% endif %}
+    {% if not is_edit_mode %}
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "w0rrp5mkxz");
+    </script>
+    {% endif %}
+  </head>
+  <body class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium{% if embed_mode %} embed-mode{% endif %}{% if is_edit_mode %} jcw-edit-mode edit-mode{% endif %}"{% if is_edit_mode %} id="jcw-editor-root"{% endif %}>
+    {% include 'core/includes/coming_soon_modal.html' %}
+    {% if is_edit_mode %}
+      <div id="jcw-editor-bar" class="jcw-edit-bar" role="status" aria-live="polite">
+        <div class="jcw-edit-bar__left">
+          {% trans "Editing ON" %}
+          <span class="jcw-edit-bar__badge">
+            {% if jcw_site_mode == "main" %}
+              {% trans "MAIN SITE" %}
+            {% elif jcw_site_mode == "tenant" %}
+              {% trans "TENANT" %}
+            {% else %}
+              {% trans "OTHER" %}
+            {% endif %}
+          </span>
+        </div>
+        <div class="jcw-edit-bar__center">
+          <span id="jcw-save-status">{% trans "Saved" %}</span>
+        </div>
+        <div class="jcw-edit-bar__right">
+          <button type="button" class="jcw-edit-bar__btn" id="jcw-hero-settings-toggle">
+            {% trans "Hero Settings" %}
+          </button>
+          <button type="button" class="jcw-edit-bar__btn" id="jcw-preview-toggle" aria-pressed="false">
+            {% trans "Preview OFF" %}
+          </button>
+          <a class="jcw-edit-bar__btn jcw-edit-bar__link" href="/{{ LANGUAGE_CODE }}/dashboard/">
+            {% trans "Back to Dashboard" %}
+          </a>
+        </div>
+      </div>
+      <script>
+        window.JCW_SITE_MODE = "{{ jcw_site_mode|default:'other' }}";
+        window.JCW_EDITOR_CONFIG = {
+          enabled: true,
+          csrfToken: "{{ csrf_token }}",
+          saveUrl: "{% url 'core:main_inline_save' %}",
+          debug: {% if request.GET.debug_editor == "1" %}true{% else %}false{% endif %}
+        };
+        window.JCW_EDITOR = window.JCW_EDITOR || {};
+        window.editor = window.editor || window.JCW_EDITOR;
+        window.editor.init = window.editor.init || function () {};
+        window.editor.save = window.editor.save || function () {};
+      </script>
+    {% endif %}
+    {% if jcw_hero_settings_json %}
+      {{ jcw_hero_settings_json|json_script:"jcw-hero-settings" }}
+      <script>
+        (function () {
+          var el = document.getElementById("jcw-hero-settings");
+          var defaults = {
+            background: {
+              mode: "color",
+              image_url: "",
+              color: "#0f172a",
+              pattern: "dots",
+              pattern_color: "#ffffff",
+              overlay: 0.2
+            },
+            slider: {
+              autoplay: true,
+              delay: 5000,
+              transition: "fade",
+              text_effect: "none",
+              show_dots: true,
+              show_arrows: false
+            },
+            slides: [
+              {
+                title: "",
+                subtitle: "",
+                ctaLabel: "",
+                ctaUrl: "",
+                mediaUrl: ""
+              }
+            ],
+            effects: {
+              particles: { enabled: false, density: 50, speed: 2, color: "#ffffff" },
+              snow: { enabled: false, intensity: 30 }
+            }
+          };
+          var parsed = defaults;
+          if (el && el.textContent) {
+            try {
+              parsed = JSON.parse(el.textContent);
+            } catch (err) {
+              parsed = defaults;
+            }
+          }
+          window.JCW_HERO = parsed || defaults;
+          window.JCW_HERO_SOURCE = "main";
+        })();
+      </script>
+    {% endif %}
+    <main id="jcw-edit-scope">
+      <div id="top" class="min-h-screen ltr" data-locale="{{ LANGUAGE_CODE }}">
+        {% include 'core/main_nav.html' %}
+        {% include "components/section_shell.html" with key="hero" section_id="0" class="relative h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 jcw-hero" content_template="core/sections/home_hero_content.html" extra_attrs='data-jcw-hero-slider="1"' %}
+        <section id="builds" class="py-24 bg-white relative">
+          <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+              <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                {% trans "What Just Code Works builds" %}
+              </h2>
+              <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                {% trans "The company develops practical systems that sit behind public platforms and customer journeys." %}
+              </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <article class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">{% trans "Website delivery workflows" %}</h3>
+                <p class="text-gray-600">{% trans "Structured processes for launching business websites quickly and consistently." %}</p>
+              </article>
+              <article class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">{% trans "WordPress customer dashboards" %}</h3>
+                <p class="text-gray-600">{% trans "Simple account areas for updates, requests, billing and support-related actions." %}</p>
+              </article>
+              <article class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">{% trans "AI-assisted content and support tools" %}</h3>
+                <p class="text-gray-600">{% trans "Internal and customer-facing helpers for copy, guidance and workflow support." %}</p>
+              </article>
+              <article class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">{% trans "Local marketing and visibility systems" %}</h3>
+                <p class="text-gray-600">{% trans "Market-specific structures for local search presence, landing pages and business visibility." %}</p>
+              </article>
+              <article class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">{% trans "Print and reseller connection workflows" %}</h3>
+                <p class="text-gray-600">{% trans "Operational links between public platforms, local service partners and fulfillment needs." %}</p>
+              </article>
+              <article class="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">{% trans "Internal business tools" %}</h3>
+                <p class="text-gray-600">{% trans "Small, focused systems for running support, administration and platform operations more efficiently." %}</p>
+              </article>
+            </div>
+          </div>
+        </section>
+        <section id="contact" class="py-20 bg-gray-50" data-jcw-section="contact" data-jcw-section-id="0">
+          <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+              <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                {% trans "Contact" %}
+              </h2>
+              <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                {% trans "For company, platform or partnership questions, contact Just Code Works directly." %}
+              </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+              <article class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+                <div class="text-sm font-semibold uppercase tracking-wide text-blue-700 mb-3">{% trans "Email" %}</div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">info@justcodeworks.eu</h3>
+                <p class="text-sm text-gray-600 mb-5">{% trans "Use email for general company and platform questions." %}</p>
+                <a class="inline-flex items-center justify-center bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors" href="mailto:info@justcodeworks.eu">
+                  {% trans "Send email" %}
+                </a>
+              </article>
+              <article class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+                <div class="text-sm font-semibold uppercase tracking-wide text-emerald-700 mb-3">{% trans "WhatsApp" %}</div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">{% trans "WhatsApp contact" %}</h3>
+                <p class="text-sm text-gray-600 mb-5">{% trans "A direct WhatsApp route can be connected here." %}</p>
+                <a class="inline-flex items-center justify-center bg-emerald-600 text-white px-5 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition-colors" href="https://wa.me/0000000000000" target="_blank" rel="noopener">
+                  {% trans "Open WhatsApp" %}
+                </a>
+              </article>
+              <article class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+                <div class="text-sm font-semibold uppercase tracking-wide text-slate-600 mb-3">{% trans "Location" %}</div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-3">{% trans "Amsterdam, The Netherlands" %}</h3>
+                <p class="text-sm text-gray-600">{% trans "Just Code Works operates from Amsterdam." %}</p>
+              </article>
+              <article class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+                <div class="text-sm font-semibold uppercase tracking-wide text-indigo-700 mb-3">{% trans "Company details" %}</div>
+                <div class="space-y-2 text-sm text-gray-600">
+                  <p><span class="font-semibold text-gray-900">{% trans "KVK:" %}</span> 42007323</p>
+                  <p><span class="font-semibold text-gray-900">{% trans "BTW:" %}</span> [BTW number]</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        {% include 'core/footer.html' %}
+      </div>
+    </main>
+    </div>
+    {% if marketing_particles_enabled and particles_settings_json %}
+      {{ particles_settings_json|json_script:"particles-config" }}
+      <script>
+      window.JCW_PARTICLES_ENABLED = true;
+      try {
+        var configElement = document.getElementById("particles-config");
+        window.JCW_PARTICLES_CONFIG = configElement ? JSON.parse(configElement.textContent) : null;
+      } catch (err) {
+        window.JCW_PARTICLES_CONFIG = null;
+      }
+      </script>
+      <script src="{% static 'jcw/vendor/particles.min.js' %}"></script>
+      <script src="{% static 'jcw/js/particles-hero.js' %}"></script>
+    {% endif %}
+    <script src="{% static 'jcw/js/jcw-ui.js' %}"></script>
+    <script src="{% static 'jcw/js/public-floating-ui.js' %}" defer></script>
+    {% if is_edit_mode %}
+    <script src="{% static 'editor/editor.js' %}" defer></script>
+    {% endif %}
+  </body>
+</html>

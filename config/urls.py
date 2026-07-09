@@ -25,9 +25,13 @@ from django.urls import include, path
 from django.views.generic import RedirectView
 from django.views.i18n import set_language
 
+from controlpanel import views_admin as controlpanel_views_admin
 from core import views as core_views
+from core import views_pay as pay_views
 
 urlpatterns = [
+    # Admin tools (custom) - keep this before Django admin catch-all.
+    path("admin/tools/<slug:slug>/", controlpanel_views_admin.admin_tool, name="admin_tool"),
     # Django admin
     path('admin/', admin.site.urls),
     path('admin-panel/', RedirectView.as_view(pattern_name='control_panel:home', permanent=False)),
@@ -36,10 +40,18 @@ urlpatterns = [
     path('accounts/logout/', core_views.logout_view, name='logout'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('core.urls_accounts')),
+    # Onboarding foundation routes (non-prefixed aliases)
+    path("onboarding/", core_views.onboarding, name="onboarding_root"),
+    path("dashboard/website/preview/", core_views.website_preview, name="website_preview_root"),
     # SEO
     path('robots.txt', core_views.robots_txt, name='robots_txt'),
     path('sitemap.xml', core_views.sitemap_xml, name='sitemap_xml'),
     path('sitemap-<str:lang>.xml', core_views.sitemap_language_xml, name='sitemap_language'),
+    # Public payments
+    path("pay/", pay_views.pay_invoice, name="pay_invoice"),
+    path("pay/success/", pay_views.pay_success, name="pay_success"),
+    path("pay/cancel/", pay_views.pay_cancel, name="pay_cancel"),
+    path("stripe/webhook/", pay_views.stripe_webhook, name="stripe_webhook"),
     # i18n
     path('i18n/setlang/', set_language, name='set_language'),
 ]

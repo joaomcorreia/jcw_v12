@@ -1,0 +1,202 @@
+{% extends "pages/websites/product_page_base.html" %}
+{% load i18n %}
+
+{% block product_badge %}{% trans "Facebook Visibility" %}{% endblock %}
+{% block product_title %}{% trans "Keep Your Business Active on Facebook Without Posting It Yourself" %}{% endblock %}
+{% block product_subtitle %}{% trans "We create and publish 2 Facebook posts per week to help your business stay visible, build trust, and attract local customers." %}{% endblock %}
+{% block primary_cta_label %}{% trans "View Pricing" %}{% endblock %}
+{% block secondary_cta_label %}{% trans "Request service" %}{% endblock %}
+{% block primary_cta_url %}{% url 'core:pricing' %}{% endblock %}
+{% block secondary_cta_url %}{% url 'core:contact' %}{% endblock %}
+
+{% block extra_style %}
+.facebook-visibility-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 920px;
+  margin: 20px auto 0;
+}
+.facebook-visibility-fact {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 14px 16px;
+  backdrop-filter: blur(8px);
+}
+.facebook-visibility-fact strong {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+.facebook-visibility-fact span {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.9rem;
+  color: #dbeafe;
+}
+.facebook-example-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+.facebook-example-card {
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+  padding: 24px;
+}
+.facebook-example-label {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  padding: 6px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.facebook-summary-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+}
+.facebook-summary-item {
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 14px;
+  background: #f8fafc;
+  padding: 14px 16px;
+  color: #334155;
+  font-size: 0.95rem;
+}
+@media (max-width: 1024px) {
+  .facebook-example-grid,
+  .facebook-summary-list,
+  .facebook-visibility-facts {
+    grid-template-columns: 1fr;
+  }
+}
+{% endblock %}
+
+{% block hero_extra %}
+  <div class="facebook-visibility-facts">
+    <div class="facebook-visibility-fact">
+      <strong>{% trans "8 posts per month" %}</strong>
+      <span>{% trans "A steady weekly visibility rhythm for your business page." %}</span>
+    </div>
+    <div class="facebook-visibility-fact">
+      <strong>{% trans "Done for you" %}</strong>
+      <span>{% trans "We prepare and publish the posts so you do not have to." %}</span>
+    </div>
+    <div class="facebook-visibility-fact">
+      <strong>{% trans "Built for small businesses" %}</strong>
+      <span>{% trans "A simple service for consistent local visibility and trust." %}</span>
+    </div>
+  </div>
+{% endblock %}
+
+{% block details_content %}
+  {% trans "What You Get Every Month" as get_title %}
+  {% trans "A simple done-for-you monthly service that keeps your Facebook page active without leaving you to manage content week by week." as get_intro %}
+  {% trans "8 Facebook posts per month" as get_deliverable1 %}
+  {% trans "Captions prepared for your business" as get_deliverable2 %}
+  {% trans "Publishing handled for you" as get_deliverable3 %}
+  {% trans "A simple weekly content rhythm" as get_deliverable4 %}
+  {% trans "Content focused on business visibility, not random posting" as get_deliverable5 %}
+  {% include "components/product/what_you_get.html" with title=get_title intro=get_intro deliverable1=get_deliverable1 deliverable2=get_deliverable2 deliverable3=get_deliverable3 deliverable4=get_deliverable4 deliverable5=get_deliverable5 %}
+
+  <section class="plan-section plan-b5 p-8">
+    <h2 class="text-3xl font-bold text-gray-900 mb-4">{% trans "Example Posts We Create" %}</h2>
+    <p class="text-gray-700 mb-6">
+      {% trans "A typical monthly plan includes a mix of promotional and trust-building content to keep your page active and useful to potential customers." %}
+    </p>
+    <div class="facebook-example-grid">
+      <article class="facebook-example-card">
+        <span class="facebook-example-label">{% trans "Promotional Post" %}</span>
+        <h3 class="mt-4 text-xl font-bold text-slate-900">{% trans "Promotional Post" %}</h3>
+        <p class="mt-3 text-slate-600">{% trans "Service highlight, seasonal offer, or featured business update." %}</p>
+      </article>
+      <article class="facebook-example-card">
+        <span class="facebook-example-label">{% trans "Trust Post" %}</span>
+        <h3 class="mt-4 text-xl font-bold text-slate-900">{% trans "Trust Post" %}</h3>
+        <p class="mt-3 text-slate-600">{% trans "Customer review, before-and-after, or credibility-focused message." %}</p>
+      </article>
+      <article class="facebook-example-card">
+        <span class="facebook-example-label">{% trans "Business Visibility Post" %}</span>
+        <h3 class="mt-4 text-xl font-bold text-slate-900">{% trans "Business Visibility Post" %}</h3>
+        <p class="mt-3 text-slate-600">{% trans "Helpful reminder, booking prompt, or local awareness content." %}</p>
+      </article>
+    </div>
+  </section>
+
+  {% trans "How It Works" as timeline_title %}
+  {% trans "Connect your page" as timeline_step1_title %}
+  {% trans "We confirm your business page details and what is already in place." as timeline_step1_desc %}
+  {% trans "We plan your content" as timeline_step2_title %}
+  {% trans "We set a simple posting rhythm around your business and local visibility goals." as timeline_step2_desc %}
+  {% trans "We prepare the posts" as timeline_step3_title %}
+  {% trans "Captions and post ideas are prepared for the agreed monthly plan." as timeline_step3_desc %}
+  {% trans "We publish each week" as timeline_step4_title %}
+  {% trans "Your posts go live on schedule so your page stays active." as timeline_step4_desc %}
+  {% trans "Your page stays active" as timeline_step5_title %}
+  {% trans "You keep a visible, trustworthy Facebook presence without weekly posting work." as timeline_step5_desc %}
+  {% include "components/product/timeline.html" with title=timeline_title step1_title=timeline_step1_title step1_desc=timeline_step1_desc step2_title=timeline_step2_title step2_desc=timeline_step2_desc step3_title=timeline_step3_title step3_desc=timeline_step3_desc step4_title=timeline_step4_title step4_desc=timeline_step4_desc step5_title=timeline_step5_title step5_desc=timeline_step5_desc %}
+
+  <section class="plan-section plan-b3 p-8">
+    <h2 class="text-3xl font-bold text-gray-900 mb-4">{% trans "Monthly Service Summary" %}</h2>
+    <p class="text-gray-700 mb-4">
+      {% trans "This is the recurring monthly support package for businesses that want consistent Facebook visibility without managing posting themselves." %}
+    </p>
+    <div class="facebook-summary-list">
+      <div class="facebook-summary-item">{% trans "2 posts per week" %}</div>
+      <div class="facebook-summary-item">{% trans "8 posts per month" %}</div>
+      <div class="facebook-summary-item">{% trans "Content preparation included" %}</div>
+      <div class="facebook-summary-item">{% trans "Publishing on your Facebook business page" %}</div>
+      <div class="facebook-summary-item">{% trans "Monthly service price of X" %}</div>
+      <div class="facebook-summary-item">{% trans "Optional Facebook page setup available separately through the Online Presence Setup package" %}</div>
+    </div>
+  </section>
+
+  {% trans "Who This Is For" as who_title %}
+  {% trans "This service is built for small businesses that want a consistent Facebook presence without turning posting into another task to manage every week." as who_intro %}
+  {% trans "Businesses that already have a Facebook page but rarely post" as who_audience1 %}
+  {% trans "Owners who want visibility without building an internal content routine" as who_audience2 %}
+  {% trans "Local businesses that need steady posting support, not full ad management" as who_audience3 %}
+  {% trans "Teams that want their page to stay active and trustworthy with less effort" as who_audience4 %}
+  {% include "components/product/who_its_for.html" with title=who_title intro=who_intro audience1=who_audience1 audience2=who_audience2 audience3=who_audience3 audience4=who_audience4 %}
+
+  {% trans "What This Service Focuses On" as not_title %}
+  {% trans "This service is focused on consistent organic Facebook posting for business visibility, with a clear monthly scope." as not_intro %}
+  {% trans "Organic Facebook posting support" as not1 %}
+  {% trans "No paid ad campaign management" as not2 %}
+  {% trans "No ad spend or boosting budgets included" as not3 %}
+  {% trans "No full social strategy across all platforms" as not4 %}
+  {% trans "No inbox or daily community management" as not5 %}
+  {% include "components/product/not_included.html" with title=not_title intro=not_intro not1=not1 not2=not2 not3=not3 not4=not4 not5=not5 %}
+
+  {% trans "Frequently Asked Questions" as faq_title %}
+  {% trans "Does this include Facebook ads?" as faq_q1 %}
+  {% trans "No. This service is for organic Facebook posting support. Paid ads and campaign management are handled separately." as faq_a1 %}
+  {% trans "What if I do not have a Facebook page yet?" as faq_q2 %}
+  {% trans "Facebook page setup is included in the X Online Presence Setup package." as faq_a2 %}
+  {% trans "How many posts are included each month?" as faq_q3 %}
+  {% trans "The service includes 8 posts per month, delivered as 2 Facebook posts per week." as faq_a3 %}
+  {% trans "Do I need to provide photos or business information?" as faq_q4 %}
+  {% trans "Yes. Basic business information, offers, and any useful photos help us prepare better posts for your page." as faq_a4 %}
+  {% include "components/product/faq.html" with title=faq_title q1=faq_q1 a1=faq_a1 q2=faq_q2 a2=faq_a2 q3=faq_q3 a3=faq_a3 q4=faq_q4 a4=faq_a4 %}
+{% endblock %}
+
+{% block section_final_cta %}
+  {% trans "Keep Your Facebook Page Active Without Managing It Yourself" as final_title %}
+  {% trans "Choose monthly Facebook posting support if you want a consistent business presence without turning content creation into another weekly task." as final_intro %}
+  {% trans "Choose this service" as final_cta_label %}
+  {% trans "Request service" as final_secondary_cta_label %}
+  {% url 'core:pricing' as pricing_url %}
+  {% url 'core:contact' as contact_url %}
+  {% include "components/product/final_cta.html" with title=final_title intro=final_intro cta_label=final_cta_label cta_url=pricing_url secondary_cta_label=final_secondary_cta_label secondary_cta_url=contact_url %}
+{% endblock %}

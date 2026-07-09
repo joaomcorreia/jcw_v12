@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}" dir="ltr">
   <head>
@@ -6,52 +6,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
     <link rel="icon" href="{% static 'favicon.png' %}">
-    <title>Control Panel</title>
+    <title>{% trans "Control Panel" %}</title>
   </head>
   <body class="min-h-screen antialiased bg-white text-slate-900">
     <div class="max-w-5xl mx-auto px-6 py-10 space-y-8">
       <div class="flex items-center justify-between">
         <div>
-          <h1 class="text-3xl font-bold">Control Panel</h1>
-          <p class="text-sm text-slate-600">Staff-only dashboard for core system objects.</p>
+          <h1 class="text-3xl font-bold">{% trans "Control Panel" %}</h1>
+          <p class="text-sm text-slate-600">{% trans "Staff-only dashboard for core system objects." %}</p>
         </div>
         {% url 'admin:index' as admin_url %}
         {% if admin_url and request.user.is_staff %}
-        <a href="{{ admin_url }}" class="text-sm font-semibold text-blue-700 hover:underline">Open Django Admin</a>
+        <a href="{{ admin_url }}" class="text-sm font-semibold text-blue-700 hover:underline">{% trans "Open Django Admin" %}</a>
         {% endif %}
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="rounded-xl border border-slate-200 p-5">
-          <div class="text-sm text-slate-500">Pages</div>
+          <div class="text-sm text-slate-500">{% trans "Pages" %}</div>
           <div class="text-3xl font-bold">{{ counts.pages }}</div>
-          <a href="{{ links.pages }}" class="text-sm text-blue-700 hover:underline">Manage pages</a>
+          <a href="{{ links.pages }}" class="text-sm text-blue-700 hover:underline">{% trans "Manage pages" %}</a>
         </div>
         <div class="rounded-xl border border-slate-200 p-5">
-          <div class="text-sm text-slate-500">Sections</div>
+          <div class="text-sm text-slate-500">{% trans "Sections" %}</div>
           <div class="text-3xl font-bold">{{ counts.sections }}</div>
-          <a href="{{ links.sections }}" class="text-sm text-blue-700 hover:underline">Manage sections</a>
+          <a href="{{ links.sections }}" class="text-sm text-blue-700 hover:underline">{% trans "Manage sections" %}</a>
         </div>
         <div class="rounded-xl border border-slate-200 p-5">
-          <div class="text-sm text-slate-500">Sidebar Panels</div>
+          <div class="text-sm text-slate-500">{% trans "Sidebar Panels" %}</div>
           <div class="text-3xl font-bold">{{ counts.sidebar_panels }}</div>
-          <a href="{{ links.sidebar_panels }}" class="text-sm text-blue-700 hover:underline">Manage sidebar panels</a>
+          <a href="{{ links.sidebar_panels }}" class="text-sm text-blue-700 hover:underline">{% trans "Manage sidebar panels" %}</a>
         </div>
         <div class="rounded-xl border border-slate-200 p-5">
-          <div class="text-sm text-slate-500">Features</div>
+          <div class="text-sm text-slate-500">{% trans "Features" %}</div>
           <div class="text-3xl font-bold">{{ counts.features }}</div>
-          <a href="{{ links.features }}" class="text-sm text-blue-700 hover:underline">Manage features</a>
+          <a href="{{ links.features }}" class="text-sm text-blue-700 hover:underline">{% trans "Manage features" %}</a>
         </div>
         <div class="rounded-xl border border-slate-200 p-5">
-          <div class="text-sm text-slate-500">Managed Sites</div>
+          <div class="text-sm text-slate-500">{% trans "Managed Sites" %}</div>
           <div class="text-3xl font-bold">{{ counts.managed_sites }}</div>
-          <a href="{{ links.managed_sites }}" class="text-sm text-blue-700 hover:underline">Manage sites</a>
+          <a href="{{ links.managed_sites }}" class="text-sm text-blue-700 hover:underline">{% trans "Manage sites" %}</a>
         </div>
       </div>
 
       {% if media_asset and media_asset.file %}
       <div class="rounded-xl border border-slate-200 p-5 space-y-3">
-        <div class="text-sm text-slate-500">Latest media upload</div>
+        <div class="text-sm text-slate-500">{% trans "Latest media upload" %}</div>
         <div class="text-sm font-semibold">{{ media_asset.name }}</div>
         <img src="{{ media_asset.file.url }}" alt="{{ media_asset.name }}" class="max-h-48 rounded-md border border-slate-200">
         <div class="text-xs text-slate-500">{{ media_asset.file.url }}</div>

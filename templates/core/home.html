@@ -1,4 +1,5 @@
-{% load static i18n builder_tags %}
+{% load static i18n builder_tags content_extras %}
+{% get_current_language as LANGUAGE_CODE %}
 <!-- JCW_CORE_HOME_TEMPLATE -->
 <!doctype html>
 <html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
@@ -9,19 +10,17 @@
     <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
     <link rel="icon" href="{% static 'favicon.png' %}">
     <title>
-      {{ seo_title|default:"JustCodeWorks" }}
+      {{ seo_title|default:_("JustCodeWorks") }}
     </title>
         <meta name="robots" content="{% if launch_noindex %}noindex, nofollow{% else %}{{ seo_robots|default:'index, follow' }}{% endif %}">
 <meta
       name="description"
-      content="{{ seo_description|default:'Website builder and content management platform' }}"
+      content="{{ seo_description|default:_('Website builder and content management platform') }}"
     />
-    <style>
-      body.embed-mode .cookie-banner { display: none !important; }
-    </style>
     {% if is_edit_mode %}
     <link rel="stylesheet" href="{% static 'editor/editor.css' %}">
     {% endif %}
+    <link rel="stylesheet" href="{% static 'jcw/public-floating-ui.css' %}">
     <link rel="stylesheet" href="{% static 'jcw/hero-slider.css' %}">
         {% if canonical_url %}
     <link rel="canonical" href="{{ canonical_url }}">
@@ -30,11 +29,22 @@
       {% for alternate in hreflang_urls %}
     <link rel="alternate" hreflang="{{ alternate.lang }}" href="{{ alternate.url }}">
       {% endfor %}
-    {% endif %}</head>
+    {% endif %}
+    {% if not is_edit_mode %}
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "w0rrp5mkxz");
+    </script>
+    {% endif %}
+  </head>
 
     
   <body
-    class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium{% if embed_mode %} embed-mode{% endif %}{% if is_edit_mode %} jcw-edit-mode edit-mode{% endif %}">
+    class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium{% if embed_mode %} embed-mode{% endif %}{% if is_edit_mode %} jcw-edit-mode edit-mode{% endif %}"{% if is_edit_mode %} id="jcw-editor-root"{% endif %}>
+    {% include 'core/includes/coming_soon_modal.html' %}
     {% if is_edit_mode %}
       <div id="jcw-editor-bar" class="jcw-edit-bar" role="status" aria-live="polite">
         <div class="jcw-edit-bar__left">
@@ -67,16 +77,33 @@
       <script>
         window.JCW_SITE_MODE = "{{ jcw_site_mode|default:'other' }}";
       </script>
+      <script>
+        window.JCW_EDITOR_CONFIG = {
+          enabled: true,
+          csrfToken: "{{ csrf_token }}",
+          saveUrl: "{% url 'core:main_inline_save' %}",
+          debug: {% if request.GET.debug_editor == "1" %}true{% else %}false{% endif %}
+        };
+      </script>
+      <script>
+        window.JCW_EDITOR = window.JCW_EDITOR || {};
+        window.editor = window.editor || window.JCW_EDITOR;
+        window.editor.init = window.editor.init || function () {};
+        window.editor.save = window.editor.save || function () {};
+      </script>
     {% endif %}
     {% if jcw_hero_settings_json %}
       {{ jcw_hero_settings_json|json_script:"jcw-hero-settings" }}
+      {% trans "Launch your site fast" as hero_slider_default_title %}
+      {% trans "Publish a clean homepage, then add pages and services when you are ready." as hero_slider_default_subtitle %}
+      {% trans "See how it works" as hero_slider_default_cta %}
       <script>
         (function () {
           var el = document.getElementById("jcw-hero-settings");
           var defaults = {
             background: {
               mode: "color",
-              image_url: "",
+              image_url: ",
               color: "#0f172a",
               pattern: "dots",
               pattern_color: "#ffffff",
@@ -92,19 +119,19 @@
             },
             slides: [
               {
-                title: "",
-                subtitle: "",
-                ctaLabel: "",
-                ctaUrl: "",
-                mediaUrl: "",
+                title: ",
+                subtitle: ",
+                ctaLabel: ",
+                ctaUrl: ",
+                mediaUrl: ",
               },
               {
-                title: "Launch your site fast",
+                title: "{{ hero_slider_default_title|escapejs }}",
                 subtitle:
-                  "Publish a clean homepage, then add pages and services when you are ready.",
-                ctaLabel: "See how it works",
+                  "{{ hero_slider_default_subtitle|escapejs }}",
+                ctaLabel: "{{ hero_slider_default_cta|escapejs }}",
                 ctaUrl: "/en/websites/",
-                mediaUrl: "",
+                mediaUrl: ",
               },
             ],
             effects: {
@@ -125,6 +152,7 @@
         })();
       </script>
     {% endif %}
+    <main id="jcw-edit-scope">
     <div class="min-h-screen ltr" data-locale="{{ LANGUAGE_CODE }}">
       {% include 'core/main_nav.html' %}
       {% include "components/section_shell.html" with key="hero" section_id="0" class="relative h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 jcw-hero" content_template="core/sections/home_hero_content.html" extra_attrs='data-jcw-hero-slider="1"' %}
@@ -133,65 +161,71 @@
         <div class="max-w-7xl mx-auto px-4">
           <div class="text-center mb-12">
             <div class="inline-flex items-center px-4 py-2 bg-slate-100 text-slate-700 rounded-full text-sm font-medium mb-4"
-                 data-jcw-field="quick_start.label"
+                 data-jcw-editable="1" data-jcw-field="home.quick_start.label"
                  data-jcw-field-id=""
                  data-jcw-type="text">
-              {% trans "Quick start" %}
+              {{ content_map|dict_get:"home.quick_start.label"|default:_("Quick start") }}
             </div>
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900"
-                data-jcw-field="quick_start.title"
+                data-jcw-editable="1" data-jcw-field="home.quick_start.title"
                 data-jcw-field-id=""
                 data-jcw-type="text">
-              {% trans "Choose what fits today" %}
+              {{ content_map|dict_get:"home.quick_start.title"|default:_("Choose what fits today") }}
             </h2>
+            <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto"
+               data-jcw-editable="1" data-jcw-field="home.quick_start.subtitle"
+               data-jcw-field-id=""
+               data-jcw-type="text">
+              {{ content_map|dict_get:"home.quick_start.subtitle"|default:_("Start with a website, improve your visibility, and add print materials when you're ready.") }}
+            </p>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div class="bg-white border border-gray-200 rounded-2xl p-6 text-center shadow-sm">
               <h3 class="text-lg font-semibold mb-2"
-                  data-jcw-field="quick_start.card1_title"
+                  data-jcw-editable="1" data-jcw-field="home.quick_start.card1.title"
                   data-jcw-field-id=""
-                  data-jcw-type="text">{% trans "One-page website" %}</h3>
+                  data-jcw-type="text">{{ content_map|dict_get:"home.quick_start.card1.title"|default:_("One-page website") }}</h3>
               <p class="text-sm text-gray-600"
-                 data-jcw-field="quick_start.card1_text"
+                 data-jcw-editable="1" data-jcw-field="home.quick_start.card1.body"
                  data-jcw-field-id=""
                  data-jcw-type="text">
-                {% trans "Perfect for home and local services. Simple, clear, ready fast." %}
+                {{ content_map|dict_get:"home.quick_start.card1.body"|default:_("Perfect for local services and simple businesses. A clear, professional page to get online quickly.") }}
               </p>
             </div>
             <div class="bg-white border border-gray-200 rounded-2xl p-6 text-center shadow-sm">
               <h3 class="text-lg font-semibold mb-2"
-                  data-jcw-field="quick_start.card2_title"
+                  data-jcw-editable="1" data-jcw-field="home.quick_start.card2.title"
                   data-jcw-field-id=""
-                  data-jcw-type="text">{% trans "Multi-page website" %}</h3>
+                  data-jcw-type="text">{{ content_map|dict_get:"home.quick_start.card2.title"|default:_("Multi-page website") }}</h3>
               <p class="text-sm text-gray-600"
-                 data-jcw-field="quick_start.card2_text"
+                 data-jcw-editable="1" data-jcw-field="home.quick_start.card2.body"
                  data-jcw-field-id=""
                  data-jcw-type="text">
-                {% trans "Add pages for services, projects, team, and more - very easily." %}
+                {{ content_map|dict_get:"home.quick_start.card2.body"|default:_("Add pages for services, projects, team, and more. Ideal for businesses that need more space to grow.") }}
               </p>
             </div>
             <div class="bg-white border border-gray-200 rounded-2xl p-6 text-center shadow-sm">
               <h3 class="text-lg font-semibold mb-2"
-                  data-jcw-field="quick_start.card3_title"
+                  data-jcw-editable="1" data-jcw-field="home.quick_start.card3.title"
                   data-jcw-field-id=""
-                  data-jcw-type="text">{% trans "Visibility & SEO" %}</h3>
+                  data-jcw-type="text">{{ content_map|dict_get:"home.quick_start.card3.title"|default:_("Visibility") }}</h3>
               <p class="text-sm text-gray-600"
-                 data-jcw-field="quick_start.card3_text"
+                 data-jcw-editable="1" data-jcw-field="home.quick_start.card3.body"
                  data-jcw-field-id=""
                  data-jcw-type="text">
-                {% trans "Clear structure and guidance to help customers find you." %}
+                {{ content_map|dict_get:"home.quick_start.card3.body"|default:_("Help customers find your business more easily with clear structure, better page targeting, and stronger local presence.") }}
               </p>
             </div>
             <div class="bg-white border border-gray-200 rounded-2xl p-6 text-center shadow-sm">
               <h3 class="text-lg font-semibold mb-2"
-                  data-jcw-field="quick_start.card4_title"
+                  data-jcw-editable="1" data-jcw-field="home.quick_start.card4.title"
                   data-jcw-field-id=""
-                  data-jcw-type="text">{% trans "eCommerce made easy" %}</h3>
+                  data-jcw-type="text">{{ content_map|dict_get:"home.quick_start.card4.title"|default:_("Online store") }}</h3>
               <p class="text-sm text-gray-600"
-                 data-jcw-field="quick_start.card4_text"
+                 data-jcw-editable="1" data-jcw-field="home.quick_start.card4.body"
                  data-jcw-field-id=""
                  data-jcw-type="text">
-                {% trans "Sell products or services, add a store to your website or upgrade to a full ecommerce site." %}
+                {{ content_map|dict_get:"home.quick_start.card4.body"|default:_("Sell products or services online with a simple store setup that can grow with your business.") }}
               </p>
             </div>
           </div>
@@ -201,373 +235,124 @@
         <section class="py-24 bg-white relative" data-jcw-section="solutions" data-jcw-section-id="0">
           <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
-              <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
-                  data-jcw-field="solutions.title"
-                  data-jcw-field-id=""
-                  data-jcw-type="text">
-                {% trans "Choose Your Perfect Solution" %}
+              <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                {% trans "Choose the path that fits your business" %}
               </h2>
-              <p class="text-lg text-gray-600 max-w-3xl mx-auto"
-                 data-jcw-field="solutions.subtitle"
-                 data-jcw-field-id=""
-                 data-jcw-type="text">
-                {% trans "Start with one page, grow to multi-page, or add a store when you're ready." %}
+              <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                {% trans "Start with the website route that matches how you want to launch, manage, and grow online." %}
               </p>
             </div>
-            <div
-              class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-              <div
-                class="group relative bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-                <div
-                  class="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {% url 'core:websites_jcw_system' as jcw_system_url %}
+              <article class="group relative bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+                <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div class="relative">
-                  <div
-                    class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <span class="text-3xl">
-                      🚀
-                    </span>
+                  <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                      <rect x="5" y="5" width="14" height="14" rx="3" stroke-width="1.8"></rect>
+                      <path d="M8 15l3-3 2 2 3-4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
                   </div>
-                  <div class="mb-4">
-                    <span
-                      class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full mb-2">
-                      {% trans "POPULAR" %}
-                    </span>
-                    <h3 class="text-xl font-bold mb-3"
-                        data-jcw-field="solutions.card1_title"
-                        data-jcw-field-id=""
-                        data-jcw-type="text">
-                      {% trans "One-page websites" %}
-                    </h3>
+                  <p class="text-sm font-semibold uppercase tracking-wide text-blue-700 mb-3">{% trans "From €X / month" %}</p>
+                  <div class="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full mb-3">
+                    {% trans "Most popular" %}
                   </div>
-                  <p class="text-gray-600 mb-6 line-height-relaxed"
-                     data-jcw-field="solutions.card1_text"
-                     data-jcw-field-id=""
-                     data-jcw-type="text">
-                    {% trans "Simple, focused site for a few services. Easy to launch and easy to update." %}
+                  <h3 class="text-2xl font-bold text-gray-900 mb-3">{% trans "JCW System" %}</h3>
+                  <p class="text-gray-600 line-height-relaxed mb-8">
+                    {% trans "Start your website in minutes with everything handled for you. No technical setup, no maintenance, just a simple way to get online and grow." %}
                   </p>
-                  <ul class="space-y-2 mb-6 text-sm text-gray-600">
-                    <li class="flex items-center">
-                      <span class="text-green-500 mr-2">
-                        ✓
-                      </span>
-                      {% trans "Fast setup" %}
-                    </li>
-                    <li class="flex items-center">
-                      <span class="text-green-500 mr-2">
-                        ✓
-                      </span>
-                      {% trans "Mobile optimized" %}
-                    </li>
-                    <li class="flex items-center">
-                      <span class="text-green-500 mr-2">
-                        ✓
-                      </span>
-                      {% trans "SEO ready" %}
-                    </li>
-                  </ul>
-                  <button
-                    class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-md hover:shadow-lg">
-                    {% trans "View example" %}
-                  </button>
-                </div>
-              </div>
-              <div
-                class="group relative bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-                <div
-                  class="absolute inset-0 bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                </div>
-                <div class="relative">
-                  <div
-                    class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <span class="text-3xl">
-                      🏢
-                    </span>
-                  </div>
-                  <div class="mb-4">
-                    <span
-                      class="inline-block px-3 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full mb-2">
-                      {% trans "PROFESSIONAL" %}
-                    </span>
-                    <h3 class="text-xl font-bold mb-3"
-                        data-jcw-field="solutions.card2_title"
-                        data-jcw-field-id=""
-                        data-jcw-type="text">
-                      {% trans "Multi-page websites" %}
-                    </h3>
-                  </div>
-                  <p class="text-gray-600 mb-6 line-height-relaxed"
-                     data-jcw-field="solutions.card2_text"
-                     data-jcw-field-id=""
-                     data-jcw-type="text">
-                    {% trans "Add pages for services, projects, team, and FAQs without rebuilding your site." %}
-                  </p>
-                  <ul class="space-y-2 mb-6 text-sm text-gray-600">
-                    <li class="flex items-center">
-                      <span class="text-green-500 mr-2">
-                        ✓
-                      </span>
-                      {% trans "Multiple pages" %}
-                    </li>
-                    <li class="flex items-center">
-                      <span class="text-green-500 mr-2">
-                        ✓
-                      </span>
-                      {% trans "Advanced features" %}
-                    </li>
-                    <li class="flex items-center">
-                      <span class="text-green-500 mr-2">
-                        ✓
-                      </span>
-                      {% trans "Custom design" %}
-                    </li>
-                  </ul>
-                  <button
-                    class="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-md hover:shadow-lg">
-                    {% trans "View example" %}
-                  </button>
-                </div>
-              </div>
-              <div
-                class="group relative bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-                <div
-                  class="absolute inset-0 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                </div>
-                <div class="relative">
-                  <div
-                    class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <span class="text-3xl">
-                      🛒
-                    </span>
-                  </div>
-                  <div class="mb-4">
-                    <span
-                      class="inline-block px-3 py-1 bg-purple-100 text-purple-800 text-xs font-semibold rounded-full mb-2">
-                      {% trans "E-COMMERCE" %}
-                    </span>
-                    <h3 class="text-xl font-bold mb-3"
-                        data-jcw-field="solutions.card3_title"
-                        data-jcw-field-id=""
-                        data-jcw-type="text">
-                      {% trans "Online stores" %}
-                    </h3>
-                  </div>
-                  <p class="text-gray-600 mb-6 line-height-relaxed"
-                     data-jcw-field="solutions.card3_text"
-                     data-jcw-field-id=""
-                     data-jcw-type="text">
-                    {% trans "Sell products or bookings with a simple store, and upgrade as your catalog grows." %}
-                  </p>
-                  <ul class="space-y-2 mb-6 text-sm text-gray-600">
-                    <li class="flex items-center">
-                      <span class="text-green-500 mr-2">
-                        ✓
-                      </span>
-                      {% trans "Product catalog" %}
-                    </li>
-                    <li class="flex items-center">
-                      <span class="text-green-500 mr-2">
-                        ✓
-                      </span>
-                      {% trans "Payment processing" %}
-                    </li>
-                    <li class="flex items-center">
-                      <span class="text-green-500 mr-2">
-                        ✓
-                      </span>
-                      {% trans "Order management" %}
-                    </li>
-                  </ul>
-                  <button
-                    class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-md hover:shadow-lg">
-                    {% trans "View example" %}
-                  </button>
-                </div>
-              </div>
-              <div
-                class="group relative bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-                <div
-                  class="absolute inset-0 bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                </div>
-                <div class="relative">
-                  <div
-                    class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <span class="text-3xl">
-                      🔍
-                    </span>
-                  </div>
-                  <div class="mb-4">
-                    <span
-                      class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full mb-2">
-                      {% trans "SEO" %}
-                    </span>
-                    <h3 class="text-xl font-bold mb-3">
-                      {% trans "Multi Page SEO" %}
-                    </h3>
-                  </div>
-                  <p class="text-gray-600 mb-6 line-height-relaxed">
-                    {% trans "Multi-page site + SEO foundations" %}
-                  </p>
-                  <a
-                    class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-md hover:shadow-lg inline-flex items-center justify-center"
-                    href="{% url 'core:websites_multi_page_seo' %}">
-                    {% trans "View option" %}
+                  <a class="w-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 shadow-md hover:shadow-lg inline-flex items-center justify-center" href="{{ jcw_system_url }}">
+                    {% trans "Start my website" %}
                   </a>
                 </div>
-              </div>
-              <div
-                class="group relative bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-                <div
-                  class="absolute inset-0 bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                </div>
+              </article>
+
+              {% url 'core:websites_wordpress' as wordpress_url %}
+              <article class="group relative bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+                <div class="absolute inset-0 bg-gradient-to-br from-emerald-50 to-lime-50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div class="relative">
-                  <div
-                    class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <span class="text-3xl">
-                      🗂️
-                    </span>
+                  <div class="w-16 h-16 bg-gradient-to-br from-emerald-600 to-lime-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                      <rect x="5" y="5" width="14" height="14" rx="3" stroke-width="1.8"></rect>
+                      <path d="M8 15l3-3 2 2 3-4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
                   </div>
-                  <div class="mb-4">
-                    <span
-                      class="inline-block px-3 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full mb-2">
-                      {% trans "Catalog" %}
-                    </span>
-                    <h3 class="text-xl font-bold mb-3">
-                      {% trans "Catalog Websites" %}
-                    </h3>
-                  </div>
-                  <p class="text-gray-600 mb-6 line-height-relaxed">
-                    {% trans "Showcase products, optional prices, no checkout" %}
+                  <p class="text-sm font-semibold uppercase tracking-wide text-emerald-700 mb-3">{% trans "From €X one-time" %}</p>
+                  <h3 class="text-2xl font-bold text-gray-900 mb-3">{% trans "WordPress (One-time website)" %}</h3>
+                  <p class="text-gray-600 line-height-relaxed mb-8">
+                    {% trans "A one-time website setup for businesses that prefer full control and no monthly subscription. You manage content and updates yourself." %}
                   </p>
-                  <a
-                    class="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-md hover:shadow-lg inline-flex items-center justify-center"
-                    href="{% url 'core:websites_catalog_site' %}">
-                    {% trans "View option" %}
+                  <a class="w-full bg-gradient-to-r from-emerald-600 to-lime-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-emerald-700 hover:to-lime-700 transition-all duration-300 shadow-md hover:shadow-lg inline-flex items-center justify-center" href="{{ wordpress_url }}">
+                    {% trans "View WordPress option" %}
                   </a>
                 </div>
-              </div>
-              <div
-                class="group relative bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-                <div
-                  class="absolute inset-0 bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                </div>
+              </article>
+
+              <article class="group relative bg-white border border-gray-200 rounded-2xl p-8 shadow-sm hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+                <div class="absolute inset-0 bg-gradient-to-br from-violet-50 to-fuchsia-50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div class="relative">
-                  <div
-                    class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <span class="text-3xl">
-                      🧩
-                    </span>
+                  <div class="w-16 h-16 bg-gradient-to-br from-violet-600 to-fuchsia-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                      <rect x="5" y="5" width="14" height="14" rx="3" stroke-width="1.8"></rect>
+                      <path d="M8 15l3-3 2 2 3-4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
                   </div>
-                  <div class="mb-4">
-                    <span
-                      class="inline-block px-3 py-1 bg-purple-100 text-purple-800 text-xs font-semibold rounded-full mb-2">
-                      {% trans "Custom" %}
-                    </span>
-                    <h3 class="text-xl font-bold mb-3">
-                      {% trans "Custom Websites" %}
-                    </h3>
-                  </div>
-                  <p class="text-gray-600 mb-6 line-height-relaxed">
-                    {% trans "Built to your requirements" %}
+                  <p class="text-sm font-semibold uppercase tracking-wide text-violet-700 mb-3">{% trans "From €X one-time" %}</p>
+                  <h3 class="text-2xl font-bold text-gray-900 mb-3">{% trans "WordPress (Advanced setup)" %}</h3>
+                  <p class="text-gray-600 line-height-relaxed mb-8">
+                    {% trans "A more complete setup with additional structure and flexibility. Ideal if you want more control and customization from the start." %}
                   </p>
-                  <a
-                    class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-md hover:shadow-lg inline-flex items-center justify-center"
-                    href="{% url 'core:websites_custom' %}">
-                    {% trans "View option" %}
+                  <a class="w-full bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-violet-700 hover:to-fuchsia-700 transition-all duration-300 shadow-md hover:shadow-lg inline-flex items-center justify-center" href="{{ wordpress_url }}">
+                    {% trans "Learn more" %}
                   </a>
                 </div>
+              </article>
+            </div>
+          </div>
+        </section>
+        <section class="py-16 bg-slate-50 relative" data-jcw-section="getonlinefast_bridge" data-jcw-section-id="0">
+          <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center bg-white border border-slate-200 rounded-lg p-6 md:p-10 shadow-sm">
+              <div>
+                <div class="inline-flex items-center px-3 py-1 bg-cyan-50 text-cyan-800 rounded-full text-sm font-semibold mb-5">
+                  {% trans "Fast-track website option" %}
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                  {% trans "Need a website online faster?" %}
+                </h2>
+                <p class="text-lg text-gray-600 max-w-xl mb-7 line-height-relaxed">
+                  {% trans "Skip the longer setup and launch quickly with our fast-track platform for business websites." %}
+                </p>
+                <a class="inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 shadow-md hover:shadow-lg" href="https://getonlinefast.eu/">
+                  {% trans "Launch with GetOnlineFast" %}
+                </a>
+                <p class="mt-3 text-sm font-medium text-slate-500">
+                  {% trans "Built for speed. Ready to launch fast." %}
+                </p>
               </div>
-              <div
-                class="group relative bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-                <div
-                  class="absolute inset-0 bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                </div>
-                <div class="relative">
-                  <div
-                    class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <span class="text-3xl">
-                      🛍️
-                    </span>
+              <div class="bg-slate-900 rounded-lg p-4 md:p-5 shadow-xl">
+                <div class="bg-white rounded-lg overflow-hidden">
+                  <div class="flex items-center gap-2 border-b border-slate-200 px-4 py-3">
+                    <span class="w-2.5 h-2.5 rounded-full bg-red-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                    <span class="ml-2 text-xs font-semibold text-slate-500">getonlinefast.eu</span>
                   </div>
-                  <div class="mb-4">
-                    <span
-                      class="inline-block px-3 py-1 bg-orange-100 text-orange-800 text-xs font-semibold rounded-full mb-2">
-                      {% trans "eStore" %}
-                    </span>
-                    <h3 class="text-xl font-bold mb-3">
-                      {% trans "Starter eStore" %}
-                    </h3>
+                  <div class="p-5 md:p-7">
+                    <div class="h-3 w-28 bg-cyan-100 rounded-full mb-5"></div>
+                    <div class="h-7 w-4/5 bg-slate-900 rounded mb-3"></div>
+                    <div class="h-7 w-2/3 bg-slate-700 rounded mb-5"></div>
+                    <div class="space-y-3 mb-6">
+                      <div class="h-3 bg-slate-200 rounded w-full"></div>
+                      <div class="h-3 bg-slate-200 rounded w-5/6"></div>
+                      <div class="h-3 bg-slate-200 rounded w-3/4"></div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-3">
+                      <div class="h-16 bg-cyan-50 border border-cyan-100 rounded-lg"></div>
+                      <div class="h-16 bg-blue-50 border border-blue-100 rounded-lg"></div>
+                      <div class="h-16 bg-slate-50 border border-slate-100 rounded-lg"></div>
+                    </div>
                   </div>
-                  <p class="text-gray-600 mb-6 line-height-relaxed">
-                    {% trans "One-page shop up to 8 products" %}
-                  </p>
-                  <a
-                    class="w-full bg-gradient-to-r from-orange-600 to-red-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-orange-700 hover:to-red-700 transition-all duration-300 shadow-md hover:shadow-lg inline-flex items-center justify-center"
-                    href="{% url 'core:websites_eshop_starter' %}">
-                    {% trans "View option" %}
-                  </a>
-                </div>
-              </div>
-              <div
-                class="group relative bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-                <div
-                  class="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                </div>
-                <div class="relative">
-                  <div
-                    class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <span class="text-3xl">
-                      💎
-                    </span>
-                  </div>
-                  <div class="mb-4">
-                    <span
-                      class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full mb-2">
-                      {% trans "Premium" %}
-                    </span>
-                    <h3 class="text-xl font-bold mb-3">
-                      {% trans "Premium eStores" %}
-                    </h3>
-                  </div>
-                  <p class="text-gray-600 mb-6 line-height-relaxed">
-                    {% trans "All features, built to scale" %}
-                  </p>
-                  <a
-                    class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg inline-flex items-center justify-center"
-                    href="{% url 'core:websites_eshop_premium' %}">
-                    {% trans "View option" %}
-                  </a>
-                </div>
-              </div>
-              <div
-                class="group relative bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-                <div
-                  class="absolute inset-0 bg-gradient-to-br from-slate-50 to-blue-50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                </div>
-                <div class="relative">
-                  <div
-                    class="w-16 h-16 bg-gradient-to-br from-slate-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <span class="text-3xl">
-                      🤝
-                    </span>
-                  </div>
-                  <div class="mb-4">
-                    <span
-                      class="inline-block px-3 py-1 bg-slate-100 text-slate-800 text-xs font-semibold rounded-full mb-2">
-                      {% trans "CTA" %}
-                    </span>
-                    <h3 class="text-xl font-bold mb-3">
-                      {% trans "Not sure yet?" %}
-                    </h3>
-                  </div>
-                  <p class="text-gray-600 mb-6 line-height-relaxed">
-                    {% trans "Tell us what you need and we'll recommend the best option." %}
-                  </p>
-                  <a
-                    class="w-full bg-gradient-to-r from-slate-700 to-blue-700 text-white py-3 px-6 rounded-xl font-semibold hover:from-slate-800 hover:to-blue-800 transition-all duration-300 shadow-md hover:shadow-lg inline-flex items-center justify-center"
-                    href="{% url 'core:websites' %}">
-                    {% trans "Get a recommendation" %}
-                  </a>
                 </div>
               </div>
             </div>
@@ -582,8 +367,10 @@
             <div class="text-center mb-16">
               <div
                 class="inline-flex items-center px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-medium mb-6">
-                <span class="mr-2">
-                  *
+                <span class='mr-2 inline-flex items-center justify-center'>
+                  <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                 </span>
                 {% trans "Visibility" %}
               </div>
@@ -606,8 +393,11 @@
                 <div class="relative">
                   <div
                     class="w-16 h-16 bg-gradient-to-br from-teal-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <span class="text-3xl">
-                      *
+                    <span class="text-3xl inline-flex items-center justify-center">
+                      <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+  <rect x="5" y="5" width="14" height="14" rx="3" stroke-width="1.8"></rect>
+  <path d="M8 15l3-3 2 2 3-4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
                     </span>
                   </div>
                   <h3 class="text-lg font-bold mb-3">
@@ -630,8 +420,11 @@
                 <div class="relative">
                   <div
                     class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <span class="text-3xl">
-                      *
+                    <span class="text-3xl inline-flex items-center justify-center">
+                      <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+  <rect x="5" y="5" width="14" height="14" rx="3" stroke-width="1.8"></rect>
+  <path d="M8 15l3-3 2 2 3-4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
                     </span>
                   </div>
                   <h3 class="text-lg font-bold mb-3">
@@ -654,8 +447,11 @@
                 <div class="relative">
                   <div
                     class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <span class="text-3xl">
-                      *
+                    <span class="text-3xl inline-flex items-center justify-center">
+                      <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+  <rect x="5" y="5" width="14" height="14" rx="3" stroke-width="1.8"></rect>
+  <path d="M8 15l3-3 2 2 3-4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
                     </span>
                   </div>
                   <h3 class="text-lg font-bold mb-3">
@@ -678,8 +474,11 @@
                 <div class="relative">
                   <div
                     class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <span class="text-3xl">
-                      ???
+                    <span class="text-3xl inline-flex items-center justify-center">
+                      <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+  <rect x="5" y="5" width="14" height="14" rx="3" stroke-width="1.8"></rect>
+  <path d="M8 15l3-3 2 2 3-4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
                     </span>
                   </div>
                   <h3 class="text-lg font-bold mb-3">
@@ -702,8 +501,11 @@
                 <div class="relative">
                   <div
                     class="w-16 h-16 bg-gradient-to-br from-rose-500 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <span class="text-3xl">
-                      *
+                    <span class="text-3xl inline-flex items-center justify-center">
+                      <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+  <rect x="5" y="5" width="14" height="14" rx="3" stroke-width="1.8"></rect>
+  <path d="M8 15l3-3 2 2 3-4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
                     </span>
                   </div>
                   <h3 class="text-lg font-bold mb-3">
@@ -726,8 +528,11 @@
                 <div class="relative">
                   <div
                     class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <span class="text-3xl">
-                      *
+                    <span class="text-3xl inline-flex items-center justify-center">
+                      <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+  <rect x="5" y="5" width="14" height="14" rx="3" stroke-width="1.8"></rect>
+  <path d="M8 15l3-3 2 2 3-4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
                     </span>
                   </div>
                   <h3 class="text-lg font-bold mb-3">
@@ -750,8 +555,11 @@
                 <div class="relative">
                   <div
                     class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <span class="text-3xl">
-                      *
+                    <span class="text-3xl inline-flex items-center justify-center">
+                      <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+  <rect x="5" y="5" width="14" height="14" rx="3" stroke-width="1.8"></rect>
+  <path d="M8 15l3-3 2 2 3-4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
                     </span>
                   </div>
                   <h3 class="text-lg font-bold mb-3">
@@ -774,8 +582,11 @@
                 <div class="relative">
                   <div
                     class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <span class="text-3xl">
-                      *
+                    <span class="text-3xl inline-flex items-center justify-center">
+                      <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+  <rect x="5" y="5" width="14" height="14" rx="3" stroke-width="1.8"></rect>
+  <path d="M8 15l3-3 2 2 3-4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
                     </span>
                   </div>
                   <h3 class="text-lg font-bold mb-3">
@@ -798,8 +609,11 @@
                 <div class="relative">
                   <div
                     class="w-16 h-16 bg-gradient-to-br from-slate-500 to-gray-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <span class="text-3xl">
-                      *
+                    <span class="text-3xl inline-flex items-center justify-center">
+                      <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+  <rect x="5" y="5" width="14" height="14" rx="3" stroke-width="1.8"></rect>
+  <path d="M8 15l3-3 2 2 3-4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
                     </span>
                   </div>
                   <h3 class="text-lg font-bold mb-3">
@@ -824,9 +638,11 @@
           <div class="relative max-w-7xl mx-auto px-4 text-center">
             <div
               class="inline-flex items-center px-4 py-2 bg-orange-100 text-orange-800 rounded-full text-sm font-medium mb-6">
-              <span class="mr-2">
-                *
-              </span>
+              <span class='mr-2 inline-flex items-center justify-center'>
+                  <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
+                </span>
               {% trans "PrintLab" %}
             </div>
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -837,40 +653,6 @@
             </p>
           </div>
         </section>
-        <style>
-          .jcw-interactive-text {
-            background-size: 200% 100%;
-            transition: background-position 0.6s ease, filter 0.6s ease;
-          }
-          .jcw-interactive-text:hover {
-            background-position: 100% 0;
-            filter: brightness(1.05);
-          }
-          .printlab-slider {
-            position: relative;
-          }
-          .printlab-slide {
-            display: none;
-          }
-          .printlab-slide.is-active {
-            display: block;
-          }
-          .printlab-dots {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-top: 0.75rem;
-          }
-          .printlab-dot {
-            width: 0.5rem;
-            height: 0.5rem;
-            border-radius: 9999px;
-            background: rgba(148, 163, 184, 0.8);
-          }
-          .printlab-dot.is-active {
-            background: rgba(37, 99, 235, 0.9);
-          }
-        </style>
         <section
           id="printlab-cards"
           class="py-16 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden printlab-section">
@@ -891,8 +673,10 @@
             <div class="text-center mb-16">
               <div
                 class="inline-flex items-center px-4 py-2 bg-orange-100 text-orange-800 rounded-full text-sm font-medium mb-6">
-                <span class="mr-2">
-                  👕
+                <span class='mr-2 inline-flex items-center justify-center'>
+                  <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                 </span>
                 {% trans "PrintLab" %}
               </div>
@@ -913,32 +697,26 @@
                     <div class="printlab-slide is-active" data-printlab-slide>
                       <div class="grid grid-cols-2 gap-4 mb-6">
                         <div class="bg-blue-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            👕
-                          </div>
+                          <img src="{% static 'img/printlab/tshirt1.png' %}" alt="{% trans 'Men T-shirt' %}" class="w-full h-32 object-contain rounded-md mb-3">
                           <div class="text-sm font-medium">
                             {% trans "Men T-shirt" %}
                           </div>
                         </div>
                         <div class="bg-green-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            👚
-                          </div>
+                          <img src="{% static 'img/printlab/women-shirt1.png' %}" alt="{% trans 'Women T-shirt' %}" class="w-full h-32 object-contain rounded-md mb-3">
                           <div class="text-sm font-medium">
                             {% trans "Women T-shirt" %}
                           </div>
                         </div>
                         <div class="bg-purple-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            🧒
-                          </div>
+                          <img src="{% static 'img/printlab/tshirt2.png' %}" alt="{% trans 'Classic T-shirt' %}" class="w-full h-32 object-contain rounded-md mb-3">
                           <div class="text-sm font-medium">
-                            {% trans "Kids T-shirt" %}
+                            {% trans "Classic T-shirt" %}
                           </div>
                         </div>
                         <div class="bg-orange-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            🧥
+                          <div class="w-full h-32 rounded-md mb-3 border border-orange-200 bg-orange-50 flex items-center justify-center text-orange-700 text-xs font-semibold uppercase tracking-wide">
+                            {% trans "More styles" %}
                           </div>
                           <div class="text-sm font-medium">
                             {% trans "Hoodies" %}
@@ -949,32 +727,40 @@
                     <div class="printlab-slide" data-printlab-slide>
                       <div class="grid grid-cols-2 gap-4 mb-6">
                         <div class="bg-teal-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            🧢
+                          <div class='text-2xl mb-2 inline-flex items-center justify-center'>
+                            <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                           </div>
                           <div class="text-sm font-medium">
                             {% trans "Caps" %}
                           </div>
                         </div>
                         <div class="bg-emerald-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            🦺
+                          <div class='text-2xl mb-2 inline-flex items-center justify-center'>
+                            <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                           </div>
                           <div class="text-sm font-medium">
                             {% trans "Workwear" %}
                           </div>
                         </div>
                         <div class="bg-indigo-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            🧣
+                          <div class='text-2xl mb-2 inline-flex items-center justify-center'>
+                            <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                           </div>
                           <div class="text-sm font-medium">
                             {% trans "Sweatshirts" %}
                           </div>
                         </div>
                         <div class="bg-rose-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            🧦
+                          <div class='text-2xl mb-2 inline-flex items-center justify-center'>
+                            <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                           </div>
                           <div class="text-sm font-medium">
                             {% trans "Accessories" %}
@@ -995,17 +781,25 @@
                     </div>
                     <div
                       class="flex justify-center space-x-4 text-xs text-gray-500">
-                      <span>
-                        🇩🇪
+                      <span class='inline-flex items-center justify-center text-slate-400'>
+                        <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                       </span>
-                      <span>
-                        🇫🇷
+                      <span class='inline-flex items-center justify-center text-slate-400'>
+                        <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                       </span>
-                      <span>
-                        🇪🇸
+                      <span class='inline-flex items-center justify-center text-slate-400'>
+                        <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                       </span>
-                      <span>
-                        🇮🇹
+                      <span class='inline-flex items-center justify-center text-slate-400'>
+                        <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                       </span>
                     </div>
                   </div>
@@ -1018,20 +812,26 @@
                   </h3>
                   <ul class="space-y-2 text-gray-600">
                     <li class="flex items-center">
-                      <span class="text-green-500 mr-2">
-                        ✓
+                      <span class='text-green-500 mr-2 inline-flex items-center justify-center'>
+                        <svg class='w-4 h-4' viewBox='0 0 20 20' fill='currentColor' aria-hidden='true'>
+  <path fill-rule='evenodd' d='M16.704 5.29a1 1 0 010 1.42l-7.25 7.25a1 1 0 01-1.415 0L3.296 9.217a1 1 0 111.414-1.414l4.036 4.036 6.543-6.543a1 1 0 011.415 0z' clip-rule='evenodd'></path>
+</svg>
                       </span>
                       {% trans "T-shirts and hoodies" %}
                     </li>
                     <li class="flex items-center">
-                      <span class="text-green-500 mr-2">
-                        ✓
+                      <span class='text-green-500 mr-2 inline-flex items-center justify-center'>
+                        <svg class='w-4 h-4' viewBox='0 0 20 20' fill='currentColor' aria-hidden='true'>
+  <path fill-rule='evenodd' d='M16.704 5.29a1 1 0 010 1.42l-7.25 7.25a1 1 0 01-1.415 0L3.296 9.217a1 1 0 111.414-1.414l4.036 4.036 6.543-6.543a1 1 0 011.415 0z' clip-rule='evenodd'></path>
+</svg>
                       </span>
                       {% trans "Workwear and uniforms" %}
                     </li>
                     <li class="flex items-center">
-                      <span class="text-green-500 mr-2">
-                        ✓
+                      <span class='text-green-500 mr-2 inline-flex items-center justify-center'>
+                        <svg class='w-4 h-4' viewBox='0 0 20 20' fill='currentColor' aria-hidden='true'>
+  <path fill-rule='evenodd' d='M16.704 5.29a1 1 0 010 1.42l-7.25 7.25a1 1 0 01-1.415 0L3.296 9.217a1 1 0 111.414-1.414l4.036 4.036 6.543-6.543a1 1 0 011.415 0z' clip-rule='evenodd'></path>
+</svg>
                       </span>
                       {% trans "Multiple sizes and fits" %}
                     </li>
@@ -1056,8 +856,10 @@
             <div class="text-center mb-16">
               <div
                 class="inline-flex items-center px-4 py-2 bg-orange-100 text-orange-800 rounded-full text-sm font-medium mb-6">
-                <span class="mr-2">
-                  🎁
+                <span class='mr-2 inline-flex items-center justify-center'>
+                  <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                 </span>
                 {% trans "PrintLab" %}
               </div>
@@ -1078,32 +880,40 @@
                     <div class="printlab-slide is-active" data-printlab-slide>
                       <div class="grid grid-cols-2 gap-4 mb-6">
                         <div class="bg-blue-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            ☕
+                          <div class='text-2xl mb-2 inline-flex items-center justify-center'>
+                            <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                           </div>
                           <div class="text-sm font-medium">
                             {% trans "Mugs" %}
                           </div>
                         </div>
                         <div class="bg-green-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            👜
+                          <div class='text-2xl mb-2 inline-flex items-center justify-center'>
+                            <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                           </div>
                           <div class="text-sm font-medium">
                             {% trans "Tote bags" %}
                           </div>
                         </div>
                         <div class="bg-purple-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            🧷
+                          <div class='text-2xl mb-2 inline-flex items-center justify-center'>
+                            <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                           </div>
                           <div class="text-sm font-medium">
                             {% trans "Stickers" %}
                           </div>
                         </div>
                         <div class="bg-orange-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            🎁
+                          <div class='text-2xl mb-2 inline-flex items-center justify-center'>
+                            <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                           </div>
                           <div class="text-sm font-medium">
                             {% trans "Gifts" %}
@@ -1114,32 +924,40 @@
                     <div class="printlab-slide" data-printlab-slide>
                       <div class="grid grid-cols-2 gap-4 mb-6">
                         <div class="bg-cyan-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            📱
+                          <div class='text-2xl mb-2 inline-flex items-center justify-center'>
+                            <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                           </div>
                           <div class="text-sm font-medium">
                             {% trans "Phone cases" %}
                           </div>
                         </div>
                         <div class="bg-rose-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            🔑
+                          <div class='text-2xl mb-2 inline-flex items-center justify-center'>
+                            <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                           </div>
                           <div class="text-sm font-medium">
                             {% trans "Keychains" %}
                           </div>
                         </div>
                         <div class="bg-amber-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            🪩
+                          <div class='text-2xl mb-2 inline-flex items-center justify-center'>
+                            <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                           </div>
                           <div class="text-sm font-medium">
                             {% trans "Gadgets" %}
                           </div>
                         </div>
                         <div class="bg-slate-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            🎒
+                          <div class='text-2xl mb-2 inline-flex items-center justify-center'>
+                            <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                           </div>
                           <div class="text-sm font-medium">
                             {% trans "Accessories" %}
@@ -1160,17 +978,25 @@
                     </div>
                     <div
                       class="flex justify-center space-x-4 text-xs text-gray-500">
-                      <span>
-                        🇩🇪
+                      <span class='inline-flex items-center justify-center text-slate-400'>
+                        <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                       </span>
-                      <span>
-                        🇫🇷
+                      <span class='inline-flex items-center justify-center text-slate-400'>
+                        <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                       </span>
-                      <span>
-                        🇪🇸
+                      <span class='inline-flex items-center justify-center text-slate-400'>
+                        <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                       </span>
-                      <span>
-                        🇮🇹
+                      <span class='inline-flex items-center justify-center text-slate-400'>
+                        <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                       </span>
                     </div>
                   </div>
@@ -1183,20 +1009,26 @@
                   </h3>
                   <ul class="space-y-2 text-gray-600">
                     <li class="flex items-center">
-                      <span class="text-green-500 mr-2">
-                        ✓
+                      <span class='text-green-500 mr-2 inline-flex items-center justify-center'>
+                        <svg class='w-4 h-4' viewBox='0 0 20 20' fill='currentColor' aria-hidden='true'>
+  <path fill-rule='evenodd' d='M16.704 5.29a1 1 0 010 1.42l-7.25 7.25a1 1 0 01-1.415 0L3.296 9.217a1 1 0 111.414-1.414l4.036 4.036 6.543-6.543a1 1 0 011.415 0z' clip-rule='evenodd'></path>
+</svg>
                       </span>
                       {% trans "Mugs and drinkware" %}
                     </li>
                     <li class="flex items-center">
-                      <span class="text-green-500 mr-2">
-                        ✓
+                      <span class='text-green-500 mr-2 inline-flex items-center justify-center'>
+                        <svg class='w-4 h-4' viewBox='0 0 20 20' fill='currentColor' aria-hidden='true'>
+  <path fill-rule='evenodd' d='M16.704 5.29a1 1 0 010 1.42l-7.25 7.25a1 1 0 01-1.415 0L3.296 9.217a1 1 0 111.414-1.414l4.036 4.036 6.543-6.543a1 1 0 011.415 0z' clip-rule='evenodd'></path>
+</svg>
                       </span>
                       {% trans "Bags and accessories" %}
                     </li>
                     <li class="flex items-center">
-                      <span class="text-green-500 mr-2">
-                        ✓
+                      <span class='text-green-500 mr-2 inline-flex items-center justify-center'>
+                        <svg class='w-4 h-4' viewBox='0 0 20 20' fill='currentColor' aria-hidden='true'>
+  <path fill-rule='evenodd' d='M16.704 5.29a1 1 0 010 1.42l-7.25 7.25a1 1 0 01-1.415 0L3.296 9.217a1 1 0 111.414-1.414l4.036 4.036 6.543-6.543a1 1 0 011.415 0z' clip-rule='evenodd'></path>
+</svg>
                       </span>
                       {% trans "Promotional items" %}
                     </li>
@@ -1211,6 +1043,72 @@
             </div>
           </div>
         </section>
+        <section class="py-16 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden printlab-section">
+          <div
+            class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%20xmlns%3D%22http://www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22%23e5e7eb%22%20fill-opacity%3D%220.4%22%3E%3Cpath%20d%3D%22M20%200v20L0%200z%22/%3E%3C/g%3E%3C/svg%3E')] opacity-30">
+          </div>
+          <div class="relative max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+              <div class="inline-flex items-center px-4 py-2 bg-orange-100 text-orange-800 rounded-full text-sm font-medium mb-6">
+                <span class='mr-2 inline-flex items-center justify-center'>
+                  <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
+                </span>
+                {% trans "PrintLab" %}
+              </div>
+              <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                {% trans "Real products, ready to print" %}
+              </h2>
+              <p class="text-sm font-semibold uppercase tracking-wide text-orange-700 mb-3">
+                {% trans "Live product examples from PrintLab" %}
+              </p>
+              <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                {% trans "These are real products you can customize with your brand. More products can be added anytime inside PrintLab." %}
+              </p>
+            </div>
+            {% if printful_products_preview %}
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {% for product in printful_products_preview %}
+              <article class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+                {% if product.image_url %}
+                <img src="{{ product.image_url }}" alt="{{ product.name }}" class="w-full h-56 object-cover rounded-xl mb-4">
+                {% endif %}
+                <div class="inline-flex items-center px-3 py-1 bg-orange-100 text-orange-800 text-xs font-semibold rounded-full mb-3">
+                  {% trans "Live example" %}
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900">
+                  {% if product.name == "Unisex Hoodie" %}
+                    {% trans "Custom Hoodie" %}
+                  {% elif product.name == "Unisex t-shirt" %}
+                    {% trans "Custom T-Shirt" %}
+                  {% elif product.name == "MagSafe case for iPhone" %}
+                    {% trans "Phone Case" %}
+                  {% else %}
+                    {{ product.name }}
+                  {% endif %}
+                </h3>
+                {% if product.price %}
+                <p class="text-sm text-gray-600 mt-2">{% trans "From" %} {{ product.price }}</p>
+                {% endif %}
+                <a class="mt-4 bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors inline-flex items-center justify-center" href="{% url 'core:printlab' %}">
+                  {% trans "Customize this product" %}
+                </a>
+              </article>
+              {% endfor %}
+            </div>
+            {% else %}
+            <div class="bg-white border border-gray-200 rounded-2xl p-8 text-center shadow-sm">
+              <p class="text-gray-600">{% trans "Product previews will appear here" %}</p>
+            </div>
+            {% endif %}
+            <div class="text-center mt-10">
+              <a class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors inline-flex" href="{% url 'core:print_merch' %}">
+                {% trans "See merch products" %}
+              </a>
+            </div>
+          </div>
+        </section>
         <section
           id="printlab-home"
           class="py-16 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden printlab-section">
@@ -1221,8 +1119,10 @@
             <div class="text-center mb-16">
               <div
                 class="inline-flex items-center px-4 py-2 bg-orange-100 text-orange-800 rounded-full text-sm font-medium mb-6">
-                <span class="mr-2">
-                  🏠
+                <span class='mr-2 inline-flex items-center justify-center'>
+                  <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                 </span>
                 {% trans "PrintLab" %}
               </div>
@@ -1243,32 +1143,40 @@
                     <div class="printlab-slide is-active" data-printlab-slide>
                       <div class="grid grid-cols-2 gap-4 mb-6">
                         <div class="bg-blue-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            🖼️
+                          <div class='text-2xl mb-2 inline-flex items-center justify-center'>
+                            <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                           </div>
                           <div class="text-sm font-medium">
                             {% trans "Prints" %}
                           </div>
                         </div>
                         <div class="bg-green-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            🗂️
+                          <div class='text-2xl mb-2 inline-flex items-center justify-center'>
+                            <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                           </div>
                           <div class="text-sm font-medium">
                             {% trans "Notebooks" %}
                           </div>
                         </div>
                         <div class="bg-purple-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            🕯️
+                          <div class='text-2xl mb-2 inline-flex items-center justify-center'>
+                            <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                           </div>
                           <div class="text-sm font-medium">
                             {% trans "Decor" %}
                           </div>
                         </div>
                         <div class="bg-orange-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            📦
+                          <div class='text-2xl mb-2 inline-flex items-center justify-center'>
+                            <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                           </div>
                           <div class="text-sm font-medium">
                             {% trans "Desk items" %}
@@ -1279,32 +1187,40 @@
                     <div class="printlab-slide" data-printlab-slide>
                       <div class="grid grid-cols-2 gap-4 mb-6">
                         <div class="bg-rose-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            🧵
+                          <div class='text-2xl mb-2 inline-flex items-center justify-center'>
+                            <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                           </div>
                           <div class="text-sm font-medium">
                             {% trans "Pillows" %}
                           </div>
                         </div>
                         <div class="bg-amber-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            🖼️
+                          <div class='text-2xl mb-2 inline-flex items-center justify-center'>
+                            <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                           </div>
                           <div class="text-sm font-medium">
                             {% trans "Wall art" %}
                           </div>
                         </div>
                         <div class="bg-cyan-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            🧴
+                          <div class='text-2xl mb-2 inline-flex items-center justify-center'>
+                            <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                           </div>
                           <div class="text-sm font-medium">
                             {% trans "Home extras" %}
                           </div>
                         </div>
                         <div class="bg-slate-100 rounded-lg p-4 text-center">
-                          <div class="text-2xl mb-2">
-                            🗃️
+                          <div class='text-2xl mb-2 inline-flex items-center justify-center'>
+                            <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                           </div>
                           <div class="text-sm font-medium">
                             {% trans "Storage" %}
@@ -1325,17 +1241,25 @@
                     </div>
                     <div
                       class="flex justify-center space-x-4 text-xs text-gray-500">
-                      <span>
-                        🇩🇪
+                      <span class='inline-flex items-center justify-center text-slate-400'>
+                        <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                       </span>
-                      <span>
-                        🇫🇷
+                      <span class='inline-flex items-center justify-center text-slate-400'>
+                        <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                       </span>
-                      <span>
-                        🇪🇸
+                      <span class='inline-flex items-center justify-center text-slate-400'>
+                        <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                       </span>
-                      <span>
-                        🇮🇹
+                      <span class='inline-flex items-center justify-center text-slate-400'>
+                        <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                       </span>
                     </div>
                   </div>
@@ -1348,20 +1272,26 @@
                   </h3>
                   <ul class="space-y-2 text-gray-600">
                     <li class="flex items-center">
-                      <span class="text-green-500 mr-2">
-                        ✓
+                      <span class='text-green-500 mr-2 inline-flex items-center justify-center'>
+                        <svg class='w-4 h-4' viewBox='0 0 20 20' fill='currentColor' aria-hidden='true'>
+  <path fill-rule='evenodd' d='M16.704 5.29a1 1 0 010 1.42l-7.25 7.25a1 1 0 01-1.415 0L3.296 9.217a1 1 0 111.414-1.414l4.036 4.036 6.543-6.543a1 1 0 011.415 0z' clip-rule='evenodd'></path>
+</svg>
                       </span>
                       {% trans "Home and office items, decor, and extras" %}
                     </li>
                     <li class="flex items-center">
-                      <span class="text-green-500 mr-2">
-                        ✓
+                      <span class='text-green-500 mr-2 inline-flex items-center justify-center'>
+                        <svg class='w-4 h-4' viewBox='0 0 20 20' fill='currentColor' aria-hidden='true'>
+  <path fill-rule='evenodd' d='M16.704 5.29a1 1 0 010 1.42l-7.25 7.25a1 1 0 01-1.415 0L3.296 9.217a1 1 0 111.414-1.414l4.036 4.036 6.543-6.543a1 1 0 011.415 0z' clip-rule='evenodd'></path>
+</svg>
                       </span>
                       {% trans "Perfect for studios, shops, and creators" %}
                     </li>
                     <li class="flex items-center">
-                      <span class="text-green-500 mr-2">
-                        ✓
+                      <span class='text-green-500 mr-2 inline-flex items-center justify-center'>
+                        <svg class='w-4 h-4' viewBox='0 0 20 20' fill='currentColor' aria-hidden='true'>
+  <path fill-rule='evenodd' d='M16.704 5.29a1 1 0 010 1.42l-7.25 7.25a1 1 0 01-1.415 0L3.296 9.217a1 1 0 111.414-1.414l4.036 4.036 6.543-6.543a1 1 0 011.415 0z' clip-rule='evenodd'></path>
+</svg>
                       </span>
                       {% trans "Explore more products anytime" %}
                     </li>
@@ -1376,151 +1306,6 @@
             </div>
           </div>
         </section>
-        <section class="py-20 bg-white">
-          <div class="max-w-7xl mx-auto px-4">
-            <!-- TODO: Move POS homepage content into DB-managed sections. -->
-            <div class="text-center mb-12">
-              <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                {% trans "POS systems that make checkout easy" %}
-              </h2>
-              <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-                {% trans "We help you choose a reliable POS that fits your business. Simple, clear, and practical." %}
-              </p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-              <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-lg transition-shadow">
-                <div class="text-sm font-semibold text-blue-600 mb-2">
-                  {% trans "Retail POS" %}
-                </div>
-                <div class="text-gray-700 mb-4">
-                  {% trans "Best for shops and boutiques" %}
-                </div>
-                <ul class="space-y-2 text-sm text-gray-600 mb-6">
-                  <li class="flex items-center">
-                    <span class="text-green-500 mr-2">✓</span>
-                    {% trans "Fast checkout" %}
-                  </li>
-                  <li class="flex items-center">
-                    <span class="text-green-500 mr-2">✓</span>
-                    {% trans "Barcode-ready" %}
-                  </li>
-                  <li class="flex items-center">
-                    <span class="text-green-500 mr-2">✓</span>
-                    {% trans "Simple inventory" %}
-                  </li>
-                </ul>
-                <a class="inline-flex items-center text-blue-600 font-semibold hover:underline" href="/pos-systems/retail/">
-                  {% trans "View retail options" %}
-                </a>
-              </div>
-              <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-lg transition-shadow">
-                <div class="text-sm font-semibold text-blue-600 mb-2">
-                  {% trans "Hospitality POS" %}
-                </div>
-                <div class="text-gray-700 mb-4">
-                  {% trans "Best for cafes, bars, and restaurants" %}
-                </div>
-                <ul class="space-y-2 text-sm text-gray-600 mb-6">
-                  <li class="flex items-center">
-                    <span class="text-green-500 mr-2">✓</span>
-                    {% trans "Tables & split bills" %}
-                  </li>
-                  <li class="flex items-center">
-                    <span class="text-green-500 mr-2">✓</span>
-                    {% trans "Kitchen tickets" %}
-                  </li>
-                  <li class="flex items-center">
-                    <span class="text-green-500 mr-2">✓</span>
-                    {% trans "Tip-friendly" %}
-                  </li>
-                </ul>
-                <a class="inline-flex items-center text-blue-600 font-semibold hover:underline" href="/pos-systems/hospitality/">
-                  {% trans "View hospitality options" %}
-                </a>
-              </div>
-              <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-lg transition-shadow">
-                <div class="text-sm font-semibold text-blue-600 mb-2">
-                  {% trans "Services POS" %}
-                </div>
-                <div class="text-gray-700 mb-4">
-                  {% trans "Best for bookings and invoices" %}
-                </div>
-                <ul class="space-y-2 text-sm text-gray-600 mb-6">
-                  <li class="flex items-center">
-                    <span class="text-green-500 mr-2">✓</span>
-                    {% trans "Appointments" %}
-                  </li>
-                  <li class="flex items-center">
-                    <span class="text-green-500 mr-2">✓</span>
-                    {% trans "Invoices/receipts" %}
-                  </li>
-                  <li class="flex items-center">
-                    <span class="text-green-500 mr-2">✓</span>
-                    {% trans "Optional deposits" %}
-                  </li>
-                </ul>
-                <a class="inline-flex items-center text-blue-600 font-semibold hover:underline" href="/pos-systems/services/">
-                  {% trans "View service options" %}
-                </a>
-              </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-              <div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
-                <div class="text-lg font-semibold mb-2">
-                  {% trans "Lightspeed" %}
-                </div>
-                <div class="text-sm text-gray-600 mb-2">
-                  {% trans "Good for: Retail" %}
-                </div>
-                <p class="text-sm text-gray-600 mb-4">
-                  {% trans "Inventory-focused POS with clear reports." %}
-                </p>
-                <a class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors" href="#">
-                  {% trans "Check pricing" %}
-                </a>
-              </div>
-              <div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
-                <div class="text-lg font-semibold mb-2">
-                  {% trans "SumUp" %}
-                </div>
-                <div class="text-sm text-gray-600 mb-2">
-                  {% trans "Good for: Hospitality" %}
-                </div>
-                <p class="text-sm text-gray-600 mb-4">
-                  {% trans "Simple checkout for cafes and small teams." %}
-                </p>
-                <a class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors" href="#">
-                  {% trans "Check pricing" %}
-                </a>
-              </div>
-              <div class="bg-gray-50 border border-gray-200 rounded-xl p-6">
-                <div class="text-lg font-semibold mb-2">
-                  {% trans "Square" %}
-                </div>
-                <div class="text-sm text-gray-600 mb-2">
-                  {% trans "Good for: Services" %}
-                </div>
-                <p class="text-sm text-gray-600 mb-4">
-                  {% trans "Appointments and receipts in one place." %}
-                </p>
-                <a class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors" href="#">
-                  {% trans "Check pricing" %}
-                </a>
-              </div>
-            </div>
-            <div class="text-sm text-gray-500 mb-8">
-              {% trans "Some links may be partner links. This does not affect the price you pay." %}
-            </div>
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-blue-50 border border-blue-200 rounded-xl p-6">
-              <div class="text-gray-800 font-semibold">
-                {% trans "Not sure which POS fits your business?" %}
-              </div>
-              <a class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors" href="/help-center/">
-                {% trans "Get a recommendation" %}
-              </a>
-            </div>
-          </div>
-        </section>
         <section
           class="py-24 bg-gradient-to-br from-blue-600 via-purple-600 to-purple-700 relative overflow-hidden">
           <div class="absolute inset-0">
@@ -1532,16 +1317,18 @@
             <div class="mb-8">
               <div
                 class="inline-flex items-center px-6 py-3 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm font-medium mb-8">
-                <span class="mr-2">
-                  🚀
+                <span class='mr-2 inline-flex items-center justify-center'>
+                  <svg class='w-4 h-4' viewBox='0 0 24 24' fill='none' stroke='currentColor' aria-hidden='true'>
+  <circle cx='12' cy='12' r='6' stroke-width='1.8'></circle>
+</svg>
                 </span>
-                {% trans "Your all-in-one assistant" %}
+                {% trans "Your guided assistant" %}
               </div>
               <h2 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-                {% trans "Clippy 2.0 is ready" %}
+                {% trans "JCW Assistant is here to help" %}
               </h2>
               <p class="text-xl mb-12 opacity-90 max-w-3xl mx-auto">
-                {% trans "Build your website, prepare print materials, and connect payments — with clear guidance whenever you need it." %}
+                {% trans "Get step-by-step guidance for your website, print products, and the next steps for your business." %}
               </p>
             </div>
             <div
@@ -1549,7 +1336,7 @@
               <button
                 class="group bg-gradient-to-r from-orange-500 to-orange-600 text-white px-10 py-4 rounded-2xl font-bold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-2xl hover:shadow-orange-500/25 transform hover:-translate-y-1">
                 <span class="flex items-center">
-                  {% trans "Start at your own pace" %}
+                  {% trans "Start with guidance" %}
                   <svg
                     class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
                     fill="none"
@@ -1566,158 +1353,98 @@
               </button>
               <button
                 class="group border-2 border-white/50 text-white px-10 py-4 rounded-2xl font-bold hover:bg-white hover:text-purple-600 transition-all duration-300 backdrop-blur-sm">
-                {% trans "See how guidance works" %}
+                {% trans "See how it works" %}
               </button>
             </div>
             <div
               class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
               <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
-                <div class="text-3xl font-bold mb-2">
-                  {% trans "50K+" %}
+                <div class="text-2xl font-bold mb-2">
+                  {% trans "Step-by-step" %}
                 </div>
                 <div class="text-white/80">
-                  {% trans "Projects launched" %}
+                  {% trans "Clear guidance from start to finish" %}
                 </div>
               </div>
               <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
-                <div class="text-3xl font-bold mb-2">
-                  4.9★
+                <div class="text-2xl font-bold mb-2">
+                  {% trans "Simple choices" %}
                 </div>
                 <div class="text-white/80">
-                  {% trans "User satisfaction" %}
+                  {% trans "Pick the option that fits your business" %}
                 </div>
               </div>
               <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
-                <div class="text-3xl font-bold mb-2">
-                  24/7
+                <div class="text-2xl font-bold mb-2">
+                  {% trans "Built for support" %}
                 </div>
                 <div class="text-white/80">
-                  {% trans "Guided support" %}
+                  {% trans "Help when you need it most" %}
                 </div>
               </div>
             </div>
           </div>
         </section>
-        <section class="py-24 bg-white relative">
-          <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-16">
-              <div
-                class="inline-flex items-center px-4 py-2 bg-yellow-100 text-yellow-800 rounded-full text-sm font-medium mb-6">
-                <span class="mr-2">
-                  ⭐
-                </span>
-                {% trans "Stories" %}
-              </div>
-              <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                <span
-                  class="bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">
-                  {% trans "How people use Just Code Works" %}
-                </span>
-              </h2>
-              <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                {% trans "Simple examples of how different businesses use websites, print, and payments together." %}
-              </p>
-            </div>
-            <div class="max-w-4xl mx-auto">
-              <div
-                class="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-3xl p-12 text-center border border-gray-100 shadow-xl relative overflow-hidden">
-                <div
-                  class="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http://www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%234f46e5%22%20fill-opacity%3D%220.03%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%2220%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]">
-                </div>
-                <div class="relative">
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-white/50 text-left">
-                      <div class="text-sm font-semibold text-gray-900 mb-2">
-                        {% trans "Local handyman" %}
-                      </div>
-                      <p class="text-sm text-gray-600">
-                        {% trans "A one-page website to show services, local visibility, and printed business cards for nearby customers." %}
-                      </p>
-                    </div>
-                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-white/50 text-left">
-                      <div class="text-sm font-semibold text-gray-900 mb-2">
-                        {% trans "Home-based beautician" %}
-                      </div>
-                      <p class="text-sm text-gray-600">
-                        {% trans "A simple website with services, booking details, and branded flyers shared with regular clients." %}
-                      </p>
-                    </div>
-                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-white/50 text-left">
-                      <div class="text-sm font-semibold text-gray-900 mb-2">
-                        {% trans "Small caf?" %}
-                      </div>
-                      <p class="text-sm text-gray-600">
-                        {% trans "A website for menus and opening hours, printed materials for the counter, and a POS for daily payments." %}
-                      </p>
-                    </div>
-                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-white/50 text-left">
-                      <div class="text-sm font-semibold text-gray-900 mb-2">
-                        {% trans "Online creator" %}
-                      </div>
-                      <p class="text-sm text-gray-600">
-                        {% trans "A multi-page site with galleries, multilingual content, and printed merchandise prepared for future sales." %}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section class="py-20 bg-gray-50">
+        {% trans "Demo Templates" as showcase_badge %}
+        {% trans "Explore curated website examples" as showcase_title %}
+        {% trans "Preview example websites for different types of businesses. See how your website could look." as showcase_intro %}
+        {% include "components/websites/demo_showcase_section.html" with showcase_badge=showcase_badge showcase_title=showcase_title showcase_intro=showcase_intro demo_showcase_cards=demo_showcase_cards %}
+        <section class="py-20 bg-gray-50" data-jcw-section="faq" data-jcw-section-id="0">
           <div class="max-w-4xl mx-auto px-4">
             <div class="text-center mb-12">
               <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                {% trans "FAQ" %}
+                <span data-jcw-editable="1" data-jcw-field="home.faq.title" data-jcw-field-id=" data-jcw-type="text">
+                  {{ content_map|dict_get:"home.faq.title"|default:_("FAQ") }}
+                </span>
               </h2>
             </div>
             <div class="space-y-6">
               <div class="bg-white rounded-lg p-6 border border-gray-200">
-                <h3 class="font-semibold mb-2">
-                  {% trans "How do people use Just Code Works?" %}
+                <h3 class="font-semibold mb-2" data-jcw-editable="1" data-jcw-field="home.faq.q1.question" data-jcw-field-id=" data-jcw-type="text">
+                  {{ content_map|dict_get:"home.faq.q1.question"|default:_("How do people use Just Code Works?") }}
                 </h3>
-                <p class="text-gray-600">
-                  {% trans "People use it to create a website, prepare print materials, and connect payments in one place. Each step is guided, with clear explanations and optional help when needed." %}
+                <p class="text-gray-600" data-jcw-editable="1" data-jcw-field="home.faq.q1.answer" data-jcw-field-id=" data-jcw-type="text">
+                  {{ content_map|dict_get:"home.faq.q1.answer"|default:_("People use it to create a website, prepare print materials, and connect payments in one place. Each step is guided, with clear explanations and optional help when needed.") }}
                 </p>
               </div>
               <div class="bg-white rounded-lg p-6 border border-gray-200">
-                <h3 class="font-semibold mb-2">
-                  {% trans "Do I need technical skills to get started?" %}
+                <h3 class="font-semibold mb-2" data-jcw-editable="1" data-jcw-field="home.faq.q2.question" data-jcw-field-id=" data-jcw-type="text">
+                  {{ content_map|dict_get:"home.faq.q2.question"|default:_("Do I need technical skills to get started?") }}
                 </h3>
-                <p class="text-gray-600">
-                  {% trans "No. Everything is designed to be simple and guided. You answer a few questions, and the system helps you move forward step by step." %}
+                <p class="text-gray-600" data-jcw-editable="1" data-jcw-field="home.faq.q2.answer" data-jcw-field-id=" data-jcw-type="text">
+                  {{ content_map|dict_get:"home.faq.q2.answer"|default:_("No. Everything is designed to be simple and guided. You answer a few questions, and the system helps you move forward step by step.") }}
                 </p>
               </div>
               <div class="bg-white rounded-lg p-6 border border-gray-200">
-                <h3 class="font-semibold mb-2">
-                  {% trans "Can I start small and expand later?" %}
+                <h3 class="font-semibold mb-2" data-jcw-editable="1" data-jcw-field="home.faq.q3.question" data-jcw-field-id=" data-jcw-type="text">
+                  {{ content_map|dict_get:"home.faq.q3.question"|default:_("Can I start small and expand later?") }}
                 </h3>
-                <p class="text-gray-600">
-                  {% trans "Yes. You can begin with a simple website and add pages, visibility features, print materials, or payments whenever you’re ready." %}
+                <p class="text-gray-600" data-jcw-editable="1" data-jcw-field="home.faq.q3.answer" data-jcw-field-id=" data-jcw-type="text">
+                  {{ content_map|dict_get:"home.faq.q3.answer"|default:_("Yes. You can begin with a simple website and add pages, visibility features, print materials, or payments whenever you're ready.") }}
                 </p>
               </div>
               <div class="bg-white rounded-lg p-6 border border-gray-200">
-                <h3 class="font-semibold mb-2">
-                  {% trans "What if I don’t know what I need yet?" %}
+                <h3 class="font-semibold mb-2" data-jcw-editable="1" data-jcw-field="home.faq.q4.question" data-jcw-field-id=" data-jcw-type="text">
+                  {{ content_map|dict_get:"home.faq.q4.question"|default:_("What if I don't know what I need yet?") }}
                 </h3>
-                <p class="text-gray-600">
-                  {% trans "That’s common. You’ll find explanations throughout the site, and Clippy 2.0 can help you understand options and suggest next steps." %}
+                <p class="text-gray-600" data-jcw-editable="1" data-jcw-field="home.faq.q4.answer" data-jcw-field-id=" data-jcw-type="text">
+            {{ content_map|dict_get:"home.faq.q4.answer"|default:_("That's common. You'll find explanations throughout the site, and JCW Assistant can help you understand options and suggest next steps.") }}
                 </p>
               </div>
               <div class="bg-white rounded-lg p-6 border border-gray-200">
-                <h3 class="font-semibold mb-2">
-                  {% trans "Is everything managed in one place?" %}
+                <h3 class="font-semibold mb-2" data-jcw-editable="1" data-jcw-field="home.faq.q5.question" data-jcw-field-id=" data-jcw-type="text">
+                  {{ content_map|dict_get:"home.faq.q5.question"|default:_("Is everything managed in one place?") }}
                 </h3>
-                <p class="text-gray-600">
-                  {% trans "Yes. Your website content, print designs, and payment tools are all organized in one dashboard so nothing feels scattered." %}
+                <p class="text-gray-600" data-jcw-editable="1" data-jcw-field="home.faq.q5.answer" data-jcw-field-id=" data-jcw-type="text">
+                  {{ content_map|dict_get:"home.faq.q5.answer"|default:_("Yes. Your website content, print designs, and payment tools are all organized in one dashboard so nothing feels scattered.") }}
                 </p>
               </div>
               <div class="bg-white rounded-lg p-6 border border-gray-200">
-                <h3 class="font-semibold mb-2">
-                  {% trans "Can I make changes later?" %}
+                <h3 class="font-semibold mb-2" data-jcw-editable="1" data-jcw-field="home.faq.q6.question" data-jcw-field-id=" data-jcw-type="text">
+                  {{ content_map|dict_get:"home.faq.q6.question"|default:_("Can I make changes later?") }}
                 </h3>
-                <p class="text-gray-600">
-                  {% trans "Yes. Content can be updated, regenerated, or expanded over time. You’re not locked into a fixed setup." %}
+                <p class="text-gray-600" data-jcw-editable="1" data-jcw-field="home.faq.q6.answer" data-jcw-field-id=" data-jcw-type="text">
+                  {{ content_map|dict_get:"home.faq.q6.answer"|default:_("Yes. Content can be updated, regenerated, or expanded over time. You're not locked into a fixed setup.") }}
                 </p>
               </div>
             </div>
@@ -1765,7 +1492,6 @@
                   </h3>
                   <p class="text-gray-600 text-sm mb-4">
                     {% trans "Add pages for services, projects, team, and FAQs without rebuilding your site." %}
-                    {% trans "" %}
                   </p>
                   <button
                     class="text-blue-600 text-sm font-medium hover:underline">
@@ -1805,6 +1531,7 @@
         </section>
         {% include 'core/footer.html' %}
       </div>
+    </main>
     </div>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
@@ -1840,106 +1567,6 @@
         });
       });
     </script>
-    <script>
-          (self.__next_f = self.__next_f || []).push([0]);
-          self.__next_f.push([2, null]);
-        </script>
-    <script>
-          self.__next_f.push([
-            1,
-            '1:HL["/_next/static/css/app/layout.css?v=1768602249673","style"]\n0:D{"name":"r1","env":"Server"}\n',
-          ]);
-        </script>
-    <script>
-          self.__next_f.push([
-            1,
-            '2:I["(app-pages-browser)/./node_modules/next/dist/client/components/app-router.js",["app-pages-internals","static/chunks/app-pages-internals.js"],""]\n6:I["(app-pages-browser)/./src/contexts/auth-context.tsx",["app/[locale]/layout","static/chunks/app/%5Blocale%5D/layout.js"],"AuthProvider"]\n7:I["(app-pages-browser)/./src/contexts/login-modal-context.tsx",["app/[locale]/layout","static/chunks/app/%5Blocale%5D/layout.js"],"LoginModalProvider"]\n8:I["(app-pages-browser)/./src/components/theme-provider.tsx",["app/[locale]/layout","static/chunks/app/%5Blocale%5D/layout.js"],"ThemeProvider"]\n9:I["(app-pages-browser)/./src/components/edit-mode-provider.tsx",["app/[locale]/layout","static/chunks/app/%5Blocale%5D/layout.js"],"EditModeProvider"]\na:I["(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js",["app-pages-internals","static/chunks/app-pages-internals.js"],""]\nc:I["(app-pages-browser)/./node_modules/next/dist/client/components/render-from-template-context.js",["app-pages-internals","static/chunks/app-pages-internals.js"],""]\nd:I["(app-pages-browser)/./src/components/GlobalLoginModal.tsx",["app/[locale]/layout","static/chunks/app/%5Blocale%5D/layout.js"],"default"]\n12:I["(app-pages-browser)/./node_modules/next/dist/client/components/error-boundary.js",["app-pages-internals","static/chunks/app-pages-internals.js"],""]\n3:D{"name":"","env":"Server"}\n4:D{"name":"HomePage","env":"Server"}\n5:D{"name":"LocaleLayout","env":"Server"}\nb:["locale","en","d"]\n5:["$","html",null,{"lang":"en","dir":"ltr","children":["$","body",null,{"children":["$","div",null,{"className":"min-h-screen ltr","data-locale":"en","children":["$","$L6",null,{"children":["$","$L7",null,{"children":[["$","$L8",null,{"children":["$","$L9",null,{"children":["$","$La",null,{"parallelRouterKey":"children","segmentPath":["children","$b","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lc",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefin',
-          ]);
-        </script>
-    <script>
-          self.__next_f.push([
-            1,
-            'ed","notFoundStyles":"$undefined","styles":null}]}]}],["$","$Ld",null,{"locale":"en"}]]}]}]}]}]}]\ne:D{"name":"RootLayout","env":"Server"}\nf:D{"name":"NotFound","env":"Server"}\nf:[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\\"Segoe UI\\",Roboto,Helvetica,Arial,sans-serif,\\"Apple Color Emoji\\",\\"Segoe UI Emoji\\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":"404"}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]]\ne:["$","html",null,{"suppressHydrationWarning":true,"children":["$","body",null,{"className":"min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium","children":["$","$La",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$Lc",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$f","notFoundStyles":[],"styles":null}]}]}]\n10:D{"name":"rQ","env":"Server"}\n10:null\n11:D{"name":"","env":"Server"}\n13:[]\n0:[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/app/layout.css?v=1768602249673","precedence":"next_static/css/app/layout.css","crossOrigin":"$undefined"}]],["$"',
-          ]);
-        </script>
-    <script>
-          self.__next_f.push([
-            1,
-            ',"$L2",null,{"buildId":"development","assetPrefix":"","initialCanonicalUrl":"/en","initialTree":["",{"children":[["locale","en","d"],{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],"initialSeedData":["",{"children":[["locale","en","d"],{"children":["__PAGE__",{},[["$L3","$L4"],null],null]},["$5",null],null]},["$e",null],null],"couldBeIntercepted":false,"initialHead":["$10","$L11"],"globalErrorComponent":"$12","missingSlots":"$W13"}]]\n',
-          ]);
-        </script>
-    <script>
-          self.__next_f.push([
-            1,
-            '14:I["(app-pages-browser)/./src/components/HeroNavigation.tsx",["app/[locale]/page","static/chunks/app/%5Blocale%5D/page.js"],"default"]\n15:I["(app-pages-browser)/./src/components/HeroSection.tsx",["app/[locale]/page","static/chunks/app/%5Blocale%5D/page.js"],"default"]\n16:I["(app-pages-browser)/./src/components/HomePageClient.tsx",["app/[locale]/page","static/chunks/app/%5Blocale%5D/page.js"],"default"]\n18:{"badge":"Everything connected: website, printing \u0026 AI.","title":"Everything you need to get your business online.","subtitle":"Launch a modern website, order your print materials, connect simple POS tools and let your AI assistant do the heavy lifting – all from one place.","ctaPrimary":"Start in 2 minutes","ctaSecondary":"View demo website","note":"No tech skills needed. Perfect for small businesses, freelancers and local shops.","previewDomain":"grandmas-cookies.justcodeworks.eu","previewTitle":"Grandma\'s Cookie Shop","previewText":"Fresh cookies baked daily. Order online or visit our cozy shop.","previewWebsiteLabel":"Website","previewWebsiteText":"Online in 1–2 days","previewPrintLabel":"Printing","previewPrintText":"Cards \u0026 flyers","previewAiLabel":"MagicAI","previewAiText":"Texts \u0026 images","assistantTitle":"Clippy 2.0 is ready","assistantText":"\\"Answer a few questions and I\'ll build everything for you.\\"","assistantCta":"Start wizard"}\n19:{"home":"Home","websites":"Websites","printing":"Printing","pos":"Card Payments","services":"Services","helpCenter":"Help Center","aiTools":"MagicAI Tools","pricing":"Pricing","login":"Login","start":"Start building","templates":"Templates"}\n1c:["Up to 6 services on one page","Contact / WhatsApp / call buttons","Optimised for mobile visitors"]\n1b:{"badge":"One-page websites","title":"Perfect for simple local businesses","desc":"Simple, focused site for a few services. Easy to launch and easy to update. ","bullets":"$1c","priceLabel":"From €X / month","link":"View example"}\n1e:["Service pages that can rank on Google","Blog / news sections for updates","Struc',
-          ]);
-        </script>
-    <script>
-          self.__next_f.push([
-            1,
-            'tured contact \u0026 quote forms"]\n1d:{"badge":"Multi-page websites","title":"Grow with dedicated pages for each service","desc":"Add pages for services, projects, team, and FAQs without rebuilding your site. ","bullets":"$1e","priceLabel":"From €Y / month","link":"View example"}\n20:["Product catalogue and categories","Simple checkout and payment options","Order notifications and basic reports"]\n1f:{"badge":"Online stores","title":"Sell your products with a simple store","desc":"Sell products or bookings with a simple store, and upgrade as your catalog grows. ","bullets":"$20","priceLabel":"From €Z / month","link":"View example"}\n1a:{"title":"Websites that work as hard as you do","subtitle":"Choose the type of website that fits your business today – and upgrade later as you grow.","badge":"Website Builder","onePage":"$1b","multiPage":"$1d","ecommerce":"$1f"}\n23:{"label":"Business cards","title":"Make a strong first impression","description":"Classic or modern designs with your logo, colours and contact details, ready to hand out to new customers.","highlight":"Most popular starter item"}\n24:{"label":"Flyers \u0026 brochures","title":"Promote your services locally","description":"Perfect for door-to-door drops, local shops and events. Great for construction, beauty, coaching and more.","highlight":"Ideal for local marketing"}\n25:{"label":"Stickers, labels \u0026 merch","title":"Put your brand everywhere","description":"Brand your packaging, gifts and products with stickers, labels and simple merch items.","highlight":"Add-on for growing brands"}\n22:["$23","$24","$25"]\n27:{"label":"Simple card terminals","title":"Take payments without headaches","description":"Connect a simple terminal that just works: tap, pin, receipt. No complex systems needed.","highlight":"Great for small shops"}\n28:{"label":"Tablet \u0026 phone POS","title":"Use the devices you already own","description":"Turn a tablet or phone into a small POS for services, salons, cafés and pop-up businesses.","highlight":"Flexible for mobile work"}\n29:{"',
-          ]);
-        </script>
-    <script>
-          self.__next_f.push([
-            1,
-            'label":"Basic reports","title":"See what is selling","description":"Get simple overviews of turnover, payment methods and busy days without a full accounting system.","highlight":"Clear and easy to read"}\n26:["$27","$28","$29"]\n2b:{"label":"Website copy assistant","title":"Texts for your pages in your tone","description":"Generate headlines, service descriptions and about pages using your business details and preferred style.","highlight":"Based on your answers"}\n2c:{"label":"Blog \u0026 update generator","title":"Keep your site active","description":"Create posts with ideas, structure and draft texts you can quickly review and publish.","highlight":"Good for Google \u0026 clients"}\n2d:{"label":"Screenshot-to-layout helper","title":"Turn ideas into layouts","description":"Use example screenshots as inspiration and turn them into layouts that fit your own brand.","highlight":"Saves design time"}\n2a:["$2b","$2c","$2d"]\n21:{"solutionsTitle":"Choose Your Perfect Solution","printingTitle":"Your brand, beautifully printed.","printingText":"Placeholder section – we\'ll later add the full printing layout from your old homepage.","posTitle":"Modern POS systems that grow with you.","posText":"Placeholder for POS systems content.","aiTitle":"MagicAI tools.","aiText":"Placeholder for AI tool cards: content writer, blog generator, screenshot-to-site, etc.","pricingTitle":"Pricing overview.","pricingText":"Placeholder – later we match your real pricing tables.","printingCards":"$22","posCards":"$26","aiCards":"$2a"}\n2f:{"title":"Services","websites":"Website Design","pos":"Card Payments","printing":"Print Design","consulting":"Business Consulting","maintenance":"Website Maintenance","hosting":"Web Hosting"}\n30:{"title":"Company","about":"About Us","team":"Our Team","careers":"Careers","news":"News \u0026 Updates","partners":"Partners","testimonials":"Testimonials"}\n31:{"title":"Tools","jsonReader":"JSON Reader","qrGenerator":"QR Generator","passwordChecker":"Password Checker","passwordGenerator":"Password Generator","imageResizer":"Image Re',
-          ]);
-        </script>
-    <script>
-          self.__next_f.push([
-            1,
-            'sizer","imageCropper":"Image Cropper"}\n32:{"title":"Support","help":"Help Center","contact":"Contact Us","faq":"FAQ","documentation":"Documentation","tutorials":"Video Tutorials","community":"Community Forum"}\n33:{"privacy":"Privacy Policy","terms":"Terms of Service","cookies":"Cookie Policy","gdpr":"GDPR Compliance"}\n34:{"title":"Subscribe to our newsletter","placeholder":"Enter your email","subscribe":"Subscribe"}\n35:{"rights":"All rights reserved.","made":"Made with","location":"in Portugal","powered":"Powered by"}\n2e:{"tagline":"Websites • Printing • POS • Tools","description":"We help small EU businesses get online with modern websites, matching print materials, and simple tools – all connected in one system.","services":"$2f","company":"$30","tools":"$31","support":"$32","legal":"$33","newsletter":"$34","copyright":"$35"}\n37:{"step1Label":"Business details","step2Label":"Services \u0026 website type","step3Label":"Colours \u0026 style","step4Label":"Review","next":"Next","previous":"Back","finish":"Finish and review"}\n38:{"businessName":"Business name","country":"Country","city":"City","contactEmail":"Contact email","contactPhone":"Phone / WhatsApp","websiteType":"Type of website","onePage":"One-page website","multiPage":"Multi-page website","store":"Online store","servicesLabel":"Main services","servicesHint":"List a few services, separated by commas.","colorsLabel":"Preferred colours","colorsHint":"For example: blue and white, or your existing brand colours.","styleLabel":"Style","styleHint":"Example: modern and clean, warm and friendly, luxury, etc."}\n39:{"title":"Review your setup","description":"Check if these details look correct. In the next step we\'ll generate your website draft based on this information.","businessSection":"Business details","servicesSection":"Services \u0026 website type","styleSection":"Colours \u0026 style","changeNote":"You can still change all of this later in your dashboard before publishing."}\n36:{"title":"Website builder","subtitle":"Answer a few simple questions and we\'ll prepare your',
-          ]);
-        </script>
-    <script>
-          self.__next_f.push([
-            1,
-            ' website, printing and basic POS setup for you.","introBadge":"Step 1 of 4","introTitle":"Let\'s start with the basics.","introText":"We\'ll ask about your business, services and preferred colours. You can always change everything later.","startButton":"Start the wizard","backHome":"Back to homepage","steps":"$37","fields":"$38","review":"$39"}\n3d:["Up to 6 services on a single page","Contact / WhatsApp / call buttons","Mobile-optimised design","Basic SEO structure for Google"]\n3c:{"id":"one-page","name":"One-page website","short":"For simple local businesses","price":"From €X / month","bestFor":"Ideal if you have a few services and just need a ","features":"$3d","highlight":"Great starter option"}\n3f:["Service pages that can rank on Google","Blog or news section","Portfolio / projects pages","More space for photos and explanations"]\n3e:{"id":"multi-page","name":"Multi-page website","short":"For growing businesses","price":"From €Y / month","bestFor":"Good if you want separate pages for services, ","features":"$3f","highlight":"Most flexible choice"}\n41:["Product catalogue and categories","Simple checkout and payment options","Order notifications","Basic sales overview"]\n40:{"id":"store","name":"Online store","short":"For selling products online","price":"From €Z / month","bestFor":"For businesses that want to accept orders and payments directly through the website.","features":"$41","highlight":"Best if you sell products"}\n3b:["$3c","$3e","$40"]\n3a:{"title":"Simple pricing that grows with you.","subtitle":"Start small and upgrade later. All plans include hosting, security updates and basic support.","note":"Real prices will be confirmed later – these are placeholders.","plans":"$3b"}\n44:{"id":"local-service-01","name":"Local service (clean \u0026 simple)","type":"One-page layout","bestFor":"Ideal for handymen, cleaners, coaches, tutors, small local services.","complexity":"Fast to launch","highlight":"Recommended for simple service businesses."}\n45:{"id":"mul',
-          ]);
-        </script>
-    <script>
-          self.__next_f.push([
-            1,
-            'ti-service-01","name":"Multi-service company","type":"Multi-page layout","bestFor":"Good for construction, renovation, beauty salons and other businesses with several services.","complexity":"More space for content","highlight":"Best when you have multiple main services."}\n46:{"id":"store-01","name":"Simple online store","type":"Store layout","bestFor":"For small shops that want to show products and accept basic online orders.","complexity":"Includes product grid","highlight":"Good starting point for small ecommerce."}\n43:["$44","$45","$46"]\n47:{"useTemplate":"Use this template","backHome":"Back to homepage","goToBuilder":"Continue to builder"}\n42:{"title":"Choose a starting point for your website.","subtitle":"Pick a layout that fits your type of business. We\'ll adapt colours, photos and texts to your details.","badge":"Step 1 · Choose a template","note":"These are example layouts. You can change everything later.","list":"$43","buttons":"$47"}\n49:{"title":"Login to your Just Code Works account","subtitle":"Access your websites, drafts, print orders and MagicAI tools from your dashboard.","emailLabel":"Email","passwordLabel":"Password","button":"Login","noAccount":"Don\'t have an account yet?","goToRegister":"Create an account","backHome":"Back to homepage","note":"This is a demo login page. In the full version, this will connect to the real authentication system."}\n4a:{"title":"Create your Just Code Works account","subtitle":"We\'ll use these details to connect your websites, print orders and billing in one place.","nameLabel":"Name","emailLabel":"Email","passwordLabel":"Password","button":"Create account","haveAccount":"Already have an account?","goToLogin":"Go to login","backHome":"Back to homepage","note":"This is a demo registration page. In the full version, this will create a real account for you."}\n48:{"login":"$49","register":"$4a"}\n4b:{"title":"Your setup summary","subtitle":"Here\'s what we\'ll use to generate your website draft and suggest print items.","missingDataTitle":"No data found yet","missingDat',
-          ]);
-        </script>
-    <script>
-          self.__next_f.push([
-            1,
-            'aText":"It looks like you haven\'t completed the builder wizard yet. Please go through the steps first.","backToBuilder":"Go back to builder","backHome":"Back to homepage","selectedTemplate":"Selected template","builderDataTitle":"Information from the builder","businessSection":"Business details","servicesSection":"Services \u0026 website type","styleSection":"Colours \u0026 style","editInBuilder":"Change in builder"}\n4e:{"title":"📊 System Overview","template":"Template","templateName":"jcw-main","sections":"Sections","sectionsList":"Hero, Features, Services, Solutions, Contact","status":"Status","statusActive":"✅ Active \u0026 Ready","description":"Just Code Works provides comprehensive business solutions that adapt to your needs."}\n4f:{"title":"🌍 Multi-Language Support","description":"Our platform supports 6 languages with automatic content translation and localized routing.","languages":"Languages: English, Dutch, Portuguese, Spanish, French, German","testInstructions":"Use the language selector to experience seamless multi-language navigation."}\n4d:{"title":"Just Code Works - Home","subtitle":"Welcome to our homepage","pageInfo":"Page Info","languageTesting":"Language Testing","languageHelp":"Use the selector above to test different language versions of the site.","navigation":"Navigation","published":"Published","systemOverview":"$4e","multiLanguageSupport":"$4f"}\n51:{"payment":"Payment Processing","paymentDesc":"Accept credit, debit, and contactless payments with competitive rates and fast processing.","inventory":"Inventory Management","inventoryDesc":"Track stock, set low stock alerts, and manage products with ease through our intuitive interface.","analytics":"Sales Analytics","analyticsDesc":"Get insights on sales patterns, top-selling products, and financial performance with detailed reports."}\n50:{"title":"Card Payments","subtitle":"Modern point-of-sale solutions for your business","features":"$51"}\n53:{"onePage":"One-Page Sites","onePageDesc":"Perfect for small businesses and portfolios. Get online quickly wit',
-          ]);
-        </script>
-    <script>
-          self.__next_f.push([
-            1,
-            'h a modern, responsive design.","multiPage":"Multi-Page Websites","multiPageDesc":"Complete business websites with multiple pages, navigation, and custom functionality.","ecommerce":"Online Shops","ecommerceDesc":"E-commerce websites with shopping carts, payment processing, and inventory management."}\n52:{"title":"Websites","subtitle":"Custom websites and web development services","features":"$53"}\n55:{"webDev":"Web Development","webDevDesc":"Custom websites and web applications built with modern technologies.","mobileApps":"Mobile Apps","mobileAppsDesc":"Native and cross-platform mobile applications for iOS and Android.","cloud":"Cloud Solutions","cloudDesc":"Scalable cloud infrastructure and deployment solutions for your applications.","maintenance":"Maintenance","maintenanceDesc":"Ongoing support and maintenance for your existing digital solutions."}\n54:{"title":"Services","subtitle":"All our professional services","features":"$55"}\n58:{"getting":"Getting Started Guides","api":"API Documentation","practices":"Best Practices","live":"Live Chat Support","email":"Email Support","phone":"Phone Support","billing":"Billing Questions","technical":"Technical Issues","account":"Account Management","video":"Video Tutorials","written":"Written Guides","interactive":"Interactive Examples"}\n57:{"documentation":"Documentation","documentationDesc":"Complete guides and documentation for all our products and services.","support":"Support","supportDesc":"Get direct help from our technical support team for any questions or issues.","faq":"FAQ","faqDesc":"Find answers to the most frequently asked questions about our services.","tutorials":"Tutorials","tutorialsDesc":"Step-by-step tutorials and video guides to help you get the most out of our platform.","categories":"$58"}\n56:{"title":"Help Center","subtitle":"Get help and support","features":"$57"}\n59:{"title":"Title","slug":"Slug","path":"Path","language":"Language","order":"Order","project":"Project","template":"Template","loading":"Loading..."}\n4c:{"home":"$4d","posystems":"$5',
-          ]);
-        </script>
-    <script>
-          self.__next_f.push([
-            1,
-            '0","websites":"$52","services":"$54","helpCenter":"$56","common":"$59"}\n5c:{"intent":"Intent","details":"Details","branding":"Branding"}\n5e:{"title":"Build a Website","description":"Create a professional website for your business"}\n5f:{"title":"Design Prints","description":"Create business cards, flyers, and marketing materials"}\n60:{"title":"Point of Sale","description":"Set up payment processing and inventory management"}\n5d:{"website":"$5e","prints":"$5f","pos":"$60"}\n62:{"label":"Business Name","placeholder":"Enter your business name","required":"Business name is required"}\n63:{"label":"Business Type","placeholder":"e.g., Restaurant, Consulting, Retail Store"}\n64:{"label":"Primary Country","placeholder":"Select your country"}\n65:{"label":"Primary Language","placeholder":"Select primary language"}\n66:{"label":"Primary Goal","placeholder":"What\'s your main goal?"}\n67:{"primaryLabel":"Primary Brand Color","secondaryLabel":"Secondary Brand Color","primaryPlaceholder":"#1D4ED8","secondaryPlaceholder":"#6366F1"}\n68:{"label":"Preferred Theme","light":"Light","dark":"Dark","auto":"Auto"}\n69:{"label":"Additional Notes","placeholder":"Any specific requirements or preferences..."}\n61:{"businessName":"$62","businessType":"$63","primaryCountry":"$64","primaryLanguage":"$65","primaryGoal":"$66","brandColors":"$67","themeMode":"$68","notes":"$69"}\n6a:{"back":"Back","continue":"Continue to Branding","continueDetails":"Continue to Details","complete":"Complete Setup","creating":"Creating..."}\n6b:{"title":"Welcome to JustCodeWorks!","subtitle":"Your onboarding is complete. Redirecting to your dashboard...","redirecting":"Redirecting..."}\n6c:{"general":"Something went wrong. Please try again.","businessName":"Business name cannot be empty","invalidColor":"Please enter a valid hex color (e.g. #1D4ED8)","submitFailed":"Failed to save onboarding data. Please try again."}\n6d:["United States","United Kingdom","Canada","Australia","Germany","France","Spain","Portugal","Brazil","Mexico","Other"]\n6e:{"en":"English","pt":"Português","e',
-          ]);
-        </script>
-    <script>
-          self.__next_f.push([
-            1,
-            's":"Español","fr":"Français","de":"Deutsch"}\n6f:{"get-leads":"Get leads / requests","show-info":"Show info / menu","sell-online":"Sell online","take-bookings":"Take bookings","other":"Other"}\n5b:{"title":"Let\'s Get Started","subtitle":"Tell us about your business and what you\'d like to create","progress":"$5c","intents":"$5d","form":"$61","actions":"$6a","success":"$6b","errors":"$6c","countries":"$6d","languages":"$6e","goals":"$6f"}\n5a:{"step0":"$5b"}\n71:["Free domain and hosting first year","Secure EU-based servers","SSL certificate and daily backups","Fast delivery time","Ongoing upgrade options"]\n70:{"items":"$71","description":"All websites are built with our smart system that makes content creation simple and intuitive — so you can focus on your business, not the tools.","exploreTitle":"Explore Our Website Types"}\n17:{"hero":"$18","nav":"$19","websites":"$1a","sections":"$21","footer":"$2e","builder":"$36","pricing":"$3a","templates":"$42","auth":"$48","reviewPage":"$4b","pages":"$4c","onboarding":"$5a","websitePromise":"$70"}\n',
-          ]);
-        </script>
-    <script>
-          self.__next_f.push([
-            1,
-            '4:[["$","$L14",null,{"locale":"en"}],["$","$L15",null,{"locale":"en","dict":{"hero":{"badge":"Everything connected: website, printing \u0026 AI.","title":"Everything you need to get your business online.","subtitle":"Launch a modern website, order your print materials, connect simple POS tools and let your AI assistant do the heavy lifting – all from one place.","ctaPrimary":"Start in 2 minutes","ctaSecondary":"View demo website","note":"No tech skills needed. Perfect for small businesses, freelancers and local shops.","previewDomain":"grandmas-cookies.justcodeworks.eu","previewTitle":"Grandma\'s Cookie Shop","previewText":"Fresh cookies baked daily. Order online or visit our cozy shop.","previewWebsiteLabel":"Website","previewWebsiteText":"Online in 1–2 days","previewPrintLabel":"Printing","previewPrintText":"Cards \u0026 flyers","previewAiLabel":"MagicAI","previewAiText":"Texts \u0026 images","assistantTitle":"Clippy 2.0 is ready","assistantText":"\\"Answer a few questions and I\'ll build everything for you.\\"","assistantCta":"Start wizard"},"nav":{"home":"Home","websites":"Websites","printing":"Printing","pos":"Card Payments","services":"Services","helpCenter":"Help Center","aiTools":"MagicAI Tools","pricing":"Pricing","login":"Login","start":"Start building","templates":"Templates"},"websites":{"title":"Websites that work as hard as you do","subtitle":"Choose the type of website that fits your business today – and upgrade later as you grow.","badge":"Website Builder","onePage":{"badge":"One-page websites","title":"Perfect for simple local businesses","desc":"Simple, focused site for a few services. Easy to launch and easy to update. ","bullets":["Up to 6 services on one page","Contact / WhatsApp / call buttons","Optimised for mobile visitors"],"priceLabel":"From €X / month","link":"View example"},"multiPage":{"badge":"Multi-page websites","title":"Grow with dedicated pages for each service","desc":"Add pages for services, projects, team, and FAQs without rebuilding your site. ","bullets":["Service pages that can rank on Google","Blog / news sections for updates","Structured contact \u0026 quote forms"],"priceLabel":"From €Y / month","link":"View example"},"ecommerce":{"badge":"Online stores","title":"Sell your products with a simple store","desc":"Sell products or bookings with a simple store, and upgrade as your catalog grows. ","bullets":["Product catalogue and categories","Simple checkout and payment options","Order notifications and basic reports"],"priceLabel":"From €Z / month","link":"View example"}},"sections":{"solutionsTitle":"Choose Your Perfect Solution","printingTitle":"Your brand, beautifully printed.","printingText":"Placeholder section – we\'ll later add the full printing layout from your old homepage.","posTitle":"Modern POS systems that grow with you.","posText":"Placeholder for POS systems content.","aiTitle":"MagicAI tools.","aiText":"Placeholder for AI tool cards: content writer, blog generator, screenshot-to-site, etc.","pricingTitle":"Pricing overview.","pricingText":"Placeholder – later we match your real pricing tables.","printingCards":[{"label":"Business cards","title":"Make a strong first impression","description":"Classic or modern designs with your logo, colours and contact details, ready to hand out to new customers.","highlight":"Most popular starter item"},{"label":"Flyers \u0026 brochures","title":"Promote your services locally","description":"Perfect for door-to-door drops, local shops and events. Great for construction, beauty, coaching and more.","highlight":"Ideal for local marketing"},{"label":"Stickers, labels \u0026 merch","title":"Put your brand everywhere","description":"Brand your packaging, gifts and products with stickers, labels and simple merch items.","highlight":"Add-on for growing brands"}],"posCards":[{"label":"Simple card terminals","title":"Take payments without headaches","description":"Connect a simple terminal that just works: tap, pin, receipt. No complex systems needed.","highlight":"Great for small shops"},{"label":"Tablet \u0026 phone POS","title":"Use the devices you already own","description":"Turn a tablet or phone into a small POS for services, salons, cafés and pop-up businesses.","highlight":"Flexible for mobile work"},{"label":"Basic reports","title":"See what is selling","description":"Get simple overviews of turnover, payment methods and busy days without a full accounting system.","highlight":"Clear and easy to read"}],"aiCards":[{"label":"Website copy assistant","title":"Texts for your pages in your tone","description":"Generate headlines, service descriptions and about pages using your business details and preferred style.","highlight":"Based on your answers"},{"label":"Blog \u0026 update generator","title":"Keep your site active","description":"Create posts with ideas, structure and draft texts you can quickly review and publish.","highlight":"Good for Google \u0026 clients"},{"label":"Screenshot-to-layout helper","title":"Turn ideas into layouts","description":"Use example screenshots as inspiration and turn them into layouts that fit your own brand.","highlight":"Saves design time"}]},"footer":{"tagline":"Websites • Printing • POS • Tools","description":"We help small EU businesses get online with modern websites, matching print materials, and simple tools – all connected in one system.","services":{"title":"Services","websites":"Website Design","pos":"Card Payments","printing":"Print Design","consulting":"Business Consulting","maintenance":"Website Maintenance","hosting":"Web Hosting"},"company":{"title":"Company","about":"About Us","team":"Our Team","careers":"Careers","news":"News \u0026 Updates","partners":"Partners","testimonials":"Testimonials"},"tools":{"title":"Tools","jsonReader":"JSON Reader","qrGenerator":"QR Generator","passwordChecker":"Password Checker","passwordGenerator":"Password Generator","imageResizer":"Image Resizer","imageCropper":"Image Cropper"},"support":{"title":"Support","help":"Help Center","contact":"Contact Us","faq":"FAQ","documentation":"Documentation","tutorials":"Video Tutorials","community":"Community Forum"},"legal":{"privacy":"Privacy Policy","terms":"Terms of Service","cookies":"Cookie Policy","gdpr":"GDPR Compliance"},"newsletter":{"title":"Subscribe to our newsletter","placeholder":"Enter your email","subscribe":"Subscribe"},"copyright":{"rights":"All rights reserved.","made":"Made with","location":"in Portugal","powered":"Powered by"}},"builder":{"title":"Website builder","subtitle":"Answer a few simple questions and we\'ll prepare your website, printing and basic POS setup for you.","introBadge":"Step 1 of 4","introTitle":"Let\'s start with the basics.","introText":"We\'ll ask about your business, services and preferred colours. You can always change everything later.","startButton":"Start the wizard","backHome":"Back to homepage","steps":{"step1Label":"Business details","step2Label":"Services \u0026 website type","step3Label":"Colours \u0026 style","step4Label":"Review","next":"Next","previous":"Back","finish":"Finish and review"},"fields":{"businessName":"Business name","country":"Country","city":"City","contactEmail":"Contact email","contactPhone":"Phone / WhatsApp","websiteType":"Type of website","onePage":"One-page website","multiPage":"Multi-page website","store":"Online store","servicesLabel":"Main services","servicesHint":"List a few services, separated by commas.","colorsLabel":"Preferred colours","colorsHint":"For example: blue and white, or your existing brand colours.","styleLabel":"Style","styleHint":"Example: modern and clean, warm and friendly, luxury, etc."},"review":{"title":"Review your setup","description":"Check if these details look correct. In the next step we\'ll generate your website draft based on this information.","businessSection":"Business details","servicesSection":"Services \u0026 website type","styleSection":"Colours \u0026 style","changeNote":"You can still change all of this later in your dashboard before publishing."}},"pricing":{"title":"Simple pricing that grows with you.","subtitle":"Start small and upgrade later. All plans include hosting, security updates and basic support.","note":"Real prices will be confirmed later – these are placeholders.","plans":[{"id":"one-page","name":"One-page website","short":"For simple local businesses","price":"From €X / month","bestFor":"Ideal if you have a few services and just need a ","features":["Up to 6 services on a single page","Contact / WhatsApp / call buttons","Mobile-optimised design","Basic SEO structure for Google"],"highlight":"Great starter option"},{"id":"multi-page","name":"Multi-page website","short":"For growing businesses","price":"From €Y / month","bestFor":"Good if you want separate pages for services, ","features":["Service pages that can rank on Google","Blog or news section","Portfolio / projects pages","More space for photos and explanations"],"highlight":"Most flexible choice"},{"id":"store","name":"Online store","short":"For selling products online","price":"From €Z / month","bestFor":"For businesses that want to accept orders and payments directly through the website.","features":["Product catalogue and categories","Simple checkout and payment options","Order notifications","Basic sales overview"],"highlight":"Best if you sell products"}]},"templates":{"title":"Choose a starting point for your website.","subtitle":"Pick a layout that fits your type of business. We\'ll adapt colours, photos and texts to your details.","badge":"Step 1 · Choose a template","note":"These are example layouts. You can change everything later.","list":[{"id":"local-service-01","name":"Local service (clean \u0026 simple)","type":"One-page layout","bestFor":"Ideal for handymen, cleaners, coaches, tutors, small local services.","complexity":"Fast to launch","highlight":"Recommended for simple service businesses."},{"id":"multi-service-01","name":"Multi-service company","type":"Multi-page layout","bestFor":"Good for construction, renovation, beauty salons and other businesses with several services.","complexity":"More space for content","highlight":"Best when you have multiple main services."},{"id":"store-01","name":"Simple online store","type":"Store layout","bestFor":"For small shops that want to show products and accept basic online orders.","complexity":"Includes product grid","highlight":"Good starting point for small ecommerce."}],"buttons":{"useTemplate":"Use this template","backHome":"Back to homepage","goToBuilder":"Continue to builder"}},"auth":{"login":{"title":"Login to your Just Code Works account","subtitle":"Access your websites, drafts, print orders and MagicAI tools from your dashboard.","emailLabel":"Email","passwordLabel":"Password","button":"Login","noAccount":"Don\'t have an account yet?","goToRegister":"Create an account","backHome":"Back to homepage","note":"This is a demo login page. In the full version, this will connect to the real authentication system."},"register":{"title":"Create your Just Code Works account","subtitle":"We\'ll use these details to connect your websites, print orders and billing in one place.","nameLabel":"Name","emailLabel":"Email","passwordLabel":"Password","button":"Create account","haveAccount":"Already have an account?","goToLogin":"Go to login","backHome":"Back to homepage","note":"This is a demo registration page. In the full version, this will create a real account for you."}},"reviewPage":{"title":"Your setup summary","subtitle":"Here\'s what we\'ll use to generate your website draft and suggest print items.","missingDataTitle":"No data found yet","missingDataText":"It looks like you haven\'t completed the builder wizard yet. Please go through the steps first.","backToBuilder":"Go back to builder","backHome":"Back to homepage","selectedTemplate":"Selected template","builderDataTitle":"Information from the builder","businessSection":"Business details","servicesSection":"Services \u0026 website type","styleSection":"Colours \u0026 style","editInBuilder":"Change in builder"},"pages":{"home":{"title":"Just Code Works - Home","subtitle":"Welcome to our homepage","pageInfo":"Page Info","languageTesting":"Language Testing","languageHelp":"Use the selector above to test different language versions of the site.","navigation":"Navigation","published":"Published","systemOverview":{"title":"📊 System Overview","template":"Template","templateName":"jcw-main","sections":"Sections","sectionsList":"Hero, Features, Services, Solutions, Contact","status":"Status","statusActive":"✅ Active \u0026 Ready","description":"Just Code Works provides comprehensive business solutions that adapt to your needs."},"multiLanguageSupport":{"title":"🌍 Multi-Language Support","description":"Our platform supports 6 languages with automatic content translation and localized routing.","languages":"Languages: English, Dutch, Portuguese, Spanish, French, German","testInstructions":"Use the language selector to experience seamless multi-language navigation."}},"posystems":{"title":"Card Payments","subtitle":"Modern point-of-sale solutions for your business","features":{"payment":"Payment Processing","paymentDesc":"Accept credit, debit, and contactless payments with competitive rates and fast processing.","inventory":"Inventory Management","inventoryDesc":"Track stock, set low stock alerts, and manage products with ease through our intuitive interface.","analytics":"Sales Analytics","analyticsDesc":"Get insights on sales patterns, top-selling products, and financial performance with detailed reports."}},"websites":{"title":"Websites","subtitle":"Custom websites and web development services","features":{"onePage":"One-Page Sites","onePageDesc":"Perfect for small businesses and portfolios. Get online quickly with a modern, responsive design.","multiPage":"Multi-Page Websites","multiPageDesc":"Complete business websites with multiple pages, navigation, and custom functionality.","ecommerce":"Online Shops","ecommerceDesc":"E-commerce websites with shopping carts, payment processing, and inventory management."}},"services":{"title":"Services","subtitle":"All our professional services","features":{"webDev":"Web Development","webDevDesc":"Custom websites and web applications built with modern technologies.","mobileApps":"Mobile Apps","mobileAppsDesc":"Native and cross-platform mobile applications for iOS and Android.","cloud":"Cloud Solutions","cloudDesc":"Scalable cloud infrastructure and deployment solutions for your applications.","maintenance":"Maintenance","maintenanceDesc":"Ongoing support and maintenance for your existing digital solutions."}},"helpCenter":{"title":"Help Center","subtitle":"Get help and support","features":{"documentation":"Documentation","documentationDesc":"Complete guides and documentation for all our products and services.","support":"Support","supportDesc":"Get direct help from our technical support team for any questions or issues.","faq":"FAQ","faqDesc":"Find answers to the most frequently asked questions about our services.","tutorials":"Tutorials","tutorialsDesc":"Step-by-step tutorials and video guides to help you get the most out of our platform.","categories":{"getting":"Getting Started Guides","api":"API Documentation","practices":"Best Practices","live":"Live Chat Support","email":"Email Support","phone":"Phone Support","billing":"Billing Questions","technical":"Technical Issues","account":"Account Management","video":"Video Tutorials","written":"Written Guides","interactive":"Interactive Examples"}}},"common":{"title":"Title","slug":"Slug","path":"Path","language":"Language","order":"Order","project":"Project","template":"Template","loading":"Loading..."}},"onboarding":{"step0":{"title":"Let\'s Get Started","subtitle":"Tell us about your business and what you\'d like to create","progress":{"intent":"Intent","details":"Details","branding":"Branding"},"intents":{"website":{"title":"Build a Website","description":"Create a professional website for your business"},"prints":{"title":"Design Prints","description":"Create business cards, flyers, and marketing materials"},"pos":{"title":"Point of Sale","description":"Set up payment processing and inventory management"}},"form":{"businessName":{"label":"Business Name","placeholder":"Enter your business name","required":"Business name is required"},"businessType":{"label":"Business Type","placeholder":"e.g., Restaurant, Consulting, Retail Store"},"primaryCountry":{"label":"Primary Country","placeholder":"Select your country"},"primaryLanguage":{"label":"Primary Language","placeholder":"Select primary language"},"primaryGoal":{"label":"Primary Goal","placeholder":"What\'s your main goal?"},"brandColors":{"primaryLabel":"Primary Brand Color","secondaryLabel":"Secondary Brand Color","primaryPlaceholder":"#1D4ED8","secondaryPlaceholder":"#6366F1"},"themeMode":{"label":"Preferred Theme","light":"Light","dark":"Dark","auto":"Auto"},"notes":{"label":"Additional Notes","placeholder":"Any specific requirements or preferences..."}},"actions":{"back":"Back","continue":"Continue to Branding","continueDetails":"Continue to Details","complete":"Complete Setup","creating":"Creating..."},"success":{"title":"Welcome to JustCodeWorks!","subtitle":"Your onboarding is complete. Redirecting to your dashboard...","redirecting":"Redirecting..."},"errors":{"general":"Something went wrong. Please try again.","businessName":"Business name cannot be empty","invalidColor":"Please enter a valid hex color (e.g. #1D4ED8)","submitFailed":"Failed to save onboarding data. Please try again."},"countries":["United States","United Kingdom","Canada","Australia","Germany","France","Spain","Portugal","Brazil","Mexico","Other"],"languages":{"en":"English","pt":"Português","es":"Español","fr":"Français","de":"Deutsch"},"goals":{"get-leads":"Get leads / requests","show-info":"Show info / menu","sell-online":"Sell online","take-bookings":"Take bookings","other":"Other"}}},"websitePromise":{"items":["Free domain and hosting first year","Secure EU-based servers","SSL certificate and daily backups","Fast delivery time","Ongoing upgrade options"],"description":"All websites are built with our smart system that makes content creation simple and intuitive — so you can focus on your business, not the tools.","exploreTitle":"Explore Our Website Types"}}}],["$","$L16",null,{"dict":"$17"}]]\n',
-          ]);
-        </script>
-    <script>
-          self.__next_f.push([
-            1,
-            '11:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}],["$","title","2",{"children":"JustCodeWorks"}],["$","meta","3",{"name":"description","content":"Website builder and content management platform"}]]\n3:null\n',
-          ]);
-        </script>
 
       {% if marketing_particles_enabled and particles_settings_json %}
       {{ particles_settings_json|json_script:"particles-config" }}
@@ -1956,11 +1583,27 @@
     <script src="{% static 'jcw/js/particles-hero.js' %}"></script>
     {% endif %}
     <script src="{% static 'jcw/js/jcw-ui.js' %}"></script>
+    {% if not is_edit_mode %}
+      {% include 'core/includes/public_floating_ui.html' %}
+    {% endif %}
+    <script src="{% static 'jcw/js/public-floating-ui.js' %}" defer></script>
     <script src="{% static 'jcw/js/hero-slider.js' %}" defer></script>
     {% if is_edit_mode %}
     <script src="{% static 'editor/editor.js' %}" defer></script>
     {% endif %}
-    {% include 'core/right_sidebar.html' %}
+      {% include 'core/right_sidebar.html' %}
+      {% if is_edit_mode %}
+        <aside class="jcw-editor-sidebar" id="jcw-editor-sidebar" aria-live="polite">
+          <div class="jcw-editor-sidebar__header">
+            <div class="jcw-editor-sidebar__title">{% trans "Selected section" %}</div>
+            <div class="jcw-editor-sidebar__section" id="jcw-selected-section-key">--</div>
+          </div>
+          <div class="jcw-editor-sidebar__body">
+            <div class="jcw-editor-sidebar__subtitle">{% trans "Editable fields" %}</div>
+            <ul class="jcw-editor-sidebar__list" id="jcw-selected-section-fields"></ul>
+          </div>
+        </aside>
+      {% endif %}
 </body>
 </html>
 

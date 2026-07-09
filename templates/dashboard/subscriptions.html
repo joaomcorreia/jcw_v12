@@ -1,0 +1,29 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Subscriptions" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">{% trans "Subscriptions" %}</h1>
+  <p class="dashboard-muted">{% trans "Review the services connected to your website and how subscription details will appear here." %}</p>
+  {% trans "Not connected" as not_connected_label %}
+
+  <div class="dashboard-card dashboard-card--auto">
+    <div class="dashboard-card-header">
+      <h2 class="dashboard-card-title">{% trans "Current service status" %}</h2>
+    </div>
+    <div class="dashboard-list">
+      <div class="dashboard-list-item">
+        <span>{% trans "Current plan" %}</span>
+        <span class="dashboard-status">{{ current_plan_name }}</span>
+      </div>
+      <div class="dashboard-list-item">
+        <span>{% trans "Website" %}</span>
+        <span class="dashboard-status">{{ site.name|default:not_connected_label }}</span>
+      </div>
+    </div>
+    <p class="dashboard-muted">{% trans "More subscription details and service history will be added here later." %}</p>
+  </div>
+</div>
+{% endblock %}

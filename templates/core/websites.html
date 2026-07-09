@@ -1,473 +1,73 @@
-{% load static i18n %}
-<!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
-    <link rel="icon" href="{% static 'favicon.png' %}">
-    
-    <title>
-      {{ seo_title|default:"JustCodeWorks" }}
-    </title>
-        <meta name="robots" content="{% if launch_noindex %}noindex, nofollow{% else %}{{ seo_robots|default:'index, follow' }}{% endif %}">
-<meta name="description" content="{{ seo_description|default:'Website builder and content management platform' }}">
-        {% if canonical_url %}
-    <link rel="canonical" href="{{ canonical_url }}">
-    {% endif %}
-    {% if hreflang_urls %}
-      {% for alternate in hreflang_urls %}
-    <link rel="alternate" hreflang="{{ alternate.lang }}" href="{{ alternate.url }}">
-      {% endfor %}
-    {% endif %}</head>
-  <body class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium">
-    <div class="min-h-screen ltr" data-locale="{{ LANGUAGE_CODE }}">
-      {% include 'core/main_nav.html' %}
-      <div class="min-h-screen">
-        <div class="relative overflow-hidden">
-          <div class="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
-            <div class="absolute inset-0 opacity-20">
-              <div class="absolute top-0 left-0 w-2 h-2 bg-white rounded-full animate-ping">
-              </div>
-              <div class="absolute top-10 left-20 w-1 h-1 bg-blue-300 rounded-full animate-pulse">
-              </div>
-              <div class="absolute top-20 right-10 w-1 h-1 bg-purple-300 rounded-full animate-ping">
-              </div>
-              <div class="absolute bottom-20 left-10 w-2 h-2 bg-pink-300 rounded-full animate-pulse">
-              </div>
-            </div>
-            <div class="absolute top-0 left-0 w-full h-full">
-              <div class="absolute top-20 left-20 w-32 h-32 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob">
-              </div>
-              <div class="absolute top-40 right-20 w-32 h-32 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000">
-              </div>
-              <div class="absolute -bottom-8 left-40 w-32 h-32 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000">
-              </div>
-            </div>
-          </div>
-          <div class="relative z-10 max-w-7xl mx-auto px-4 py-20 sm:py-32">
-            <div class="text-center text-white">
-              <div class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm font-medium mb-8">
-                <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse">
-                </span>
-                {% trans "Website Builder" %}
-              </div>
-              <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent leading-tight">{{ sections_by_key.hero.content.heading }}</h1>
-              <p class="text-xl md:text-2xl mb-12 text-blue-100 max-w-4xl mx-auto leading-relaxed">{{ sections_by_key.hero.content.subheading }}</p>
-              <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button class="px-8 py-4 bg-white text-blue-900 font-bold rounded-xl hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 shadow-xl">{{ sections_by_key.hero.content.cta_primary_text }}</button>
-                <button class="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300">{{ sections_by_key.hero.content.cta_secondary_text }}</button>
-              </div>
-            </div>
-          </div>
+{% extends "pages/websites/product_page_base.html" %}
+{% load i18n %}
+
+{% block product_badge %}{% trans "How It Works" %}{% endblock %}
+{% block product_title %}{% trans "Start your website" %}{% endblock %}
+{% block product_subtitle %}{% trans "Start from €29.95/month and get your business online without technical setup." %}{% endblock %}
+{% block primary_cta_label %}{% trans "Get started" %}{% endblock %}
+{% block secondary_cta_label %}{% trans "View WordPress option" %}{% endblock %}
+{% block secondary_cta_url %}{% url 'core:websites_custom' %}{% endblock %}
+
+{% block section_plan_cards %}
+  <section class="plan-section plan-b1 p-8">
+    <h2 class="text-3xl font-bold text-gray-900 mb-4">{% trans "Start your website" %}</h2>
+    <p class="text-gray-700">{% trans "Start from €29.95/month and get your business online without technical setup." %}</p>
+  </section>
+{% endblock %}
+
+{% block section_who_its_for %}
+  <section class="plan-section plan-b2 p-8">
+    <h2 class="text-3xl font-bold text-gray-900 mb-6">{% trans "Choose what you need" %}</h2>
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+      <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-100 text-blue-700">
+          <span class="h-2.5 w-2.5 rounded-full bg-current"></span>
         </div>
-        <div class="py-20 bg-gray-50">
-          <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-16">
-              <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ sections_by_key.main.content.heading }}</h2>
-              <p class="text-xl text-gray-600 max-w-3xl mx-auto">{{ sections_by_key.main.content.body }}</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div class="group relative">
-                <div class="relative bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 h-full">
-                  <div class="absolute inset-0 bg-gradient-to-br from-blue-500 to-cyan-400 opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity duration-500">
-                  </div>
-                  <div class="absolute -top-3 -right-3">
-                    <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg animate-pulse">
-                      <span aria-hidden="true">⭐</span> {% trans "Most Popular" %}
-                    </div>
-                  </div>
-                  <div class="relative z-10">
-                    <div class="flex items-start justify-between mb-6">
-                      <div class="text-6xl transform transition-transform duration-300 ">
-                        🌐
-                      </div>
-                    </div>
-                    <div class="mb-4">
-                      <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full mb-3">
-                        {% trans "One-page websites" %}
-                      </span>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-3 leading-tight">
-                      {% trans "Perfect for simple local businesses" %}
-                    </h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                      {% trans "Ideal if you have a few services and want everything on one clean, scrollable page." %}
-                    </p>
-                    <div class="flex items-baseline mb-6">
-                      <span class="text-3xl font-bold text-gray-900">
-                        €29
-                      </span>
-                      <span class="text-gray-600 ml-1">
-                        {% trans "/month" %}
-                      </span>
-                    </div>
-                    <div class="space-y-3 mb-8">
-                      <div class="flex items-start">
-                        <div class="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-0.5">
-                          <span class="text-green-600 text-sm">
-                            ✓
-                          </span>
-                        </div>
-                        <span class="text-gray-700 text-sm">
-                          {% trans "Up to 6 services on one page" %}
-                        </span>
-                      </div>
-                      <div class="flex items-start">
-                        <div class="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-0.5">
-                          <span class="text-green-600 text-sm">
-                            ✓
-                          </span>
-                        </div>
-                        <span class="text-gray-700 text-sm">
-                          {% trans "Contact / WhatsApp / call buttons" %}
-                        </span>
-                      </div>
-                      <div class="flex items-start">
-                        <div class="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-0.5">
-                          <span class="text-green-600 text-sm">
-                            ✓
-                          </span>
-                        </div>
-                        <span class="text-gray-700 text-sm">
-                          {% trans "Optimised for mobile visitors" %}
-                        </span>
-                      </div>
-                    </div>
-                    <div class="space-y-3">
-                      <a target="_blank" href="/sites/marys-restaurant">
-                        <button class="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-400 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300 transform hover:scale-105">
-                          {% trans "View Live Demo" %}
-                        </button>
-                      </a>
-                      <button class="w-full px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl hover:bg-gray-200 transition-colors border border-gray-200">
-                        {% trans "Get Started" %}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="group relative">
-                <div class="relative bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 h-full">
-                  <div class="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-400 opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity duration-500">
-                  </div>
-                  <div class="relative z-10">
-                    <div class="flex items-start justify-between mb-6">
-                      <div class="text-6xl transform transition-transform duration-300 ">
-                        🏢
-                      </div>
-                    </div>
-                    <div class="mb-4">
-                      <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full mb-3">
-                        {% trans "Multi-page websites" %}
-                      </span>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-3 leading-tight">
-                      {% trans "Grow with dedicated pages for each service" %}
-                    </h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                      {% trans "Great for companies that want separate pages for services, projects, team, blog and more." %}
-                    </p>
-                    <div class="flex items-baseline mb-6">
-                      <span class="text-3xl font-bold text-gray-900">
-                        €49
-                      </span>
-                      <span class="text-gray-600 ml-1">
-                        {% trans "/month" %}
-                      </span>
-                    </div>
-                    <div class="space-y-3 mb-8">
-                      <div class="flex items-start">
-                        <div class="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-0.5">
-                          <span class="text-green-600 text-sm">
-                            ✓
-                          </span>
-                        </div>
-                        <span class="text-gray-700 text-sm">
-                          {% trans "Service pages that can rank on Google" %}
-                        </span>
-                      </div>
-                      <div class="flex items-start">
-                        <div class="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-0.5">
-                          <span class="text-green-600 text-sm">
-                            ✓
-                          </span>
-                        </div>
-                        <span class="text-gray-700 text-sm">
-                          {% trans "Blog / news sections for updates" %}
-                        </span>
-                      </div>
-                      <div class="flex items-start">
-                        <div class="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-0.5">
-                          <span class="text-green-600 text-sm">
-                            ✓
-                          </span>
-                        </div>
-                        <span class="text-gray-700 text-sm">
-                          {% trans "Structured contact &amp; quote forms" %}
-                        </span>
-                      </div>
-                    </div>
-                    <div class="space-y-3">
-                      <button disabled="" class="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-400 text-white font-semibold rounded-xl opacity-50 cursor-not-allowed">
-                        {% trans "Demo Coming Soon" %}
-                      </button>
-                      <button class="w-full px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl hover:bg-gray-200 transition-colors border border-gray-200">
-                        {% trans "Get Started" %}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="group relative">
-                <div class="relative bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 h-full">
-                  <div class="absolute inset-0 bg-gradient-to-br from-green-500 to-emerald-400 opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity duration-500">
-                  </div>
-                  <div class="relative z-10">
-                    <div class="flex items-start justify-between mb-6">
-                      <div class="text-6xl transform transition-transform duration-300 ">
-                        🛒
-                      </div>
-                    </div>
-                    <div class="mb-4">
-                      <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full mb-3">
-                        {% trans "Online stores" %}
-                      </span>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-3 leading-tight">
-                      {% trans "Sell your products with a simple store" %}
-                    </h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                      {% trans "For businesses ready to take online payments and manage orders without complex systems." %}
-                    </p>
-                    <div class="flex items-baseline mb-6">
-                      <span class="text-3xl font-bold text-gray-900">
-                        €79
-                      </span>
-                      <span class="text-gray-600 ml-1">
-                        {% trans "/month" %}
-                      </span>
-                    </div>
-                    <div class="space-y-3 mb-8">
-                      <div class="flex items-start">
-                        <div class="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-0.5">
-                          <span class="text-green-600 text-sm">
-                            ✓
-                          </span>
-                        </div>
-                        <span class="text-gray-700 text-sm">
-                          {% trans "Product catalogue and categories" %}
-                        </span>
-                      </div>
-                      <div class="flex items-start">
-                        <div class="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-0.5">
-                          <span class="text-green-600 text-sm">
-                            ✓
-                          </span>
-                        </div>
-                        <span class="text-gray-700 text-sm">
-                          {% trans "Simple checkout and payment options" %}
-                        </span>
-                      </div>
-                      <div class="flex items-start">
-                        <div class="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-0.5">
-                          <span class="text-green-600 text-sm">
-                            ✓
-                          </span>
-                        </div>
-                        <span class="text-gray-700 text-sm">
-                          {% trans "Order notifications and basic reports" %}
-                        </span>
-                      </div>
-                    </div>
-                    <div class="space-y-3">
-                      <a target="_blank" href="{% url 'core:websites' %}">
-                        <button class="w-full px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-400 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300 transform hover:scale-105">
-                          {% trans "View Live Demo" %}
-                        </button>
-                      </a>
-                      <button class="w-full px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl hover:bg-gray-200 transition-colors border border-gray-200">
-                        {% trans "Get Started" %}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="group relative">
-                <div class="relative bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 h-full">
-                  <div class="absolute inset-0 bg-gradient-to-br from-orange-500 to-red-400 opacity-0 group-hover:opacity-5 rounded-2xl transition-opacity duration-500">
-                  </div>
-                  <div class="relative z-10">
-                    <div class="flex items-start justify-between mb-6">
-                      <div class="text-6xl transform transition-transform duration-300 ">
-                        🎨
-                      </div>
-                    </div>
-                    <div class="mb-4">
-                      <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full mb-3">
-                        {% trans "Custom websites" %}
-                      </span>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-3 leading-tight">
-                      {% trans "Tailored solutions for unique needs" %}
-                    </h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                      {% trans "Fully customized websites with advanced features and integrations specific to your business." %}
-                    </p>
-                    <div class="flex items-baseline mb-6">
-                      <span class="text-3xl font-bold text-gray-900">
-                        {% trans "Personalizado" %}
-                      </span>
-                      <span class="text-gray-600 ml-1">
-                      </span>
-                    </div>
-                    <div class="space-y-3 mb-8">
-                      <div class="flex items-start">
-                        <div class="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-0.5">
-                          <span class="text-green-600 text-sm">
-                            ✓
-                          </span>
-                        </div>
-                        <span class="text-gray-700 text-sm">
-                          {% trans "Custom design and functionality" %}
-                        </span>
-                      </div>
-                      <div class="flex items-start">
-                        <div class="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-0.5">
-                          <span class="text-green-600 text-sm">
-                            ✓
-                          </span>
-                        </div>
-                        <span class="text-gray-700 text-sm">
-                          {% trans "Advanced integrations" %}
-                        </span>
-                      </div>
-                      <div class="flex items-start">
-                        <div class="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-0.5">
-                          <span class="text-green-600 text-sm">
-                            ✓
-                          </span>
-                        </div>
-                        <span class="text-gray-700 text-sm">
-                          {% trans "Dedicated support and maintenance" %}
-                        </span>
-                      </div>
-                    </div>
-                    <div class="space-y-3">
-                      <a target="_blank" href="/sites/oficina-paulo-calibra">
-                        <button class="w-full px-6 py-3 bg-gradient-to-r from-orange-500 to-red-400 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300 transform hover:scale-105">
-                          {% trans "View Live Demo" %}
-                        </button>
-                      </a>
-                      <button class="w-full px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-xl hover:bg-gray-200 transition-colors border border-gray-200">
-                        {% trans "Get Started" %}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <h3 class="mt-4 text-xl font-semibold text-slate-900">{% trans "Simple website" %}</h3>
+        <p class="mt-2 text-sm leading-6 text-slate-700">{% trans "Show your business online" %}</p>
+      </article>
+      <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700">
+          <span class="h-2.5 w-2.5 rounded-full bg-current"></span>
         </div>
-        <div class="py-20 bg-white">
-          <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-16">
-              <h2 class="text-4xl font-bold text-gray-900 mb-4">
-                {% trans "Everything You Need to Succeed Online" %}
-              </h2>
-              <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                {% trans "Our website builder comes packed with professional features that help your business grow" %}
-              </p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div class="bg-blue-50 rounded-2xl p-8 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 text-2xl">
-                  🚀
-                </div>
-                <h3 class="text-xl font-bold text-blue-900 mb-3">
-                  {% trans "Launch in Minutes" %}
-                </h3>
-                <p class="text-blue-900 opacity-80 leading-relaxed">
-                  {% trans "Get your website online in under 10 minutes with our guided setup" %}
-                </p>
-              </div>
-              <div class="bg-green-50 rounded-2xl p-8 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6 text-2xl">
-                  📱
-                </div>
-                <h3 class="text-xl font-bold text-green-900 mb-3">
-                  {% trans "Mobile-First Design" %}
-                </h3>
-                <p class="text-green-900 opacity-80 leading-relaxed">
-                  {% trans "All websites are optimized for smartphones, tablets, and desktops" %}
-                </p>
-              </div>
-              <div class="bg-purple-50 rounded-2xl p-8 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6 text-2xl">
-                  🔍
-                </div>
-                <h3 class="text-xl font-bold text-purple-900 mb-3">
-                  {% trans "SEO Ready" %}
-                </h3>
-                <p class="text-purple-900 opacity-80 leading-relaxed">
-                  {% trans "Built-in SEO optimization to help customers find you on Google" %}
-                </p>
-              </div>
-              <div class="bg-yellow-50 rounded-2xl p-8 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                <div class="w-16 h-16 bg-yellow-100 rounded-2xl flex items-center justify-center mb-6 text-2xl">
-                  ⚡
-                </div>
-                <h3 class="text-xl font-bold text-yellow-900 mb-3">
-                  {% trans "Lightning Fast" %}
-                </h3>
-                <p class="text-yellow-900 opacity-80 leading-relaxed">
-                  {% trans "Optimized performance ensures your site loads in under 2 seconds" %}
-                </p>
-              </div>
-              <div class="bg-red-50 rounded-2xl p-8 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                <div class="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mb-6 text-2xl">
-                  🛡️
-                </div>
-                <h3 class="text-xl font-bold text-red-900 mb-3">
-                  {% trans "Secure &amp; Reliable" %}
-                </h3>
-                <p class="text-red-900 opacity-80 leading-relaxed">
-                  {% trans "SSL certificates, backups, and 99.9% uptime guarantee included" %}
-                </p>
-              </div>
-              <div class="bg-indigo-50 rounded-2xl p-8 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-                <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mb-6 text-2xl">
-                  🎨
-                </div>
-                <h3 class="text-xl font-bold text-indigo-900 mb-3">
-                  {% trans "Easy Customization" %}
-                </h3>
-                <p class="text-indigo-900 opacity-80 leading-relaxed">
-                  {% trans "Change colors, fonts, and layout without any coding skills" %}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
-          <div class="max-w-4xl mx-auto text-center px-4">
-            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">{{ sections_by_key.cta.content.heading }}</h2>
-            <p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">{{ sections_by_key.cta.content.body }}</p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-              <button class="px-8 py-4 bg-white text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 shadow-xl">{{ sections_by_key.cta.content.cta_primary_text }}</button>
-              <button class="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300">{{ sections_by_key.cta.content.cta_secondary_text }}</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      {% include 'core/footer.html' %}
+        <h3 class="mt-4 text-xl font-semibold text-slate-900">{% trans "Website with products" %}</h3>
+        <p class="mt-2 text-sm leading-6 text-slate-700">{% trans "Start selling online" %}</p>
+      </article>
     </div>
+  </section>
+{% endblock %}
 
-<script src="{% static 'jcw/js/jcw-ui.js' %}"></script>
+{% block section_what_you_get %}
+  {% trans "Grow your website" as get_title %}
+  {% trans "Upgrade anytime to expand your website, add more content, and reach more customers." as get_intro %}
+  {% include "components/product/what_you_get.html" with title=get_title intro=get_intro %}
+{% endblock %}
 
-    {% include 'core/right_sidebar.html' %}
-</body>
-</html>
+{% block section_included %}
+{% endblock %}
 
+{% block section_not_included %}
+{% endblock %}
+
+{% block section_timeline %}
+{% endblock %}
+
+{% block section_upgrade_path %}
+  {% trans "Need something more custom?" as upgrade_title %}
+  {% trans "You can also choose a one-time WordPress website setup." as upgrade_intro %}
+  {% trans "View WordPress page" as upgrade_cta_label %}
+  {% url 'core:websites_custom' as wordpress_url %}
+  {% include "components/product/upgrade_path.html" with title=upgrade_title intro=upgrade_intro upgrade_cta_label=upgrade_cta_label upgrade_cta_url=wordpress_url %}
+{% endblock %}
+
+{% block section_faq %}
+{% endblock %}
+
+{% block section_final_cta %}
+  {% trans "Start your website" as final_title %}
+  {% trans "Choose the option that fits your business now and upgrade anytime later." as final_intro %}
+  {% trans "Get started" as final_cta_label %}
+  {% include "components/product/final_cta.html" with title=final_title intro=final_intro cta_label=final_cta_label cta_url=sections_by_key.hero.content.cta_primary_url|default:'#' %}
+{% endblock %}
 
 

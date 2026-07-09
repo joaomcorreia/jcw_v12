@@ -5,7 +5,12 @@
 
 {% block content %}
 <div class="dashboard-page">
+  {% url 'admin:auth_user_changelist' as users_admin_url %}
+  {% trans "Open user admin" as open_users_label %}
   <h1 class="dashboard-title">{% trans "Users" %}</h1>
-  <p class="dashboard-muted">{% trans "Coming soon." %}</p>
+  <div class="dashboard-card dashboard-card--auto">
+    <p class="dashboard-muted">{% trans "User administration is handled in Django Admin. Use this shortcut to manage accounts safely." %}</p>
+    {% include "components/button_row.html" with action1_url=users_admin_url action1_label=open_users_label action1_target_blank=1 %}
+  </div>
 </div>
 {% endblock %}

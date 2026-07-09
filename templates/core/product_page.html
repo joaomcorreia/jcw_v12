@@ -20,6 +20,7 @@
       {% endfor %}
     {% endif %}</head>
   <body class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium">
+    {% include 'core/includes/coming_soon_modal.html' %}
     <div class="min-h-screen ltr" data-locale="{{ LANGUAGE_CODE }}">
       {% include 'core/main_nav.html' %}
       <div class="min-h-screen">
@@ -50,11 +51,32 @@
                 <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
                 {{ page.title|default:"Product" }}
               </div>
-              <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent leading-tight">{{ sections_by_key.hero.content.heading }}</h1>
-              <p class="text-xl md:text-2xl mb-12 text-blue-100 max-w-4xl mx-auto leading-relaxed">{{ sections_by_key.hero.content.subheading }}</p>
+              <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent leading-tight">
+                {% if page and page.slug == "printlab" %}
+                  {% trans "Print products for your business, made simple" %}
+                {% else %}
+                  {{ sections_by_key.hero.content.heading }}
+                {% endif %}
+              </h1>
+              <p class="text-xl md:text-2xl mb-12 text-blue-100 max-w-4xl mx-auto leading-relaxed">
+                {% if page and page.slug == "printlab" %}
+                  {% trans "Business cards, clothing, and promotional items. We handle everything from design to delivery." %}
+                {% else %}
+                  {{ sections_by_key.hero.content.subheading }}
+                {% endif %}
+              </p>
               <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                {% if page and page.slug == "printlab" %}
+                <a class="px-8 py-4 bg-white text-blue-900 font-bold rounded-xl hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 shadow-xl inline-flex items-center justify-center" href="{% url 'core:printlab_start' %}">
+                  {% trans "Start your request" %}
+                </a>
+                <a class="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300 inline-flex items-center justify-center" href="{% url 'core:printlab_business_cards' %}">
+                  {% trans "View products" %}
+                </a>
+                {% else %}
                 <button class="px-8 py-4 bg-white text-blue-900 font-bold rounded-xl hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 shadow-xl">{{ sections_by_key.hero.content.cta_primary_text }}</button>
                 <button class="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300">{{ sections_by_key.hero.content.cta_secondary_text }}</button>
+                {% endif %}
               </div>
             </div>
           </div>
@@ -62,108 +84,174 @@
         <div class="py-20 bg-gray-50">
           <div class="max-w-7xl mx-auto px-4">
             {% if page and page.slug == "printlab" %}
-            <section class="text-center mb-16"><h2 class="text-4xl font-bold text-gray-900 mb-4">{% trans "What is PrintLab?" %}</h2>
-<p class="text-lg text-gray-600 max-w-3xl mx-auto">
-  {% blocktrans %}
-    PrintLab is your place for professional printing and branded goods. From business cards to clothing and merch:
-    choose a category, upload your design, and we handle production and delivery.
-  {% endblocktrans %}
-</p>
-</section>
+            <section class="text-center mb-16">
+              <h2 class="text-4xl font-bold text-gray-900 mb-4">{% trans "What is PrintLab?" %}</h2>
+              <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                {% blocktrans %}
+                  PrintLab helps you create and order branded products for your business without the hassle.
+                  You choose what you need, and we take care of the rest.
+                {% endblocktrans %}
+              </p>
+            </section>
 
-<section class="mb-16">
-  <h3 class="text-3xl font-bold text-gray-900 mb-8 text-center">{% trans "Product categories" %}</h3>
+            <section class="mb-16">
+              <h3 class="text-3xl font-bold text-gray-900 mb-8 text-center">{% trans "Categories" %}</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <a class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow" href="{% url 'core:printlab_business_cards' %}">
+                  <h4 class="text-xl font-semibold text-gray-900 mb-2">{% trans "Business cards & stationery" %}</h4>
+                  <p class="text-sm text-gray-600">{% trans "Business cards, flyers, brochures and other essentials." %}</p>
+                </a>
+                <a class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow" href="{% url 'core:printlab_apparel' %}">
+                  <h4 class="text-xl font-semibold text-gray-900 mb-2">{% trans "Clothing" %}</h4>
+                  <p class="text-sm text-gray-600">{% trans "T-shirts, hoodies and branded workwear." %}</p>
+                </a>
+                <a class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow" href="{% url 'core:printlab_merch' %}">
+                  <h4 class="text-xl font-semibold text-gray-900 mb-2">{% trans "Gifts & promo items" %}</h4>
+                  <p class="text-sm text-gray-600">{% trans "Mugs, bags and promotional products for your business." %}</p>
+                </a>
+                <a class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow" href="{% url 'core:printlab_start' %}?category=home">
+                  <h4 class="text-xl font-semibold text-gray-900 mb-2">{% trans "Office materials" %}</h4>
+                  <p class="text-sm text-gray-600">{% trans "Branded materials for your workspace." %}</p>
+                </a>
+              </div>
+            </section>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-    <a class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow" href="/printlab/start/?category=cards-flyers">
-      <h4 class="text-xl font-semibold text-gray-900 mb-2">{% trans "Cards & flyers" %}</h4>
-      <p class="text-sm text-gray-600">{% trans "Business cards, flyers, brochures, and posters." %}</p>
-    </a>
+            <section class="mb-16">
+              <h3 class="text-3xl font-bold text-gray-900 mb-8 text-center">{% trans "How it works" %}</h3>
+              <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 text-center">
+                  <div class="text-2xl font-bold text-blue-600 mb-2">1</div>
+                  <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Choose what you need" %}</h4>
+                  <p class="text-sm text-gray-600">{% trans "Select the products for your business." %}</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 text-center">
+                  <div class="text-2xl font-bold text-blue-600 mb-2">2</div>
+                  <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Send your details or design" %}</h4>
+                  <p class="text-sm text-gray-600">{% trans "Upload your files or tell us what you need." %}</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 text-center">
+                  <div class="text-2xl font-bold text-blue-600 mb-2">3</div>
+                  <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "We prepare everything" %}</h4>
+                  <p class="text-sm text-gray-600">{% trans "We check your design and get it ready." %}</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 text-center">
+                  <div class="text-2xl font-bold text-blue-600 mb-2">4</div>
+                  <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "We print and deliver" %}</h4>
+                  <p class="text-sm text-gray-600">{% trans "Your order is produced and shipped to you." %}</p>
+                </div>
+              </div>
+            </section>
 
-    <a class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow" href="/printlab/start/?category=clothing">
-      <h4 class="text-xl font-semibold text-gray-900 mb-2">{% trans "Clothing" %}</h4>
-      <p class="text-sm text-gray-600">{% trans "T-shirts, hoodies, and workwear with your branding." %}</p>
-    </a>
+            <section class="mb-16">
+              <h3 class="text-3xl font-bold text-gray-900 mb-8 text-center">{% trans "Why choose PrintLab" %}</h3>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
+                  <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Simple and clear" %}</h4>
+                  <p class="text-sm text-gray-600">{% trans "No complicated setup. Just tell us what you need." %}</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
+                  <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Ready for your business" %}</h4>
+                  <p class="text-sm text-gray-600">{% trans "We make sure everything looks correct before printing." %}</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
+                  <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Everything in one place" %}</h4>
+                  <p class="text-sm text-gray-600">{% trans "Order your print products together with your website." %}</p>
+                </div>
+              </div>
+            </section>
 
-    <a class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow" href="/printlab/start/?category=merch-gifts">
-      <h4 class="text-xl font-semibold text-gray-900 mb-2">{% trans "Merch & gifts" %}</h4>
-      <p class="text-sm text-gray-600">{% trans "Giveaways, gifts, and promotional items." %}</p>
-    </a>
+            <section class="mb-16">
+              <h3 class="text-3xl font-bold text-gray-900 mb-8 text-center">{% trans "FAQ" %}</h3>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
+                  <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Can I return printed products?" %}</h4>
+                  <p class="text-sm text-gray-600">{% trans "Because products are made for you, returns are only possible if something is wrong with the order." %}</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
+                  <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "How long is production?" %}</h4>
+                  <p class="text-sm text-gray-600">{% trans "Production time depends on product type and quantity. We confirm lead times before final approval." %}</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
+                  <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "How does shipping work?" %}</h4>
+                  <p class="text-sm text-gray-600">{% trans "Shipping options and estimated delivery windows are shared during order confirmation." %}</p>
+                </div>
+              </div>
+            </section>
 
-    <a class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow" href="/printlab/start/?category=home">
-      <h4 class="text-xl font-semibold text-gray-900 mb-2">{% trans "Home & office" %}</h4>
-      <p class="text-sm text-gray-600">{% trans "Notebooks, mugs, and office items." %}</p>
-    </a>
-  </div>
-</section>
-
-<section class="mb-16">
-  <h3 class="text-3xl font-bold text-gray-900 mb-8 text-center">{% trans "How it works" %}</h3>
-
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 text-center">
-      <div class="text-2xl font-bold text-blue-600 mb-2">1</div>
-      <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Choose" %}</h4>
-      <p class="text-sm text-gray-600">{% trans "Select a category and product." %}</p>
-    </div>
-
-    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 text-center">
-      <div class="text-2xl font-bold text-blue-600 mb-2">2</div>
-      <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Upload" %}</h4>
-      <p class="text-sm text-gray-600">{% trans "Upload your design or ask for help." %}</p>
-    </div>
-
-    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 text-center">
-      <div class="text-2xl font-bold text-blue-600 mb-2">3</div>
-      <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Review" %}</h4>
-      <p class="text-sm text-gray-600">{% trans "We check and confirm your order." %}</p>
-    </div>
-
-    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100 text-center">
-      <div class="text-2xl font-bold text-blue-600 mb-2">4</div>
-      <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Receive" %}</h4>
-      <p class="text-sm text-gray-600">{% trans "Fast delivery to you or your customer." %}</p>
-    </div>
-  </div>
-</section>
-
-<section class="mb-16">
-  <h3 class="text-3xl font-bold text-gray-900 mb-8 text-center">{% trans "Why PrintLab through Just Code Works" %}</h3>
-
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
-      <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Fair pricing" %}</h4>
-      <p class="text-sm text-gray-600">{% trans "Transparent quotes with no surprises." %}</p>
-    </div>
-
-    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
-      <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Design support" %}</h4>
-      <p class="text-sm text-gray-600">{% trans "We help with preparation and optimization." %}</p>
-    </div>
-
-    <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
-      <h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Everything in one flow" %}</h4>
-      <p class="text-sm text-gray-600">{% trans "Web, print, and tools work together in one system." %}</p>
-    </div>
-  </div>
-</section>
-
-<section class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl p-10 text-white text-center shadow-xl">
-  <h3 class="text-3xl font-bold mb-4">{% trans "Start your PrintLab order" %}</h3>
-
-  <p class="text-blue-100 mb-6 max-w-2xl mx-auto">
-    {% trans "Tell us what you need and get a proposal quickly. We handle the rest." %}
-  </p>
-
-  <div class="flex flex-col sm:flex-row gap-4 justify-center">
-    <a class="px-6 py-3 bg-white text-blue-700 font-semibold rounded-lg hover:bg-blue-50 transition-colors" href="/printlab/start/">
-      {% trans "Start now" %}
-    </a>
-    <a class="px-6 py-3 border border-white text-white font-semibold rounded-lg hover:bg-white/10 transition-colors" href="{% url 'core:services' %}">
-      {% trans "Talk to us" %}
-    </a>
-  </div>
-</section>
+            <section class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl p-10 text-white text-center shadow-xl">
+              <h3 class="text-3xl font-bold mb-4">{% trans "Start your print request" %}</h3>
+              <p class="text-blue-100 mb-6 max-w-2xl mx-auto">
+                {% trans "Tell us what you need and we’ll prepare everything for you." %}
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a class="px-6 py-3 bg-white text-blue-700 font-semibold rounded-lg border border-blue-100 inline-flex items-center justify-center hover:bg-blue-50 transition-colors" href="{% url 'core:printlab_start' %}">
+                  {% trans "Start now" %}
+                </a>
+              </div>
+            </section>
+            {% elif page and page.slug == "printlab-business-cards" %}
+            <section class="text-center mb-12">
+              <h2 class="text-4xl font-bold text-gray-900 mb-4">{% trans "Business cards & paper products" %}</h2>
+              <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                {% blocktrans %}
+                  Professional paper products for first impressions, handouts, and everyday branding. Choose a format, upload your design, and request production.
+                {% endblocktrans %}
+              </p>
+            </section>
+            <section class="mb-10">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Classic business cards" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Standard format for everyday networking and meetings." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=cards-flyers">{% trans "Customize" %}</a></div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Premium business cards" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Thicker stock and upgraded finishes for a stronger impression." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=cards-flyers">{% trans "Customize" %}</a></div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Rounded-corner cards" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Soft-edge variant for a modern and distinct look." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=cards-flyers">{% trans "Customize" %}</a></div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Folded cards" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Extra space for services, menus, or appointment details." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=cards-flyers">{% trans "Customize" %}</a></div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Flyers" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Quick local promotion for campaigns, events, or launches." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=cards-flyers">{% trans "Customize" %}</a></div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Brochures" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Multi-panel format for richer product or service information." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=cards-flyers">{% trans "Customize" %}</a></div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Postcards" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Direct mail and promotional cards for targeted outreach." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=cards-flyers">{% trans "Customize" %}</a></div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Gift vouchers" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Branded vouchers for offers, packages, and seasonal campaigns." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=cards-flyers">{% trans "Customize" %}</a></div>
+              </div>
+            </section>
+            {% elif page and page.slug == "printlab-apparel" %}
+            <section class="text-center mb-12">
+              <h2 class="text-4xl font-bold text-gray-900 mb-4">{% trans "Custom apparel" %}</h2>
+              <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                {% blocktrans %}
+                  Branded clothing for teams, events, and promotions. Build a consistent look across everyday workwear and campaign apparel.
+                {% endblocktrans %}
+              </p>
+            </section>
+            <section class="mb-10">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "T-shirts" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Core branded shirt for daily use and campaigns." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=clothing">{% trans "Customize" %}</a></div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Polo shirts" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Smart-casual branded option for customer-facing teams." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=clothing">{% trans "Customize" %}</a></div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Hoodies" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Comfort-focused branded layer for teams and merch drops." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=clothing">{% trans "Customize" %}</a></div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Sweatshirts" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Mid-weight branded apparel for colder seasons." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=clothing">{% trans "Customize" %}</a></div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Caps" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Simple headwear branding for field teams and giveaways." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=clothing">{% trans "Customize" %}</a></div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Aprons" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Branded aprons for hospitality, retail, and production teams." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=clothing">{% trans "Customize" %}</a></div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Work jackets" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Durable outerwear for on-site and outdoor teams." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=clothing">{% trans "Customize" %}</a></div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Kids sizes" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Youth apparel for schools, events, and family-focused brands." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=clothing">{% trans "Customize" %}</a></div>
+              </div>
+            </section>
+            {% elif page and page.slug == "printlab-merch" %}
+            <section class="text-center mb-12">
+              <h2 class="text-4xl font-bold text-gray-900 mb-4">{% trans "Branded merch & gifts" %}</h2>
+              <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                {% blocktrans %}
+                  Promotional products that keep your brand visible beyond the first interaction. Great for campaigns, client gifts, and internal use.
+                {% endblocktrans %}
+              </p>
+            </section>
+            <section class="mb-10">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Mugs" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Everyday branded drinkware for offices and gifts." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=merch-gifts">{% trans "Customize" %}</a></div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Sticker packs" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Small, versatile branding for packaging and promotions." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=merch-gifts">{% trans "Customize" %}</a></div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Notebooks" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Useful branded stationery for teams and client packs." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=merch-gifts">{% trans "Customize" %}</a></div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Pens" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Low-cost branded giveaway for events and outreach." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=merch-gifts">{% trans "Customize" %}</a></div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Tote bags" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Reusable branded bags with high everyday visibility." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=merch-gifts">{% trans "Customize" %}</a></div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Keychains" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Compact promotional accessory for broad campaigns." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=merch-gifts">{% trans "Customize" %}</a></div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Water bottles" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Practical branded bottle for teams and gift sets." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=merch-gifts">{% trans "Customize" %}</a></div>
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-gray-100"><h4 class="text-lg font-semibold text-gray-900 mb-2">{% trans "Desk mats" %}</h4><p class="text-sm text-gray-600 mb-4">{% trans "Large-format desk branding for offices and creators." %}</p><a class="text-blue-600 font-semibold hover:underline" href="{% url 'core:printlab_start' %}?category=merch-gifts">{% trans "Customize" %}</a></div>
+              </div>
+            </section>
             {% endif %}
 
           </div>

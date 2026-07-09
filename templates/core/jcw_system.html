@@ -1,0 +1,157 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="jcw-page">
+  <section class="jcw-page-hero">
+    <div class="jcw-page-hero__container">
+      <div class="jcw-page-hero__content">
+        <div class="jcw-page-badge">
+          <span class="jcw-page-badge__dot"></span>
+          {% trans "JCW System" %}
+        </div>
+        <h1 class="jcw-page-title">
+          {% trans "Your website that keeps improving over time" %}
+        </h1>
+        <p class="jcw-page-intro">
+          {% blocktrans %}This is the ongoing website option for businesses that want updates handled, less technical responsibility, and a website structure that can keep growing with the business over time.{% endblocktrans %}
+        </p>
+        <div class="jcw-button-row jcw-button-row--center">
+          <a class="jcw-button jcw-button--light" href="{% url 'core:contact' %}">
+            {% trans "Start with JCW System" %}
+          </a>
+          <a class="jcw-button jcw-button--ghost-light" href="{% url 'core:websites' %}">
+            {% trans "Back to website options" %}
+          </a>
+          <a class="jcw-button jcw-button--ghost-light" href="{% url 'core:websites_wordpress' %}">
+            {% trans "See WordPress" %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="jcw-page-section">
+    <div class="jcw-page-section__container">
+      <div class="jcw-page-stack">
+        <section class="jcw-content-card">
+          <h2 class="jcw-section-title">{% trans "What this option is" %}</h2>
+          <div class="jcw-card-grid">
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Ongoing website system" %}</h3>
+              <p class="jcw-card-text">
+                {% trans "This is a website option that continues with your business instead of stopping after a one-time build." %}
+              </p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Updates handled for you" %}</h3>
+              <p class="jcw-card-text">
+                {% trans "You do not need to manage the technical side yourself as the website continues to improve." %}
+              </p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Built to grow with your business" %}</h3>
+              <p class="jcw-card-text">
+                {% trans "The structure is made for changes, expansion, and stronger visibility over time." %}
+              </p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "No need to rebuild later" %}</h3>
+              <p class="jcw-card-text">
+                {% trans "It gives you a clearer long-term option without starting over when the business needs more later." %}
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="jcw-content-card">
+          <h2 class="jcw-section-title">{% trans "How it works" %}</h2>
+          {% trans "Choose your plan, share your business information, move into the JCW website option, and continue with updates and growth over time." as timeline_intro %}
+          {% trans "Choose your plan" as timeline_step1_title %}
+          {% trans "Start with the plan that fits what your business needs right now." as timeline_step1_desc %}
+          {% trans "Share your business information" as timeline_step2_title %}
+          {% trans "Provide the details needed to prepare the website around your business." as timeline_step2_desc %}
+          {% trans "Your website is prepared" as timeline_step3_title %}
+          {% trans "Your website is set up in a structure that can keep developing over time." as timeline_step3_desc %}
+          {% trans "Review and move forward" as timeline_step4_title %}
+          {% trans "You review the direction, then continue improving the website over time as the business grows." as timeline_step4_desc %}
+          {% include "components/product/timeline.html" with title="" intro=timeline_intro step1_title=timeline_step1_title step1_desc=timeline_step1_desc step2_title=timeline_step2_title step2_desc=timeline_step2_desc step3_title=timeline_step3_title step3_desc=timeline_step3_desc step4_title=timeline_step4_title step4_desc=timeline_step4_desc %}
+        </section>
+
+        <section class="jcw-content-card">
+          <h2 class="jcw-section-title">{% trans "Who this is for" %}</h2>
+          <ul class="jcw-checklist">
+            <li>{% trans "Businesses that want less technical responsibility" %}</li>
+            <li>{% trans "Businesses that want the website to evolve over time" %}</li>
+            <li>{% trans "Businesses that expect to grow, change, or expand later" %}</li>
+            <li>{% trans "Businesses that prefer guidance instead of figuring everything out alone" %}</li>
+          </ul>
+        </section>
+
+        <section class="jcw-content-card">
+          <h2 class="jcw-section-title">{% trans "Why this is different" %}</h2>
+          <div class="jcw-card-grid">
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Your website does not stay static" %}</h3>
+              <p class="jcw-card-text">{% trans "This option is made for a website that can keep improving instead of staying fixed after launch." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Improvements happen over time" %}</h3>
+              <p class="jcw-card-text">{% trans "The idea is not just to launch a site, but to keep making it better as the business grows." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "No need to manage plugins and updates" %}</h3>
+              <p class="jcw-card-text">{% trans "You do not need to stay on top of technical maintenance yourself." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Avoids future rebuilds" %}</h3>
+              <p class="jcw-card-text">{% trans "Because the system is designed to continue, you are less likely to hit the point where the whole website needs replacing later." %}</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="jcw-content-card">
+          <h2 class="jcw-section-title">{% trans "Visibility and domain support" %}</h2>
+          <div class="jcw-split-grid">
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Built for long-term visibility" %}</h3>
+              <p class="jcw-card-text">{% trans "The structure supports long-term visibility and makes it easier to expand content over time." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Domain changes are straightforward" %}</h3>
+              <p class="jcw-card-text">{% trans "We help you connect, switch, or redirect your domain." %}</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="jcw-content-card jcw-content-card--center">
+          <h2 class="jcw-section-title">{% trans "You do not need technical knowledge to start" %}</h2>
+          <p class="jcw-section-text">
+            {% blocktrans %}This system is designed to be simple and guided. You do not need to plan everything upfront or manage the technical details yourself to start with a website that can keep improving over time.{% endblocktrans %}
+          </p>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="jcw-page-section">
+    <div class="jcw-page-section__container">
+      <div class="jcw-cta-card">
+        <h2 class="jcw-section-title">{% trans "Start with the website option built for long-term growth" %}</h2>
+        <p class="jcw-card-text">
+          {% trans "Choose JCW System if you want a website that stays clear, supported, and ready to improve as your business grows." %}
+        </p>
+        <div class="jcw-button-row">
+          <a class="jcw-button jcw-button--light" href="{% url 'core:contact' %}">
+            {% trans "Start your JCW System website" %}
+          </a>
+          <a class="jcw-button jcw-button--ghost-light" href="{% url 'core:websites' %}">
+            {% trans "Compare website options" %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% include 'core/footer.html' %}
+{% endblock content %}

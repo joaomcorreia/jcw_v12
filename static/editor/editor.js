@@ -9,13 +9,16 @@
 
   ready(function () {
     var siteMode = window.JCW_SITE_MODE || "other";
-    var debugEnabled = window.location.search.indexOf("debug_editor=1") !== -1;
+    var queryParams = new URLSearchParams(window.location.search);
+    var isEditQuery = queryParams.get("edit") === "1";
+    var config = window.JCW_EDITOR_CONFIG || null;
+    var debugEnabled = Boolean(config && config.debug);
 
-    // Kill-switch: only run editor on main marketing site
-    if (siteMode !== "main") {
-      if (debugEnabled && window.console && typeof window.console.log === "function") {
-        window.console.log("JCW editor: skipping (siteMode=" + siteMode + ")");
-      }
+    // Kill-switch: only run editor on main marketing site with ?edit=1 + config
+    if (siteMode !== "main" || !isEditQuery) {
+      return;
+    }
+    if (!config || !config.enabled || !config.saveUrl || !config.csrfToken) {
       return;
     }
 
@@ -24,13 +27,18 @@
     }
     window.__JCW_EDITOR_INIT__ = true;
 
-    if (window.console && typeof window.console.log === "function") {
+    if (debugEnabled && window.console && typeof window.console.log === "function") {
       window.console.log("JCW editor loaded");
     }
     var toggle = document.getElementById("jcw-edit-toggle");
     var previewToggle = document.getElementById("jcw-preview-toggle");
     var heroSettingsToggle = document.getElementById("jcw-hero-settings-toggle");
     var stateToggle = previewToggle || toggle;
+    var editorRoot = document.getElementById("jcw-editor-root");
+    var editScope = document.getElementById("jcw-edit-scope");
+    if (!editorRoot || !editScope) {
+      return;
+    }
     if (!stateToggle && !heroSettingsToggle) {
       return;
     }
@@ -49,9 +57,139 @@
     var modal = null;
     var modalBackdrop = null;
     var activeSection = null;
+    var sidebar = document.getElementById("jcw-editor-sidebar");
+    var sidebarLabel =
+      document.getElementById("jcw-selected-section-key") ||
+      document.getElementById("jcw-editor-section-label");
+    var sidebarFields =
+      document.getElementById("jcw-selected-section-fields") ||
+      document.getElementById("jcw-editor-fields");
+    var selectedSection = null;
+    var storedSectionKey = "jcw_selected_section";
 
     var hasHeroSlider = function () {
-      return Boolean(document.querySelector('[data-jcw-hero-slider="1"]'));
+      return Boolean(editScope.querySelector('[data-jcw-hero-slider="1"]'));
+    };
+
+    var clearSectionSelection = function () {
+      if (selectedSection) {
+        selectedSection.classList.remove("jcw-section-selected");
+        selectedSection = null;
+      }
+      if (sidebarLabel) {
+        sidebarLabel.textContent = "—";
+      }
+      if (sidebarFields) {
+        sidebarFields.innerHTML = "";
+      }
+      if (window.sessionStorage) {
+        window.sessionStorage.removeItem(storedSectionKey);
+      }
+    };
+
+    var setSectionSelection = function (section) {
+      if (!section) {
+        clearSectionSelection();
+        return;
+      }
+      if (selectedSection && selectedSection !== section) {
+        selectedSection.classList.remove("jcw-section-selected");
+      }
+      selectedSection = section;
+      selectedSection.classList.add("jcw-section-selected");
+      if (sidebarLabel) {
+        var label =
+          section.getAttribute("data-jcw-label") ||
+          section.getAttribute("data-jcw-section") ||
+          "section";
+        sidebarLabel.textContent = label;
+      }
+      if (sidebarFields) {
+        sidebarFields.innerHTML = "";
+        var fields = section.querySelectorAll(
+          "[data-jcw-editable='1'][data-jcw-field]"
+        );
+        if (!fields.length) {
+          var empty = document.createElement("li");
+          empty.className = "jcw-editor-sidebar__item";
+          empty.textContent = "No editable fields";
+          sidebarFields.appendChild(empty);
+        } else {
+          fields.forEach(function (field) {
+            var key = field.getAttribute("data-jcw-field") || "";
+            var fieldType = field.getAttribute("data-jcw-type") || "text";
+            var li = document.createElement("li");
+            li.className = "jcw-editor-sidebar__item";
+            if (fieldType === "icon") {
+              var label = document.createElement("div");
+              label.textContent = "Icon key";
+              var input = document.createElement("input");
+              input.type = "text";
+              input.value = field.getAttribute("data-jcw-icon-key") || "default";
+              input.placeholder = "default";
+              input.addEventListener("change", function () {
+                saveField(field, input.value);
+              });
+              li.appendChild(label);
+              li.appendChild(input);
+            } else if (fieldType === "attr") {
+              var attrLabel = document.createElement("div");
+              attrLabel.textContent = "URL";
+              var attrInput = document.createElement("input");
+              attrInput.type = "text";
+              var attrName = field.getAttribute("data-jcw-attr") || "href";
+              attrInput.value = field.getAttribute(attrName) || "";
+              attrInput.placeholder = attrName;
+              attrInput.addEventListener("change", function () {
+                saveField(field, attrInput.value);
+              });
+              li.appendChild(attrLabel);
+              li.appendChild(attrInput);
+            } else {
+              li.textContent = key;
+              li.addEventListener("click", function () {
+                field.scrollIntoView({ behavior: "smooth", block: "center" });
+              });
+            }
+            sidebarFields.appendChild(li);
+          });
+        }
+      }
+      if (window.sessionStorage) {
+        var sectionKey = section.getAttribute("data-jcw-section") || "";
+        if (sectionKey) {
+          window.sessionStorage.setItem(storedSectionKey, sectionKey);
+        }
+      }
+    };
+
+    var resolveSectionFromPoint = function (event) {
+      var direct = event.target.closest("[data-jcw-section]");
+      if (direct) {
+        return direct;
+      }
+      var x = event.clientX;
+      var y = event.clientY;
+      var seen = new Set();
+      var el = document.elementFromPoint(x, y);
+      while (el && !seen.has(el)) {
+        seen.add(el);
+        if (el.matches && el.matches("[data-jcw-section]")) {
+          return el;
+        }
+        if (el.closest) {
+          var found = el.closest("[data-jcw-section]");
+          if (found) {
+            return found;
+          }
+        }
+        if (el.parentElement) {
+          el = el.parentElement;
+        } else {
+          break;
+        }
+      }
+      return null;
     };
 
     var setState = function (isPreview) {
@@ -133,11 +271,11 @@
       }
       if (hoveredSection !== section) {
         if (hoveredSection) {
-          hoveredSection.classList.remove("jcw-hover");
+          hoveredSection.classList.remove("jcw-section-hover");
         }
         hoveredSection = section;
         if (hoveredSection) {
-          hoveredSection.classList.add("jcw-hover");
+          hoveredSection.classList.add("jcw-section-hover");
         }
       }
     };
@@ -159,22 +297,11 @@
       return "";
     };
 
-    var getApiUrl = function (path) {
-      var lang = document.documentElement.lang || "en";
-      var normalized = path;
-      while (normalized.charAt(0) === "/") {
-        normalized = normalized.slice(1);
+    var resolveCsrfToken = function () {
+      if (config && config.csrfToken && config.csrfToken !== "NOTPROVIDED") {
+        return config.csrfToken;
       }
-      return "/" + lang + "/dashboard/api/" + normalized;
-    };
-
-    var getMainApiUrl = function (path) {
-      var lang = document.documentElement.lang || "en";
-      var normalized = path;
-      while (normalized.charAt(0) === "/") {
-        normalized = normalized.slice(1);
-      }
-      return "/" + lang + "/main/api/" + normalized;
+      return getCookie("csrftoken");
     };
 
     var saveField = function (field, value) {
@@ -183,22 +310,23 @@
       }
       var fieldId = field.getAttribute("data-jcw-field-id");
       var fieldKey = field.getAttribute("data-jcw-field");
-      var language = document.documentElement.lang || "en";
       isSaving = true;
       setStatus("Saving...", false);
-      return fetch(getApiUrl("inline-save/"), {
+      var payload = {};
+      if (fieldKey) {
+        payload[fieldKey] = value;
+      }
+      if (debugEnabled && window.console && typeof window.console.log === "function") {
+        window.console.log("JCW editor save payload keys", Object.keys(payload));
+      }
+      return fetch(config.saveUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-CSRFToken": getCookie("csrftoken"),
+          "X-CSRFToken": resolveCsrfToken(),
         },
         credentials: "same-origin",
-        body: JSON.stringify({
-          field_id: fieldId,
-          field_key: fieldKey,
-          value: value,
-          language: language,
-        }),
+        body: JSON.stringify(payload),
       })
         .then(function (response) {
           if (!response.ok) {
@@ -210,11 +338,26 @@
           if (!data.ok) {
             throw new Error(data.error || "Save failed");
           }
+          if (debugEnabled && window.console && typeof window.console.log === "function") {
+            window.console.log("JCW editor save response", data);
+          }
           setStatus("Saved", false);
-          field.textContent = data.value || "";
+          var fieldType = field.getAttribute("data-jcw-type") || "text";
+          if (fieldType === "icon") {
+            field.setAttribute("data-jcw-icon-key", value);
+          } else if (fieldType === "attr") {
+            var attrName = field.getAttribute("data-jcw-attr") || "href";
+            var nextValue = typeof data.value === "string" ? data.value : value;
+            field.setAttribute(attrName, nextValue || "");
+          } else {
+            field.textContent = typeof data.value === "string" ? data.value : value;
+          }
           return true;
         })
         .catch(function () {
+          if (debugEnabled && window.console && typeof window.console.log === "function") {
+            window.console.log("JCW editor save error");
+          }
           setStatus("Error", true);
           return false;
         })
@@ -366,7 +509,10 @@
         '<button type="button" class="jcw-modal__close" aria-label="Close">×</button>' +
         "</div>" +
         '<div class="jcw-modal__body">' +
-        '<div class="jcw-modal__divider">Background</div>' +
+        '<div class="jcw-hero-modal-grid">' +
+        '<div class="jcw-hero-col">' +
+        '<div class="jcw-hero-col__header">Background</div>' +
+        '<div class="jcw-hero-col__body">' +
         '<label class="jcw-modal__row"><span>Mode</span>' +
         '<select data-setting="background.mode">' +
         '<option value="image">Image</option>' +
@@ -398,16 +544,27 @@
         '<option value="glow">Glow</option>' +
         '<option value="wipe">Wipe</option>' +
         "</select></label>" +
-        '<div class="jcw-modal__divider">Slides</div>' +
+        "</div>" +
+        "</div>" +
+        '<div class="jcw-hero-col">' +
+        '<div class="jcw-hero-col__header">Slides</div>' +
+        '<div class="jcw-hero-col__body">' +
         '<div class="jcw-modal__slides" data-slides></div>' +
         '<button type="button" class="jcw-modal__button jcw-modal__button--ghost" data-action="add-slide">Add slide</button>' +
-        '<div class="jcw-modal__divider">Effects</div>' +
+        "</div>" +
+        "</div>" +
+        '<div class="jcw-hero-col">' +
+        '<div class="jcw-hero-col__header">Effects</div>' +
+        '<div class="jcw-hero-col__body">' +
         '<label class="jcw-modal__row"><span>Particles (Premium)</span><input type="checkbox" data-setting="effects.particles.enabled"></label>' +
         '<label class="jcw-modal__row"><span>Density</span><input type="range" min="0" max="100" data-setting="effects.particles.density"></label>' +
         '<label class="jcw-modal__row"><span>Speed</span><input type="range" min="0" max="10" step="1" data-setting="effects.particles.speed"></label>' +
         '<label class="jcw-modal__row"><span>Color</span><input type="color" data-setting="effects.particles.color"></label>' +
         '<label class="jcw-modal__row"><span>Snow (Premium)</span><input type="checkbox" data-setting="effects.snow.enabled"></label>' +
         '<label class="jcw-modal__row"><span>Intensity</span><input type="range" min="0" max="100" data-setting="effects.snow.intensity"></label>' +
+        "</div>" +
+        "</div>" +
+        "</div>" +
         "</div>" +
         '<div class="jcw-modal__footer">' +
         '<button type="button" class="jcw-modal__button" data-action="save">Save</button>' +
@@ -578,11 +735,11 @@
         }
       });
       setStatus("Saving...", false);
-      return fetch(getMainApiUrl("main-section-settings/"), {
+      return fetch("/" + (document.documentElement.lang || "en") + "/main/api/main-section-settings/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-CSRFToken": getCookie("csrftoken"),
+          "X-CSRFToken": resolveCsrfToken(),
         },
         credentials: "same-origin",
         body: JSON.stringify({
@@ -697,7 +854,19 @@
       });
     }
 
-    var heroSection = document.querySelector("[data-jcw-section='home.hero'], [data-jcw-section='page.hero'], [data-jcw-section='hero']");
+    if (window.sessionStorage) {
+      var savedKey = window.sessionStorage.getItem(storedSectionKey);
+      if (savedKey) {
+        var savedSection = editScope.querySelector(
+          '[data-jcw-section="' + savedKey + '"]'
+        );
+        if (savedSection) {
+          setSectionSelection(savedSection);
+        }
+      }
+    }
+
+    var heroSection = editScope.querySelector("[data-jcw-section='home.hero'], [data-jcw-section='page.hero'], [data-jcw-section='hero']");
     if (heroSection) {
       var currentSettings = loadHeroSettings();
       applyHeroBackground(currentSettings, heroSection);
@@ -713,8 +882,15 @@
         return;
       }
       var target = event.target;
-      var field = target.closest("[data-jcw-field]");
-      var section = target.closest("[data-jcw-section]");
+      if (!editScope.contains(target)) {
+        setHover(null, null);
+        return;
+      }
+      var field = target.closest("[data-jcw-editable='1'][data-jcw-field]");
+      var section = resolveSectionFromPoint(event);
+      if (section && !editScope.contains(section)) {
+        section = null;
+      }
       if (field && section && section.contains(field)) {
         setHover(field, null);
       } else {
@@ -722,12 +898,17 @@
       }
     });
 
-    document.addEventListener("click", function (event) {
+    editScope.addEventListener(
+      "click",
+      function (event) {
       if (!body.classList.contains("jcw-edit-mode")) {
         return;
       }
       if (body.classList.contains(previewClass)) {
         return;
+      }
+      if (debugEnabled && window.console && typeof window.console.log === "function") {
+        window.console.log("JCW editor click");
       }
 
       var link = event.target.closest("a");
@@ -735,7 +916,7 @@
         event.preventDefault();
       }
 
-      var field = event.target.closest("[data-jcw-field]");
+      var field = event.target.closest("[data-jcw-editable='1'][data-jcw-field]");
       if (!field) {
         var hero = event.target.closest('[data-jcw-section="hero"]');
         if (
@@ -745,6 +926,25 @@
           !event.target.closest("[data-jcw-field]")
         ) {
           openHeroModal(hero);
+        }
+        var sectionClick = resolveSectionFromPoint(event);
+        if (sectionClick && editScope.contains(sectionClick)) {
+          editScope
+            .querySelectorAll(".jcw-section-selected")
+            .forEach(function (el) {
+              el.classList.remove("jcw-section-selected");
+            });
+          setSectionSelection(sectionClick);
+          if (
+            debugEnabled &&
+            window.console &&
+            typeof window.console.log === "function"
+          ) {
+            window.console.log(
+              "JCW editor selected",
+              sectionClick.getAttribute("data-jcw-section")
+            );
+          }
         }
         clearSelection();
         return;
@@ -758,14 +958,16 @@
       if (field.getAttribute("data-jcw-type") === "text") {
         startEditing(field);
       }
-    });
+      },
+      true
+    );
 
     if (heroSettingsToggle) {
       heroSettingsToggle.addEventListener("click", function () {
         if (!heroAvailable || siteMode !== "main") {
           return;
         }
-        var heroRoot = document.querySelector('[data-jcw-section="hero"]');
+        var heroRoot = editScope.querySelector('[data-jcw-section="hero"]');
         if (heroRoot) {
           openHeroModal(heroRoot);
         }
@@ -773,8 +975,8 @@
     }
 
     if (debugEnabled) {
-      var heroRootDebug = document.querySelector('[data-jcw-section="hero"]');
-      var fieldsDebug = document.querySelectorAll("[data-jcw-field]");
+      var heroRootDebug = editScope.querySelector('[data-jcw-section="hero"]');
+      var fieldsDebug = editScope.querySelectorAll("[data-jcw-field]");
       if (window.console && typeof window.console.log === "function") {
         window.console.log("JCW editor debug", {
           host: window.location.host,

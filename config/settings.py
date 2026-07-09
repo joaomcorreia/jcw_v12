@@ -17,17 +17,35 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+def env_flag(name, default=False):
+    value = os.environ.get(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "on"}
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "dev-insecure-secret-key")
+SECRET_KEY = (
+    os.environ.get("DJANGO_SECRET_KEY", "").strip()
+    or "temporary-local-dev-key-change-me"
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env_flag("DJANGO_DEBUG", True)
+
+# Launch toggle: keep site live but hidden from search engines.
+# Set to False when ready for indexing.
+SEO_NOINDEX = env_flag("SEO_NOINDEX", DEBUG)
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "").strip()
+STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY", "").strip()
+STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "").strip()
+PROFORMA_FROM_EMAIL = os.environ.get("PROFORMA_FROM_EMAIL", "no-reply@justcodeworks.eu").strip()
 
 MAIN_DOMAIN = os.environ.get("JCW_MAIN_DOMAIN", "justcodeworks.local")
-JCW_ALLOW_IFRAME_PREVIEW = os.environ.get("JCW_ALLOW_IFRAME_PREVIEW", "").lower() in {"1", "true", "yes"}
+JCW_ALLOW_IFRAME_PREVIEW = env_flag("JCW_ALLOW_IFRAME_PREVIEW", False)
 
 allowed_hosts_env = os.environ.get("DJANGO_ALLOWED_HOSTS", "")
 if allowed_hosts_env:
@@ -40,6 +58,8 @@ else:
         "localhost",
         "justcodeworks.local",
         ".justcodeworks.local",
+        "justcodeworks.eu",
+        ".justcodeworks.eu",
     ]
 
 csrf_trusted_env = os.environ.get("DJANGO_CSRF_TRUSTED", "")
@@ -49,9 +69,24 @@ if csrf_trusted_env:
     ]
 else:
     CSRF_TRUSTED_ORIGINS = [
+        "http://127.0.0.1:8000",
+        "http://localhost:8000",
         "http://justcodeworks.local:8000",
-        "http://mim.justcodeworks.local:8000",
-    ]
+        "http://hmd.justcodeworks.local:8000",
+        "http://autofixgarage.justcodeworks.local:8000",
+        "https://justcodeworks.eu",
+        "https://www.justcodeworks.eu",
+]
+
+SECURE_SSL_REDIRECT = env_flag("DJANGO_SECURE_SSL_REDIRECT", False)
+SESSION_COOKIE_SECURE = env_flag("DJANGO_SESSION_COOKIE_SECURE", False)
+CSRF_COOKIE_SECURE = env_flag("DJANGO_CSRF_COOKIE_SECURE", False)
+SECURE_HSTS_SECONDS = int(os.environ.get("DJANGO_SECURE_HSTS_SECONDS", "0" if DEBUG else "31536000"))
+SECURE_HSTS_INCLUDE_SUBDOMAINS = env_flag(
+    "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS", not DEBUG
+)
+SECURE_HSTS_PRELOAD = env_flag("DJANGO_SECURE_HSTS_PRELOAD", not DEBUG)
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 
 # Application definition
@@ -93,14 +128,25 @@ elif JCW_ALLOW_IFRAME_PREVIEW:
 
 ROOT_URLCONF = 'config.urls'
 
+ADMIN_TEMPLATES_DIR = os.environ.get("ADMIN_TEMPLATES_DIR", "").strip()
+DISABLE_ADMIN_TEMPLATES_OVERRIDE = (
+    os.environ.get("DISABLE_ADMIN_TEMPLATES_OVERRIDE", "false").lower() in {"1", "true", "yes"}
+)
+
+template_dirs = [BASE_DIR / "templates"]
+# NOTE: ADMIN_TEMPLATES_DIR takes priority and can shadow files from BASE_DIR/templates.
+if ADMIN_TEMPLATES_DIR and not DISABLE_ADMIN_TEMPLATES_OVERRIDE:
+    template_dirs.insert(0, Path(ADMIN_TEMPLATES_DIR))
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': template_dirs,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
+                'django.template.context_processors.i18n',
                 'core.context_processors.seo_context',
                 'core.context_processors.canonical_context',
                 'core.context_processors.nav_pages',
@@ -156,7 +202,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'nl'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'Europe/Amsterdam'
 
@@ -198,10 +244,11 @@ PARLER_LANGUAGES = {
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
 LOGIN_URL = "/accounts/login/"
-LOGIN_REDIRECT_URL = "core:home"
+LOGIN_REDIRECT_URL = "/accounts/post-login/"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'

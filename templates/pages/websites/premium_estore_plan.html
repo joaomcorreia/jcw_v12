@@ -1,312 +1,93 @@
-{% load static i18n %}
-<!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
-    <link rel="icon" href="{% static 'favicon.png' %}">
-    <title>
-      {{ seo_title|default:"JustCodeWorks" }}
-    </title>
-    <meta name="robots" content="{% if launch_noindex %}noindex, nofollow{% else %}{{ seo_robots|default:'index, follow' }}{% endif %}">
-    <meta name="description" content="{{ seo_description|default:'Website builder and content management platform' }}">
-    <style>
-      .premium-section {
-        background: #ffffff;
-      }
-      .premium-section-alt {
-        background: #f7f9fc;
-      }
-      .premium-feature-grid {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 20px;
-      }
-      .premium-card {
-        border-radius: 16px;
-        border: 1px solid rgba(15, 23, 42, 0.08);
-        background: #ffffff;
-        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
-        padding: 18px;
-      }
-      .premium-integrations {
-        border-radius: 18px;
-        border: 1px solid rgba(15, 23, 42, 0.08);
-        background: #f7f9fc;
-      }
-      .premium-scale {
-        border-radius: 20px;
-        border: 1px solid rgba(15, 23, 42, 0.08);
-        background: #ffffff;
-        box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
-      }
-      .premium-scale-accent {
-        height: 6px;
-        border-radius: 999px;
-        background: linear-gradient(90deg, #3b82f6, #22c55e);
-        width: 120px;
-      }
-      .premium-compare-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 24px;
-      }
-      .premium-compare-card {
-        border-radius: 18px;
-        border: 1px solid rgba(15, 23, 42, 0.08);
-        background: #ffffff;
-        padding: 24px;
-        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
-      }
-      .premium-compare-highlight {
-        border-color: rgba(59, 130, 246, 0.6);
-        box-shadow: 0 14px 30px rgba(59, 130, 246, 0.12);
-      }
-      .premium-cta-band {
-        background: linear-gradient(120deg, #eef2ff, #f8fafc);
-        min-height: 500px;
-        display: flex;
-        align-items: center;
-      }
-      @media (max-width: 1200px) {
-        .premium-feature-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-      }
-      @media (max-width: 768px) {
-        .premium-feature-grid,
-        .premium-compare-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-    </style>
-      {% if canonical_url %}
-    <link rel="canonical" href="{{ canonical_url }}">
-    {% endif %}
-    {% if hreflang_urls %}
-      {% for alternate in hreflang_urls %}
-    <link rel="alternate" hreflang="{{ alternate.lang }}" href="{{ alternate.url }}">
-      {% endfor %}
-    {% endif %}</head>
-  <body class="min-h-screen antialiased bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium">
-    <div class="min-h-screen ltr" data-locale="{{ LANGUAGE_CODE }}">
-      {% include 'core/main_nav.html' %}
-      <div class="relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
-          <div class="absolute inset-0 opacity-20">
-            <div class="absolute top-0 left-0 w-2 h-2 bg-white rounded-full animate-ping">
-            </div>
-            <div class="absolute top-10 left-20 w-1 h-1 bg-blue-300 rounded-full animate-pulse">
-            </div>
-            <div class="absolute top-20 right-10 w-1 h-1 bg-purple-300 rounded-full animate-ping">
-            </div>
-            <div class="absolute bottom-20 left-10 w-2 h-2 bg-pink-300 rounded-full animate-pulse">
-            </div>
-          </div>
-          <div class="absolute top-0 left-0 w-full h-full">
-            <div class="absolute top-20 left-20 w-32 h-32 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob">
-            </div>
-            <div class="absolute top-40 right-20 w-32 h-32 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000">
-            </div>
-            <div class="absolute -bottom-8 left-40 w-32 h-32 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000">
-            </div>
-          </div>
-        </div>
-        <div class="relative z-10 max-w-7xl mx-auto px-4 py-20 sm:py-32">
-          <div class="text-center text-white">
-            <div class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm font-medium mb-8">
-              <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
-              {% trans "Premium eStore" %}
-            </div>
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent leading-tight">
-              {% trans "Premium eStore" %}
-            </h1>
-            <p class="text-xl md:text-2xl mb-12 text-blue-100 max-w-4xl mx-auto leading-relaxed">
-              {% trans "A full-featured online store built for growing businesses and larger product ranges." %}
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-              <a class="px-8 py-4 bg-white text-blue-900 font-bold rounded-xl hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 shadow-xl" href="{{ sections_by_key.hero.content.cta_primary_url|default:'#' }}">
-                {% trans "Start building" %}
-              </a>
-              <a class="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300" href="#compare">
-                {% trans "Compare plans" %}
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+{% extends "pages/websites/product_page_base.html" %}
+{% load i18n %}
 
-      <section class="premium-section py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="max-w-3xl mb-8">
-            <h2 class="text-3xl font-semibold mb-4">{% trans "Built for serious online selling" %}</h2>
-            <p class="text-slate-600">
-              {% blocktrans %}The Premium eStore is designed for businesses that want to sell online at scale. It supports larger product catalogs, more categories, and advanced shop features. You get more control over how products are displayed and managed, so the store feels professional and reliable. It is ideal when online sales are an important part of your business, not just an add-on.{% endblocktrans %}
-            </p>
-            <p class="text-slate-600 mt-4">
-              {% blocktrans %}The Premium eStore includes everything from the Starter plan, plus more flexibility and control for teams that need room to grow.{% endblocktrans %}
-            </p>
-          </div>
-          <div class="premium-feature-grid">
-            <div class="premium-card">
-              <div class="text-2xl mb-3">∞</div>
-              <h3 class="text-lg font-semibold mb-2">{% trans "Unlimited products" %}</h3>
-              <p class="text-sm text-slate-600">{% trans "Keep adding products as your catalog grows." %}</p>
-              <span class="mt-3 inline-block text-xs font-semibold text-blue-700 bg-blue-50 px-2 py-1 rounded-full">{% trans "Included" %}</span>
-            </div>
-            <div class="premium-card">
-              <div class="text-2xl mb-3">#</div>
-              <h3 class="text-lg font-semibold mb-2">{% trans "Categories & filters" %}</h3>
-              <p class="text-sm text-slate-600">{% trans "Organize products so customers find what they need." %}</p>
-              <span class="mt-3 inline-block text-xs font-semibold text-blue-700 bg-blue-50 px-2 py-1 rounded-full">{% trans "Included" %}</span>
-            </div>
-            <div class="premium-card">
-              <div class="text-2xl mb-3">[]</div>
-              <h3 class="text-lg font-semibold mb-2">{% trans "Inventory & variants" %}</h3>
-              <p class="text-sm text-slate-600">{% trans "Manage sizes, colors, and stock levels." %}</p>
-              <span class="mt-3 inline-block text-xs font-semibold text-blue-700 bg-blue-50 px-2 py-1 rounded-full">{% trans "Included" %}</span>
-            </div>
-            <div class="premium-card">
-              <div class="text-2xl mb-3">🚚</div>
-              <h3 class="text-lg font-semibold mb-2">{% trans "Shipping options" %}</h3>
-              <p class="text-sm text-slate-600">{% trans "Set simple shipping rules and rates." %}</p>
-              <span class="mt-3 inline-block text-xs font-semibold text-blue-700 bg-blue-50 px-2 py-1 rounded-full">{% trans "Included" %}</span>
-            </div>
-            <div class="premium-card">
-              <div class="text-2xl mb-3">%</div>
-              <h3 class="text-lg font-semibold mb-2">{% trans "Discount codes" %}</h3>
-              <p class="text-sm text-slate-600">{% trans "Create offers for seasonal or loyal customers." %}</p>
-              <span class="mt-3 inline-block text-xs font-semibold text-blue-700 bg-blue-50 px-2 py-1 rounded-full">{% trans "Included" %}</span>
-            </div>
-            <div class="premium-card">
-              <div class="text-2xl mb-3">👤</div>
-              <h3 class="text-lg font-semibold mb-2">{% trans "Customer accounts" %}</h3>
-              <p class="text-sm text-slate-600">{% trans "Let buyers save details and reorder easily." %}</p>
-              <span class="mt-3 inline-block text-xs font-semibold text-blue-700 bg-blue-50 px-2 py-1 rounded-full">{% trans "Included" %}</span>
-            </div>
-            <div class="premium-card">
-              <div class="text-2xl mb-3">✓</div>
-              <h3 class="text-lg font-semibold mb-2">{% trans "Order management" %}</h3>
-              <p class="text-sm text-slate-600">{% trans "Review orders and statuses in one place." %}</p>
-              <span class="mt-3 inline-block text-xs font-semibold text-blue-700 bg-blue-50 px-2 py-1 rounded-full">{% trans "Included" %}</span>
-            </div>
-            <div class="premium-card">
-              <div class="text-2xl mb-3">@</div>
-              <h3 class="text-lg font-semibold mb-2">{% trans "Email notifications" %}</h3>
-              <p class="text-sm text-slate-600">{% trans "Automatic updates for customers and staff." %}</p>
-              <span class="mt-3 inline-block text-xs font-semibold text-blue-700 bg-blue-50 px-2 py-1 rounded-full">{% trans "Included" %}</span>
-            </div>
-          </div>
-        </div>
-      </section>
+{% block product_badge %}{% trans "Premium eStore" %}{% endblock %}
+{% block product_title %}{% trans "Premium eStore" %}{% endblock %}
+{% block product_subtitle %}{% trans "Operate a full ecommerce business with larger catalogs, richer operations, and a stronger growth foundation." %}{% endblock %}
+{% block primary_cta_label %}{% trans "Start premium store" %}{% endblock %}
+{% block secondary_cta_label %}{% trans "See premium scope" %}{% endblock %}
 
-      <section class="premium-section-alt py-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="premium-integrations px-6 py-5">
-            <div class="flex flex-wrap gap-3 text-sm font-semibold text-slate-600">
-              <span class="px-3 py-1 rounded-full bg-white">{% trans "Payments" %}</span>
-              <span class="px-3 py-1 rounded-full bg-white">{% trans "Shipping" %}</span>
-              <span class="px-3 py-1 rounded-full bg-white">{% trans "Printful" %}</span>
-              <span class="px-3 py-1 rounded-full bg-white">{% trans "POS" %}</span>
-              <span class="px-3 py-1 rounded-full bg-white">{% trans "Analytics" %}</span>
-              <span class="px-3 py-1 rounded-full bg-white">{% trans "Email" %}</span>
-            </div>
-            <p class="text-sm text-slate-600 mt-4">
-              {% blocktrans %}The Premium eStore is ready to connect with the services you already use. This can include payment providers, shipping tools, and print-on-demand partners. You can add more integrations as your business grows, without changing your website structure.{% endblocktrans %}
-            </p>
-          </div>
-        </div>
-      </section>
+{% block section_who_its_for %}
+  {% trans "Who This Is For" as who_title %}
+  {% trans "Growing stores with medium or large product catalogs" as who_audience1 %}
+  {% trans "Teams needing advanced merchandising and operations" as who_audience2 %}
+  {% trans "Brands planning long-term ecommerce growth" as who_audience3 %}
+  {% trans "Businesses that need more control than starter checkout" as who_audience4 %}
+  {% include "components/product/who_its_for.html" with title=who_title audience1=who_audience1 audience2=who_audience2 audience3=who_audience3 audience4=who_audience4 %}
+  {% trans "Preview example website styles" as showcase_title %}
+  {% trans "See how different website directions can look before you choose the structure that fits your business best." as showcase_intro %}
+  {% include "components/websites/demo_showcase_section.html" with showcase_title=showcase_title showcase_intro=showcase_intro demo_showcase_cards=demo_showcase_cards %}
+{% endblock %}
+{% block section_what_you_get %}
+  {% trans "What You Get" as get_title %}
+  {% trans "Scalable product architecture and category management" as get_deliverable1 %}
+  {% trans "Advanced product options and inventory-ready structure" as get_deliverable2 %}
+  {% trans "Promotions-ready pricing and discount model" as get_deliverable3 %}
+  {% trans "Customer journey improvements for repeat purchases" as get_deliverable4 %}
+  {% trans "Operational setup for shipping and order handling" as get_deliverable5 %}
+  {% trans "Performance-ready storefront for sustained growth" as get_deliverable6 %}
+  {% include "components/product/what_you_get.html" with title=get_title deliverable1=get_deliverable1 deliverable2=get_deliverable2 deliverable3=get_deliverable3 deliverable4=get_deliverable4 deliverable5=get_deliverable5 deliverable6=get_deliverable6 %}
+{% endblock %}
 
-      <section class="premium-section py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="premium-scale p-8">
-            <div class="premium-scale-accent mb-6"></div>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-              <div>
-                <h3 class="text-3xl font-semibold mb-4">{% trans "Built to grow with your business" %}</h3>
-                <p class="text-slate-600 mb-4">
-                  {% blocktrans %}This plan is built for long-term use. You can add products, categories, and new features without restructuring your store. The shop remains fast, mobile-friendly, and easy to manage as you expand. It is a strong foundation for SEO, marketing, and future automation.{% endblocktrans %}
-                </p>
-                <ul class="space-y-2 text-slate-600 text-sm">
-                  <li>{% trans "Add products and categories at any time" %}</li>
-                  <li>{% trans "Better customer experience at scale" %}</li>
-                  <li>{% trans "Ready for SEO and expansion" %}</li>
-                </ul>
-              </div>
-              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-6">
-                <div class="text-sm text-slate-500 mb-3">{% trans "Store dashboard preview" %}</div>
-                <div class="space-y-3 text-sm text-slate-700">
-                  <div class="flex justify-between">
-                    <span>{% trans "Orders today" %}</span>
-                    <span>24</span>
-                  </div>
-                  <div class="flex justify-between">
-                    <span>{% trans "Revenue" %}</span>
-                    <span>{% trans "EUR 1,240" %}</span>
-                  </div>
-                  <div class="flex justify-between">
-                    <span>{% trans "Low stock alerts" %}</span>
-                    <span>3</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+{% block section_included %}
+  {% trans "Included In This Plan" as included_title %}
+  {% trans "Unlimited product-ready architecture" as included1 %}
+  {% trans "Enhanced category and collection structure" as included2 %}
+  {% trans "Order management flow for higher volume" as included3 %}
+  {% trans "Customer account-ready framework" as included4 %}
+  {% trans "Promotions and campaign-ready setup" as included5 %}
+  {% trans "Scalable checkout experience" as included6 %}
+  {% include "components/product/included.html" with title=included_title include1=included1 include2=included2 include3=included3 include4=included4 include5=included5 include6=included6 %}
+{% endblock %}
 
-      <section class="premium-section-alt py-12" id="compare">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p class="text-slate-600 mb-6">
-            {% blocktrans %}The Starter eStore is perfect for small shops with a limited product range. The Premium eStore is designed for businesses that need more flexibility and control. If you plan to grow your catalog or sell more actively, Premium is the better choice. You can always start small and upgrade later without losing your content.{% endblocktrans %}
-          </p>
-          <div class="premium-compare-grid">
-            <div class="premium-compare-card">
-              <h4 class="text-xl font-semibold mb-4">{% trans "Starter eStore" %}</h4>
-              <ul class="space-y-2 text-sm text-slate-600">
-                <li>{% trans "Up to 8 products" %}</li>
-                <li>{% trans "Simple checkout" %}</li>
-                <li>{% trans "Basic order emails" %}</li>
-                <li>{% trans "Mobile-friendly layout" %}</li>
-                <li>{% trans "Great for first-time sellers" %}</li>
-              </ul>
-            </div>
-            <div class="premium-compare-card premium-compare-highlight">
-              <h4 class="text-xl font-semibold mb-4">{% trans "Premium eStore" %}</h4>
-              <ul class="space-y-2 text-sm text-slate-600">
-                <li>{% trans "Unlimited products and categories" %}</li>
-                <li>{% trans "Inventory and variants" %}</li>
-                <li>{% trans "Discounts and promotions" %}</li>
-                <li>{% trans "Customer accounts" %}</li>
-                <li>{% trans "Built for growth and SEO" %}</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+{% block section_not_included %}
+  {% trans "What Is Not Included" as not_title %}
+  {% trans "Custom ERP implementation" as not1 %}
+  {% trans "Marketplace multi-channel synchronization by default" as not2 %}
+  {% trans "Enterprise-grade custom middleware" as not3 %}
+  {% trans "Bespoke software features outside ecommerce scope" as not4 %}
+  {% include "components/product/not_included.html" with title=not_title not1=not1 not2=not2 not3=not3 not4=not4 %}
+{% endblock %}
 
-      <section class="premium-cta-band">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-            <div>
-              <h2 class="text-3xl font-bold mb-2">
-                {% trans "Ready to build a scalable online store?" %}
-              </h2>
-              <p class="text-slate-600">
-                {% trans "Start with a Premium eStore and grow your online business with confidence." %}
-              </p>
-            </div>
-            <a class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors" href="{{ sections_by_key.hero.content.cta_primary_url|default:'#' }}">
-              {% trans "Start building" %}
-            </a>
-          </div>
-        </div>
-      </section>
+{% block section_timeline %}
+  {% trans "Timeline" as timeline_title %}
+  {% trans "Commerce planning" as timeline_step1_title %}
+  {% trans "Define catalog model, operations, and conversion goals." as timeline_step1_desc %}
+  {% trans "Store architecture" as timeline_step2_title %}
+  {% trans "Build scalable categories and product templates." as timeline_step2_desc %}
+  {% trans "Operational setup" as timeline_step3_title %}
+  {% trans "Configure checkout, shipping, and order flows." as timeline_step3_desc %}
+  {% trans "UAT and optimization" as timeline_step4_title %}
+  {% trans "Test edge cases and improve purchase flow." as timeline_step4_desc %}
+  {% trans "Launch and monitor" as timeline_step5_title %}
+  {% trans "Publish and track early store performance." as timeline_step5_desc %}
+  {% include "components/product/timeline.html" with title=timeline_title step1_title=timeline_step1_title step1_desc=timeline_step1_desc step2_title=timeline_step2_title step2_desc=timeline_step2_desc step3_title=timeline_step3_title step3_desc=timeline_step3_desc step4_title=timeline_step4_title step4_desc=timeline_step4_desc step5_title=timeline_step5_title step5_desc=timeline_step5_desc %}
+{% endblock %}
 
-      {% include 'core/footer.html' %}
-    </div>
-  </body>
-</html>
+{% block section_upgrade_path %}
+  {% trans "Upgrade Path" as upgrade_title %}
+  {% trans "Extend into custom automations and integrations" as upgrade1 %}
+  {% trans "Add advanced SEO landing page strategy" as upgrade2 %}
+  {% trans "Integrate with broader business systems" as upgrade3 %}
+  {% trans "Transition to fully custom commerce platform if needed" as upgrade4 %}
+  {% include "components/product/upgrade_path.html" with title=upgrade_title upgrade1=upgrade1 upgrade2=upgrade2 upgrade3=upgrade3 upgrade4=upgrade4 %}
+{% endblock %}
+
+{% block section_faq %}
+  {% trans "Frequently Asked Questions" as faq_title %}
+  {% trans "How is Premium different from Starter?" as faq_q1 %}
+  {% trans "Premium is designed for larger catalogs and richer ecommerce operations." as faq_a1 %}
+  {% trans "Can I migrate from Starter?" as faq_q2 %}
+  {% trans "Yes. Existing products and structure can be expanded in-place." as faq_a2 %}
+  {% trans "Is this suitable for long-term scale?" as faq_q3 %}
+  {% trans "Yes. Premium focuses on operational and catalog scalability from the start." as faq_a3 %}
+  {% include "components/product/faq.html" with title=faq_title q1=faq_q1 a1=faq_a1 q2=faq_q2 a2=faq_a2 q3=faq_q3 a3=faq_a3 %}
+{% endblock %}
+
+{% block section_final_cta %}
+  {% trans "Ready for a serious ecommerce foundation?" as final_title %}
+  {% trans "Build a premium store now and scale operations without replatforming too early." as final_intro %}
+  {% trans "Start now" as final_cta_label %}
+  {% include "components/product/final_cta.html" with title=final_title intro=final_intro cta_label=final_cta_label cta_url=sections_by_key.hero.content.cta_primary_url|default:'#' %}
+{% endblock %}
 

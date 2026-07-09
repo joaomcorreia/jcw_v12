@@ -4,7 +4,11 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 import json
+import os
 import re
+from urllib.parse import urlparse
+from urllib.request import Request, urlopen
+from urllib.error import HTTPError, URLError
 from types import SimpleNamespace
 
 from django.http import (
@@ -26,8 +30,10 @@ from django.views.decorators.http import require_POST
 from core.models import (
     BlogCategory,
     BlogPost,
+    BusinessProfile,
     City,
     MainSiteSectionSettings,
+    MainSiteContent,
     Page,
     PageSection,
     Plan,
@@ -38,6 +44,7 @@ from core.models import (
     TenantSEOSettings,
     WebsiteTemplate,
 )
+from core.forms import BusinessProfileForm
 from core.services.blog import localize_categories, localize_posts
 from core.services.drafts import (
     clear_draft_site,
@@ -48,6 +55,7 @@ from core.services.drafts import (
 from core.services.features import get_active_subscription, resolve_active_plan
 from core.services.pages import get_page_with_sections, get_sidebar_panel
 from core.services.site_settings import get_site_settings
+from core.services.demo_templates import get_demo_showcase_cards, get_demo_template
 from core.schema import build_schema
 from core.seo_utils import (
     build_canonical_url,
@@ -217,6 +225,58 @@ def render_page(request, slug, template_name, extra_context=None):
     return render(request, template_name, context)
 
 
+def _get_printful_products(limit=6):
+    token = (
+        getattr(settings, "PRINTFUL_API_TOKEN", "")
+        or os.environ.get("PRINTFUL_API_TOKEN", "")
+        or os.environ.get("PRINTFUL_TOKEN", "")
+    )
+    if not token:
+        return []
+
+    request = Request(
+        "https://api.printful.com/store/products",
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json",
+        },
+    )
+
+    try:
+        with urlopen(request, timeout=8) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+    except (HTTPError, URLError, TimeoutError, json.JSONDecodeError, ValueError):
+        return []
+
+    items = payload.get("result") or []
+    products = []
+    for item in items:
+        sync_product = item.get("sync_product") or {}
+        sync_variants = item.get("sync_variants") or []
+        first_variant = sync_variants[0] if sync_variants else {}
+        first_file = (first_variant.get("files") or [{}])[0]
+        image_url = (
+            sync_product.get("thumbnail_url")
+            or first_file.get("preview_url")
+            or first_file.get("thumbnail_url")
+            or ""
+        )
+        name = sync_product.get("name") or first_variant.get("name") or ""
+        price = first_variant.get("retail_price") or ""
+        if not name:
+            continue
+        products.append(
+            {
+                "name": name,
+                "image_url": image_url,
+                "price": price,
+            }
+        )
+        if len(products) >= limit:
+            break
+    return products
+
+
 def _build_nav_pages(site):
     pages = (
         Page.objects.filter(site=site, is_active=True, show_in_nav=True)
@@ -243,6 +303,7 @@ def _build_sections(page):
     for section in page.sections.all().order_by("order", "id"):
         content = getattr(section, "content", None)
         data = content.config_json if content else {}
+        data_i18n = content.config_json_i18n if content else {}
         section_type = section.key.split(".")[-1] if section.key else "unknown"
         sections.append(
             {
@@ -250,9 +311,39 @@ def _build_sections(page):
                 "key": section.key,
                 "type": section_type,
                 "data": data,
+                "data_i18n": data_i18n,
             }
         )
     return sections
+
+
+def _normalize_lang(language_code):
+    code = (language_code or "en").strip().lower().replace("_", "-")
+    return code.split("-", 1)[0] if code else "en"
+
+
+def _get_localized_section_data(content, language_code):
+    if not content:
+        return {}
+    fallback = content.config_json if isinstance(content.config_json, dict) else {}
+    value_map = (
+        content.config_json_i18n if isinstance(content.config_json_i18n, dict) else {}
+    )
+    lang = _normalize_lang(language_code)
+    if isinstance(value_map.get(lang), dict):
+        return value_map.get(lang) or {}
+    for key, value in value_map.items():
+        if _normalize_lang(key) == lang and isinstance(value, dict):
+            return value
+    return fallback
+
+
+def _set_localized_section_data(content, language_code, payload):
+    value_map = (
+        content.config_json_i18n if isinstance(content.config_json_i18n, dict) else {}
+    )
+    value_map[_normalize_lang(language_code)] = payload
+    content.config_json_i18n = value_map
 
 
 def _set_config_value(data, path, value):
@@ -334,6 +425,10 @@ def home(request):
     if page:
         request.current_page = page
     sidebar_panel = get_sidebar_panel("home")
+    # Launch-week homepage uses template gettext as the single source of truth.
+    # Keep MainSiteContent intact in the database, but ignore those overrides here
+    # so all locales fall back to the translated template strings consistently.
+    content_map = {}
     hero_defaults = {
         "background": {
             "mode": "color",
@@ -359,8 +454,8 @@ def home(request):
             }
         ],
         "effects": {
-            "particles": {"enabled": False, "density": 50, "speed": 2, "color": "#ffffff"},
-            "snow": {"enabled": False, "intensity": 30},
+            "particles": {"enabled": False, "density": 80, "speed": 2, "color": "#ffffff"},
+            "snow": {"enabled": False, "intensity": 60},
         },
     }
     hero_settings = _get_main_section_settings("home", "hero") or {}
@@ -372,14 +467,57 @@ def home(request):
         merged_hero["slider"] = {**hero_defaults["slider"], **hero_settings["slider"]}
     if "effects" in hero_settings:
         merged_hero["effects"] = {**hero_defaults["effects"], **hero_settings["effects"]}
+    particles_config = {
+        "particles": {
+            "number": {"value": 42, "density": {"enable": True, "value_area": 1200}},
+            "color": {"value": "#dbeafe"},
+            "shape": {"type": "circle"},
+            "opacity": {"value": 0.28, "random": True},
+            "size": {"value": 2.2, "random": True},
+            "line_linked": {
+                "enable": True,
+                "distance": 350,
+                "color": "#bfdbfe",
+                "opacity": 0.4,
+                "width": 1,
+            },
+            "move": {
+                "enable": True,
+                "speed": 1.1,
+                "direction": "none",
+                "random": False,
+                "straight": False,
+                "out_mode": "out",
+                "bounce": False,
+            },
+        },
+        "interactivity": {
+            "detect_on": "canvas",
+            "events": {
+                "onhover": {"enable": True, "mode": "grab"},
+                "onclick": {"enable": False, "mode": "push"},
+                "resize": True,
+            },
+            "modes": {
+                "grab": {"distance": 140, "line_linked": {"opacity": 0.28}},
+                "push": {"particles_nb": 2},
+            },
+        },
+        "retina_detect": True,
+    }
     return render(
         request,
-        "core/home.html",
+        "core/home_hq.html",
         {
             "page": page,
             "sections_by_key": sections_by_key,
             "sidebar_panel": sidebar_panel,
             "jcw_hero_settings_json": json.dumps(merged_hero),
+            "content_map": content_map,
+            "demo_showcase_cards": get_demo_showcase_cards(),
+            "printful_products_preview": _get_printful_products(limit=3),
+            "marketing_particles_enabled": True,
+            "particles_settings_json": particles_config,
         },
     )
 
@@ -651,7 +789,15 @@ def public_page(request, slug):
 
 
 def websites(request):
-    return render_page(request, "websites", "core/websites.html")
+    return render_page(request, "websites", "core/websites_overview.html")
+
+
+def websites_jcw_system(request):
+    return render_page(request, "jcw-system", "core/jcw_system.html")
+
+
+def websites_wordpress(request):
+    return render_page(request, "wordpress", "core/wordpress.html")
 
 
 def services(request):
@@ -686,6 +832,10 @@ def pos_systems_faq(request):
 
 def help_center(request):
     return render_page(request, "help-center", "core/help_center.html")
+
+
+def help_page(request):
+    return render_page(request, "help", "core/help.html")
 
 
 def blog_index(request):
@@ -828,43 +978,156 @@ def product_ecommerce(request):
 
 def websites_one_page(request):
     return render_page(
-        request, "websites-one-page", "core/websites_one_page_plan.html"
+        request,
+        "websites-one-page",
+        "core/websites_one_page_plan.html",
+        extra_context={"demo_showcase_cards": get_demo_showcase_cards()},
     )
 
 
 def websites_multi_page(request):
     return render_page(
-        request, "websites-multi-page", "pages/websites/multi_page_plan.html"
+        request,
+        "websites-multi-page",
+        "pages/websites/multi_page_plan.html",
+        extra_context={"demo_showcase_cards": get_demo_showcase_cards()},
     )
 
 
 def websites_multi_page_seo(request):
     return render_page(
-        request, "websites-multi-page-seo", "pages/websites/multi_page_seo_plan.html"
+        request,
+        "websites-multi-page-seo",
+        "pages/websites/multi_page_seo_plan.html",
+        extra_context={"demo_showcase_cards": get_demo_showcase_cards()},
     )
 
 
 def websites_catalog_site(request):
     return render_page(
-        request, "websites-catalog-site", "pages/websites/catalog_site_plan.html"
+        request,
+        "websites-catalog-site",
+        "pages/websites/catalog_site_plan.html",
+        extra_context={"demo_showcase_cards": get_demo_showcase_cards()},
     )
 
 
 def websites_eshop_starter(request):
     return render_page(
-        request, "websites-eshop-starter", "pages/websites/starter_estore_plan.html"
+        request,
+        "websites-eshop-starter",
+        "pages/websites/starter_estore_plan.html",
+        extra_context={"demo_showcase_cards": get_demo_showcase_cards()},
     )
 
 
 def websites_eshop_premium(request):
     return render_page(
-        request, "websites-eshop-premium", "pages/websites/premium_estore_plan.html"
+        request,
+        "websites-eshop-premium",
+        "pages/websites/premium_estore_plan.html",
+        extra_context={"demo_showcase_cards": get_demo_showcase_cards()},
     )
 
 
 def websites_custom(request):
     return render_page(
-        request, "websites-custom", "pages/websites/custom_website_plan.html"
+        request,
+        "websites-custom",
+        "pages/websites/custom_website_plan.html",
+        extra_context={"demo_showcase_cards": get_demo_showcase_cards()},
+    )
+
+
+def pricing(request):
+    return render_page(
+        request,
+        "pricing",
+        "core/pricing.html",
+        extra_context={
+            "seo_title": _("Pricing"),
+            "seo_description": _(
+                "Pricing for online presence setup, website plans, and Facebook visibility support."
+            ),
+        },
+    )
+
+
+def contact(request):
+    form_values = {
+        "name": "",
+        "business_name": "",
+        "email": "",
+        "phone": "",
+        "message": "",
+    }
+    submitted = False
+    if request.method == "POST":
+        submitted = True
+        form_values = {
+            "name": (request.POST.get("name") or "").strip(),
+            "business_name": (request.POST.get("business_name") or "").strip(),
+            "email": (request.POST.get("email") or "").strip(),
+            "phone": (request.POST.get("phone") or "").strip(),
+            "message": (request.POST.get("message") or "").strip(),
+        }
+
+    return render_page(
+        request,
+        "contact",
+        "core/contact.html",
+        extra_context={
+            "seo_title": _("Contact"),
+            "seo_description": _(
+                "Get in touch to request your setup, website plan, or Facebook visibility support."
+            ),
+            "contact_form_values": form_values,
+            "contact_form_submitted": submitted,
+        },
+    )
+
+
+def facebook_visibility(request):
+    return render_page(
+        request,
+        "facebook-visibility",
+        "core/facebook_visibility.html",
+        extra_context={
+            "seo_title": _("Facebook Visibility"),
+            "seo_description": _(
+                "Ongoing Facebook posting support to keep your business active and visible."
+            ),
+        },
+    )
+
+
+def online_marketing(request):
+    return render_page(
+        request,
+        "online-marketing",
+        "core/online_marketing.html",
+        extra_context={
+            "seo_title": _("Online Marketing"),
+            "seo_description": _(
+                "Online marketing services that can be added as your business grows."
+            ),
+        },
+    )
+
+
+def demo_preview(request, slug):
+    demo = get_demo_template(slug)
+    if not demo:
+        return render(request, "site/404.html", status=404)
+
+    return render(
+        request,
+        "core/demo_preview.html",
+        {
+            "demo": demo,
+            "seo_title": demo.title,
+            "seo_description": demo.description,
+        },
     )
 
 
@@ -872,8 +1135,16 @@ def printlab(request):
     return render_page(request, "printlab", "core/product_page.html")
 
 
+def print_overview(request):
+    return render_page(request, "print-overview", "core/print_overview.html")
+
+
 def printlab_business_cards(request):
     return render_page(request, "printlab-business-cards", "core/product_page.html")
+
+
+def print_business(request):
+    return render_page(request, "print-business", "core/print_business.html")
 
 
 def printlab_flyers(request):
@@ -890,6 +1161,15 @@ def printlab_stickers(request):
 
 def printlab_apparel(request):
     return render_page(request, "printlab-apparel", "core/product_page.html")
+
+
+def print_merch(request):
+    return render_page(
+        request,
+        "print-merch",
+        "core/print_merch.html",
+        {"printful_products": _get_printful_products(limit=6)},
+    )
 
 
 def printlab_merch(request):
@@ -1140,6 +1420,8 @@ def dashboard(request):
 
 @login_required
 def dashboard_users(request):
+    if not (request.user.is_staff or request.user.is_superuser):
+        return redirect("tenant_dashboard:dashboard")
     return render(request, "dashboard/users.html")
 
 
@@ -1251,7 +1533,7 @@ def dashboard_content_map(request):
                 status = _("Duplicate")
                 status_class = "dashboard-badge--warning"
             elif not has_content:
-                status = _("Missing")
+                status = _("Missing content")
                 status_class = "dashboard-badge--warning"
             else:
                 status = _("OK")
@@ -1689,7 +1971,178 @@ def dashboard_blog(request):
 
 @login_required
 def dashboard_billing(request):
-    return render(request, "dashboard/billing.html")
+    site = getattr(request, "tenant", None)
+    current_plan_name = _("No active plan")
+    current_site_status = _("Not connected")
+    if site:
+        if getattr(site, "plan", None):
+            current_plan_name = site.plan.display_name
+        if getattr(site, "status", None):
+            current_site_status = site.get_status_display()
+    return render(
+        request,
+        "dashboard/billing.html",
+        {
+            "current_plan_name": current_plan_name,
+            "current_site_status": current_site_status,
+            "site": site,
+        },
+    )
+
+
+@login_required
+def dashboard_account(request):
+    profile = BusinessProfile.objects.filter(user=request.user).first()
+    site = getattr(request, "tenant", None)
+    return render(
+        request,
+        "dashboard/account.html",
+        {
+            "profile": profile,
+            "site": site,
+        },
+    )
+
+
+@login_required
+def dashboard_domains(request):
+    site = getattr(request, "tenant", None)
+    return render(
+        request,
+        "dashboard/domains.html",
+        {"site": site},
+    )
+
+
+@login_required
+def dashboard_website_details(request):
+    site = getattr(request, "tenant", None)
+    template_name = ""
+    if site and getattr(site, "template_key", None):
+        template = WebsiteTemplate.objects.filter(slug=site.template_key).first()
+        if template:
+            template_name = template.name
+    return render(
+        request,
+        "dashboard/website_details.html",
+        {
+            "site": site,
+            "template_name": template_name,
+        },
+    )
+
+
+def _render_dashboard_placeholder_page(request, template_name, title, intro, status_title, status_body):
+    return render(
+        request,
+        template_name,
+        {
+            "page_title": title,
+            "page_intro": intro,
+            "status_title": status_title,
+            "status_body": status_body,
+        },
+    )
+
+
+@login_required
+def dashboard_media_manager(request):
+    return _render_dashboard_placeholder_page(
+        request,
+        "dashboard/media_manager.html",
+        _("Media Manager"),
+        _("This page will become the place where you manage the media used across your website."),
+        _("Media status"),
+        _("Your media manager is being prepared so files and images can be managed from one stable area."),
+    )
+
+
+@login_required
+def dashboard_subscriptions(request):
+    site = getattr(request, "tenant", None)
+    current_plan_name = _("No active plan")
+    if site and getattr(site, "plan", None):
+        current_plan_name = site.plan.display_name
+    return render(
+        request,
+        "dashboard/subscriptions.html",
+        {
+            "site": site,
+            "current_plan_name": current_plan_name,
+        },
+    )
+
+
+@login_required
+def dashboard_google_analytics(request):
+    return _render_dashboard_placeholder_page(
+        request,
+        "dashboard/google_analytics.html",
+        _("Google Analytics"),
+        _("This page will show your website analytics connection and reporting status once the dashboard connection step is added."),
+        _("Analytics status"),
+        _("Your analytics dashboard is not connected here yet. When this area is activated, connection status and reporting access will appear in this section."),
+    )
+
+
+@login_required
+def dashboard_facebook_insights(request):
+    return _render_dashboard_placeholder_page(
+        request,
+        "dashboard/facebook_insights.html",
+        _("Facebook Insights"),
+        _("This page will show your Facebook connection and page insights when the customer dashboard support is activated."),
+        _("Insights status"),
+        _("Facebook insights are not connected in this dashboard yet. When this area is activated, page status and reporting summaries will appear here."),
+    )
+
+
+@login_required
+def dashboard_social_content_planning(request):
+    return _render_dashboard_placeholder_page(
+        request,
+        "dashboard/social_content_planning.html",
+        _("Social Content Planning"),
+        _("This page will organize future social content planning connected to your website and services."),
+        _("Planning status"),
+        _("Social content planning is being prepared so this area can become a clear starting point for future content work."),
+    )
+
+
+@login_required
+def dashboard_tool_image_resizer(request):
+    return _render_dashboard_placeholder_page(
+        request,
+        "dashboard/tool_image_resizer.html",
+        _("Image Resizer"),
+        _("This page will provide a simple way to prepare website and social images from your dashboard."),
+        _("Tool status"),
+        _("The image resizer is being prepared and will appear here as a stable dashboard tool later."),
+    )
+
+
+@login_required
+def dashboard_tool_qr_code_maker(request):
+    return _render_dashboard_placeholder_page(
+        request,
+        "dashboard/tool_qr_code_maker.html",
+        _("QR Code Maker"),
+        _("This page will provide a simple way to create QR codes connected to your website and print materials."),
+        _("Tool status"),
+        _("The QR code maker is being prepared and will appear here as a stable dashboard tool later."),
+    )
+
+
+@login_required
+def dashboard_help(request):
+    return _render_dashboard_placeholder_page(
+        request,
+        "dashboard/help.html",
+        _("Help"),
+        _("Use this area to understand where dashboard help and support options will appear."),
+        _("Support status"),
+        _("Dashboard help is being prepared so customers can find guidance and support in one place."),
+    )
 
 
 @login_required
@@ -1710,6 +2163,80 @@ def marketplace_printlab(request):
 @login_required
 def marketplace_card_payments(request):
     return render(request, "dashboard/marketplace_card_payments.html")
+
+
+def _business_profile_is_complete(profile):
+    if not profile:
+        return False
+    if hasattr(profile, "profile_completed"):
+        return bool(profile.profile_completed)
+    required_fields = [
+        "business_name",
+        "category",
+        "city",
+        "country",
+        "website_goal",
+    ]
+    return all((getattr(profile, field, "") or "").strip() for field in required_fields)
+
+
+@login_required
+def post_login_redirect(request):
+    if request.user.is_staff or request.user.is_superuser:
+        return redirect("/admin/")
+    tenant = resolve_active_tenant(request)
+    if tenant:
+        lang = request.LANGUAGE_CODE or getattr(tenant, "language", None) or get_language()
+        dashboard_path = build_language_path(lang or "en", "/dashboard/")
+        return redirect(tenant_site_url(tenant, dashboard_path, request=request))
+    profile = BusinessProfile.objects.filter(user=request.user).first()
+    if _business_profile_is_complete(profile):
+        return redirect("core:website_preview")
+    return redirect("core:onboarding")
+
+
+@login_required
+def onboarding(request):
+    entry_type = (request.GET.get("entry_type") or "website").strip().lower()
+    if entry_type not in {"website", "wordpress", "wordpress_shop", "print_business_cards"}:
+        entry_type = "website"
+    profile, _ = BusinessProfile.objects.get_or_create(
+        user=request.user,
+        defaults={"email_public": request.user.email or ""},
+    )
+    if _business_profile_is_complete(profile):
+        return redirect("core:website_preview")
+
+    if request.method == "POST":
+        form = BusinessProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.profile_completed = True
+            profile.save()
+            return redirect("core:website_preview")
+    else:
+        form = BusinessProfileForm(instance=profile)
+
+    return render(
+        request,
+        "onboarding/onboarding_form.html",
+        {
+            "form": form,
+            "entry_type": entry_type,
+        },
+    )
+
+
+@login_required
+def website_preview(request):
+    profile = BusinessProfile.objects.filter(user=request.user).first()
+    if not _business_profile_is_complete(profile):
+        return redirect("core:onboarding")
+    return render(
+        request,
+        "dashboard/website/preview.html",
+        {"profile": profile},
+    )
 
 
 def signup_view(request):
@@ -1791,7 +2318,8 @@ def dashboard_inline_save(request):
         return JsonResponse({"ok": False, "error": "Section not found"}, status=404)
 
     content, _created = SectionContent.objects.get_or_create(section=section)
-    data = content.config_json if isinstance(content.config_json, dict) else {}
+    language_code = request.LANGUAGE_CODE or get_language()
+    data = _get_localized_section_data(content, language_code)
     clean_value = strip_tags(value or "").strip()
 
     path = field_key.split(".")
@@ -1803,7 +2331,8 @@ def dashboard_inline_save(request):
 
     _set_config_value(data, path, clean_value)
     content.config_json = data
-    content.save(update_fields=["config_json"])
+    _set_localized_section_data(content, language_code, data)
+    content.save(update_fields=["config_json", "config_json_i18n"])
 
     return JsonResponse({"ok": True, "value": clean_value})
 
@@ -1901,6 +2430,288 @@ def main_section_settings(request):
     return JsonResponse({"ok": True, "settings": current})
 
 
+@require_POST
+@login_required
+def main_inline_save(request):
+    if not (request.user.is_staff or request.user.is_superuser):
+        return JsonResponse({"ok": False, "error": "Forbidden"}, status=403)
+
+    raw_host = request.get_host()
+    host = (raw_host or "").split(":", 1)[0].lower().strip()
+    main_domain = getattr(settings, "MAIN_DOMAIN", "justcodeworks.local").lower()
+    main_hosts = {
+        "localhost",
+        "127.0.0.1",
+        main_domain,
+        "justcodeworks.local",
+        f"www.{main_domain}",
+    }
+    if host not in main_hosts:
+        return JsonResponse({"ok": False, "error": "Forbidden: main site only"}, status=403)
+
+    try:
+        payload = json.loads(request.body.decode("utf-8"))
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        return JsonResponse({"ok": False, "error": "Invalid JSON"}, status=400)
+
+    allowed_keys = {
+        "home.faq.q1.answer",
+        "home.faq.q1.question",
+        "home.faq.q2.answer",
+        "home.faq.q2.question",
+        "home.faq.q3.answer",
+        "home.faq.q3.question",
+        "home.faq.q4.answer",
+        "home.faq.q4.question",
+        "home.faq.q5.answer",
+        "home.faq.q5.question",
+        "home.faq.q6.answer",
+        "home.faq.q6.question",
+        "home.faq.title",
+        "home.footer.company.link1.label",
+        "home.footer.company.link1.url",
+        "home.footer.company.link2.label",
+        "home.footer.company.link2.url",
+        "home.footer.company.link3.label",
+        "home.footer.company.link3.url",
+        "home.footer.company.link4.label",
+        "home.footer.company.link4.url",
+        "home.footer.company.link5.label",
+        "home.footer.company.link5.url",
+        "home.footer.company.link6.label",
+        "home.footer.company.link6.url",
+        "home.footer.company.title",
+        "home.footer.copyright.rights",
+        "home.footer.description",
+        "home.footer.legal.link1.label",
+        "home.footer.legal.link1.url",
+        "home.footer.legal.link2.label",
+        "home.footer.legal.link2.url",
+        "home.footer.legal.link3.label",
+        "home.footer.legal.link3.url",
+        "home.footer.legal.link4.label",
+        "home.footer.legal.link4.url",
+        "home.footer.location",
+        "home.footer.newsletter.subscribe_label",
+        "home.footer.newsletter.title",
+        "home.footer.services.link1.label",
+        "home.footer.services.link1.url",
+        "home.footer.services.link2.label",
+        "home.footer.services.link2.url",
+        "home.footer.services.link3.label",
+        "home.footer.services.link3.url",
+        "home.footer.services.link4.label",
+        "home.footer.services.link4.url",
+        "home.footer.services.link5.label",
+        "home.footer.services.link5.url",
+        "home.footer.services.link6.label",
+        "home.footer.services.link6.url",
+        "home.footer.services.title",
+        "home.footer.support.link1.label",
+        "home.footer.support.link1.url",
+        "home.footer.support.link2.label",
+        "home.footer.support.link2.url",
+        "home.footer.support.link3.label",
+        "home.footer.support.link3.url",
+        "home.footer.support.link4.label",
+        "home.footer.support.link4.url",
+        "home.footer.support.link5.label",
+        "home.footer.support.link5.url",
+        "home.footer.support.link6.label",
+        "home.footer.support.link6.url",
+        "home.footer.support.title",
+        "home.footer.tools.link1.label",
+        "home.footer.tools.link1.url",
+        "home.footer.tools.link2.label",
+        "home.footer.tools.link2.url",
+        "home.footer.tools.link3.label",
+        "home.footer.tools.link3.url",
+        "home.footer.tools.link4.label",
+        "home.footer.tools.link4.url",
+        "home.footer.tools.link5.label",
+        "home.footer.tools.link5.url",
+        "home.footer.tools.link6.label",
+        "home.footer.tools.link6.url",
+        "home.footer.tools.title",
+        "home.hero.card1_text",
+        "home.hero.card1_title",
+        "home.hero.card2_text",
+        "home.hero.card2_title",
+        "home.hero.card3_text",
+        "home.hero.card3_title",
+        "home.hero.cta_primary",
+        "home.hero.cta_print_label",
+        "home.hero.cta_secondary",
+        "home.hero.subtitle",
+        "home.hero.title",
+        "home.pricing.cta_button_label",
+        "home.pricing.cta_button_url",
+        "home.pricing.cta_title",
+        "home.pricing.disclaimer",
+        "home.pricing.provider1.cta_label",
+        "home.pricing.provider1.cta_url",
+        "home.pricing.provider1.description",
+        "home.pricing.provider1.good_for",
+        "home.pricing.provider1.name",
+        "home.pricing.provider2.cta_label",
+        "home.pricing.provider2.cta_url",
+        "home.pricing.provider2.description",
+        "home.pricing.provider2.good_for",
+        "home.pricing.provider2.name",
+        "home.pricing.provider3.cta_label",
+        "home.pricing.provider3.cta_url",
+        "home.pricing.provider3.description",
+        "home.pricing.provider3.good_for",
+        "home.pricing.provider3.name",
+        "home.pricing.subtitle",
+        "home.pricing.title",
+        "home.pricing.type1.bullet1",
+        "home.pricing.type1.bullet2",
+        "home.pricing.type1.bullet3",
+        "home.pricing.type1.cta_label",
+        "home.pricing.type1.cta_url",
+        "home.pricing.type1.label",
+        "home.pricing.type1.subtitle",
+        "home.pricing.type2.bullet1",
+        "home.pricing.type2.bullet2",
+        "home.pricing.type2.bullet3",
+        "home.pricing.type2.cta_label",
+        "home.pricing.type2.cta_url",
+        "home.pricing.type2.label",
+        "home.pricing.type2.subtitle",
+        "home.pricing.type3.bullet1",
+        "home.pricing.type3.bullet2",
+        "home.pricing.type3.bullet3",
+        "home.pricing.type3.cta_label",
+        "home.pricing.type3.cta_url",
+        "home.pricing.type3.label",
+        "home.pricing.type3.subtitle",
+        "home.quick_start.card1.body",
+        "home.quick_start.card1.title",
+        "home.quick_start.card2.body",
+        "home.quick_start.card2.title",
+        "home.quick_start.card3.body",
+        "home.quick_start.card3.title",
+        "home.quick_start.card4.body",
+        "home.quick_start.card4.title",
+        "home.quick_start.label",
+        "home.quick_start.title",
+        "home.solutions.card1.badge",
+        "home.solutions.card1.body",
+        "home.solutions.card1.bullet1",
+        "home.solutions.card1.bullet2",
+        "home.solutions.card1.bullet3",
+        "home.solutions.card1.cta_label",
+        "home.solutions.card1.icon",
+        "home.solutions.card1.title",
+        "home.solutions.card2.badge",
+        "home.solutions.card2.body",
+        "home.solutions.card2.bullet1",
+        "home.solutions.card2.bullet2",
+        "home.solutions.card2.bullet3",
+        "home.solutions.card2.cta_label",
+        "home.solutions.card2.icon",
+        "home.solutions.card2.title",
+        "home.solutions.card3.badge",
+        "home.solutions.card3.body",
+        "home.solutions.card3.bullet1",
+        "home.solutions.card3.bullet2",
+        "home.solutions.card3.bullet3",
+        "home.solutions.card3.cta_label",
+        "home.solutions.card3.icon",
+        "home.solutions.card3.title",
+        "home.solutions.card4.badge",
+        "home.solutions.card4.body",
+        "home.solutions.card4.cta_label",
+        "home.solutions.card4.cta_url",
+        "home.solutions.card4.title",
+        "home.solutions.card5.badge",
+        "home.solutions.card5.body",
+        "home.solutions.card5.cta_label",
+        "home.solutions.card5.cta_url",
+        "home.solutions.card5.title",
+        "home.solutions.card6.badge",
+        "home.solutions.card6.body",
+        "home.solutions.card6.cta_label",
+        "home.solutions.card6.cta_url",
+        "home.solutions.card6.title",
+        "home.solutions.card7.badge",
+        "home.solutions.card7.body",
+        "home.solutions.card7.cta_label",
+        "home.solutions.card7.cta_url",
+        "home.solutions.card7.title",
+        "home.solutions.card8.badge",
+        "home.solutions.card8.body",
+        "home.solutions.card8.cta_label",
+        "home.solutions.card8.cta_url",
+        "home.solutions.card8.title",
+        "home.solutions.card9.badge",
+        "home.solutions.card9.body",
+        "home.solutions.card9.cta_label",
+        "home.solutions.card9.cta_url",
+        "home.solutions.card9.title",
+        "home.solutions.subtitle",
+        "home.solutions.title",
+    }
+    icon_keys = {
+        "home.solutions.card1.icon",
+        "home.solutions.card2.icon",
+        "home.solutions.card3.icon",
+    }
+    url_keys = {key for key in allowed_keys if key.endswith(".url") or key.endswith("_url")}
+    icon_value_pattern = re.compile(r"^[a-z0-9_-]{0,40}$")
+    max_value_length = 2000
+
+    def _is_valid_url(value):
+        if not value:
+            return True
+        lowered = value.strip().lower()
+        if lowered.startswith("javascript:"):
+            return False
+        parsed = urlparse(value)
+        if parsed.scheme in {"http", "https"}:
+            return True
+        if parsed.scheme == "" and (
+            value.startswith("/")
+            or value.startswith("#")
+            or value.startswith("./")
+            or value.startswith("../")
+        ):
+            return True
+        return False
+    content_map = {}
+    if isinstance(payload, dict):
+        field_key = payload.get("field_key") or payload.get("fieldKey")
+        if field_key:
+            content_map = {field_key: payload.get("value", "")}
+        else:
+            content_map = payload
+    if not isinstance(content_map, dict):
+        return JsonResponse({"ok": False, "error": "Invalid payload"}, status=400)
+
+    lang = request.LANGUAGE_CODE or get_language()
+    updated = False
+    for key, value in content_map.items():
+        if key not in allowed_keys:
+            continue
+        clean_value = strip_tags(value or "").strip()
+        if len(clean_value) > max_value_length:
+            clean_value = clean_value[:max_value_length]
+        if key in icon_keys and not icon_value_pattern.match(clean_value):
+            return JsonResponse({"ok": False, "error": "Invalid icon key"}, status=400)
+        if key in url_keys and not _is_valid_url(clean_value):
+            return JsonResponse({"ok": False, "error": "Invalid URL"}, status=400)
+        MainSiteContent.objects.update_or_create(
+            key=key, language=lang, defaults={"value": clean_value}
+        )
+        updated = True
+
+    if not updated:
+        return JsonResponse({"ok": False, "error": "No valid fields"}, status=400)
+
+    return JsonResponse({"ok": True})
+
+
 @login_required
 def _render_page_edit(request, page, redirect_name):
     display_title = None
@@ -1932,7 +2743,8 @@ def _render_page_edit(request, page, redirect_name):
         section=hero_section,
         defaults={"config_json": default_hero},
     )
-    data = content.config_json if isinstance(content.config_json, dict) else {}
+    language_code = request.LANGUAGE_CODE or get_language()
+    data = _get_localized_section_data(content, language_code)
     if not data:
         data = dict(default_hero)
 
@@ -1948,7 +2760,8 @@ def _render_page_edit(request, page, redirect_name):
             updated = dict(data)
             updated.update(form.cleaned_data)
             content.config_json = updated
-            content.save(update_fields=["config_json"])
+            _set_localized_section_data(content, language_code, updated)
+            content.save(update_fields=["config_json", "config_json_i18n"])
             messages.success(request, _("Hero content saved."))
             return redirect(reverse(redirect_name, args=[page.id]))
     else:
@@ -2017,7 +2830,8 @@ def dashboard_edit_page_services(request, page_id):
         section=services_section,
         defaults={"config_json": default_services},
     )
-    data = content.config_json if isinstance(content.config_json, dict) else {}
+    language_code = request.LANGUAGE_CODE or get_language()
+    data = _get_localized_section_data(content, language_code)
     if not data:
         data = dict(default_services)
 
@@ -2043,12 +2857,14 @@ def dashboard_edit_page_services(request, page_id):
                 errors["heading"] = _("Heading is required.")
             cleaned_items = [item for item in items if item.get("title")]
             if not errors:
-                content.config_json = {
+                payload = {
                     "heading": heading,
                     "intro": intro,
                     "items": cleaned_items,
                 }
-                content.save(update_fields=["config_json"])
+                content.config_json = payload
+                _set_localized_section_data(content, language_code, payload)
+                content.save(update_fields=["config_json", "config_json_i18n"])
                 messages.success(request, _("Services content saved."))
                 return redirect(reverse("tenant_dashboard:page_edit_services", args=[page.id]))
         else:
@@ -2126,7 +2942,8 @@ def dashboard_edit_page_contact(request, page_id):
         section=contact_section,
         defaults={"config_json": default_contact},
     )
-    data = content.config_json if isinstance(content.config_json, dict) else {}
+    language_code = request.LANGUAGE_CODE or get_language()
+    data = _get_localized_section_data(content, language_code)
     if not data:
         data = dict(default_contact)
 
@@ -2149,7 +2966,7 @@ def dashboard_edit_page_contact(request, page_id):
             errors["heading"] = _("Heading is required.")
 
         if not errors:
-            content.config_json = {
+            payload = {
                 "heading": heading,
                 "intro": intro,
                 "phone": phone,
@@ -2163,7 +2980,9 @@ def dashboard_edit_page_contact(request, page_id):
                 "cta_text": cta_text,
                 "cta_url": cta_url,
             }
-            content.save(update_fields=["config_json"])
+            content.config_json = payload
+            _set_localized_section_data(content, language_code, payload)
+            content.save(update_fields=["config_json", "config_json_i18n"])
             messages.success(request, _("Contact content saved."))
             return redirect(reverse("tenant_dashboard:page_edit_contact", args=[page.id]))
     else:
@@ -2524,6 +3343,16 @@ def dashboard_widgets_demo(request):
 
 
 def robots_txt(request):
+    if getattr(settings, "SEO_NOINDEX", False):
+        content = "\n".join(
+            [
+                "User-agent: *",
+                "Disallow: /",
+                "",
+            ]
+        )
+        return HttpResponse(content, content_type="text/plain")
+
     sitemap_url = request.build_absolute_uri(reverse("sitemap_xml"))
     content = "\n".join(
         [
@@ -2539,6 +3368,16 @@ def robots_txt(request):
 def tenant_robots_txt(request):
     tenant = resolve_active_site(request)
     if not tenant:
+        content = "\n".join(
+            [
+                "User-agent: *",
+                "Disallow: /",
+                "",
+            ]
+        )
+        return HttpResponse(content, content_type="text/plain")
+
+    if getattr(settings, "SEO_NOINDEX", False):
         content = "\n".join(
             [
                 "User-agent: *",

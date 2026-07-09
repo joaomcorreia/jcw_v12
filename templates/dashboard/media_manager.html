@@ -1,0 +1,17 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% load i18n %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">{{ page_title }}</h1>
+  <p class="dashboard-muted">{{ page_intro }}</p>
+  <div class="dashboard-card dashboard-card--auto">
+    <div class="dashboard-card-header">
+      <h2 class="dashboard-card-title">{{ status_title }}</h2>
+    </div>
+    <p class="dashboard-muted">{{ status_body }}</p>
+  </div>
+</div>
+{% endblock %}

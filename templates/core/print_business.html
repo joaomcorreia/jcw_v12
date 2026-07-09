@@ -1,0 +1,116 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="jcw-page">
+  <section class="jcw-page-hero">
+    <div class="jcw-page-hero__container">
+      <div class="jcw-page-hero__content">
+        <div class="jcw-page-badge">
+          <span class="jcw-page-badge__dot"></span>
+          {% trans "Business Print" %}
+        </div>
+        <h1 class="jcw-page-title">
+          {% trans "Print materials for practical business use" %}
+        </h1>
+        <p class="jcw-page-intro">
+          {% blocktrans %}This page is for businesses that need printed materials such as business cards, flyers, brochures, and other day-to-day business print items.{% endblocktrans %}
+        </p>
+        <div class="jcw-button-row jcw-button-row--center">
+          <a class="jcw-button jcw-button--light" href="{% url 'core:contact' %}">
+            {% trans "Start your print request" %}
+          </a>
+          <a class="jcw-button jcw-button--ghost-light" href="{% url 'core:print_overview' %}">
+            {% trans "Back to print paths" %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="jcw-page-section">
+    <div class="jcw-page-section__container">
+      <div class="jcw-page-stack">
+        <section class="jcw-content-card">
+          <h2 class="jcw-section-title">{% trans "What fits here" %}</h2>
+          <div class="jcw-card-grid">
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Business cards" %}</h3>
+              <p class="jcw-card-text">{% trans "A practical starting point when people need a quick way to remember and contact your business." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Flyers and handouts" %}</h3>
+              <p class="jcw-card-text">{% trans "Useful when you need to explain an offer or promote a service locally." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Brochures and folded print" %}</h3>
+              <p class="jcw-card-text">{% trans "A better fit when you need more space to explain services, pricing, or information." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Other business materials" %}</h3>
+              <p class="jcw-card-text">{% trans "This route also fits similar printed items used to support day-to-day business communication." %}</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="jcw-content-card">
+          <h2 class="jcw-section-title">{% trans "How it works" %}</h2>
+          <div class="jcw-card-grid">
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Choose the main item" %}</h3>
+              <p class="jcw-card-text">{% trans "Start with the most important printed item you need first." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Share the details" %}</h3>
+              <p class="jcw-card-text">{% trans "Clarify what the print is for, what information it should include, and how it will be used." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Prepare the print direction" %}</h3>
+              <p class="jcw-card-text">{% trans "The print request becomes clearer once the format, quantity, and purpose are defined." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Move ahead" %}</h3>
+              <p class="jcw-card-text">{% trans "Once the direction is clear, your business print path is ready to move forward." %}</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="jcw-content-card">
+          <h2 class="jcw-section-title">{% trans "Who this is for" %}</h2>
+          <ul class="jcw-checklist">
+            <li>{% trans "Businesses that need practical printed materials first" %}</li>
+            <li>{% trans "Businesses that promote services locally or in person" %}</li>
+            <li>{% trans "Businesses that want print to support meetings, events, or handouts" %}</li>
+            <li>{% trans "Businesses that need clear printed communication rather than merch" %}</li>
+          </ul>
+        </section>
+
+        <section class="jcw-content-card jcw-content-card--center">
+          <h2 class="jcw-section-title">{% trans "Start with the material that people will actually use" %}</h2>
+          <p class="jcw-section-text">
+            {% blocktrans %}For many businesses, practical print comes before merch. If you need people to understand your business, your services, or your contact details quickly, this is usually the right path to start with.{% endblocktrans %}
+          </p>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="jcw-page-section">
+    <div class="jcw-page-section__container">
+      <div class="jcw-cta-card">
+        <h2 class="jcw-section-title">{% trans "Move forward with business print" %}</h2>
+        <p class="jcw-card-text">{% trans "Use this route when your next step is a practical printed item for your business." %}</p>
+        <div class="jcw-button-row">
+          <a class="jcw-button jcw-button--light" href="{% url 'core:contact' %}">
+            {% trans "Start your print request" %}
+          </a>
+          <a class="jcw-button jcw-button--ghost-light" href="{% url 'core:print_overview' %}">
+            {% trans "Compare print paths" %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% include "core/footer.html" %}
+{% endblock content %}

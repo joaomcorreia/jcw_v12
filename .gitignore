@@ -1,5 +1,6 @@
 .env
 .env.*
+*.env
 local_settings.py
 db.sqlite3
 *.sqlite3
@@ -8,5 +9,10 @@ staticfiles/
 __pycache__/
 *.pyc
 *.log
+venv/
+.venv/
+*.zip
+jcw_2703/
+DO NOT EDIT- BLOG POSTS.txt
 .vscode/
 node_modules/

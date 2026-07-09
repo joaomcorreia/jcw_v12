@@ -16,11 +16,11 @@
         <div
           class="relative h-full flex items-center justify-center px-4 sm:px-6 lg:px-8 jcw-hero-content">
           <div class="text-center max-w-4xl mx-auto">
-            {% trans "Everything you need to succeed online." as default_hero_title %}
-            {% trans "Launch a modern website, order your print materials, connect simple POS tools and let your AI assistant do the heavy lifting - all from one place." as default_hero_subtitle %}
-            {% trans "Start in 2 minutes" as default_hero_primary_label %}
-            {% url 'core:pos_systems' as default_hero_secondary_url %}
-            {% trans "Card Payments" as default_hero_secondary_label %}
+            {% trans "Launch and manage your business online from one place" as default_hero_title %}
+            {% trans "Just Code Works builds practical platforms for small businesses, from fast websites and local launch tools to AI assistants and future growth systems." as default_hero_subtitle %}
+            {% trans "Start with a website" as default_hero_primary_label %}
+            {% url 'core:websites' as default_hero_secondary_url %}
+            {% trans "Explore platforms" as default_hero_secondary_label %}
             {% site_field request.site "home" "home.hero" "heading" LANGUAGE_CODE default_hero_title as hero_title %}
             {% site_field request.site "home" "home.hero" "subheading" LANGUAGE_CODE default_hero_subtitle as hero_subtitle %}
             {% site_field request.site "home" "home.hero" "cta_primary_text" LANGUAGE_CODE default_hero_primary_label as hero_primary_label %}
@@ -49,8 +49,8 @@
               </a>
               <a
                 class="bg-transparent border-2 border-yellow-400 text-yellow-400 font-semibold px-8 py-4 rounded-lg text-lg transition-all duration-300 hover:bg-yellow-400 hover:text-gray-900"
-                href="{% url 'core:print_lab' %}">
-                {% trans "Printing" %}
+                href="#jcw-assistant">
+                {% trans "Ask JCW Assistant" %}
               </a>
             </div>
             <div
@@ -64,7 +64,6 @@
                 </h3>
                 <p class="text-sm jcw-inline-8eb7f71d57">
                   {% trans "Simple, focused site for a few services. Easy to launch and easy to update." %}
-                  {% trans "" %}
                 </p>
               </div>
               <div>
@@ -119,31 +118,31 @@
               {% trans "Choose what fits today" %}
             </h2>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="bg-white border border-gray-200 rounded-2xl p-6 text-center shadow-sm">
-              <h3 class="text-lg font-semibold mb-2">{% trans "One-page website" %}</h3>
-              <p class="text-sm text-gray-600">
-                {% trans "Perfect for home and local services. Simple, clear, ready fast." %}
-              </p>
-            </div>
-            <div class="bg-white border border-gray-200 rounded-2xl p-6 text-center shadow-sm">
-              <h3 class="text-lg font-semibold mb-2">{% trans "Multi-page website" %}</h3>
-              <p class="text-sm text-gray-600">
-                {% trans "Add pages for services, projects, team, and more - very easily." %}
-              </p>
-            </div>
-            <div class="bg-white border border-gray-200 rounded-2xl p-6 text-center shadow-sm">
-              <h3 class="text-lg font-semibold mb-2">{% trans "Visibility & SEO" %}</h3>
-              <p class="text-sm text-gray-600">
-                {% trans "Clear structure and guidance to help customers find you." %}
-              </p>
-            </div>
-            <div class="bg-white border border-gray-200 rounded-2xl p-6 text-center shadow-sm">
-              <h3 class="text-lg font-semibold mb-2">{% trans "eCommerce made easy" %}</h3>
-              <p class="text-sm text-gray-600">
-                {% trans "Sell products or services, add a store to your website or upgrade to a full ecommerce site." %}
-              </p>
-            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div class="bg-white border border-gray-200 rounded-2xl p-6 text-center shadow-sm">
+                <h3 class="text-lg font-semibold mb-2">{% trans "Business website" %}</h3>
+                <p class="text-sm text-gray-600">
+                  {% trans "For businesses that need a professional website online quickly." %}
+                </p>
+              </div>
+              <div class="bg-white border border-gray-200 rounded-2xl p-6 text-center shadow-sm">
+                <h3 class="text-lg font-semibold mb-2">{% trans "AI Website Assistant" %}</h3>
+                <p class="text-sm text-gray-600">
+                  {% trans "Add a smart assistant that answers visitor questions and helps turn traffic into enquiries." %}
+                </p>
+              </div>
+              <div class="bg-white border border-gray-200 rounded-2xl p-6 text-center shadow-sm">
+                <h3 class="text-lg font-semibold mb-2">{% trans "Partner / referral tools" %}</h3>
+                <p class="text-sm text-gray-600">
+                  {% trans "Simple tools for partners and referrers who bring new businesses online." %}
+                </p>
+              </div>
+              <div class="bg-white border border-gray-200 rounded-2xl p-6 text-center shadow-sm">
+                <h3 class="text-lg font-semibold mb-2">{% trans "Future platforms" %}</h3>
+                <p class="text-sm text-gray-600">
+                  {% trans "New JCW platforms for listings, travel, content, and business growth." %}
+                </p>
+              </div>
           </div>
         </div>
       </section>
@@ -152,10 +151,10 @@
           <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
               <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                {% trans "Choose Your Perfect Solution" %}
+                {% trans "Platforms built by Just Code Works" %}
               </h2>
               <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-                {% trans "Start with one page, grow to multi-page, or add a store when you're ready." %}
+                {% trans "Just Code Works is the central company behind practical online platforms for small businesses, active projects, and future launches." %}
               </p>
             </div>
             <div
@@ -175,38 +174,38 @@
                   <div class="mb-4">
                     <span
                       class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full mb-2">
-                      {% trans "POPULAR" %}
+                      {% trans "Website platform" %}
                     </span>
                     <h3 class="text-xl font-bold mb-3">
-                      {% trans "One-page websites" %}
+                      {% trans "Get Online Fast" %}
                     </h3>
                   </div>
                   <p class="text-gray-600 mb-6 line-height-relaxed">
-                    {% trans "Simple, focused site for a few services. Easy to launch and easy to update." %}
+                    {% trans "Fast professional websites for small businesses in Europe." %}
                   </p>
                   <ul class="space-y-2 mb-6 text-sm text-gray-600">
                     <li class="flex items-center">
                       <span class="text-green-500 mr-2">
                         ✓
                       </span>
-                      {% trans "Fast setup" %}
+                      {% trans "Fast website launch" %}
                     </li>
                     <li class="flex items-center">
                       <span class="text-green-500 mr-2">
                         ✓
                       </span>
-                      {% trans "Mobile optimized" %}
+                      {% trans "Built for small businesses" %}
                     </li>
                     <li class="flex items-center">
                       <span class="text-green-500 mr-2">
                         ✓
                       </span>
-                      {% trans "SEO ready" %}
+                      {% trans "Europe-focused" %}
                     </li>
                   </ul>
                   <button
                     class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-md hover:shadow-lg">
-                    {% trans "View example" %}
+                    {% trans "Active platform" %}
                   </button>
                 </div>
               </div>
@@ -225,10 +224,10 @@
                   <div class="mb-4">
                     <span
                       class="inline-block px-3 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full mb-2">
-                      {% trans "PROFESSIONAL" %}
+                      {% trans "Portuguese market" %}
                     </span>
                     <h3 class="text-xl font-bold mb-3">
-                      {% trans "Multi-page websites" %}
+                      {% trans "SiteExpress" %}
                     </h3>
                   </div>
                   <p class="text-gray-600 mb-6 line-height-relaxed">
@@ -239,24 +238,24 @@
                       <span class="text-green-500 mr-2">
                         ✓
                       </span>
-                      {% trans "Multiple pages" %}
+                      {% trans "Portugal-focused" %}
                     </li>
                     <li class="flex items-center">
                       <span class="text-green-500 mr-2">
                         ✓
                       </span>
-                      {% trans "Advanced features" %}
+                      {% trans "Simple setup" %}
                     </li>
                     <li class="flex items-center">
                       <span class="text-green-500 mr-2">
                         ✓
                       </span>
-                      {% trans "Custom design" %}
+                      {% trans "Affordable launch path" %}
                     </li>
                   </ul>
                   <button
                     class="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-md hover:shadow-lg">
-                    {% trans "View example" %}
+                    {% trans "In development" %}
                   </button>
                 </div>
               </div>
@@ -275,38 +274,38 @@
                   <div class="mb-4">
                     <span
                       class="inline-block px-3 py-1 bg-purple-100 text-purple-800 text-xs font-semibold rounded-full mb-2">
-                      {% trans "E-COMMERCE" %}
+                      {% trans "Add-on / coming soon" %}
                     </span>
                     <h3 class="text-xl font-bold mb-3">
-                      {% trans "Online stores" %}
+                      {% trans "AI Website Assistant" %}
                     </h3>
                   </div>
                   <p class="text-gray-600 mb-6 line-height-relaxed">
-                    {% trans "Sell products or bookings with a simple store, and upgrade as your catalog grows." %}
+                    {% trans "A website assistant that can answer questions, explain services, collect leads, and guide visitors to contact the business." %}
                   </p>
                   <ul class="space-y-2 mb-6 text-sm text-gray-600">
                     <li class="flex items-center">
                       <span class="text-green-500 mr-2">
                         ✓
                       </span>
-                      {% trans "Product catalog" %}
+                      {% trans "Answers visitor questions" %}
                     </li>
                     <li class="flex items-center">
                       <span class="text-green-500 mr-2">
                         ✓
                       </span>
-                      {% trans "Payment processing" %}
+                      {% trans "Helps collect leads" %}
                     </li>
                     <li class="flex items-center">
                       <span class="text-green-500 mr-2">
                         ✓
                       </span>
-                      {% trans "Order management" %}
+                      {% trans "Supports website enquiries" %}
                     </li>
                   </ul>
                   <button
                     class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-md hover:shadow-lg">
-                    {% trans "View example" %}
+                    {% trans "Coming soon" %}
                   </button>
                 </div>
               </div>
@@ -325,19 +324,19 @@
                   <div class="mb-4">
                     <span
                       class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full mb-2">
-                      {% trans "SEO" %}
+                      {% trans "Future platform" %}
                     </span>
                     <h3 class="text-xl font-bold mb-3">
-                      {% trans "Multi Page SEO" %}
+                      {% trans "ListaAcross" %}
                     </h3>
                   </div>
                   <p class="text-gray-600 mb-6 line-height-relaxed">
-                    {% trans "Multi-page site + SEO foundations" %}
+                    {% trans "A planned listing and discovery platform for businesses, places, and services." %}
                   </p>
                   <a
                     class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 transition-all duration-300 shadow-md hover:shadow-lg inline-flex items-center justify-center"
-                    href="{% url 'core:websites_multi_page_seo' %}">
-                    {% trans "View option" %}
+                    href="#">
+                    {% trans "Planned project" %}
                   </a>
                 </div>
               </div>
@@ -356,19 +355,19 @@
                   <div class="mb-4">
                     <span
                       class="inline-block px-3 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full mb-2">
-                      {% trans "Catalog" %}
+                      {% trans "Future platform" %}
                     </span>
                     <h3 class="text-xl font-bold mb-3">
-                      {% trans "Catalog Websites" %}
+                      {% trans "TravelAcross" %}
                     </h3>
                   </div>
                   <p class="text-gray-600 mb-6 line-height-relaxed">
-                    {% trans "Showcase products, optional prices, no checkout" %}
+                    {% trans "A planned travel/content platform with room for guides, affiliate offers, and local discovery." %}
                   </p>
                   <a
                     class="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-green-700 hover:to-emerald-700 transition-all duration-300 shadow-md hover:shadow-lg inline-flex items-center justify-center"
-                    href="{% url 'core:websites_catalog_site' %}">
-                    {% trans "View option" %}
+                    href="#">
+                    {% trans "Planned project" %}
                   </a>
                 </div>
               </div>
@@ -387,24 +386,24 @@
                   <div class="mb-4">
                     <span
                       class="inline-block px-3 py-1 bg-purple-100 text-purple-800 text-xs font-semibold rounded-full mb-2">
-                      {% trans "Custom" %}
+                      {% trans "Private / in progress" %}
                     </span>
                     <h3 class="text-xl font-bold mb-3">
-                      {% trans "Custom Websites" %}
+                      {% trans "Partner Tools" %}
                     </h3>
                   </div>
                   <p class="text-gray-600 mb-6 line-height-relaxed">
-                    {% trans "Built to your requirements" %}
+                    {% trans "Simple tools for referral partners who help customers start a website through Just Code Works platforms." %}
                   </p>
                   <a
                     class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-md hover:shadow-lg inline-flex items-center justify-center"
-                    href="{% url 'core:websites_custom' %}">
-                    {% trans "View option" %}
+                    href="#">
+                    {% trans "Private rollout" %}
                   </a>
                 </div>
               </div>
               <div
-                class="group relative bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+                class="hidden group relative bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
                 <div
                   class="absolute inset-0 bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 </div>
@@ -435,7 +434,7 @@
                 </div>
               </div>
               <div
-                class="group relative bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+                class="hidden group relative bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
                 <div
                   class="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 </div>
@@ -466,7 +465,7 @@
                 </div>
               </div>
               <div
-                class="group relative bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+                class="hidden group relative bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
                 <div
                   class="absolute inset-0 bg-gradient-to-br from-slate-50 to-blue-50 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 </div>
@@ -743,7 +742,7 @@
             </div>
           </div>
         </section>
-        <section class="pt-16 pb-6 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden">
+        <section class="hidden pt-16 pb-6 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden">
           <div
             class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%20xmlns%3D%22http://www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22%23e5e7eb%22%20fill-opacity%3D%220.35%22%3E%3Cpath%20d%3D%22M20%200v20L0%200z%22/%3E%3C/g%3E%3C/svg%3E')] opacity-20">
           </div>
@@ -799,7 +798,7 @@
         </style>
         <section
           id="printlab-cards"
-          class="py-16 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden printlab-section">
+          class="hidden py-16 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden printlab-section">
           <div
             class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%20xmlns%3D%22http://www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22%23e5e7eb%22%20fill-opacity%3D%220.4%22%3E%3Cpath%20d%3D%22M20%200v20L0%200z%22/%3E%3C/g%3E%3C/svg%3E')] opacity-30">
           </div>
@@ -809,7 +808,7 @@
         </section>
         <section
           id="printlab-clothing"
-          class="py-16 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden printlab-section">
+          class="hidden py-16 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden printlab-section">
           <div
             class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%20xmlns%3D%22http://www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22%23e5e7eb%22%20fill-opacity%3D%220.4%22%3E%3Cpath%20d%3D%22M20%200v20L0%200z%22/%3E%3C/g%3E%3C/svg%3E')] opacity-30">
           </div>
@@ -974,7 +973,7 @@
         </section>
         <section
           id="printlab-merch"
-          class="py-16 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden printlab-section">
+          class="hidden py-16 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden printlab-section">
           <div
             class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%20xmlns%3D%22http://www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22%23e5e7eb%22%20fill-opacity%3D%220.4%22%3E%3Cpath%20d%3D%22M20%200v20L0%200z%22/%3E%3C/g%3E%3C/svg%3E')] opacity-30">
           </div>
@@ -1139,7 +1138,7 @@
         </section>
         <section
           id="printlab-home"
-          class="py-16 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden printlab-section">
+          class="hidden py-16 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden printlab-section">
           <div
             class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%20xmlns%3D%22http://www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22%23e5e7eb%22%20fill-opacity%3D%220.4%22%3E%3Cpath%20d%3D%22M20%200v20L0%200z%22/%3E%3C/g%3E%3C/svg%3E')] opacity-30">
           </div>
@@ -1302,7 +1301,7 @@
             </div>
           </div>
         </section>
-        <section class="py-20 bg-white">
+        <section class="hidden py-20 bg-white">
           <div class="max-w-7xl mx-auto px-4">
             <!-- TODO: Move POS homepage content into DB-managed sections. -->
             <div class="text-center mb-12">
@@ -1461,21 +1460,25 @@
                 <span class="mr-2">
                   🚀
                 </span>
-                {% trans "Your all-in-one assistant" %}
+                {% trans "Website AI add-on" %}
               </div>
               <h2 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-                {% trans "Clippy 2.0 is ready" %}
+                {% trans "AI assistants for modern business websites" %}
               </h2>
-              <p class="text-xl mb-12 opacity-90 max-w-3xl mx-auto">
+              <p class="text-xl mb-4 opacity-90 max-w-3xl mx-auto">
+                {% trans "Add a smart assistant to your website that answers visitor questions, explains your services, and helps customers contact you faster." %}
+              </p>
+              <p class="hidden text-xl mb-12 opacity-90 max-w-3xl mx-auto">
                 {% trans "Build your website, prepare print materials, and connect payments — with clear guidance whenever you need it." %}
               </p>
             </div>
             <div
               class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <button
+              <a
+                href="#jcw-assistant"
                 class="group bg-gradient-to-r from-orange-500 to-orange-600 text-white px-10 py-4 rounded-2xl font-bold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-2xl hover:shadow-orange-500/25 transform hover:-translate-y-1">
                 <span class="flex items-center">
-                  {% trans "Start at your own pace" %}
+                  {% trans "Ask about AI Assistant" %}
                   <svg
                     class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300"
                     fill="none"
@@ -1489,20 +1492,21 @@
                     </path>
                   </svg>
                 </span>
-              </button>
-              <button
+              </a>
+              <a
+                href="{% url 'core:websites' %}"
                 class="group border-2 border-white/50 text-white px-10 py-4 rounded-2xl font-bold hover:bg-white hover:text-purple-600 transition-all duration-300 backdrop-blur-sm">
-                {% trans "See how guidance works" %}
-              </button>
+                {% trans "Start with a website" %}
+              </a>
             </div>
             <div
               class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
               <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
                 <div class="text-3xl font-bold mb-2">
-                  {% trans "50K+" %}
+                  {% trans "24/7" %}
                 </div>
                 <div class="text-white/80">
-                  {% trans "Projects launched" %}
+                  {% trans "Visitor answers" %}
                 </div>
               </div>
               <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
@@ -1510,15 +1514,15 @@
                   4.9★
                 </div>
                 <div class="text-white/80">
-                  {% trans "User satisfaction" %}
+                  {% trans "Service guidance" %}
                 </div>
               </div>
               <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
                 <div class="text-3xl font-bold mb-2">
-                  24/7
+                  {% trans "Lead-ready" %}
                 </div>
                 <div class="text-white/80">
-                  {% trans "Guided support" %}
+                  {% trans "Contact handoff" %}
                 </div>
               </div>
             </div>
@@ -1541,7 +1545,7 @@
                 </span>
               </h2>
               <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-                {% trans "Simple examples of how different businesses use websites, print, and payments together." %}
+                {% trans "Simple examples of how different businesses use websites, AI assistants, and launch platforms together." %}
               </p>
             </div>
             <div class="max-w-4xl mx-auto">
@@ -1557,31 +1561,31 @@
                         {% trans "Local handyman" %}
                       </div>
                       <p class="text-sm text-gray-600">
-                        {% trans "A one-page website to show services, local visibility, and printed business cards for nearby customers." %}
+                        {% trans "A fast business website that shows services clearly and helps local customers get in touch quickly." %}
                       </p>
                     </div>
                     <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-white/50 text-left">
                       <div class="text-sm font-semibold text-gray-900 mb-2">
-                        {% trans "Home-based beautician" %}
+                        {% trans "Small service business" %}
                       </div>
                       <p class="text-sm text-gray-600">
-                        {% trans "A simple website with services, booking details, and branded flyers shared with regular clients." %}
+                        {% trans "A simple website with service pages, enquiry forms, and an AI assistant that answers common visitor questions." %}
                       </p>
                     </div>
                     <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-white/50 text-left">
                       <div class="text-sm font-semibold text-gray-900 mb-2">
-                        {% trans "Small caf?" %}
+                        {% trans "Platform partner" %}
                       </div>
                       <p class="text-sm text-gray-600">
-                        {% trans "A website for menus and opening hours, printed materials for the counter, and a POS for daily payments." %}
+                        {% trans "Partner tools help a referrer bring new businesses online through the right JCW platform and launch path." %}
                       </p>
                     </div>
                     <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-white/50 text-left">
                       <div class="text-sm font-semibold text-gray-900 mb-2">
-                        {% trans "Online creator" %}
+                        {% trans "Future growth project" %}
                       </div>
                       <p class="text-sm text-gray-600">
-                        {% trans "A multi-page site with galleries, multilingual content, and printed merchandise prepared for future sales." %}
+                        {% trans "Future platforms like ListaAcross and TravelAcross expand the JCW ecosystem beyond websites over time." %}
                       </p>
                     </div>
                   </div>
@@ -1600,23 +1604,31 @@
             <div class="space-y-6">
               <div class="bg-white rounded-lg p-6 border border-gray-200">
                 <h3 class="font-semibold mb-2">
-                  {% trans "How do people use Just Code Works?" %}
+                  {% trans "What is Just Code Works?" %}
                 </h3>
                 <p class="text-gray-600">
-                  {% trans "People use it to create a website, prepare print materials, and connect payments in one place. Each step is guided, with clear explanations and optional help when needed." %}
+                  {% trans "Just Code Works is the main company behind a growing set of practical digital platforms for small businesses, including website launches, AI website assistants, partner tools, and future discovery projects." %}
                 </p>
               </div>
               <div class="bg-white rounded-lg p-6 border border-gray-200">
                 <h3 class="font-semibold mb-2">
-                  {% trans "Do I need technical skills to get started?" %}
+                  {% trans "What is Get Online Fast?" %}
                 </h3>
                 <p class="text-gray-600">
-                  {% trans "No. Everything is designed to be simple and guided. You answer a few questions, and the system helps you move forward step by step." %}
+                  {% trans "Get Online Fast is the active website platform focused on helping small businesses launch a fast, professional online presence with less friction." %}
                 </p>
               </div>
               <div class="bg-white rounded-lg p-6 border border-gray-200">
                 <h3 class="font-semibold mb-2">
-                  {% trans "Can I start small and expand later?" %}
+                  {% trans "Can I add an AI assistant to my website?" %}
+                </h3>
+                <p class="text-gray-600">
+                  {% trans "Yes. The AI Website Assistant is being positioned as an add-on for business websites so it can answer questions, explain services, and help turn visitors into enquiries." %}
+                </p>
+              </div>
+              <div class="bg-white rounded-lg p-6 border border-gray-200">
+                <h3 class="font-semibold mb-2">
+                  {% trans "What is SiteExpress?" %}
                 </h3>
                 <p class="text-gray-600">
                   {% trans "Yes. You can begin with a simple website and add pages, visibility features, print materials, or payments whenever you’re ready." %}
@@ -1627,20 +1639,20 @@
                   {% trans "What if I don’t know what I need yet?" %}
                 </h3>
                 <p class="text-gray-600">
-                  {% trans "That’s common. You’ll find explanations throughout the site, and Clippy 2.0 can help you understand options and suggest next steps." %}
+                  {% trans "That’s common. You’ll find explanations throughout the site, and JCW Assistant can help you understand options and suggest next steps." %}
                 </p>
               </div>
               <div class="bg-white rounded-lg p-6 border border-gray-200">
                 <h3 class="font-semibold mb-2">
-                  {% trans "Is everything managed in one place?" %}
+                  {% trans "Are all platforms available now?" %}
                 </h3>
                 <p class="text-gray-600">
-                  {% trans "Yes. Your website content, print designs, and payment tools are all organized in one dashboard so nothing feels scattered." %}
+                  {% trans "No. Some parts are active, some are in progress, and some are future projects. We only describe future platforms as planned so the current offering stays clear and honest." %}
                 </p>
               </div>
               <div class="bg-white rounded-lg p-6 border border-gray-200">
                 <h3 class="font-semibold mb-2">
-                  {% trans "Can I make changes later?" %}
+                  {% trans "Do you still offer custom website work?" %}
                 </h3>
                 <p class="text-gray-600">
                   {% trans "Yes. Content can be updated, regenerated, or expanded over time. You’re not locked into a fixed setup." %}
@@ -1663,18 +1675,17 @@
                 </div>
                 <div class="p-6">
                   <div class="text-sm text-blue-600 mb-2">
-                    {% trans "Website Builder" %}
+                    {% trans "Platform update" %}
                   </div>
                   <h3 class="font-semibold mb-2">
-                    {% trans "Sell your products with a simple store" %}
+                    {% trans "Get Online Fast remains the core website launch platform" %}
                   </h3>
                   <p class="text-gray-600 text-sm mb-4">
-                    {% trans "For businesses ready to take online payments and manage" %}
-                    {% trans "orders " %}
+                    {% trans "JCW continues to focus the main live offer on fast professional websites for small businesses." %}
                   </p>
                   <button
                     class="text-blue-600 text-sm font-medium hover:underline">
-                    {% trans "View example" %}
+                    {% trans "Read update" %}
                   </button>
                 </div>
               </article>
@@ -1684,18 +1695,17 @@
                 </div>
                 <div class="p-6">
                   <div class="text-sm text-green-600 mb-2">
-                    {% trans "Website Design" %}
+                    {% trans "In progress" %}
                   </div>
                   <h3 class="font-semibold mb-2">
-                    {% trans "Grow with dedicated pages for each service" %}
+                    {% trans "SiteExpress is being shaped for the Portuguese market" %}
                   </h3>
                   <p class="text-gray-600 text-sm mb-4">
-                    {% trans "Add pages for services, projects, team, and FAQs without rebuilding your site." %}
-                    {% trans "" %}
+                    {% trans "A Portuguese-focused website platform for small businesses that need a simple, affordable online presence." %}
                   </p>
                   <button
                     class="text-blue-600 text-sm font-medium hover:underline">
-                    {% trans "View example" %}
+                    {% trans "Read update" %}
                   </button>
                 </div>
               </article>
@@ -1705,18 +1715,17 @@
                 </div>
                 <div class="p-6">
                   <div class="text-sm text-purple-600 mb-2">
-                    {% trans "MagicAI Tools" %}
+                    {% trans "Coming soon" %}
                   </div>
                   <h3 class="font-semibold mb-2">
-                    {% trans "Texts for your pages in your tone" %}
+                    {% trans "AI Website Assistant is being prepared as a website add-on" %}
                   </h3>
                   <p class="text-gray-600 text-sm mb-4">
-                    {% trans "Generate headlines, service descriptions and about pages" %}
-                    {% trans "using your business details and preferred style." %}
+                    {% trans "The assistant direction focuses on answering service questions, guiding visitors, and helping businesses capture leads faster." %}
                   </p>
                   <button
                     class="text-blue-600 text-sm font-medium hover:underline">
-                    {% trans "Based on your answers" %}
+                    {% trans "Read update" %}
                   </button>
                 </div>
               </article>
@@ -1797,7 +1806,7 @@
     <script>
           self.__next_f.push([
             1,
-            '14:I["(app-pages-browser)/./src/components/HeroNavigation.tsx",["app/[locale]/page","static/chunks/app/%5Blocale%5D/page.js"],"default"]\n15:I["(app-pages-browser)/./src/components/HeroSection.tsx",["app/[locale]/page","static/chunks/app/%5Blocale%5D/page.js"],"default"]\n16:I["(app-pages-browser)/./src/components/HomePageClient.tsx",["app/[locale]/page","static/chunks/app/%5Blocale%5D/page.js"],"default"]\n18:{"badge":"Everything connected: website, printing \u0026 AI.","title":"Everything you need to get your business online.","subtitle":"Launch a modern website, order your print materials, connect simple POS tools and let your AI assistant do the heavy lifting – all from one place.","ctaPrimary":"Start in 2 minutes","ctaSecondary":"View demo website","note":"No tech skills needed. Perfect for small businesses, freelancers and local shops.","previewDomain":"grandmas-cookies.justcodeworks.eu","previewTitle":"Grandma\'s Cookie Shop","previewText":"Fresh cookies baked daily. Order online or visit our cozy shop.","previewWebsiteLabel":"Website","previewWebsiteText":"Online in 1–2 days","previewPrintLabel":"Printing","previewPrintText":"Cards \u0026 flyers","previewAiLabel":"MagicAI","previewAiText":"Texts \u0026 images","assistantTitle":"Clippy 2.0 is ready","assistantText":"\\"Answer a few questions and I\'ll build everything for you.\\"","assistantCta":"Start wizard"}\n19:{"home":"Home","websites":"Websites","printing":"Printing","pos":"Card Payments","services":"Services","helpCenter":"Help Center","aiTools":"MagicAI Tools","pricing":"Pricing","login":"Login","start":"Start building","templates":"Templates"}\n1c:["Up to 6 services on one page","Contact / WhatsApp / call buttons","Optimised for mobile visitors"]\n1b:{"badge":"One-page websites","title":"Perfect for simple local businesses","desc":"Simple, focused site for a few services. Easy to launch and easy to update. ","bullets":"$1c","priceLabel":"From €X / month","link":"View example"}\n1e:["Service pages that can rank on Google","Blog / news sections for updates","Struc',
+            '14:I["(app-pages-browser)/./src/components/HeroNavigation.tsx",["app/[locale]/page","static/chunks/app/%5Blocale%5D/page.js"],"default"]\n15:I["(app-pages-browser)/./src/components/HeroSection.tsx",["app/[locale]/page","static/chunks/app/%5Blocale%5D/page.js"],"default"]\n16:I["(app-pages-browser)/./src/components/HomePageClient.tsx",["app/[locale]/page","static/chunks/app/%5Blocale%5D/page.js"],"default"]\n18:{"badge":"Everything connected: website, printing \u0026 AI.","title":"Everything you need to get your business online.","subtitle":"Launch a modern website, order your print materials, connect simple POS tools and let your AI assistant do the heavy lifting – all from one place.","ctaPrimary":"Start in 2 minutes","ctaSecondary":"View demo website","note":"No tech skills needed. Perfect for small businesses, freelancers and local shops.","previewDomain":"grandmas-cookies.justcodeworks.eu","previewTitle":"Grandma\'s Cookie Shop","previewText":"Fresh cookies baked daily. Order online or visit our cozy shop.","previewWebsiteLabel":"Website","previewWebsiteText":"Online in 1–2 days","previewPrintLabel":"Printing","previewPrintText":"Cards \u0026 flyers","previewAiLabel":"MagicAI","previewAiText":"Texts \u0026 images","assistantTitle":"JCW Assistant is here to help","assistantText":"\\"Answer a few questions and I\'ll build everything for you.\\"","assistantCta":"Start wizard"}\n19:{"home":"Home","websites":"Websites","printing":"Printing","pos":"Card Payments","services":"Services","helpCenter":"Help Center","aiTools":"MagicAI Tools","pricing":"Pricing","login":"Login","start":"Start building","templates":"Templates"}\n1c:["Up to 6 services on one page","Contact / WhatsApp / call buttons","Optimised for mobile visitors"]\n1b:{"badge":"One-page websites","title":"Perfect for simple local businesses","desc":"Simple, focused site for a few services. Easy to launch and easy to update. ","bullets":"$1c","priceLabel":"From €X / month","link":"View example"}\n1e:["Service pages that can rank on Google","Blog / news sections for updates","Struc',
           ]);
         </script>
     <script>
@@ -1857,7 +1866,6 @@
     <script>
           self.__next_f.push([
             1,
-            '4:[["$","$L14",null,{"locale":"en"}],["$","$L15",null,{"locale":"en","dict":{"hero":{"badge":"Everything connected: website, printing \u0026 AI.","title":"Everything you need to get your business online.","subtitle":"Launch a modern website, order your print materials, connect simple POS tools and let your AI assistant do the heavy lifting – all from one place.","ctaPrimary":"Start in 2 minutes","ctaSecondary":"View demo website","note":"No tech skills needed. Perfect for small businesses, freelancers and local shops.","previewDomain":"grandmas-cookies.justcodeworks.eu","previewTitle":"Grandma\'s Cookie Shop","previewText":"Fresh cookies baked daily. Order online or visit our cozy shop.","previewWebsiteLabel":"Website","previewWebsiteText":"Online in 1–2 days","previewPrintLabel":"Printing","previewPrintText":"Cards \u0026 flyers","previewAiLabel":"MagicAI","previewAiText":"Texts \u0026 images","assistantTitle":"Clippy 2.0 is ready","assistantText":"\\"Answer a few questions and I\'ll build everything for you.\\"","assistantCta":"Start wizard"},"nav":{"home":"Home","websites":"Websites","printing":"Printing","pos":"Card Payments","services":"Services","helpCenter":"Help Center","aiTools":"MagicAI Tools","pricing":"Pricing","login":"Login","start":"Start building","templates":"Templates"},"websites":{"title":"Websites that work as hard as you do","subtitle":"Choose the type of website that fits your business today – and upgrade later as you grow.","badge":"Website Builder","onePage":{"badge":"One-page websites","title":"Perfect for simple local businesses","desc":"Simple, focused site for a few services. Easy to launch and easy to update. ","bullets":["Up to 6 services on one page","Contact / WhatsApp / call buttons","Optimised for mobile visitors"],"priceLabel":"From €X / month","link":"View example"},"multiPage":{"badge":"Multi-page websites","title":"Grow with dedicated pages for each service","desc":"Add pages for services, projects, team, and FAQs without rebuilding your site. ","bullets":["Service pages that can rank on Google","Blog / news sections for updates","Structured contact \u0026 quote forms"],"priceLabel":"From €Y / month","link":"View example"},"ecommerce":{"badge":"Online stores","title":"Sell your products with a simple store","desc":"Sell products or bookings with a simple store, and upgrade as your catalog grows. ","bullets":["Product catalogue and categories","Simple checkout and payment options","Order notifications and basic reports"],"priceLabel":"From €Z / month","link":"View example"}},"sections":{"solutionsTitle":"Choose Your Perfect Solution","printingTitle":"Your brand, beautifully printed.","printingText":"Placeholder section – we\'ll later add the full printing layout from your old homepage.","posTitle":"Modern POS systems that grow with you.","posText":"Placeholder for POS systems content.","aiTitle":"MagicAI tools.","aiText":"Placeholder for AI tool cards: content writer, blog generator, screenshot-to-site, etc.","pricingTitle":"Pricing overview.","pricingText":"Placeholder – later we match your real pricing tables.","printingCards":[{"label":"Business cards","title":"Make a strong first impression","description":"Classic or modern designs with your logo, colours and contact details, ready to hand out to new customers.","highlight":"Most popular starter item"},{"label":"Flyers \u0026 brochures","title":"Promote your services locally","description":"Perfect for door-to-door drops, local shops and events. Great for construction, beauty, coaching and more.","highlight":"Ideal for local marketing"},{"label":"Stickers, labels \u0026 merch","title":"Put your brand everywhere","description":"Brand your packaging, gifts and products with stickers, labels and simple merch items.","highlight":"Add-on for growing brands"}],"posCards":[{"label":"Simple card terminals","title":"Take payments without headaches","description":"Connect a simple terminal that just works: tap, pin, receipt. No complex systems needed.","highlight":"Great for small shops"},{"label":"Tablet \u0026 phone POS","title":"Use the devices you already own","description":"Turn a tablet or phone into a small POS for services, salons, cafés and pop-up businesses.","highlight":"Flexible for mobile work"},{"label":"Basic reports","title":"See what is selling","description":"Get simple overviews of turnover, payment methods and busy days without a full accounting system.","highlight":"Clear and easy to read"}],"aiCards":[{"label":"Website copy assistant","title":"Texts for your pages in your tone","description":"Generate headlines, service descriptions and about pages using your business details and preferred style.","highlight":"Based on your answers"},{"label":"Blog \u0026 update generator","title":"Keep your site active","description":"Create posts with ideas, structure and draft texts you can quickly review and publish.","highlight":"Good for Google \u0026 clients"},{"label":"Screenshot-to-layout helper","title":"Turn ideas into layouts","description":"Use example screenshots as inspiration and turn them into layouts that fit your own brand.","highlight":"Saves design time"}]},"footer":{"tagline":"Websites • Printing • POS • Tools","description":"We help small EU businesses get online with modern websites, matching print materials, and simple tools – all connected in one system.","services":{"title":"Services","websites":"Website Design","pos":"Card Payments","printing":"Print Design","consulting":"Business Consulting","maintenance":"Website Maintenance","hosting":"Web Hosting"},"company":{"title":"Company","about":"About Us","team":"Our Team","careers":"Careers","news":"News \u0026 Updates","partners":"Partners","testimonials":"Testimonials"},"tools":{"title":"Tools","jsonReader":"JSON Reader","qrGenerator":"QR Generator","passwordChecker":"Password Checker","passwordGenerator":"Password Generator","imageResizer":"Image Resizer","imageCropper":"Image Cropper"},"support":{"title":"Support","help":"Help Center","contact":"Contact Us","faq":"FAQ","documentation":"Documentation","tutorials":"Video Tutorials","community":"Community Forum"},"legal":{"privacy":"Privacy Policy","terms":"Terms of Service","cookies":"Cookie Policy","gdpr":"GDPR Compliance"},"newsletter":{"title":"Subscribe to our newsletter","placeholder":"Enter your email","subscribe":"Subscribe"},"copyright":{"rights":"All rights reserved.","made":"Made with","location":"in Portugal","powered":"Powered by"}},"builder":{"title":"Website builder","subtitle":"Answer a few simple questions and we\'ll prepare your website, printing and basic POS setup for you.","introBadge":"Step 1 of 4","introTitle":"Let\'s start with the basics.","introText":"We\'ll ask about your business, services and preferred colours. You can always change everything later.","startButton":"Start the wizard","backHome":"Back to homepage","steps":{"step1Label":"Business details","step2Label":"Services \u0026 website type","step3Label":"Colours \u0026 style","step4Label":"Review","next":"Next","previous":"Back","finish":"Finish and review"},"fields":{"businessName":"Business name","country":"Country","city":"City","contactEmail":"Contact email","contactPhone":"Phone / WhatsApp","websiteType":"Type of website","onePage":"One-page website","multiPage":"Multi-page website","store":"Online store","servicesLabel":"Main services","servicesHint":"List a few services, separated by commas.","colorsLabel":"Preferred colours","colorsHint":"For example: blue and white, or your existing brand colours.","styleLabel":"Style","styleHint":"Example: modern and clean, warm and friendly, luxury, etc."},"review":{"title":"Review your setup","description":"Check if these details look correct. In the next step we\'ll generate your website draft based on this information.","businessSection":"Business details","servicesSection":"Services \u0026 website type","styleSection":"Colours \u0026 style","changeNote":"You can still change all of this later in your dashboard before publishing."}},"pricing":{"title":"Simple pricing that grows with you.","subtitle":"Start small and upgrade later. All plans include hosting, security updates and basic support.","note":"Real prices will be confirmed later – these are placeholders.","plans":[{"id":"one-page","name":"One-page website","short":"For simple local businesses","price":"From €X / month","bestFor":"Ideal if you have a few services and just need a ","features":["Up to 6 services on a single page","Contact / WhatsApp / call buttons","Mobile-optimised design","Basic SEO structure for Google"],"highlight":"Great starter option"},{"id":"multi-page","name":"Multi-page website","short":"For growing businesses","price":"From €Y / month","bestFor":"Good if you want separate pages for services, ","features":["Service pages that can rank on Google","Blog or news section","Portfolio / projects pages","More space for photos and explanations"],"highlight":"Most flexible choice"},{"id":"store","name":"Online store","short":"For selling products online","price":"From €Z / month","bestFor":"For businesses that want to accept orders and payments directly through the website.","features":["Product catalogue and categories","Simple checkout and payment options","Order notifications","Basic sales overview"],"highlight":"Best if you sell products"}]},"templates":{"title":"Choose a starting point for your website.","subtitle":"Pick a layout that fits your type of business. We\'ll adapt colours, photos and texts to your details.","badge":"Step 1 · Choose a template","note":"These are example layouts. You can change everything later.","list":[{"id":"local-service-01","name":"Local service (clean \u0026 simple)","type":"One-page layout","bestFor":"Ideal for handymen, cleaners, coaches, tutors, small local services.","complexity":"Fast to launch","highlight":"Recommended for simple service businesses."},{"id":"multi-service-01","name":"Multi-service company","type":"Multi-page layout","bestFor":"Good for construction, renovation, beauty salons and other businesses with several services.","complexity":"More space for content","highlight":"Best when you have multiple main services."},{"id":"store-01","name":"Simple online store","type":"Store layout","bestFor":"For small shops that want to show products and accept basic online orders.","complexity":"Includes product grid","highlight":"Good starting point for small ecommerce."}],"buttons":{"useTemplate":"Use this template","backHome":"Back to homepage","goToBuilder":"Continue to builder"}},"auth":{"login":{"title":"Login to your Just Code Works account","subtitle":"Access your websites, drafts, print orders and MagicAI tools from your dashboard.","emailLabel":"Email","passwordLabel":"Password","button":"Login","noAccount":"Don\'t have an account yet?","goToRegister":"Create an account","backHome":"Back to homepage","note":"This is a demo login page. In the full version, this will connect to the real authentication system."},"register":{"title":"Create your Just Code Works account","subtitle":"We\'ll use these details to connect your websites, print orders and billing in one place.","nameLabel":"Name","emailLabel":"Email","passwordLabel":"Password","button":"Create account","haveAccount":"Already have an account?","goToLogin":"Go to login","backHome":"Back to homepage","note":"This is a demo registration page. In the full version, this will create a real account for you."}},"reviewPage":{"title":"Your setup summary","subtitle":"Here\'s what we\'ll use to generate your website draft and suggest print items.","missingDataTitle":"No data found yet","missingDataText":"It looks like you haven\'t completed the builder wizard yet. Please go through the steps first.","backToBuilder":"Go back to builder","backHome":"Back to homepage","selectedTemplate":"Selected template","builderDataTitle":"Information from the builder","businessSection":"Business details","servicesSection":"Services \u0026 website type","styleSection":"Colours \u0026 style","editInBuilder":"Change in builder"},"pages":{"home":{"title":"Just Code Works - Home","subtitle":"Welcome to our homepage","pageInfo":"Page Info","languageTesting":"Language Testing","languageHelp":"Use the selector above to test different language versions of the site.","navigation":"Navigation","published":"Published","systemOverview":{"title":"📊 System Overview","template":"Template","templateName":"jcw-main","sections":"Sections","sectionsList":"Hero, Features, Services, Solutions, Contact","status":"Status","statusActive":"✅ Active \u0026 Ready","description":"Just Code Works provides comprehensive business solutions that adapt to your needs."},"multiLanguageSupport":{"title":"🌍 Multi-Language Support","description":"Our platform supports 6 languages with automatic content translation and localized routing.","languages":"Languages: English, Dutch, Portuguese, Spanish, French, German","testInstructions":"Use the language selector to experience seamless multi-language navigation."}},"posystems":{"title":"Card Payments","subtitle":"Modern point-of-sale solutions for your business","features":{"payment":"Payment Processing","paymentDesc":"Accept credit, debit, and contactless payments with competitive rates and fast processing.","inventory":"Inventory Management","inventoryDesc":"Track stock, set low stock alerts, and manage products with ease through our intuitive interface.","analytics":"Sales Analytics","analyticsDesc":"Get insights on sales patterns, top-selling products, and financial performance with detailed reports."}},"websites":{"title":"Websites","subtitle":"Custom websites and web development services","features":{"onePage":"One-Page Sites","onePageDesc":"Perfect for small businesses and portfolios. Get online quickly with a modern, responsive design.","multiPage":"Multi-Page Websites","multiPageDesc":"Complete business websites with multiple pages, navigation, and custom functionality.","ecommerce":"Online Shops","ecommerceDesc":"E-commerce websites with shopping carts, payment processing, and inventory management."}},"services":{"title":"Services","subtitle":"All our professional services","features":{"webDev":"Web Development","webDevDesc":"Custom websites and web applications built with modern technologies.","mobileApps":"Mobile Apps","mobileAppsDesc":"Native and cross-platform mobile applications for iOS and Android.","cloud":"Cloud Solutions","cloudDesc":"Scalable cloud infrastructure and deployment solutions for your applications.","maintenance":"Maintenance","maintenanceDesc":"Ongoing support and maintenance for your existing digital solutions."}},"helpCenter":{"title":"Help Center","subtitle":"Get help and support","features":{"documentation":"Documentation","documentationDesc":"Complete guides and documentation for all our products and services.","support":"Support","supportDesc":"Get direct help from our technical support team for any questions or issues.","faq":"FAQ","faqDesc":"Find answers to the most frequently asked questions about our services.","tutorials":"Tutorials","tutorialsDesc":"Step-by-step tutorials and video guides to help you get the most out of our platform.","categories":{"getting":"Getting Started Guides","api":"API Documentation","practices":"Best Practices","live":"Live Chat Support","email":"Email Support","phone":"Phone Support","billing":"Billing Questions","technical":"Technical Issues","account":"Account Management","video":"Video Tutorials","written":"Written Guides","interactive":"Interactive Examples"}}},"common":{"title":"Title","slug":"Slug","path":"Path","language":"Language","order":"Order","project":"Project","template":"Template","loading":"Loading..."}},"onboarding":{"step0":{"title":"Let\'s Get Started","subtitle":"Tell us about your business and what you\'d like to create","progress":{"intent":"Intent","details":"Details","branding":"Branding"},"intents":{"website":{"title":"Build a Website","description":"Create a professional website for your business"},"prints":{"title":"Design Prints","description":"Create business cards, flyers, and marketing materials"},"pos":{"title":"Point of Sale","description":"Set up payment processing and inventory management"}},"form":{"businessName":{"label":"Business Name","placeholder":"Enter your business name","required":"Business name is required"},"businessType":{"label":"Business Type","placeholder":"e.g., Restaurant, Consulting, Retail Store"},"primaryCountry":{"label":"Primary Country","placeholder":"Select your country"},"primaryLanguage":{"label":"Primary Language","placeholder":"Select primary language"},"primaryGoal":{"label":"Primary Goal","placeholder":"What\'s your main goal?"},"brandColors":{"primaryLabel":"Primary Brand Color","secondaryLabel":"Secondary Brand Color","primaryPlaceholder":"#1D4ED8","secondaryPlaceholder":"#6366F1"},"themeMode":{"label":"Preferred Theme","light":"Light","dark":"Dark","auto":"Auto"},"notes":{"label":"Additional Notes","placeholder":"Any specific requirements or preferences..."}},"actions":{"back":"Back","continue":"Continue to Branding","continueDetails":"Continue to Details","complete":"Complete Setup","creating":"Creating..."},"success":{"title":"Welcome to JustCodeWorks!","subtitle":"Your onboarding is complete. Redirecting to your dashboard...","redirecting":"Redirecting..."},"errors":{"general":"Something went wrong. Please try again.","businessName":"Business name cannot be empty","invalidColor":"Please enter a valid hex color (e.g. #1D4ED8)","submitFailed":"Failed to save onboarding data. Please try again."},"countries":["United States","United Kingdom","Canada","Australia","Germany","France","Spain","Portugal","Brazil","Mexico","Other"],"languages":{"en":"English","pt":"Português","es":"Español","fr":"Français","de":"Deutsch"},"goals":{"get-leads":"Get leads / requests","show-info":"Show info / menu","sell-online":"Sell online","take-bookings":"Take bookings","other":"Other"}}},"websitePromise":{"items":["Free domain and hosting first year","Secure EU-based servers","SSL certificate and daily backups","Fast delivery time","Ongoing upgrade options"],"description":"All websites are built with our smart system that makes content creation simple and intuitive — so you can focus on your business, not the tools.","exploreTitle":"Explore Our Website Types"}}}],["$","$L16",null,{"dict":"$17"}]]\n',
           ]);
         </script>
     <script>

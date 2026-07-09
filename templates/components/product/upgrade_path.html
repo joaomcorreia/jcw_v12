@@ -1,0 +1,19 @@
+{% load i18n %}
+<section class="plan-section plan-b1 p-8">
+  <h2 class="text-3xl font-bold text-gray-900 mb-4">{{ title }}</h2>
+  {% if intro %}
+  <p class="text-gray-700 mb-4">{{ intro }}</p>
+  {% endif %}
+  <ul class="text-gray-700 space-y-2 list-disc pl-5 mb-6">
+    {% if upgrade1 %}<li>{{ upgrade1 }}</li>{% endif %}
+    {% if upgrade2 %}<li>{{ upgrade2 }}</li>{% endif %}
+    {% if upgrade3 %}<li>{{ upgrade3 }}</li>{% endif %}
+    {% if upgrade4 %}<li>{{ upgrade4 }}</li>{% endif %}
+    {% if upgrade5 %}<li>{{ upgrade5 }}</li>{% endif %}
+  </ul>
+  {% if upgrade_cta_label %}
+  <a class="inline-flex items-center px-5 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors" href="{{ upgrade_cta_url|default:'#' }}">
+    {{ upgrade_cta_label }}
+  </a>
+  {% endif %}
+</section>

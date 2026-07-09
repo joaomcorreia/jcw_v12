@@ -1,0 +1,30 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Domains" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">{% trans "Domains" %}</h1>
+  <p class="dashboard-muted">{% trans "View the domain connected to your website and see how domain setup will appear here." %}</p>
+  {% trans "Not connected" as not_connected_label %}
+  {% trans "Not set" as not_set_label %}
+
+  <div class="dashboard-card dashboard-card--auto">
+    <div class="dashboard-card-header">
+      <h2 class="dashboard-card-title">{% trans "Domain status" %}</h2>
+    </div>
+    <div class="dashboard-list">
+      <div class="dashboard-list-item">
+        <span>{% trans "Current website" %}</span>
+        <span class="dashboard-status">{{ site.name|default:not_connected_label }}</span>
+      </div>
+      <div class="dashboard-list-item">
+        <span>{% trans "Current subdomain" %}</span>
+        <span class="dashboard-status">{{ site.subdomain|default:not_set_label }}</span>
+      </div>
+    </div>
+    <p class="dashboard-muted">{% trans "Custom domain connection details will appear here in a later step." %}</p>
+  </div>
+</div>
+{% endblock %}

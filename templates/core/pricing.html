@@ -1,0 +1,30 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<!-- Temporary launch-week parked pricing state. Restore full pricing content here later. -->
+<div class="jcw-page">
+  <section class="jcw-page-hero">
+    <div class="jcw-page-hero__container">
+      <div class="jcw-page-hero__content">
+        <div class="jcw-page-badge">
+          <span class="jcw-page-badge__dot"></span>
+          {% trans "Pricing" %}
+        </div>
+        <h1 class="jcw-page-title">
+          {% trans "Coming soon" %}
+        </h1>
+        <p class="jcw-page-intro">
+          {% trans "This page is being updated." %}
+        </p>
+        <div class="jcw-button-row jcw-button-row--center">
+          <a class="jcw-button jcw-button--light" href="{% url 'core:home' %}">
+            {% trans "Return home" %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% include "core/footer.html" %}
+{% endblock content %}

@@ -1,10 +1,11 @@
 {% extends "dashboard/base_dashboard.html" %}
+{% load i18n %}
 
-{% block title %}Control Panel{% endblock %}
+{% block title %}{% trans "Control Panel" %}{% endblock %}
 
 {% block content %}
 <div class="dashboard-page">
-  <h1 class="dashboard-title">Control Panel</h1>
-  <p class="dashboard-muted">Coming soon.</p>
+  <h1 class="dashboard-title">{% trans "Control Panel" %}</h1>
+  <p class="dashboard-muted">{% trans "Coming soon." %}</p>
 </div>
 {% endblock %}

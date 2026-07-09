@@ -1,0 +1,25 @@
+{% load i18n %}
+<section class="plan-cta-band py-16">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+      <div>
+        <h2 class="text-3xl md:text-4xl font-bold mb-3 text-white">{{ title }}</h2>
+        {% if intro %}
+        <p class="text-blue-100 text-lg">{{ intro }}</p>
+        {% endif %}
+      </div>
+      <div class="flex flex-col sm:flex-row gap-3">
+        {% if cta_label %}
+        <a class="inline-flex items-center justify-center px-6 py-3 bg-white text-blue-900 font-semibold rounded-lg hover:bg-blue-50 transition-colors" href="{{ cta_url|default:'#' }}">
+          {{ cta_label }}
+        </a>
+        {% endif %}
+        {% if secondary_cta_label %}
+        <a class="inline-flex items-center justify-center px-6 py-3 bg-white/10 backdrop-blur-sm text-white border border-white/20 font-semibold rounded-lg hover:bg-white/20 transition-colors" href="{{ secondary_cta_url|default:'#' }}">
+          {{ secondary_cta_label }}
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>

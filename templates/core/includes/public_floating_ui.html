@@ -1,0 +1,33 @@
+{% load i18n %}
+<div class="jcw-floating-ui" aria-hidden="false">
+  <button
+    type="button"
+    class="jcw-back-to-top"
+    data-jcw-back-to-top
+    aria-label="{% trans 'Back to top' %}"
+    title="{% trans 'Back to top' %}"
+  >
+    <span aria-hidden="true">↑</span>
+    <span>{% trans "Top" %}</span>
+  </button>
+
+  <div class="jcw-clippy-shell" id="jcw-assistant" data-jcw-clippy>
+    <button
+      type="button"
+      class="jcw-clippy-tab"
+      data-jcw-clippy-toggle
+      aria-expanded="false"
+      aria-controls="jcw-clippy-panel"
+    >
+      <span class="jcw-clippy-tab__label">{% trans "JCW Assistant" %}</span>
+    </button>
+    <div class="jcw-clippy-panel" id="jcw-clippy-panel" hidden>
+      <div class="jcw-clippy-panel__inner">
+        <h2 class="jcw-clippy-panel__title">{% trans "JCW Assistant" %}</h2>
+        <button type="button" class="jcw-clippy-panel__close" data-jcw-clippy-close>
+          {% trans "Close" %}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

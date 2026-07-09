@@ -1,0 +1,14 @@
+{% load i18n %}
+<section class="plan-section plan-b4 p-8">
+  <h2 class="text-3xl font-bold text-gray-900 mb-4">{{ title }}</h2>
+  {% if intro %}
+  <p class="text-gray-700 mb-4">{{ intro }}</p>
+  {% endif %}
+  <ul class="text-gray-700 space-y-2 list-disc pl-5">
+    {% if not1 %}<li>{{ not1 }}</li>{% endif %}
+    {% if not2 %}<li>{{ not2 }}</li>{% endif %}
+    {% if not3 %}<li>{{ not3 }}</li>{% endif %}
+    {% if not4 %}<li>{{ not4 }}</li>{% endif %}
+    {% if not5 %}<li>{{ not5 }}</li>{% endif %}
+  </ul>
+</section>

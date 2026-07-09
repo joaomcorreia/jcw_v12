@@ -1,0 +1,44 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
+    <link rel="icon" href="{% static 'favicon.png' %}">
+    <title>{% trans "Website Preview" %}</title>
+  </head>
+  <body class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium">
+    {% include 'core/includes/coming_soon_modal.html' %}
+    <main class="max-w-3xl mx-auto px-4 py-12 space-y-6">
+      <p class="text-sm text-slate-500">{% trans "Step 1 of 1" %}</p>
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-lg p-8 space-y-5">
+        <div>
+          <h1 class="text-2xl font-bold">{% trans "Website Preview" %}</h1>
+          <p class="text-slate-600 mt-2">{% trans "This is your first draft based on your business details." %}</p>
+        </div>
+
+        <div class="rounded-xl border border-slate-200 p-5 space-y-3" {% if profile.brand_color %}style="border-color: {{ profile.brand_color }};"{% endif %}>
+          <h2 class="text-xl font-semibold">{{ profile.business_name }}</h2>
+          <p class="text-slate-700">{{ profile.category }}</p>
+          <p class="text-slate-700">{{ profile.city }}, {{ profile.country }}</p>
+          {% if profile.phone %}
+            <p class="text-slate-700">{% blocktrans with phone=profile.phone %}Phone: {{ phone }}{% endblocktrans %}</p>
+          {% endif %}
+          {% if profile.email_public %}
+            <p class="text-slate-700">{% blocktrans with email=profile.email_public %}Email: {{ email }}{% endblocktrans %}</p>
+          {% endif %}
+          <div class="pt-2">
+            <h3 class="text-lg font-semibold">{% trans "A trusted local business, ready to help you." %}</h3>
+            <p class="text-slate-600 mt-1">{% trans "Simple service, clear communication, and fast responses." %}</p>
+            <button type="button" class="mt-3 px-4 py-2 rounded-lg bg-slate-900 text-white" disabled>{% trans "Contact us today" %}</button>
+          </div>
+        </div>
+
+        <a href="{% url 'core:onboarding' %}" class="inline-flex px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+          {% trans "Edit details" %}
+        </a>
+      </div>
+    </main>
+  </body>
+</html>

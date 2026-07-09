@@ -1,0 +1,430 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
+    <link rel="icon" href="{% static 'favicon.png' %}">
+    <title>{% trans "Onboarding" %}</title>
+  </head>
+  <body class="min-h-screen antialiased bg-slate-50 text-slate-900 transition-colors duration-200 font-medium">
+    {% include 'core/main_nav.html' %}
+    <main class="px-4 pb-12 pt-36 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-8 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+          <div class="space-y-3">
+            <p class="text-sm font-semibold uppercase tracking-[0.18em] text-blue-700">
+              {% trans "Onboarding" %}
+            </p>
+            <div class="space-y-2">
+              <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+                {% if entry_type == "wordpress_shop" %}
+                  {% trans "Set up your online store" %}
+                {% elif entry_type == "wordpress" %}
+                  {% trans "Set up your WordPress website" %}
+                {% elif entry_type == "print_business_cards" %}
+                  {% trans "Set up your print request" %}
+                {% else %}
+                  {% trans "Set up your business website" %}
+                {% endif %}
+              </h1>
+              <p class="max-w-3xl text-slate-600">
+                {% trans "Work through the sections on the left and watch the preview update as you type. Your core business details will be saved when you complete the form." %}
+              </p>
+            </div>
+          </div>
+          <div class="rounded-2xl border border-blue-100 bg-white px-4 py-3 text-sm text-slate-600 shadow-sm">
+            {% blocktrans %}Live preview on the right. Services and logo are preview-only in this first pass.{% endblocktrans %}
+          </div>
+        </div>
+
+        {% if form.non_field_errors %}
+          <div class="mb-6 rounded-2xl border border-red-200 bg-red-50 px-5 py-4 text-sm text-red-700">
+            {{ form.non_field_errors }}
+          </div>
+        {% endif %}
+
+        <div class="grid gap-8 xl:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)]">
+          <form method="post" class="space-y-4" data-onboarding-form>
+            {% csrf_token %}
+
+            <section class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm" data-accordion-panel>
+              <div class="border-b border-slate-100 px-6 py-5">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-[0.16em] text-blue-700">{% trans "Panel 1" %}</p>
+                    <h2 class="mt-2 text-xl font-semibold text-slate-900">{% trans "Business basics" %}</h2>
+                    <p class="mt-2 text-sm text-slate-600">{% trans "Add the main details customers need to recognise and contact your business." %}</p>
+                  </div>
+                  <button type="button" class="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-900" data-panel-toggle>
+                    {% trans "Open" %}
+                  </button>
+                </div>
+              </div>
+              <div class="space-y-5 px-6 py-6" data-panel-content>
+                <div class="grid gap-5 md:grid-cols-2">
+                  <div class="space-y-2">
+                    <label class="text-sm font-semibold text-slate-800" for="{{ form.business_name.id_for_label }}">{{ form.business_name.label }}</label>
+                    {{ form.business_name }}
+                    {% if form.business_name.errors %}<p class="text-sm text-red-600">{{ form.business_name.errors|striptags }}</p>{% endif %}
+                  </div>
+                  <div class="space-y-2">
+                    <label class="text-sm font-semibold text-slate-800" for="{{ form.category.id_for_label }}">{{ form.category.label }}</label>
+                    {{ form.category }}
+                    {% if form.category.errors %}<p class="text-sm text-red-600">{{ form.category.errors|striptags }}</p>{% endif %}
+                  </div>
+                  <div class="space-y-2">
+                    <label class="text-sm font-semibold text-slate-800" for="{{ form.city.id_for_label }}">{{ form.city.label }}</label>
+                    {{ form.city }}
+                    {% if form.city.errors %}<p class="text-sm text-red-600">{{ form.city.errors|striptags }}</p>{% endif %}
+                  </div>
+                  <div class="space-y-2">
+                    <label class="text-sm font-semibold text-slate-800" for="{{ form.country.id_for_label }}">{{ form.country.label }}</label>
+                    {{ form.country }}
+                    {% if form.country.errors %}<p class="text-sm text-red-600">{{ form.country.errors|striptags }}</p>{% endif %}
+                  </div>
+                  <div class="space-y-2">
+                    <label class="text-sm font-semibold text-slate-800" for="{{ form.email_public.id_for_label }}">{{ form.email_public.label }}</label>
+                    {{ form.email_public }}
+                    {% if form.email_public.errors %}<p class="text-sm text-red-600">{{ form.email_public.errors|striptags }}</p>{% endif %}
+                  </div>
+                  <div class="space-y-2">
+                    <label class="text-sm font-semibold text-slate-800" for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
+                    {{ form.phone }}
+                    {% if form.phone.errors %}<p class="text-sm text-red-600">{{ form.phone.errors|striptags }}</p>{% endif %}
+                  </div>
+                </div>
+                <div class="flex justify-end">
+                  <button type="button" class="inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700" data-next-panel>
+                    {% trans "Continue to description" %}
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <section class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm" data-accordion-panel>
+              <div class="border-b border-slate-100 px-6 py-5">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-[0.16em] text-blue-700">{% trans "Panel 2" %}</p>
+                    <h2 class="mt-2 text-xl font-semibold text-slate-900">{% trans "Short description" %}</h2>
+                    <p class="mt-2 text-sm text-slate-600">{% trans "Write a short introduction that explains what your business does." %}</p>
+                  </div>
+                  <button type="button" class="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-900" data-panel-toggle>
+                    {% trans "Open" %}
+                  </button>
+                </div>
+              </div>
+              <div class="hidden space-y-5 px-6 py-6" data-panel-content>
+                <div class="space-y-2">
+                  <label class="text-sm font-semibold text-slate-800" for="{{ form.website_goal.id_for_label }}">
+                    {% trans "Business description" %}
+                  </label>
+                  {{ form.website_goal }}
+                  <p class="text-sm text-slate-500">{% trans "This reuses the existing saved description field in the current onboarding backend." %}</p>
+                  {% if form.website_goal.errors %}<p class="text-sm text-red-600">{{ form.website_goal.errors|striptags }}</p>{% endif %}
+                </div>
+                <div class="flex justify-end">
+                  <button type="button" class="inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700" data-next-panel>
+                    {% if entry_type == "wordpress_shop" %}
+                      {% trans "Continue to products" %}
+                    {% else %}
+                      {% trans "Continue to services" %}
+                    {% endif %}
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <section class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm" data-accordion-panel>
+              <div class="border-b border-slate-100 px-6 py-5">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-[0.16em] text-blue-700">{% trans "Panel 3" %}</p>
+                    <h2 class="mt-2 text-xl font-semibold text-slate-900">
+                      {% if entry_type == "wordpress_shop" %}
+                        {% trans "Products" %}
+                      {% else %}
+                        {% trans "Services" %}
+                      {% endif %}
+                    </h2>
+                    <p class="mt-2 text-sm text-slate-600">
+                      {% if entry_type == "wordpress_shop" %}
+                        {% trans "Add up to three products for this first preview." %}
+                      {% else %}
+                        {% trans "Add up to three services for this first preview." %}
+                      {% endif %}
+                    </p>
+                  </div>
+                  <button type="button" class="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-900" data-panel-toggle>
+                    {% trans "Open" %}
+                  </button>
+                </div>
+              </div>
+              <div class="hidden space-y-5 px-6 py-6" data-panel-content>
+                <div class="grid gap-4">
+                  <div class="space-y-2">
+                    <label class="text-sm font-semibold text-slate-800" for="service_1">
+                      {% if entry_type == "wordpress_shop" %}{% trans "Product 1" %}{% else %}{% trans "Service 1" %}{% endif %}
+                    </label>
+                    <input id="service_1" name="service_1" type="text" class="w-full rounded-lg border border-slate-300 px-3 py-2" data-preview-service>
+                  </div>
+                  <div class="space-y-2">
+                    <label class="text-sm font-semibold text-slate-800" for="service_2">
+                      {% if entry_type == "wordpress_shop" %}{% trans "Product 2" %}{% else %}{% trans "Service 2" %}{% endif %}
+                    </label>
+                    <input id="service_2" name="service_2" type="text" class="w-full rounded-lg border border-slate-300 px-3 py-2" data-preview-service>
+                  </div>
+                  <div class="space-y-2">
+                    <label class="text-sm font-semibold text-slate-800" for="service_3">
+                      {% if entry_type == "wordpress_shop" %}{% trans "Product 3" %}{% else %}{% trans "Service 3" %}{% endif %}
+                    </label>
+                    <input id="service_3" name="service_3" type="text" class="w-full rounded-lg border border-slate-300 px-3 py-2" data-preview-service>
+                  </div>
+                </div>
+                <p class="text-sm text-slate-500">
+                  {% blocktrans %}These three items are preview-only in this first pass and are not saved to the current BusinessProfile model yet.{% endblocktrans %}
+                </p>
+                <div class="flex justify-end">
+                  <button type="button" class="inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700" data-next-panel>
+                    {% trans "Continue to branding" %}
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <section class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm" data-accordion-panel>
+              <div class="border-b border-slate-100 px-6 py-5">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <p class="text-xs font-semibold uppercase tracking-[0.16em] text-blue-700">{% trans "Panel 4" %}</p>
+                    <h2 class="mt-2 text-xl font-semibold text-slate-900">{% trans "Branding" %}</h2>
+                    <p class="mt-2 text-sm text-slate-600">{% trans "Choose a brand colour and prepare your brand assets for the next step." %}</p>
+                  </div>
+                  <button type="button" class="rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-900" data-panel-toggle>
+                    {% trans "Open" %}
+                  </button>
+                </div>
+              </div>
+              <div class="hidden space-y-5 px-6 py-6" data-panel-content>
+                <div class="rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-4 py-4">
+                  <p class="text-sm font-semibold text-slate-800">{% trans "Logo upload" %}</p>
+                  <p class="mt-1 text-sm text-slate-500">{% trans "Logo upload will be added in the next phase. For now, use the preview to shape the rest of your first draft." %}</p>
+                </div>
+                <div class="space-y-2">
+                  <label class="text-sm font-semibold text-slate-800" for="{{ form.brand_color.id_for_label }}">{{ form.brand_color.label }}</label>
+                  {{ form.brand_color }}
+                  <p class="text-sm text-slate-500">{{ form.brand_color.help_text }}</p>
+                  {% if form.brand_color.errors %}<p class="text-sm text-red-600">{{ form.brand_color.errors|striptags }}</p>{% endif %}
+                </div>
+                <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <p class="text-sm text-slate-500">{% trans "Saving this form stores the core business details already supported by the current onboarding backend." %}</p>
+                  <button type="submit" class="inline-flex items-center justify-center rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800">
+                    {% trans "Save and continue" %}
+                  </button>
+                </div>
+              </div>
+            </section>
+          </form>
+
+          <aside class="xl:sticky xl:top-36 xl:self-start">
+            <div class="overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-900 text-white shadow-2xl">
+              <div class="border-b border-white/10 bg-white/5 px-5 py-4">
+                <p class="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200">{% trans "Live preview" %}</p>
+                <h2 class="mt-2 text-xl font-semibold">{% trans "Your first website card" %}</h2>
+              </div>
+              <div class="space-y-6 p-5">
+                <div class="rounded-3xl bg-white text-slate-900 shadow-xl">
+                  <div class="space-y-5 p-5">
+                    <div class="space-y-2">
+                      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-blue-700">
+                        {% if entry_type == "wordpress_shop" %}
+                          {% trans "Store preview" %}
+                        {% elif entry_type == "print_business_cards" %}
+                          {% trans "Print preview" %}
+                        {% else %}
+                          {% trans "Website preview" %}
+                        {% endif %}
+                      </p>
+                      <h3 class="text-2xl font-bold text-slate-900" data-preview-name>
+                        {% if form.business_name.value %}{{ form.business_name.value }}{% else %}{% trans "Your business name" %}{% endif %}
+                      </h3>
+                      <p class="text-sm text-slate-500" data-preview-location>
+                        {% if form.city.value %}{{ form.city.value }}{% else %}{% trans "Your city" %}{% endif %}
+                      </p>
+                    </div>
+
+                    <p class="text-sm leading-6 text-slate-600" data-preview-description>
+                      {% if form.website_goal.value %}{{ form.website_goal.value }}{% else %}{% trans "Your short business description will appear here as you type." %}{% endif %}
+                    </p>
+
+                    <div class="space-y-3">
+                      <p class="text-sm font-semibold text-slate-800">
+                        {% if entry_type == "wordpress_shop" %}
+                          {% trans "Products" %}
+                        {% else %}
+                          {% trans "Services" %}
+                        {% endif %}
+                      </p>
+                      <ul class="space-y-2" data-preview-services>
+                        <li class="rounded-xl bg-slate-100 px-3 py-2 text-sm text-slate-600">{% trans "Add your first item on the left." %}</li>
+                        <li class="rounded-xl bg-slate-100 px-3 py-2 text-sm text-slate-600">{% trans "Add a second item if needed." %}</li>
+                        <li class="rounded-xl bg-slate-100 px-3 py-2 text-sm text-slate-600">{% trans "Add a third item for a fuller preview." %}</li>
+                      </ul>
+                    </div>
+
+                    <div class="pt-2">
+                      <button type="button" class="inline-flex items-center justify-center rounded-xl bg-blue-700 px-5 py-3 text-sm font-semibold text-white shadow-sm transition" data-preview-cta data-default-color="#1d4ed8">
+                        {% if entry_type == "wordpress_shop" %}
+                          {% trans "Shop now" %}
+                        {% elif entry_type == "print_business_cards" %}
+                          {% trans "Request a quote" %}
+                        {% else %}
+                          {% trans "Contact us" %}
+                        {% endif %}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-sm text-blue-100">
+                  {% blocktrans %}The preview updates instantly while you type. Services and logo upload are visual only for this first pass and will be connected in phase 2.{% endblocktrans %}
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      (function () {
+        var root = document.querySelector("[data-onboarding-form]");
+        if (!root) {
+          return;
+        }
+
+        var panels = Array.prototype.slice.call(
+          root.querySelectorAll("[data-accordion-panel]")
+        );
+
+        function setPanelState(index, isOpen) {
+          var panel = panels[index];
+          if (!panel) {
+            return;
+          }
+          var content = panel.querySelector("[data-panel-content]");
+          var toggle = panel.querySelector("[data-panel-toggle]");
+          if (!content || !toggle) {
+            return;
+          }
+          content.classList.toggle("hidden", !isOpen);
+          toggle.textContent = isOpen ? "{% trans 'Close' %}" : "{% trans 'Open' %}";
+        }
+
+        var openAll = {% if form.errors %}true{% else %}false{% endif %};
+        panels.forEach(function (_panel, index) {
+          setPanelState(index, openAll || index === 0);
+        });
+
+        root.querySelectorAll("[data-panel-toggle]").forEach(function (button, index) {
+          button.addEventListener("click", function () {
+            var content = panels[index].querySelector("[data-panel-content]");
+            var willOpen = content.classList.contains("hidden");
+            setPanelState(index, willOpen);
+          });
+        });
+
+        root.querySelectorAll("[data-next-panel]").forEach(function (button, index) {
+          button.addEventListener("click", function () {
+            setPanelState(index, false);
+            setPanelState(index + 1, true);
+            if (panels[index + 1]) {
+              panels[index + 1].scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+          });
+        });
+
+        var nameInput = document.getElementById("{{ form.business_name.id_for_label }}");
+        var cityInput = document.getElementById("{{ form.city.id_for_label }}");
+        var descriptionInput = document.getElementById("{{ form.website_goal.id_for_label }}");
+        var colorInput = document.getElementById("{{ form.brand_color.id_for_label }}");
+        var serviceInputs = Array.prototype.slice.call(root.querySelectorAll("[data-preview-service]"));
+
+        var previewName = document.querySelector("[data-preview-name]");
+        var previewLocation = document.querySelector("[data-preview-location]");
+        var previewDescription = document.querySelector("[data-preview-description]");
+        var previewServices = document.querySelector("[data-preview-services]");
+        var previewCta = document.querySelector("[data-preview-cta]");
+
+        function escapeHtml(value) {
+          return value
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+        }
+
+        function updateText(el, value, fallback) {
+          if (!el) {
+            return;
+          }
+          el.textContent = value && value.trim() ? value.trim() : fallback;
+        }
+
+        function updateServices() {
+          if (!previewServices) {
+            return;
+          }
+          var values = serviceInputs
+            .map(function (input) {
+              return (input.value || "").trim();
+            })
+            .filter(Boolean);
+
+          if (!values.length) {
+            previewServices.innerHTML = ""
+              + '<li class="rounded-xl bg-slate-100 px-3 py-2 text-sm text-slate-600">{% trans "Add your first item on the left." %}</li>'
+              + '<li class="rounded-xl bg-slate-100 px-3 py-2 text-sm text-slate-600">{% trans "Add a second item if needed." %}</li>'
+              + '<li class="rounded-xl bg-slate-100 px-3 py-2 text-sm text-slate-600">{% trans "Add a third item for a fuller preview." %}</li>';
+            return;
+          }
+
+          previewServices.innerHTML = values.map(function (value) {
+            return '<li class="rounded-xl bg-slate-100 px-3 py-2 text-sm text-slate-700">' + escapeHtml(value) + "</li>";
+          }).join("");
+        }
+
+        function updateColor() {
+          if (!previewCta) {
+            return;
+          }
+          var value = (colorInput && colorInput.value || "").trim();
+          var valid = /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(value);
+          previewCta.style.backgroundColor = valid ? value : (previewCta.getAttribute("data-default-color") || "#1d4ed8");
+        }
+
+        function syncPreview() {
+          updateText(previewName, nameInput && nameInput.value, "{% trans 'Your business name' %}");
+          updateText(previewLocation, cityInput && cityInput.value, "{% trans 'Your city' %}");
+          updateText(
+            previewDescription,
+            descriptionInput && descriptionInput.value,
+            "{% trans 'Your short business description will appear here as you type.' %}"
+          );
+          updateServices();
+          updateColor();
+        }
+
+        [nameInput, cityInput, descriptionInput, colorInput].concat(serviceInputs).forEach(function (input) {
+          if (!input) {
+            return;
+          }
+          input.addEventListener("input", syncPreview);
+        });
+
+        syncPreview();
+      })();
+    </script>
+  </body>
+</html>

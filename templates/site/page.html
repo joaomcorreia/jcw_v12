@@ -1,34 +1,36 @@
 {% extends "site/base.html" %}
-{% load i18n %}
+{% load i18n i18n_extras %}
 
 {% block content %}
 {% if sections %}
   {% for section in sections %}
+      {% with localized_data=section.data_i18n|t|default:section.data %}
       {% if section.type == "hero" %}
-        {% include "site/sections/hero.html" with section=section data=section.data %}
+        {% include "site/sections/hero.html" with section=section data=localized_data %}
       {% elif section.type == "features" %}
-        {% include "site/sections/features.html" with section=section data=section.data %}
+        {% include "site/sections/features.html" with section=section data=localized_data %}
       {% elif section.type == "pricing" %}
-        {% include "site/sections/pricing.html" with section=section data=section.data %}
+        {% include "site/sections/pricing.html" with section=section data=localized_data %}
       {% elif section.type == "printlab" %}
-        {% include "site/sections/printlab.html" with section=section data=section.data %}
+        {% include "site/sections/printlab.html" with section=section data=localized_data %}
       {% elif section.type == "faq" %}
-        {% include "site/sections/faq.html" with section=section data=section.data %}
+        {% include "site/sections/faq.html" with section=section data=localized_data %}
       {% elif section.type == "services" %}
-        {% include "site/sections/services.html" with section=section data=section.data %}
+        {% include "site/sections/services.html" with section=section data=localized_data %}
       {% elif section.type == "cta" %}
-        {% include "site/sections/cta.html" with section=section data=section.data %}
+        {% include "site/sections/cta.html" with section=section data=localized_data %}
       {% elif section.type == "contact" %}
-        {% include "site/sections/contact.html" with section=section data=section.data %}
+        {% include "site/sections/contact.html" with section=section data=localized_data %}
       {% elif section.type == "location" %}
-        {% include "site/sections/location.html" with section=section data=section.data city_links=city_links %}
+        {% include "site/sections/location.html" with section=section data=localized_data city_links=city_links %}
       {% else %}
-        {% include "site/sections/unknown.html" with section=section data=section.data %}
+        {% include "site/sections/unknown.html" with section=section data=localized_data %}
       {% endif %}
+      {% endwith %}
     {% endfor %}
   {% else %}
     <section>
-      <h1>{% trans "Coming soon" %}</h1>
+      <h1>{% trans "Coming soon" context "site placeholder title" %}</h1>
       <p>{% trans "This page is still being prepared." %}</p>
     </section>
   {% endif %}

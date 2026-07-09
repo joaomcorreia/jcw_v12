@@ -1,0 +1,122 @@
+{% extends "pages/websites/product_page_base.html" %}
+{% load i18n %}
+
+{% block product_badge %}{% trans "Online Marketing" %}{% endblock %}
+{% block product_title %}{% trans "Online Marketing Services" %}{% endblock %}
+{% block product_subtitle %}{% trans "Add the right visibility support as your business grows, starting with simple posting support and expanding into broader marketing channels over time." %}{% endblock %}
+{% block primary_cta_label %}{% trans "See Pricing" %}{% endblock %}
+{% block secondary_cta_label %}{% trans "Talk to us" %}{% endblock %}
+{% block primary_cta_url %}{% url 'core:pricing' %}{% endblock %}
+{% block secondary_cta_url %}{% url 'core:contact' %}{% endblock %}
+
+{% block section_who_its_for %}
+  {% trans "How This Category Works" as who_title %}
+  {% trans "JCW offers online marketing services that can be added step by step, so businesses can start with what matters now and expand support later without changing direction." as who_intro %}
+  {% trans "Start with simple visibility support first" as who_audience1 %}
+  {% trans "Add service-specific marketing as the business grows" as who_audience2 %}
+  {% trans "Keep each service on its own dedicated detail page" as who_audience3 %}
+  {% trans "Use the overview page to compare what is active now and what is coming next" as who_audience4 %}
+  {% include "components/product/who_its_for.html" with title=who_title intro=who_intro audience1=who_audience1 audience2=who_audience2 audience3=who_audience3 audience4=who_audience4 %}
+{% endblock %}
+
+{% block section_what_you_get %}
+<section class="plan-section plan-b3 p-8">
+  <h2 class="text-3xl font-bold text-gray-900 mb-4">{% trans "Marketing Services Overview" %}</h2>
+  <p class="text-gray-700 mb-6">
+    {% blocktrans %}Active services link to their own detail pages. Future services stay visible here with a clear coming-soon state so the offer remains easy to understand.{% endblocktrans %}
+  </p>
+  <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+    <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <p class="text-sm font-semibold uppercase tracking-wide text-emerald-700">{% trans "Active" %}</p>
+      <h3 class="mt-3 text-2xl font-bold text-slate-900">{% trans "Facebook Posting" %}</h3>
+      <p class="mt-4 text-slate-600">
+        {% blocktrans %}Ongoing Facebook posting support to keep your business page active, visible, and regularly updated.{% endblocktrans %}
+      </p>
+      <a class="mt-6 inline-flex items-center justify-center rounded-lg bg-blue-600 px-5 py-3 font-semibold text-white transition hover:bg-blue-700" href="{% url 'core:facebook_visibility' %}">
+        {% trans "View service" %}
+      </a>
+    </article>
+
+    <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <p class="text-sm font-semibold uppercase tracking-wide text-amber-700">{% trans "Coming soon" %}</p>
+      <h3 class="mt-3 text-2xl font-bold text-slate-900">{% trans "Facebook Ads" %}</h3>
+      <p class="mt-4 text-slate-600">
+        {% blocktrans %}Paid Facebook campaign support for businesses that want to go beyond posting and reach more targeted audiences.{% endblocktrans %}
+      </p>
+      <span class="mt-6 inline-flex items-center justify-center rounded-lg border border-slate-300 bg-slate-100 px-5 py-3 font-semibold text-slate-600">
+        {% trans "Coming soon" %}
+      </span>
+    </article>
+
+    <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <p class="text-sm font-semibold uppercase tracking-wide text-amber-700">{% trans "Coming soon" %}</p>
+      <h3 class="mt-3 text-2xl font-bold text-slate-900">{% trans "Google Ads" %}</h3>
+      <p class="mt-4 text-slate-600">
+        {% blocktrans %}Search and campaign support for businesses that want paid visibility in Google results and related placements.{% endblocktrans %}
+      </p>
+      <span class="mt-6 inline-flex items-center justify-center rounded-lg border border-slate-300 bg-slate-100 px-5 py-3 font-semibold text-slate-600">
+        {% trans "Coming soon" %}
+      </span>
+    </article>
+
+    <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <p class="text-sm font-semibold uppercase tracking-wide text-amber-700">{% trans "Coming soon" %}</p>
+      <h3 class="mt-3 text-2xl font-bold text-slate-900">{% trans "SEO / Local SEO" %}</h3>
+      <p class="mt-4 text-slate-600">
+        {% blocktrans %}Search-focused website structure and local visibility work to help customers discover your business more consistently.{% endblocktrans %}
+      </p>
+      <span class="mt-6 inline-flex items-center justify-center rounded-lg border border-slate-300 bg-slate-100 px-5 py-3 font-semibold text-slate-600">
+        {% trans "Coming soon" %}
+      </span>
+    </article>
+
+    <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <p class="text-sm font-semibold uppercase tracking-wide text-amber-700">{% trans "Coming soon" %}</p>
+      <h3 class="mt-3 text-2xl font-bold text-slate-900">{% trans "Social Content Planning" %}</h3>
+      <p class="mt-4 text-slate-600">
+        {% blocktrans %}Planning support for businesses that want a clearer monthly content rhythm before adding more channels or campaigns.{% endblocktrans %}
+      </p>
+      <span class="mt-6 inline-flex items-center justify-center rounded-lg border border-slate-300 bg-slate-100 px-5 py-3 font-semibold text-slate-600">
+        {% trans "Coming soon" %}
+      </span>
+    </article>
+  </div>
+</section>
+{% endblock %}
+
+{% block section_included %}
+  {% trans "What Is Available Now" as included_title %}
+  {% trans "Use the active service pages below to move directly into the current offer." as included_intro %}
+  {% trans "Facebook Posting" as include1 %}
+  {% trans "SEO / Local SEO planned next" as include2 %}
+  {% trans "Pricing page for current monthly offers" as include3 %}
+  {% trans "Contact page for setup and service questions" as include4 %}
+  {% include "components/product/included.html" with title=included_title intro=included_intro include1=include1 include2=include2 include3=include3 include4=include4 %}
+{% endblock %}
+
+{% block section_upgrade_path %}
+  {% trans "Coming Next" as upgrade_title %}
+  {% trans "Facebook Ads" as upgrade1 %}
+  {% trans "Google Ads" as upgrade2 %}
+  {% trans "Social Content Planning" as upgrade3 %}
+  {% include "components/product/upgrade_path.html" with title=upgrade_title upgrade1=upgrade1 upgrade2=upgrade2 upgrade3=upgrade3 %}
+{% endblock %}
+
+{% block section_faq %}
+  {% trans "Frequently Asked Questions" as faq_title %}
+  {% trans "Can I start with one service and add more later?" as faq_q1 %}
+  {% trans "Yes. The online marketing services are meant to be added gradually as the business grows and needs more visibility support." as faq_a1 %}
+  {% trans "Which service is available right now?" as faq_q2 %}
+  {% trans "Facebook posting support is available now. SEO / Local SEO is planned and will be added when the service page is ready." as faq_a2 %}
+  {% include "components/product/faq.html" with title=faq_title q1=faq_q1 a1=faq_a1 q2=faq_q2 a2=faq_a2 %}
+{% endblock %}
+
+{% block section_final_cta %}
+  {% trans "Ready to add marketing support?" as final_title %}
+  {% trans "Start with the service that fits your business now, then add more support as your visibility goals become clearer." as final_intro %}
+  {% trans "See Pricing" as final_cta_label %}
+  {% trans "Talk to us" as final_secondary_cta_label %}
+  {% url 'core:pricing' as pricing_url %}
+  {% url 'core:contact' as contact_url %}
+  {% include "components/product/final_cta.html" with title=final_title intro=final_intro cta_label=final_cta_label cta_url=pricing_url secondary_cta_label=final_secondary_cta_label secondary_cta_url=contact_url %}
+{% endblock %}

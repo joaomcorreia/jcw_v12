@@ -15,21 +15,31 @@
         <div>{% trans "Plan" %}</div>
         <div>{% trans "Actions" %}</div>
       </div>
-      {% for site in sites %}
+      {% for row in tenant_rows %}
+      {% with site=row.site %}
       <div class="dashboard-table-row">
         <div>{{ site.name }}</div>
-        <div class="dashboard-muted">--</div>
+        <div class="dashboard-muted">
+          {{ row.domain_label }}
+        </div>
         <div>{{ site.owner.get_username }}</div>
         <div class="dashboard-muted">
           {% if site.plan %}{{ site.plan.display_name }}{% else %}--{% endif %}
         </div>
         <div>
           <a class="dashboard-link" href="{% url 'control_panel:tenant_edit' site.id %}">{% trans "Edit" %}</a>
-          <a class="dashboard-link" href="{% url 'control_panel:tenant_impersonate' site.id %}">
-            {% trans "View as customer" %}
-          </a>
+          {% if row.dashboard_url %}
+            <a class="dashboard-link" href="{{ row.dashboard_url }}" target="_blank" rel="noopener">{% trans "Open tenant dashboard" %}</a>
+          {% endif %}
+          {% if row.site_url %}
+            <a class="dashboard-link" href="{{ row.site_url }}" target="_blank" rel="noopener">{% trans "Open tenant site" %}</a>
+          {% endif %}
+          {% if request.user.is_superuser %}
+            <a class="dashboard-link" href="{% url 'control_panel:tenant_impersonate' site.id %}">{% trans "Impersonate" %}</a>
+          {% endif %}
         </div>
       </div>
+      {% endwith %}
       {% empty %}
       <div class="dashboard-table-row dashboard-table-empty">
         <div>{% trans "No tenants yet" %}</div>

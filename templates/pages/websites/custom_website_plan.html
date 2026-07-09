@@ -1,343 +1,109 @@
-{% load static i18n %}
-<!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
-    <link rel="icon" href="{% static 'favicon.png' %}">
-    <title>
-      {{ seo_title|default:"JustCodeWorks" }}
-    </title>
-    <meta name="robots" content="{% if launch_noindex %}noindex, nofollow{% else %}{{ seo_robots|default:'index, follow' }}{% endif %}">
-    <meta name="description" content="{{ seo_description|default:'Website builder and content management platform' }}">
-    <style>
-      .custom-section {
-        background: #ffffff;
-      }
-      .custom-section-alt {
-        background: #f7f9fc;
-      }
-      .custom-card {
-        border-radius: 20px;
-        border: 1px solid rgba(15, 23, 42, 0.08);
-        padding: 28px;
-        box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
-      }
-      .custom-card-a {
-        background: #fef3c7;
-      }
-      .custom-card-b {
-        background: #e0f2fe;
-      }
-      .custom-card-c {
-        background: #ede9fe;
-      }
-      .custom-scenarios {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 24px;
-      }
-      .custom-split {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 28px;
-        align-items: center;
-      }
-      .custom-preview {
-        border-radius: 24px;
-        border: 1px solid rgba(15, 23, 42, 0.08);
-        background: linear-gradient(135deg, #f8fafc, #eef2ff);
-        padding: 32px;
-        min-height: 260px;
-      }
-      .custom-timeline {
-        display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-        gap: 16px;
-      }
-      .custom-node {
-        border-radius: 16px;
-        border: 1px solid rgba(15, 23, 42, 0.08);
-        background: #ffffff;
-        padding: 18px;
-        text-align: center;
-        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
-      }
-      .custom-node-num {
-        width: 36px;
-        height: 36px;
-        border-radius: 999px;
-        background: #e0f2fe;
-        color: #1d4ed8;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        margin-bottom: 10px;
-      }
-      .custom-receipt {
-        border-radius: 20px;
-        border: 1px solid rgba(15, 23, 42, 0.08);
-        background: #ffffff;
-        box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
-        overflow: hidden;
-      }
-      .custom-receipt-row {
-        padding: 14px 20px;
-        border-top: 1px solid rgba(15, 23, 42, 0.08);
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-      .custom-receipt-row:first-child {
-        border-top: none;
-      }
-      .custom-callout {
-        border-radius: 18px;
-        border: 1px solid rgba(15, 23, 42, 0.08);
-        background: #f7f9fc;
-        padding: 24px;
-      }
-      .custom-cta-band {
-        background: linear-gradient(120deg, #eef2ff, #f8fafc);
-        min-height: 500px;
-        display: flex;
-        align-items: center;
-      }
-      @media (max-width: 1024px) {
-        .custom-scenarios {
-          grid-template-columns: 1fr;
-        }
-        .custom-split {
-          grid-template-columns: 1fr;
-        }
-        .custom-timeline {
-          grid-template-columns: 1fr;
-        }
-      }
-    </style>
-      {% if canonical_url %}
-    <link rel="canonical" href="{{ canonical_url }}">
-    {% endif %}
-    {% if hreflang_urls %}
-      {% for alternate in hreflang_urls %}
-    <link rel="alternate" hreflang="{{ alternate.lang }}" href="{{ alternate.url }}">
-      {% endfor %}
-    {% endif %}</head>
-  <body class="min-h-screen antialiased bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium">
-    <div class="min-h-screen ltr" data-locale="{{ LANGUAGE_CODE }}">
-      {% include 'core/main_nav.html' %}
-      <div class="relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
-          <div class="absolute inset-0 opacity-20">
-            <div class="absolute top-0 left-0 w-2 h-2 bg-white rounded-full animate-ping"></div>
-            <div class="absolute top-10 left-20 w-1 h-1 bg-blue-300 rounded-full animate-pulse"></div>
-            <div class="absolute top-20 right-10 w-1 h-1 bg-purple-300 rounded-full animate-ping"></div>
-            <div class="absolute bottom-20 left-10 w-2 h-2 bg-pink-300 rounded-full animate-pulse"></div>
-          </div>
-          <div class="absolute top-0 left-0 w-full h-full">
-            <div class="absolute top-20 left-20 w-32 h-32 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
-            <div class="absolute top-40 right-20 w-32 h-32 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
-            <div class="absolute -bottom-8 left-40 w-32 h-32 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
-          </div>
-        </div>
-        <div class="relative z-10 max-w-7xl mx-auto px-4 py-20 sm:py-32">
-          <div class="text-center text-white">
-            <div class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm font-medium mb-8">
-              <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
-              {% trans "Custom Website" %}
-            </div>
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent leading-tight">
-              {% trans "Custom Website" %}
-            </h1>
-            <p class="text-xl md:text-2xl mb-12 text-blue-100 max-w-4xl mx-auto leading-relaxed">
-              {% trans "Built around your business, your goals, and your workflow." %}
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-              <a class="px-8 py-4 bg-white text-blue-900 font-bold rounded-xl hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 shadow-xl" href="{{ sections_by_key.hero.content.cta_primary_url|default:'#' }}">
-                {% trans "Request a proposal" %}
-              </a>
-              <a class="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300" href="#timeline">
-                {% trans "See how it works" %}
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+{% extends "pages/websites/product_page_base.html" %}
+{% load i18n %}
 
-      <section class="custom-section py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="custom-scenarios">
-            <div class="custom-card custom-card-a">
-              <h3 class="text-2xl font-semibold mb-3">{% trans "You need something unique" %}</h3>
-              <p class="text-slate-700 mb-4">
-                {% trans "A custom layout, special flow, or a business model that doesn't fit templates." %}
-              </p>
-              <p class="text-sm text-slate-600">
-                {% trans "Example: A niche service with a tailored quote funnel." %}
-              </p>
-            </div>
-            <div class="custom-card custom-card-b">
-              <h3 class="text-2xl font-semibold mb-3">{% trans "You need integrations" %}</h3>
-              <p class="text-slate-700 mb-4">
-                {% trans "Connect with tools, CRMs, or platforms your team already uses." %}
-              </p>
-              <p class="text-sm text-slate-600">
-                {% trans "Example: Booking tools, inventory systems, or custom forms." %}
-              </p>
-            </div>
-            <div class="custom-card custom-card-c">
-              <h3 class="text-2xl font-semibold mb-3">{% trans "You want premium design" %}</h3>
-              <p class="text-slate-700 mb-4">
-                {% trans "High-end visuals, unique storytelling, and branded experiences." %}
-              </p>
-              <p class="text-sm text-slate-600">
-                {% trans "Example: A flagship site for a premium brand." %}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+{% block product_badge %}{% trans "One-Time Website Setup" %}{% endblock %}
+{% block product_title %}{% trans "Launch your website quickly" %}{% endblock %}
+{% block product_subtitle %}{% trans "A complete website setup using a proven structure, ready to go live without technical work. Delivered in 5 to 8 business days. Built with WordPress (CMS) so you can manage your content if needed." %}{% endblock %}
+{% block primary_cta_label %}{% trans "Get your website started" %}{% endblock %}
+{% block secondary_cta_label %}{% trans "View example layouts" %}{% endblock %}
+{% block secondary_cta_url %}#example-layouts{% endblock %}
 
-      <section class="custom-section-alt py-14">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="custom-split">
-            <div>
-              <h3 class="text-3xl font-semibold mb-4">{% trans "Not a template. Not a guess." %}</h3>
-              <p class="text-slate-600 mb-6">
-                {% trans "We start with your goals, then design and build a site that fits your business." %}
-              </p>
-              <ul class="space-y-2 text-sm text-slate-600">
-                <li>• {% trans "Designed for your brand" %}</li>
-                <li>• {% trans "Built for speed & mobile" %}</li>
-                <li>• {% trans "Structured for SEO" %}</li>
-                <li>• {% trans "Easy to maintain" %}</li>
-              </ul>
-            </div>
-            <div class="custom-preview">
-              <div class="text-sm text-slate-500 mb-4">{% trans "Preview placeholder" %}</div>
-              <div class="space-y-3 text-sm text-slate-700">
-                <div class="flex justify-between">
-                  <span>{% trans "Homepage concept" %}</span>
-                  <span>{% trans "Ready" %}</span>
-                </div>
-                <div class="flex justify-between">
-                  <span>{% trans "Services layout" %}</span>
-                  <span>{% trans "In review" %}</span>
-                </div>
-                <div class="flex justify-between">
-                  <span>{% trans "Contact flow" %}</span>
-                  <span>{% trans "Draft" %}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+{% block section_who_its_for %}
+  {% trans "Who This Is For" as who_title %}
+  {% trans "Small businesses that need a website quickly, without dealing with technical setup." as who_audience1 %}
+  {% trans "Local services and small businesses, including one-person businesses, workshops, and service-based companies." as who_audience2 %}
+  {% trans "Businesses that do not need frequent changes and mostly need occasional updates." as who_audience3 %}
+  {% trans "Anyone who prefers a simple, one-time website solution without ongoing subscriptions or complexity." as who_audience4 %}
+  {% include "components/product/who_its_for.html" with title=who_title audience1=who_audience1 audience2=who_audience2 audience3=who_audience3 audience4=who_audience4 %}
+{% endblock %}
+{% block details_content %}
+  {{ block.super }}
+  <div id="example-layouts">
+  {% trans "Preview example website styles" as showcase_title %}
+  {% trans "See how different website directions can look before you choose the structure that fits your business best." as showcase_intro %}
+  {% include "components/websites/demo_showcase_section.html" with showcase_title=showcase_title showcase_intro=showcase_intro demo_showcase_cards=demo_showcase_cards %}
+  </div>
+{% endblock %}
 
-      <section class="custom-section py-12" id="timeline">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h3 class="text-3xl font-semibold mb-8 text-center">{% trans "How it works" %}</h3>
-          <div class="custom-timeline">
-            <div class="custom-node">
-              <div class="custom-node-num">1</div>
-              <div class="font-semibold mb-2">{% trans "Discovery call" %}</div>
-              <div class="text-sm text-slate-600">{% trans "Understand goals and constraints." %}</div>
-            </div>
-            <div class="custom-node">
-              <div class="custom-node-num">2</div>
-              <div class="font-semibold mb-2">{% trans "Proposal & scope" %}</div>
-              <div class="text-sm text-slate-600">{% trans "Clear scope, timeline, and budget." %}</div>
-            </div>
-            <div class="custom-node">
-              <div class="custom-node-num">3</div>
-              <div class="font-semibold mb-2">{% trans "Design preview" %}</div>
-              <div class="text-sm text-slate-600">{% trans "Review layouts and direction." %}</div>
-            </div>
-            <div class="custom-node">
-              <div class="custom-node-num">4</div>
-              <div class="font-semibold mb-2">{% trans "Build & review" %}</div>
-              <div class="text-sm text-slate-600">{% trans "Iterate until ready." %}</div>
-            </div>
-            <div class="custom-node">
-              <div class="custom-node-num">5</div>
-              <div class="font-semibold mb-2">{% trans "Launch & support" %}</div>
-              <div class="text-sm text-slate-600">{% trans "Go live with guidance." %}</div>
-            </div>
-          </div>
-        </div>
-      </section>
+{% block section_what_you_get %}
+  {% trans "What You Get" as get_title %}
+  {% trans "A complete website setup using a proven layout, ready to go live with your business content." as get_deliverable1 %}
+  {% trans "Mobile-ready design that works properly on phones, tablets, and desktop devices." as get_deliverable2 %}
+  {% trans "A contact form ready to receive enquiries from your customers." as get_deliverable3 %}
+  {% trans "Basic SEO setup to help search engines understand your business and improve visibility in your area or target locations." as get_deliverable4 %}
+  {% trans "Hosting and domain included for the first year, with everything connected so your website is live without extra steps." as get_deliverable5 %}
+  {% trans "Built with WordPress (CMS), giving you access to your own dashboard to manage content and extend your website later if needed." as get_deliverable6 %}
+  {% trans "Delivered in 5 to 8 business days, depending on how quickly you send your business details and approve the final version." as get_deliverable7 %}
+  {% include "components/product/what_you_get.html" with title=get_title deliverable1=get_deliverable1 deliverable2=get_deliverable2 deliverable3=get_deliverable3 deliverable4=get_deliverable4 deliverable5=get_deliverable5 deliverable6=get_deliverable6 deliverable7=get_deliverable7 %}
+{% endblock %}
 
-      <section class="custom-section-alt py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h3 class="text-2xl font-semibold mb-4">{% trans "What you get" %}</h3>
-          <div class="custom-receipt">
-            <div class="custom-receipt-row">
-              <span>&#10003;</span>
-              <span>{% trans "Custom pages & layouts" %}</span>
-            </div>
-            <div class="custom-receipt-row">
-              <span>&#10003;</span>
-              <span>{% trans "Contact forms (optional)" %}</span>
-            </div>
-            <div class="custom-receipt-row">
-              <span>&#10003;</span>
-              <span>{% trans "SEO-ready structure" %}</span>
-            </div>
-            <div class="custom-receipt-row">
-              <span>&#10003;</span>
-              <span>{% trans "Translations ready" %}</span>
-            </div>
-            <div class="custom-receipt-row">
-              <span>&#10003;</span>
-              <span>{% trans "Performance optimizations" %}</span>
-            </div>
-            <div class="custom-receipt-row">
-              <span>&#10003;</span>
-              <span>{% trans "Training / handover" %}</span>
-            </div>
-          </div>
-        </div>
-      </section>
+{% block section_included %}
+  {% trans "What’s Included" as included_title %}
+  {% trans "Website setup using a proven layout designed to work for your type of business." as included1 %}
+  {% trans "Up to 5 pages created for your business, such as Home, About, Services, and Contact." as included2 %}
+  {% trans "Your text, images, and business details applied to the selected layout." as included3 %}
+  {% trans "A contact form ready to receive enquiries directly from your website." as included4 %}
+  {% trans "Mobile-ready design that works properly across phones, tablets, and desktop devices." as included5 %}
+  {% trans "Basic SEO setup to help search engines understand your business and improve visibility." as included6 %}
+  {% trans "Hosting and domain included for the first year, with everything connected and a backup system installed so your website is ready to go live." as included7 %}
+  {% include "components/product/included.html" with title=included_title include1=included1 include2=included2 include3=included3 include4=included4 include5=included5 include6=included6 include7=included7 %}
+{% endblock %}
 
-      <section class="custom-section py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="custom-callout">
-            <h3 class="text-xl font-semibold mb-3">{% trans "Pricing depends on scope" %}</h3>
-            <p class="text-slate-600">
-              {% trans "Every custom website is different. We define scope first, then quote clearly." %}
-            </p>
-            <p class="text-sm text-slate-500 mt-3">{% trans "Most projects start with a quick call." %}</p>
-          </div>
-        </div>
-      </section>
+{% block section_not_included %}
+  {% trans "What’s Not Included" as not_title %}
+  {% trans "Ongoing edits or content changes after your website goes live." as not1 %}
+  {% trans "Additional pages beyond the initial setup; you can create more pages yourself later, but support or changes require a maintenance service." as not2 %}
+  {% trans "Custom design or layout changes beyond the selected website layout." as not3 %}
+  {% trans "Plugin installations or feature extensions are not included in this plan." as not4 %}
+  {% trans "Ongoing maintenance or support after delivery is not included." as not5 %}
+  {% include "components/product/not_included.html" with title=not_title not1=not1 not2=not2 not3=not3 not4=not4 not5=not5 %}
+{% endblock %}
 
-      <section class="custom-cta-band">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-            <div>
-              <h2 class="text-3xl font-bold mb-2">
-                {% trans "Tell us what you need" %}
-              </h2>
-              <p class="text-slate-600">
-                {% trans "We'll respond with a clear proposal and next steps." %}
-              </p>
-            </div>
-            <div class="flex flex-col sm:flex-row gap-3">
-              <a class="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors" href="{{ sections_by_key.hero.content.cta_primary_url|default:'#' }}">
-                {% trans "Request a proposal" %}
-              </a>
-              <a class="px-8 py-3 bg-white text-blue-700 font-semibold rounded-lg border border-blue-200 hover:bg-blue-50 transition-colors" href="{% url 'core:help_center' %}">
-                {% trans "Contact us" %}
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+{% block section_timeline %}
+  {% trans "How It Works" as timeline_title %}
+  {% trans "Choose a layout, send your details, review your website, and go live without technical setup." as timeline_intro %}
+  {% trans "Choose your layout" as timeline_step1_title %}
+  {% trans "Select the website layout that best fits your business." as timeline_step1_desc %}
+  {% trans "Send your business details" as timeline_step2_title %}
+  {% trans "Provide your text, images, and basic information so we can set up your website." as timeline_step2_desc %}
+  {% trans "We build your website" as timeline_step3_title %}
+  {% trans "Your website is created using the selected layout and your content." as timeline_step3_desc %}
+  {% trans "Review and request changes" as timeline_step4_title %}
+  {% trans "You can request up to 3 changes before your website goes live. After delivery, you can make your own updates by following the JCW Help videos inside your website dashboard." as timeline_step4_desc %}
+  {% trans "Website goes live" as timeline_step5_title %}
+  {% trans "Once approved, your website is published and ready for your customers." as timeline_step5_desc %}
+  {% include "components/product/timeline.html" with title=timeline_title intro=timeline_intro step1_title=timeline_step1_title step1_desc=timeline_step1_desc step2_title=timeline_step2_title step2_desc=timeline_step2_desc step3_title=timeline_step3_title step3_desc=timeline_step3_desc step4_title=timeline_step4_title step4_desc=timeline_step4_desc step5_title=timeline_step5_title step5_desc=timeline_step5_desc %}
+{% endblock %}
 
-      {% include 'core/footer.html' %}
-    </div>
-  </body>
-</html>
+{% block section_upgrade_path %}
+  {% trans "After Launch" as upgrade_title %}
+  {% trans "Manage your own content through your website dashboard, including text, images, pages, and services." as upgrade1 %}
+  {% trans "Use the JCW Help section with simple video guides for basic content updates." as upgrade2 %}
+  {% trans "Request support when needed through a maintenance service for later changes or technical help." as upgrade3 %}
+  {% trans "Upgrade later to a full JCW website plan if your business needs more flexibility or advanced features." as upgrade4 %}
+  {% include "components/product/upgrade_path.html" with title=upgrade_title upgrade1=upgrade1 upgrade2=upgrade2 upgrade3=upgrade3 upgrade4=upgrade4 %}
+{% endblock %}
+
+{% block section_faq %}
+  {% trans "Frequently Asked Questions" as faq_title %}
+  {% trans "Can I make changes to my website later?" as faq_q1 %}
+  {% trans "Yes. You can update your content yourself using your website dashboard. If you need help, you can request changes through our maintenance service." as faq_a1 %}
+  {% trans "What happens after my website goes live?" as faq_q2 %}
+  {% trans "Your website stays online and fully functional. You can manage your content yourself or request support if needed." as faq_a2 %}
+  {% trans "Is hosting included?" as faq_q3 %}
+  {% trans "Yes. Hosting and domain are included for the first year. After that, a yearly renewal is required to keep your website online." as faq_a3 %}
+  {% trans "Can I add more pages or features later?" as faq_q4 %}
+  {% trans "Yes. You can create additional pages yourself. If you need help or want to add new features, this can be done through a maintenance service." as faq_a4 %}
+  {% trans "Can I upgrade later?" as faq_q5 %}
+  {% trans "Yes. If your needs grow, you can upgrade to a full JCW website plan with more flexibility and features." as faq_a5 %}
+  {% include "components/product/faq.html" with title=faq_title q1=faq_q1 a1=faq_a1 q2=faq_q2 a2=faq_a2 q3=faq_q3 a3=faq_a3 q4=faq_q4 a4=faq_a4 q5=faq_q5 a5=faq_a5 %}
+{% endblock %}
+
+{% block section_final_cta %}
+  {% trans "Get your website started" as final_title %}
+  {% trans "Choose your layout, send your details, and we’ll take care of the setup. No technical setup required." as final_intro %}
+  {% trans "Start your website setup" as final_cta_label %}
+  {% trans "View example layouts" as final_secondary_cta_label %}
+  {% include "components/product/final_cta.html" with title=final_title intro=final_intro cta_label=final_cta_label cta_url=sections_by_key.hero.content.cta_primary_url|default:'#' secondary_cta_label=final_secondary_cta_label secondary_cta_url='#example-layouts' %}
+{% endblock %}
 

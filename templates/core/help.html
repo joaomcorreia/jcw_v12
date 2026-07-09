@@ -1,0 +1,159 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="jcw-page">
+  <section class="jcw-page-hero">
+    <div class="jcw-page-hero__container">
+      <div class="jcw-page-hero__content">
+        <div class="jcw-page-badge">
+          <span class="jcw-page-badge__dot"></span>
+          {% trans "Help" %}
+        </div>
+        <h1 class="jcw-page-title">
+          {% trans "Help and support for your JCW services" %}
+        </h1>
+        <p class="jcw-page-intro">
+          {% trans "Use this page for quick answers and guidance. Most questions can be solved instantly using our system." %}
+        </p>
+        <div class="jcw-button-row jcw-button-row--center">
+          <a class="jcw-button jcw-button--light" href="{% url 'core:contact' %}">
+            {% trans "Contact support" %}
+          </a>
+          <a class="jcw-button jcw-button--ghost-light" href="{% url 'core:websites' %}">
+            {% trans "View website paths" %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="jcw-page-section">
+    <div class="jcw-page-section__container">
+      <div class="jcw-page-stack">
+        <section class="jcw-content-card jcw-content-card--center">
+          <h2 class="jcw-section-title">{% trans "How support works" %}</h2>
+          <p class="jcw-section-text">
+            {% blocktrans %}
+Most questions can be answered instantly using our system.
+Our assistant is available to guide you step by step and help you find the right solution quickly.
+
+If you need additional help, you can contact us directly. For more complex questions, support may be handled by appointment.
+            {% endblocktrans %}
+          </p>
+        </section>
+
+        <section class="jcw-content-card">
+          <h2 class="jcw-section-title">{% trans "Support entry points" %}</h2>
+          <div class="jcw-card-grid">
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Getting Started" %}</h3>
+              <p class="jcw-card-text">{% trans "Start here if you are not sure which service fits or what the next step should be." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Website Help" %}</h3>
+              <p class="jcw-card-text">{% trans "Use this when your question is about website paths, setup, or how the website side works." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Print Help" %}</h3>
+              <p class="jcw-card-text">{% trans "Use this when you need help with business print, merch, or choosing the right print path." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "General Questions" %}</h3>
+              <p class="jcw-card-text">{% trans "Use this when you have a broader question and simply want the clearest next step." %}</p>
+            </article>
+          </div>
+          <p class="jcw-section-text">
+            {% blocktrans %}
+Direct support is available when needed.
+To provide the best assistance, calls are handled by appointment and in English.
+            {% endblocktrans %}
+          </p>
+        </section>
+
+        <section class="jcw-content-card">
+          <h2 class="jcw-section-title">{% trans "Frequently Asked Questions" %}</h2>
+          <div class="jcw-card-grid">
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "How do I get started?" %}</h3>
+              <p class="jcw-card-text">{% trans "Start with the closest entry page for websites or print, or contact JCW if you want help choosing." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "How do I get help quickly?" %}</h3>
+              <p class="jcw-card-text">{% trans "The fastest way is to use the JCW assistant. It can guide you step by step and answer most questions instantly." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Where do I ask questions?" %}</h3>
+              <p class="jcw-card-text">{% trans "You can use the JCW assistant for immediate help, or contact us directly if needed." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Is help available after setup?" %}</h3>
+              <p class="jcw-card-text">{% trans "Yes. If you need help later, support can be handled step by step based on what you need." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "What is the difference between website and print help?" %}</h3>
+              <p class="jcw-card-text">{% trans "Website help is for setup and website direction. Print help is for printed materials and merch." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "What if I am not sure what I need?" %}</h3>
+              <p class="jcw-card-text">{% trans "That is fine. You do not need to know everything before starting. JCW can help you narrow it down." %}</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="jcw-content-card">
+          <h2 class="jcw-section-title">{% trans "Support routes" %}</h2>
+          <div class="jcw-split-grid">
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Website support" %}</h3>
+              <p class="jcw-card-text">{% trans "Go here if your question is about website setup, choosing a path, or understanding the website options." %}</p>
+              <div class="jcw-button-row">
+                <a class="jcw-button jcw-button--light" href="{% url 'core:websites' %}">
+                  {% trans "Website paths" %}
+                </a>
+              </div>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Print support" %}</h3>
+              <p class="jcw-card-text">{% trans "Go here if your question is about business print, merch, or which print route to choose." %}</p>
+              <div class="jcw-button-row">
+                <a class="jcw-button jcw-button--light" href="{% url 'core:print_overview' %}">
+                  {% trans "Print paths" %}
+                </a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="jcw-content-card jcw-content-card--center">
+          <h2 class="jcw-section-title">{% trans "You do not need to know everything before asking for help" %}</h2>
+          <p class="jcw-section-text">
+            {% blocktrans %}
+You don’t need technical knowledge to get started.
+Our system is designed to guide you step by step, so you can focus on your business.
+            {% endblocktrans %}
+          </p>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="jcw-page-section">
+    <div class="jcw-page-section__container">
+      <div class="jcw-cta-card">
+        <h2 class="jcw-section-title">{% trans "Get help the easy way" %}</h2>
+        <p class="jcw-card-text">{% trans "Use our assistant for instant answers, or contact us if you need additional support." %}</p>
+        <div class="jcw-button-row">
+          <a class="jcw-button jcw-button--light" href="{% url 'core:help_center' %}">
+            {% trans "Get help now" %}
+          </a>
+          <a class="jcw-button jcw-button--light" href="{% url 'core:contact' %}">
+            {% trans "Contact support" %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% include "core/footer.html" %}
+{% endblock content %}

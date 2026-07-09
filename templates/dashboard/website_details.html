@@ -1,0 +1,36 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Website Details" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">{% trans "Website Details" %}</h1>
+  <p class="dashboard-muted">{% trans "Review the main website details currently connected to this dashboard." %}</p>
+  {% trans "Not set" as not_set_label %}
+
+  <div class="dashboard-card dashboard-card--auto">
+    <div class="dashboard-card-header">
+      <h2 class="dashboard-card-title">{% trans "Current website details" %}</h2>
+    </div>
+    <div class="dashboard-list">
+      <div class="dashboard-list-item">
+        <span>{% trans "Website name" %}</span>
+        <span class="dashboard-status">{{ site.name|default:not_set_label }}</span>
+      </div>
+      <div class="dashboard-list-item">
+        <span>{% trans "Subdomain" %}</span>
+        <span class="dashboard-status">{{ site.subdomain|default:not_set_label }}</span>
+      </div>
+      <div class="dashboard-list-item">
+        <span>{% trans "Language" %}</span>
+        <span class="dashboard-status">{{ site.language|default:not_set_label }}</span>
+      </div>
+      <div class="dashboard-list-item">
+        <span>{% trans "Template" %}</span>
+        <span class="dashboard-status">{{ template_name|default:not_set_label }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

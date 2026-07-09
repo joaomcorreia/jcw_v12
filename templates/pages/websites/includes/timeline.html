@@ -1,0 +1,44 @@
+{% load i18n %}
+<section class="plan-section plan-b5 p-8">
+  <h2 class="text-3xl font-bold text-gray-900 mb-4">{{ title }}</h2>
+  {% if intro %}
+  <p class="text-gray-700 mb-6">{{ intro }}</p>
+  {% endif %}
+  <div class="timeline-grid">
+    {% if step1_title %}
+    <div class="timeline-step">
+      <span class="timeline-step-num">1</span>
+      <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ step1_title }}</h3>
+      {% if step1_desc %}<p class="text-gray-700 text-sm">{{ step1_desc }}</p>{% endif %}
+    </div>
+    {% endif %}
+    {% if step2_title %}
+    <div class="timeline-step">
+      <span class="timeline-step-num">2</span>
+      <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ step2_title }}</h3>
+      {% if step2_desc %}<p class="text-gray-700 text-sm">{{ step2_desc }}</p>{% endif %}
+    </div>
+    {% endif %}
+    {% if step3_title %}
+    <div class="timeline-step">
+      <span class="timeline-step-num">3</span>
+      <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ step3_title }}</h3>
+      {% if step3_desc %}<p class="text-gray-700 text-sm">{{ step3_desc }}</p>{% endif %}
+    </div>
+    {% endif %}
+    {% if step4_title %}
+    <div class="timeline-step">
+      <span class="timeline-step-num">4</span>
+      <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ step4_title }}</h3>
+      {% if step4_desc %}<p class="text-gray-700 text-sm">{{ step4_desc }}</p>{% endif %}
+    </div>
+    {% endif %}
+    {% if step5_title %}
+    <div class="timeline-step">
+      <span class="timeline-step-num">5</span>
+      <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ step5_title }}</h3>
+      {% if step5_desc %}<p class="text-gray-700 text-sm">{{ step5_desc }}</p>{% endif %}
+    </div>
+    {% endif %}
+  </div>
+</section>

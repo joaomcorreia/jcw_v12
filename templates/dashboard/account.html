@@ -1,0 +1,86 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "My Account" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">{% trans "My Account" %}</h1>
+  <p class="dashboard-muted">{% trans "View your account information and the website currently connected to your dashboard." %}</p>
+  {% trans "Not set" as not_set_label %}
+
+  <div class="dashboard-grid">
+    <div class="dashboard-card dashboard-card--auto">
+      <div class="dashboard-card-header">
+        <h3 class="dashboard-card-title">{% trans "User details" %}</h3>
+      </div>
+      <div class="dashboard-list">
+        <div class="dashboard-list-item">
+          <span>{% trans "Username" %}</span>
+          <span class="dashboard-status">{{ request.user.username }}</span>
+        </div>
+        <div class="dashboard-list-item">
+          <span>{% trans "Email" %}</span>
+          <span class="dashboard-status">{{ request.user.email|default:not_set_label }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard-card dashboard-card--auto">
+      <div class="dashboard-card-header">
+        <h3 class="dashboard-card-title">{% trans "Website connection" %}</h3>
+      </div>
+      <div class="dashboard-list">
+        <div class="dashboard-list-item">
+          <span>{% trans "Website" %}</span>
+          <span class="dashboard-status">{{ site.name|default:not_set_label }}</span>
+        </div>
+        <div class="dashboard-list-item">
+          <span>{% trans "Subdomain" %}</span>
+          <span class="dashboard-status">{{ site.subdomain|default:not_set_label }}</span>
+        </div>
+        <div class="dashboard-list-item">
+          <span>{% trans "Language" %}</span>
+          <span class="dashboard-status">{{ site.language|default:not_set_label }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% if profile %}
+  <div class="dashboard-card dashboard-card--auto">
+    <div class="dashboard-card-header">
+      <h3 class="dashboard-card-title">{% trans "Business profile" %}</h3>
+    </div>
+    <div class="dashboard-list">
+      <div class="dashboard-list-item">
+        <span>{% trans "Business name" %}</span>
+        <span class="dashboard-status">{{ profile.business_name|default:not_set_label }}</span>
+      </div>
+      <div class="dashboard-list-item">
+        <span>{% trans "Category" %}</span>
+        <span class="dashboard-status">{{ profile.category|default:not_set_label }}</span>
+      </div>
+      <div class="dashboard-list-item">
+        <span>{% trans "Location" %}</span>
+        <span class="dashboard-status">
+          {% if profile.city or profile.country %}
+            {{ profile.city }}{% if profile.city and profile.country %}, {% endif %}{{ profile.country }}
+          {% else %}
+            {{ not_set_label }}
+          {% endif %}
+        </span>
+      </div>
+      <div class="dashboard-list-item">
+        <span>{% trans "Public email" %}</span>
+        <span class="dashboard-status">{{ profile.email_public|default:not_set_label }}</span>
+      </div>
+      <div class="dashboard-list-item">
+        <span>{% trans "Phone" %}</span>
+        <span class="dashboard-status">{{ profile.phone|default:not_set_label }}</span>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

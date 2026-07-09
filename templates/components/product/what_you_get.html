@@ -1,0 +1,16 @@
+{% load i18n %}
+<section class="plan-section plan-b2 p-8">
+  <h2 class="text-3xl font-bold text-gray-900 mb-4">{{ title }}</h2>
+  {% if intro %}
+  <p class="text-gray-700 mb-4">{{ intro }}</p>
+  {% endif %}
+  <ul class="text-gray-700 space-y-2 list-disc pl-5">
+    {% if deliverable1 %}<li>{{ deliverable1 }}</li>{% endif %}
+    {% if deliverable2 %}<li>{{ deliverable2 }}</li>{% endif %}
+    {% if deliverable3 %}<li>{{ deliverable3 }}</li>{% endif %}
+    {% if deliverable4 %}<li>{{ deliverable4 }}</li>{% endif %}
+    {% if deliverable5 %}<li>{{ deliverable5 }}</li>{% endif %}
+    {% if deliverable6 %}<li>{{ deliverable6 }}</li>{% endif %}
+    {% if deliverable7 %}<li>{{ deliverable7 }}</li>{% endif %}
+  </ul>
+</section>

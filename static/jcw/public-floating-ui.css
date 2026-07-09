@@ -1,0 +1,159 @@
+.jcw-floating-ui {
+  position: fixed;
+  right: 16px;
+  bottom: 20px;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.jcw-back-to-top,
+.jcw-clippy-tab,
+.jcw-clippy-panel {
+  pointer-events: auto;
+}
+
+.jcw-back-to-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.96);
+  color: #0f172a;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.16);
+  padding: 10px 14px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  opacity: 0;
+  transform: translateY(12px);
+  visibility: hidden;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease, background 0.2s ease;
+}
+
+.jcw-back-to-top.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.jcw-back-to-top:hover,
+.jcw-back-to-top:focus-visible {
+  background: #eff6ff;
+  outline: none;
+}
+
+.jcw-clippy-shell {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.jcw-clippy-tab {
+  border: 1px solid rgba(148, 163, 184, 0.34);
+  border-right: 0;
+  border-radius: 999px 0 0 999px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  color: rgba(255, 255, 255, 0.92);
+  padding: 10px 14px 10px 16px;
+  min-height: 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.1);
+}
+
+.jcw-clippy-tab:hover,
+.jcw-clippy-tab:focus-visible {
+  background: rgba(255, 255, 255, 0.14);
+  outline: none;
+}
+
+.jcw-clippy-panel {
+  position: absolute;
+  right: calc(100% + 10px);
+  bottom: 0;
+  width: min(320px, calc(100vw - 84px));
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.22);
+  overflow: hidden;
+}
+
+.jcw-clippy-panel__inner {
+  padding: 18px;
+}
+
+.jcw-clippy-panel__eyebrow {
+  margin: 0 0 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #4f46e5;
+}
+
+.jcw-clippy-panel__title {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+  line-height: 1.2;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.jcw-clippy-panel__body {
+  margin: 0 0 14px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #475569;
+}
+
+.jcw-clippy-panel__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  border-radius: 999px;
+  background: #f8fafc;
+  color: #0f172a;
+  padding: 8px 14px;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.jcw-clippy-panel__close:hover,
+.jcw-clippy-panel__close:focus-visible {
+  background: #eef2ff;
+  outline: none;
+}
+
+@media (max-width: 640px) {
+  .jcw-floating-ui {
+    right: 12px;
+    bottom: 14px;
+    gap: 10px;
+  }
+
+  .jcw-back-to-top {
+    padding: 10px 12px;
+  }
+
+  .jcw-clippy-tab {
+    padding: 9px 12px 9px 14px;
+    font-size: 0.8125rem;
+  }
+
+  .jcw-clippy-panel {
+    width: min(280px, calc(100vw - 72px));
+  }
+
+  .jcw-clippy-shell {
+    right: 0;
+  }
+}

@@ -1,0 +1,75 @@
+{% load i18n %}
+{% trans "Demo Templates" as default_showcase_badge %}
+{% trans "Explore curated website examples" as default_showcase_title %}
+{% trans "Preview locked demo websites for different business types. These examples are public references only and stay separate from real customer sites." as default_showcase_intro %}
+<section class="py-24 bg-white relative">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center px-4 py-2 bg-yellow-100 text-yellow-800 rounded-full text-sm font-medium mb-6">
+        <span class="mr-2 inline-flex items-center justify-center">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+            <circle cx="12" cy="12" r="6" stroke-width="1.8"></circle>
+          </svg>
+        </span>
+        {{ showcase_badge|default:default_showcase_badge }}
+      </div>
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+        <span class="bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">
+          {{ showcase_title|default:default_showcase_title }}
+        </span>
+      </h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        {{ showcase_intro|default:default_showcase_intro }}
+      </p>
+    </div>
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {% for demo_card in demo_showcase_cards %}
+          <article class="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">
+            <div class="p-5 border-b border-gray-100 bg-gradient-to-br {{ demo_card.styles.preview_bg }}">
+              <div class="rounded-[1.5rem] bg-white/85 p-4 shadow-sm">
+                <div class="mb-3 flex items-center gap-2">
+                  <span class="h-2.5 w-2.5 rounded-full bg-rose-400"></span>
+                  <span class="h-2.5 w-2.5 rounded-full bg-amber-400"></span>
+                  <span class="h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
+                </div>
+                <div class="h-28 rounded-[1rem] {{ demo_card.styles.preview_accent }}"></div>
+                <div class="mt-4 grid grid-cols-2 gap-3">
+                  <div class="rounded-2xl bg-gray-50 p-3">
+                    <div class="h-2 w-14 rounded-full bg-gray-300"></div>
+                    <div class="mt-3 h-6 rounded-xl bg-gray-200"></div>
+                    <div class="mt-2 h-6 rounded-xl bg-gray-200"></div>
+                  </div>
+                  <div class="rounded-2xl bg-gray-50 p-3">
+                    <div class="h-2 w-16 rounded-full bg-gray-300"></div>
+                    <div class="mt-3 space-y-2">
+                      <div class="h-2 rounded-full bg-gray-200"></div>
+                      <div class="h-2 rounded-full bg-gray-200"></div>
+                      <div class="h-2 w-3/4 rounded-full bg-gray-200"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="p-6 text-left">
+              <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold {{ demo_card.styles.badge }}">
+                {{ demo_card.category }}
+              </div>
+              <h3 class="mt-4 text-xl font-semibold text-gray-900">
+                {{ demo_card.title }}
+              </h3>
+              <p class="mt-3 text-sm text-gray-600">
+                {{ demo_card.description }}
+              </p>
+              <div class="mt-6">
+                <button type="button" data-coming-soon-trigger data-demo-slug="{{ demo_card.slug }}" class="inline-flex items-center justify-center rounded-full bg-gray-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-gray-800">
+                  {% trans "Open preview" %}
+                </button>
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>

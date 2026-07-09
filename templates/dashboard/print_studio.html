@@ -1,17 +1,17 @@
 {% extends "dashboard/base_dashboard.html" %}
 {% load i18n %}
 
-{% block title %}{% trans "Print Studio" %}{% endblock %}
+{% block title %}{% trans "PrintLab" %}{% endblock %}
 
 {% block content %}
 <div class="dashboard-page">
-  <h1 class="dashboard-title">{% trans "Print Studio" %}</h1>
+  <h1 class="dashboard-title">{% trans "PrintLab" %}</h1>
   {% if feature_flags.can_use_print_studio %}
     <div class="dashboard-grid">
       <div class="dashboard-card dashboard-card--auto">
         <div class="dashboard-card-header">
           <h3 class="dashboard-card-title">{% trans "Business Cards" %}</h3>
-          <span class="dashboard-badge">{% trans "Bizay soon" %}</span>
+          <span class="dashboard-badge">{% trans "Available soon" %}</span>
         </div>
         <p class="dashboard-muted">{% trans "High-quality cards for your brand." %}</p>
         <button class="dashboard-button" type="button" disabled>{% trans "Open" %}</button>
@@ -19,7 +19,7 @@
       <div class="dashboard-card dashboard-card--auto">
         <div class="dashboard-card-header">
           <h3 class="dashboard-card-title">{% trans "Flyers" %}</h3>
-          <span class="dashboard-badge">{% trans "Bizay soon" %}</span>
+          <span class="dashboard-badge">{% trans "Available soon" %}</span>
         </div>
         <p class="dashboard-muted">{% trans "Promote services with bold flyers." %}</p>
         <button class="dashboard-button" type="button" disabled>{% trans "Open" %}</button>
@@ -27,17 +27,17 @@
       <div class="dashboard-card dashboard-card--auto">
         <div class="dashboard-card-header">
           <h3 class="dashboard-card-title">{% trans "Stickers" %}</h3>
-          <span class="dashboard-badge">{% trans "Bizay soon" %}</span>
+          <span class="dashboard-badge">{% trans "Available soon" %}</span>
         </div>
         <p class="dashboard-muted">{% trans "Custom stickers for packaging or giveaways." %}</p>
         <button class="dashboard-button" type="button" disabled>{% trans "Open" %}</button>
       </div>
       <div class="dashboard-card dashboard-card--auto">
         <div class="dashboard-card-header">
-          <h3 class="dashboard-card-title">{% trans "Merch / Apparel" %}</h3>
-          <span class="dashboard-badge">{% trans "Printful" %}</span>
+          <h3 class="dashboard-card-title">{% trans "Clothing and promo items" %}</h3>
+          <span class="dashboard-badge">{% trans "In preparation" %}</span>
         </div>
-        <p class="dashboard-muted">{% trans "On-demand apparel and merchandise." %}</p>
+        <p class="dashboard-muted">{% trans "Expand into branded clothing and printed promo items from the same dashboard." %}</p>
         <button class="dashboard-button" type="button" disabled>{% trans "Open" %}</button>
       </div>
     </div>
@@ -51,18 +51,9 @@
   {% if feature_flags.can_use_print_studio %}
   <div class="dashboard-card dashboard-card--auto">
     <div class="dashboard-card-header">
-      <h3 class="dashboard-card-title">{% trans "Integrations" %}</h3>
+      <h3 class="dashboard-card-title">{% trans "PrintLab status" %}</h3>
     </div>
-    <div class="dashboard-list">
-      <div class="dashboard-list-item">
-        <span>{% trans "Printful" %}</span>
-        <span class="dashboard-status">{% trans "Connected" %}</span>
-      </div>
-      <div class="dashboard-list-item">
-        <span>{% trans "Bizay" %}</span>
-        <span class="dashboard-status">{% trans "Coming soon" %}</span>
-      </div>
-    </div>
+    <p class="dashboard-muted">{% trans "More product groups and production options will appear here as your PrintLab area expands." %}</p>
   </div>
   {% endif %}
 {% endblock %}

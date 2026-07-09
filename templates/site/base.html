@@ -12,7 +12,7 @@
       {% elif page_title %}
         {{ page_title }}
       {% else %}
-        {% trans "Coming soon" %}
+        {% trans "Coming soon" context "site placeholder title" %}
       {% endif %}
     </title>
     {% if seo_description %}
@@ -32,6 +32,7 @@
     <link rel="alternate" hreflang="{{ alternate.lang }}" href="{{ alternate.url }}">
       {% endfor %}
     {% endif %}
+    <link rel="stylesheet" href="{% static 'jcw/public-floating-ui.css' %}">
     <style>
       body { padding-top: var(--header-offset, 0px); }
       body.embed-mode .cookie-banner,
@@ -69,6 +70,7 @@
     <main>
       {% block content %}{% endblock %}
     </main>
+    {% include 'core/includes/public_floating_ui.html' %}
     <script>
       (function () {
         const nav = document.querySelector("nav");
@@ -83,5 +85,6 @@
         window.addEventListener("resize", setOffset);
       })();
     </script>
+    <script src="{% static 'jcw/js/public-floating-ui.js' %}" defer></script>
   </body>
 </html>

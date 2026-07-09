@@ -1,15 +1,12 @@
 {% extends "dashboard/base_dashboard.html" %}
-{% load i18n static %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'dashboard/widgets_autofix_pack.css' %}">
-{% endblock %}
+{% load i18n %}
 
 {% block title %}{% trans "Dashboard" %}{% endblock %}
 
 {% block content %}
 <div class="dashboard-page">
   <h1 class="dashboard-title">{% trans "Dashboard" %}</h1>
+  <p class="dashboard-muted">{% trans "Use this overview to open the main areas of your website, services, tools, and support." %}</p>
   {% if not request.tenant %}
     <div class="dashboard-card dashboard-card--auto">
       <div class="dashboard-card-header">
@@ -19,52 +16,144 @@
       <a class="dashboard-button" href="{% url 'tenant_dashboard:dashboard_choose_template' %}">{% trans "Choose template" %}</a>
     </div>
   {% else %}
-    <div class="dashboard-card dashboard-card--auto">
-      <div class="dashboard-card-header">
-        <h3 class="dashboard-card-title">{% trans "Website overview" %}</h3>
-        {% if template_name %}
-          <span class="dashboard-badge">{{ template_name }}</span>
-        {% endif %}
-      </div>
-      <div class="dashboard-list">
-        <div class="dashboard-list-item">
-          <span>{% trans "Pages" %}</span>
-          <span class="dashboard-status">{{ pages_count }}</span>
+    {% trans "Open website" as open_website_label %}
+    {% trans "Open billing" as open_billing_label %}
+    {% trans "Open domains" as open_domains_label %}
+    {% trans "Open subscriptions" as open_subscriptions_label %}
+    {% trans "Open editor" as open_editor_label %}
+    {% trans "Open website details" as open_website_details_label %}
+    {% trans "Open media manager" as open_media_manager_label %}
+    {% trans "Open site settings" as open_site_settings_label %}
+    {% trans "Open Google Analytics" as open_google_analytics_label %}
+    {% trans "Open Facebook Insights" as open_facebook_insights_label %}
+    {% trans "Open SEO plans" as open_seo_plans_label %}
+    {% trans "Open social content planning" as open_social_content_planning_label %}
+    {% trans "Open website upgrades" as open_website_upgrades_label %}
+    {% trans "Open PrintLab" as open_printlab_label %}
+    {% trans "Open Image Resizer" as open_image_resizer_label %}
+    {% trans "Open QR Code Maker" as open_qr_code_maker_label %}
+    {% trans "Open help" as open_help_label %}
+
+    <section class="dashboard-overview-section dashboard-overview-section--light">
+      <h2 class="dashboard-card-title">{% trans "Core" %}</h2>
+      <div class="dashboard-overview-grid">
+        <div class="dashboard-card dashboard-card--auto">
+          <h3 class="dashboard-card-title">{% trans "My Website" %}</h3>
+          <p class="dashboard-muted">{% trans "Open your live website and review how it looks to customers." %}</p>
+          <a class="dashboard-button" href="{{ open_url }}" target="_blank" rel="noopener">{{ open_website_label }}</a>
         </div>
-        <div class="dashboard-list-item">
-          <span>{% trans "Default language" %}</span>
-          <span class="dashboard-status">{{ default_language|default:"-" }}</span>
+        <div class="dashboard-card dashboard-card--auto">
+          <h3 class="dashboard-card-title">{% trans "Billing" %}</h3>
+          <p class="dashboard-muted">{% trans "View your current plan and the billing status connected to this website." %}</p>
+          <a class="dashboard-button" href="{% url 'tenant_dashboard:dashboard_billing' %}">{{ open_billing_label }}</a>
+        </div>
+        <div class="dashboard-card dashboard-card--auto">
+          <h3 class="dashboard-card-title">{% trans "Domains" %}</h3>
+          <p class="dashboard-muted">{% trans "Review the current domain and subdomain details connected to your website." %}</p>
+          <a class="dashboard-button" href="{% url 'tenant_dashboard:dashboard_domains' %}">{{ open_domains_label }}</a>
+        </div>
+        <div class="dashboard-card dashboard-card--auto">
+          <h3 class="dashboard-card-title">{% trans "Subscriptions" %}</h3>
+          <p class="dashboard-muted">{% trans "See which services are connected to your current website setup." %}</p>
+          <a class="dashboard-button" href="{% url 'tenant_dashboard:dashboard_subscriptions' %}">{{ open_subscriptions_label }}</a>
         </div>
       </div>
-      <div class="dashboard-cta-actions">
-        <a class="dashboard-button" href="{{ open_url }}">{% trans "Open website" %}</a>
-        <a class="dashboard-button dashboard-button--secondary" href="{% url 'tenant_dashboard:dashboard_edit_home' %}">{% trans "Edit homepage" %}</a>
-        {% if request.user.is_staff and request.session.impersonate_tenant_id %}
-          <form method="post" action="{% url 'tenant_dashboard:dashboard_reset_site' %}">
-            {% csrf_token %}
-            <button class="dashboard-button dashboard-button--secondary" type="submit">{% trans "Reset this site" %}</button>
-          </form>
-        {% endif %}
+    </section>
+
+    <section class="dashboard-overview-section dashboard-overview-section--dark">
+      <h2 class="dashboard-card-title">{% trans "Website Management" %}</h2>
+      <div class="dashboard-overview-grid">
+        <div class="dashboard-card dashboard-card--auto">
+          <h3 class="dashboard-card-title">{% trans "Edit Website" %}</h3>
+          <p class="dashboard-muted">{% trans "Manage your pages and open the main editing area for website content." %}</p>
+          <a class="dashboard-button" href="{% url 'tenant_dashboard:dashboard_pages' %}">{{ open_editor_label }}</a>
+        </div>
+        <div class="dashboard-card dashboard-card--auto">
+          <h3 class="dashboard-card-title">{% trans "Website Details" %}</h3>
+          <p class="dashboard-muted">{% trans "Review your website name, language, template, and subdomain in one place." %}</p>
+          <a class="dashboard-button" href="{% url 'tenant_dashboard:dashboard_website_details' %}">{{ open_website_details_label }}</a>
+        </div>
+        <div class="dashboard-card dashboard-card--auto">
+          <h3 class="dashboard-card-title">{% trans "Media Manager" %}</h3>
+          <p class="dashboard-muted">{% trans "Open the future media area where website images and files will be managed." %}</p>
+          <a class="dashboard-button" href="{% url 'tenant_dashboard:dashboard_media_manager' %}">{{ open_media_manager_label }}</a>
+        </div>
+        <div class="dashboard-card dashboard-card--auto">
+          <h3 class="dashboard-card-title">{% trans "Site Settings" %}</h3>
+          <p class="dashboard-muted">{% trans "Review the current settings area for your website setup." %}</p>
+          <a class="dashboard-button" href="{% url 'tenant_dashboard:site_settings' %}">{{ open_site_settings_label }}</a>
+        </div>
       </div>
-    </div>
-    <div class="dashboard-grid">
-      {% include "dashboard/widgets_autofix_pack/_site_status.html" %}
-      {% if feature_flags.can_use_seo_widgets %}
-        {% include "dashboard/widgets_autofix_pack/_seo_progress.html" %}
-      {% else %}
-        {% include "components/upgrade_cta.html" with title=upgrade_ctas.seo.title message=upgrade_ctas.seo.message primary_button_text=upgrade_ctas.seo.primary_button_text primary_button_url=upgrade_ctas.seo.primary_button_url secondary_link_text=upgrade_ctas.seo.secondary_link_text secondary_link_url=upgrade_ctas.seo.secondary_link_url style=upgrade_ctas.seo.style %}
-      {% endif %}
-      {% if feature_flags.can_use_indexing_widget %}
-        {% include "dashboard/widgets_autofix_pack/_indexing_status.html" %}
-      {% else %}
-        {% include "components/upgrade_cta.html" with title=upgrade_ctas.indexing.title message=upgrade_ctas.indexing.message primary_button_text=upgrade_ctas.indexing.primary_button_text primary_button_url=upgrade_ctas.indexing.primary_button_url secondary_link_text=upgrade_ctas.indexing.secondary_link_text secondary_link_url=upgrade_ctas.indexing.secondary_link_url style=upgrade_ctas.indexing.style %}
-      {% endif %}
-      {% if feature_flags.can_use_activity_feed %}
-        {% include "dashboard/widgets_autofix_pack/_activity_feed.html" %}
-      {% endif %}
-      {% include "dashboard/widgets_autofix_pack/_quick_links.html" %}
-      {% include "dashboard/widgets_autofix_pack/_milestones.html" %}
-    </div>
+    </section>
+
+    <section class="dashboard-overview-section dashboard-overview-section--light">
+      <h2 class="dashboard-card-title">{% trans "Insights" %}</h2>
+      <div class="dashboard-overview-grid">
+        <div class="dashboard-card dashboard-card--auto">
+          <h3 class="dashboard-card-title">{% trans "Google Analytics" %}</h3>
+          <p class="dashboard-muted">{% trans "Open the future analytics connection area for your website reporting." %}</p>
+          <a class="dashboard-button" href="{% url 'tenant_dashboard:dashboard_google_analytics' %}">{{ open_google_analytics_label }}</a>
+        </div>
+        <div class="dashboard-card dashboard-card--auto">
+          <h3 class="dashboard-card-title">{% trans "Facebook Insights" %}</h3>
+          <p class="dashboard-muted">{% trans "Open the future page insights area for your Facebook presence." %}</p>
+          <a class="dashboard-button" href="{% url 'tenant_dashboard:dashboard_facebook_insights' %}">{{ open_facebook_insights_label }}</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard-overview-section dashboard-overview-section--dark">
+      <h2 class="dashboard-card-title">{% trans "Services" %}</h2>
+      <div class="dashboard-overview-grid">
+        <div class="dashboard-card dashboard-card--auto">
+          <h3 class="dashboard-card-title">{% trans "SEO Plans" %}</h3>
+          <p class="dashboard-muted">{% trans "Review visibility and SEO-related options connected to your website plan." %}</p>
+          <a class="dashboard-button" href="{% url 'tenant_dashboard:visibility' %}">{{ open_seo_plans_label }}</a>
+        </div>
+        <div class="dashboard-card dashboard-card--auto">
+          <h3 class="dashboard-card-title">{% trans "Social Content Planning" %}</h3>
+          <p class="dashboard-muted">{% trans "Open the future planning area for social content connected to your services." %}</p>
+          <a class="dashboard-button" href="{% url 'tenant_dashboard:dashboard_social_content_planning' %}">{{ open_social_content_planning_label }}</a>
+        </div>
+        <div class="dashboard-card dashboard-card--auto">
+          <h3 class="dashboard-card-title">{% trans "Website Upgrades" %}</h3>
+          <p class="dashboard-muted">{% trans "Explore future website improvements and optional service upgrades." %}</p>
+          <a class="dashboard-button" href="{% url 'tenant_dashboard:marketplace_jcw' %}">{{ open_website_upgrades_label }}</a>
+        </div>
+        <div class="dashboard-card dashboard-card--auto">
+          <h3 class="dashboard-card-title">{% trans "PrintLab" %}</h3>
+          <p class="dashboard-muted">{% trans "Open your print area for branded materials, clothing, and future print options." %}</p>
+          <a class="dashboard-button" href="{% url 'tenant_dashboard:dashboard_print_studio' %}">{{ open_printlab_label }}</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard-overview-section dashboard-overview-section--light">
+      <h2 class="dashboard-card-title">{% trans "Tools" %}</h2>
+      <div class="dashboard-overview-grid">
+        <div class="dashboard-card dashboard-card--auto">
+          <h3 class="dashboard-card-title">{% trans "Image Resizer" %}</h3>
+          <p class="dashboard-muted">{% trans "Open the future tool for preparing images for your website and social content." %}</p>
+          <a class="dashboard-button" href="{% url 'tenant_dashboard:dashboard_tool_image_resizer' %}">{{ open_image_resizer_label }}</a>
+        </div>
+        <div class="dashboard-card dashboard-card--auto">
+          <h3 class="dashboard-card-title">{% trans "QR Code Maker" %}</h3>
+          <p class="dashboard-muted">{% trans "Open the future tool for creating QR codes for your website and print materials." %}</p>
+          <a class="dashboard-button" href="{% url 'tenant_dashboard:dashboard_tool_qr_code_maker' %}">{{ open_qr_code_maker_label }}</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard-overview-section dashboard-overview-section--dark">
+      <h2 class="dashboard-card-title">{% trans "Support" %}</h2>
+      <div class="dashboard-overview-grid">
+        <div class="dashboard-card dashboard-card--auto">
+          <h3 class="dashboard-card-title">{% trans "Help" %}</h3>
+          <p class="dashboard-muted">{% trans "Open the support area that will gather dashboard guidance and customer help." %}</p>
+          <a class="dashboard-button" href="{% url 'tenant_dashboard:dashboard_help' %}">{{ open_help_label }}</a>
+        </div>
+      </div>
+    </section>
   {% endif %}
 </div>
 {% endblock %}

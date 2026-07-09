@@ -5,7 +5,12 @@
 
 {% block content %}
 <div class="dashboard-page">
+  {% url 'control_panel:tenants' as tenants_url %}
+  {% trans "Open tenants" as open_tenants_label %}
   <h1 class="dashboard-title">{% trans "Domains & Hosting" %}</h1>
-  <p class="dashboard-muted">{% trans "Coming soon." %}</p>
+  <div class="dashboard-card dashboard-card--auto">
+    <p class="dashboard-muted">{% trans "Domain and hosting controls are available per tenant. Open a tenant to validate subdomain and plan assignment." %}</p>
+    {% include "components/button_row.html" with action1_url=tenants_url action1_label=open_tenants_label %}
+  </div>
 </div>
 {% endblock %}

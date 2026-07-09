@@ -1,0 +1,399 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+
+{% block content %}
+  <div class="bg-white">
+    <section class="pt-32 pb-6">
+      <div class="max-w-5xl mx-auto px-4">
+        <div class="rounded-[2rem] border border-gray-200 bg-white p-6 md:p-8 shadow-sm">
+          <div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+            <div class="max-w-3xl">
+              <div class="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold {{ demo.styles.badge }}">
+                <span>{% trans "Demo preview" %}</span>
+                <span aria-hidden="true">&bull;</span>
+                <span>{{ demo.category }}</span>
+              </div>
+              <h1 class="mt-4 text-3xl md:text-4xl font-semibold tracking-tight text-gray-950">
+                {{ demo.title }}
+              </h1>
+              <p class="mt-3 text-base md:text-lg text-gray-600">
+                {{ demo.description }}
+              </p>
+              <p class="mt-3 text-sm text-gray-500">
+                {% trans "This is a locked JCW template preview. It is shown inside the main JCW site and stays separate from real customer websites." %}
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-3">
+              <a href="{% url 'core:websites' %}" class="inline-flex items-center justify-center rounded-full border border-gray-300 bg-white px-5 py-3 text-sm font-semibold text-gray-900 transition hover:bg-gray-100">
+                {% trans "View website plans" %}
+              </a>
+              <a href="{% url 'core:pricing' %}" class="inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold text-white transition-colors {{ demo.styles.accent_bg }}">
+                {% trans "View pricing" %}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-12">
+      <div class="max-w-5xl mx-auto px-4">
+        <div class="rounded-[2rem] border border-slate-300 bg-white shadow-2xl overflow-hidden ring-1 ring-slate-200">
+          <div class="flex items-center justify-between border-b border-gray-200 bg-gray-50 px-5 py-4">
+            <div class="flex items-center gap-2">
+              <span class="h-3 w-3 rounded-full bg-rose-400"></span>
+              <span class="h-3 w-3 rounded-full bg-amber-400"></span>
+              <span class="h-3 w-3 rounded-full bg-emerald-400"></span>
+            </div>
+            <div class="rounded-full border border-gray-200 bg-white px-4 py-1 text-xs font-medium text-gray-500">
+              {{ demo.slug }}.jcw-demo.local
+            </div>
+          </div>
+
+          <div class="p-4 md:p-6 bg-gradient-to-br {{ demo.styles.hero_bg }}">
+            <div class="rounded-[1.75rem] border border-white/70 bg-white/90 shadow-sm overflow-hidden">
+              {% if demo.style_key == "beauty" %}
+                <div class="border-b border-rose-100 bg-white/95 px-5 py-5 md:px-8">
+                  <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                    <div class="flex items-center gap-3">
+                      <div class="flex h-11 w-11 items-center justify-center rounded-full bg-rose-100 text-sm font-semibold text-rose-700">
+                        {{ demo.preview_brand|slice:":1" }}
+                      </div>
+                      <div>
+                        <p class="text-base font-semibold tracking-[0.08em] text-gray-950">{{ demo.preview_brand }}</p>
+                        <p class="text-xs uppercase tracking-[0.22em] text-rose-500">{{ demo.category }}</p>
+                      </div>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-4 text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">
+                      {% for item in demo.preview_nav %}
+                        <span>{{ item }}</span>
+                      {% endfor %}
+                      <span class="inline-flex items-center rounded-full bg-rose-600 px-4 py-2 text-white">{{ demo.preview_nav_cta }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="p-7 md:p-10">
+                  <div class="grid gap-10 lg:grid-cols-[1fr_0.92fr] items-start">
+                    <div>
+                      <p class="text-xs font-semibold uppercase tracking-[0.28em] text-rose-500">
+                        {{ demo.tagline }}
+                      </p>
+                      <h2 class="mt-5 text-2xl md:text-4xl font-semibold leading-tight text-gray-950 max-w-lg">
+                        {{ demo.hero_title }}
+                      </h2>
+                      <p class="mt-5 max-w-xl text-[15px] leading-7 text-gray-600">
+                        {{ demo.hero_text }}
+                      </p>
+                      <div class="mt-8 flex flex-wrap gap-3">
+                        {% for stat in demo.preview_trust %}
+                          <div class="rounded-full border border-rose-100 bg-rose-50 px-4 py-2 text-sm font-medium text-rose-700 shadow-sm">
+                            {{ stat }}
+                          </div>
+                        {% endfor %}
+                      </div>
+                      <div class="mt-8 rounded-[1.6rem] border border-rose-100 bg-gradient-to-br from-rose-50 via-white to-stone-50 px-6 py-6">
+                        <p class="text-xs font-semibold uppercase tracking-[0.22em] text-rose-500">{% trans "Inside this preview" %}</p>
+                        <div class="mt-4 grid gap-4 sm:grid-cols-2">
+                          {% for item in demo.preview_reviews %}
+                            <div class="rounded-[1.25rem] bg-white px-5 py-5 shadow-sm">
+                              <p class="text-sm font-semibold text-gray-900">{{ item.name }}</p>
+                              <p class="mt-2 text-sm leading-6 text-gray-600">{{ item.text }}</p>
+                            </div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="rounded-[1.9rem] bg-gradient-to-br from-rose-100 via-white to-stone-100 p-6">
+                      <div class="rounded-[1.6rem] bg-white p-6 shadow-sm">
+                        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-rose-500">{{ demo.preview_quote_caption }}</p>
+                        <h3 class="mt-3 text-2xl font-semibold text-gray-950">{{ demo.preview_quote_title }}</h3>
+                        <p class="mt-3 text-sm leading-6 text-gray-600">{{ demo.preview_quote_text }}</p>
+                        <div class="mt-6 h-52 rounded-[1.4rem] bg-gradient-to-br from-rose-300/80 via-pink-100 to-stone-100"></div>
+                        <div class="mt-5 flex flex-wrap gap-3">
+                          <span class="inline-flex items-center rounded-full bg-rose-600 px-5 py-3 text-sm font-semibold text-white">{{ demo.preview_nav_cta }}</span>
+                          <span class="inline-flex items-center rounded-full border border-gray-300 bg-white px-5 py-3 text-sm font-semibold text-gray-900">{{ demo.secondary_cta }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="border-t border-rose-100 bg-rose-50/50 px-6 md:px-8 py-8">
+                  <div class="grid gap-4 md:grid-cols-3">
+                    {% for item in demo.services %}
+                      <div class="rounded-[1.6rem] border border-rose-100 bg-white px-5 py-6 shadow-sm">
+                        <div class="h-2 w-14 rounded-full bg-rose-300"></div>
+                        <p class="mt-4 text-base font-semibold text-gray-950">{{ item.name }}</p>
+                        <p class="mt-2 text-sm leading-6 text-gray-600">{{ item.text }}</p>
+                      </div>
+                    {% endfor %}
+                  </div>
+                </div>
+
+                <div class="border-t border-rose-100 bg-[#2c1f24] px-6 md:px-8 py-8 text-white">
+                  <div class="grid gap-6 md:grid-cols-[1.2fr_0.8fr_0.9fr]">
+                    <div>
+                      <p class="text-lg font-semibold">{{ demo.preview_brand }}</p>
+                      <p class="mt-3 max-w-sm text-sm text-white/70">{{ demo.preview_footer_note }}</p>
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-white/55">{% trans "Inside this demo" %}</p>
+                      <div class="mt-3 space-y-2 text-sm text-white/80">
+                        {% for item in demo.preview_footer_links %}
+                          <p>{{ item }}</p>
+                        {% endfor %}
+                      </div>
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-white/55">{% trans "Contact" %}</p>
+                      <div class="mt-3 space-y-2 text-sm text-white/80">
+                        <p>{{ demo.preview_contact_email }}</p>
+                        <p>{{ demo.preview_contact_phone }}</p>
+                        <p>{{ demo.preview_contact_note }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% elif demo.style_key == "construction" %}
+                <div class="border-b border-slate-200 bg-slate-950 px-5 py-4 md:px-8 text-white">
+                  <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                    <div>
+                      <p class="text-lg font-semibold">{{ demo.preview_brand }}</p>
+                      <p class="text-xs uppercase tracking-[0.2em] text-white/55">{{ demo.category }}</p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
+                      {% for item in demo.preview_nav %}
+                        <span>{{ item }}</span>
+                      {% endfor %}
+                      <span class="inline-flex items-center rounded-full bg-amber-400 px-4 py-2 text-slate-950">{{ demo.preview_nav_cta }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="p-5 md:p-6 bg-slate-50">
+                  <div class="grid gap-5 lg:grid-cols-[1.18fr_0.82fr]">
+                    <div class="rounded-[1.35rem] bg-white px-6 py-6 shadow-sm border border-slate-200">
+                      <p class="text-xs font-semibold uppercase tracking-[0.22em] text-amber-600">{{ demo.tagline }}</p>
+                      <h2 class="mt-4 text-2xl md:text-3xl font-semibold text-slate-950">{{ demo.hero_title }}</h2>
+                      <p class="mt-4 text-sm leading-6 text-slate-600">{{ demo.hero_text }}</p>
+                      <div class="mt-5 grid gap-3 sm:grid-cols-3">
+                        {% for stat in demo.preview_trust %}
+                          <div class="rounded-2xl bg-slate-950 px-4 py-3 text-sm font-semibold text-white">{{ stat }}</div>
+                        {% endfor %}
+                      </div>
+                      <div class="mt-5 flex flex-wrap gap-3">
+                        <span class="inline-flex items-center rounded-full bg-slate-950 px-5 py-3 text-sm font-semibold text-white">{{ demo.primary_cta }}</span>
+                        <span class="inline-flex items-center rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-900">{{ demo.secondary_cta }}</span>
+                      </div>
+                    </div>
+
+                    <div class="rounded-[1.35rem] bg-slate-900 p-5 text-white shadow-sm">
+                      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-amber-300">{{ demo.preview_quote_caption }}</p>
+                      <h3 class="mt-3 text-xl font-semibold">{{ demo.preview_quote_title }}</h3>
+                      <p class="mt-3 text-sm leading-6 text-white/75">{{ demo.preview_quote_text }}</p>
+                      <div class="mt-5 grid gap-3 sm:grid-cols-2">
+                        {% for item in demo.preview_reviews %}
+                          <div class="rounded-2xl bg-white/10 px-4 py-4">
+                            <p class="text-sm font-semibold text-white">{{ item.name }}</p>
+                            <p class="mt-2 text-xs text-white/70">{{ item.text }}</p>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="border-t border-slate-200 bg-white px-6 md:px-8 py-6">
+                  <div class="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+                    <div class="grid gap-4 md:grid-cols-3">
+                      {% for item in demo.services %}
+                        <div class="rounded-[1.2rem] border border-slate-200 bg-slate-50 px-5 py-5">
+                          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-amber-600">{% trans "Service" %}</p>
+                          <p class="mt-3 text-base font-semibold text-slate-950">{{ item.name }}</p>
+                          <p class="mt-2 text-sm text-slate-600">{{ item.text }}</p>
+                        </div>
+                      {% endfor %}
+                    </div>
+                    <div class="rounded-[1.2rem] border border-slate-200 bg-slate-950 px-5 py-5 text-white">
+                      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-amber-300">{% trans "Quote focus" %}</p>
+                      <div class="mt-4 space-y-3 text-sm text-white/80">
+                        <p>{% trans "Fast service scanning" %}</p>
+                        <p>{% trans "Project-first credibility" %}</p>
+                        <p>{% trans "Direct contact routes" %}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="border-t border-slate-200 bg-slate-100 px-6 md:px-8 py-6">
+                  <div class="grid gap-4 md:grid-cols-3">
+                    {% for item in demo.sections %}
+                      <div class="rounded-[1.2rem] border border-slate-200 bg-white px-5 py-5 shadow-sm">
+                        <h3 class="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">{{ item.title }}</h3>
+                        <p class="mt-3 text-sm text-slate-700">{{ item.text }}</p>
+                      </div>
+                    {% endfor %}
+                  </div>
+                </div>
+
+                <div class="border-t border-slate-200 bg-slate-950 px-6 md:px-8 py-8 text-white">
+                  <div class="grid gap-6 md:grid-cols-[1.15fr_0.9fr_0.9fr]">
+                    <div>
+                      <p class="text-lg font-semibold">{{ demo.preview_brand }}</p>
+                      <p class="mt-3 max-w-sm text-sm text-white/70">{{ demo.preview_footer_note }}</p>
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-white/55">{% trans "Core services" %}</p>
+                      <div class="mt-3 space-y-2 text-sm text-white/80">
+                        {% for item in demo.preview_footer_links %}
+                          <p>{{ item }}</p>
+                        {% endfor %}
+                      </div>
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-white/55">{% trans "Reach us" %}</p>
+                      <div class="mt-3 space-y-2 text-sm text-white/80">
+                        <p>{{ demo.preview_contact_email }}</p>
+                        <p>{{ demo.preview_contact_phone }}</p>
+                        <p>{{ demo.preview_contact_note }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% else %}
+                <div class="border-b border-gray-200 bg-white/95 px-5 py-4 md:px-8">
+                  <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                    <div class="flex items-center gap-3">
+                      <div class="flex h-10 w-10 items-center justify-center rounded-2xl {{ demo.styles.preview_accent }} text-sm font-semibold text-white">
+                        {{ demo.preview_brand|slice:":1" }}
+                      </div>
+                      <div>
+                        <p class="text-sm font-semibold text-gray-950">{{ demo.preview_brand }}</p>
+                        <p class="text-xs uppercase tracking-[0.18em] text-gray-500">{{ demo.category }}</p>
+                      </div>
+                    </div>
+                    <div class="flex flex-wrap gap-3 text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
+                      {% for item in demo.preview_nav %}
+                        <span>{{ item }}</span>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+
+                <div class="p-6 md:p-8">
+                  <div class="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] items-start">
+                    <div>
+                      <p class="text-xs font-semibold uppercase tracking-[0.22em] {{ demo.styles.accent_text }}">
+                        {{ demo.tagline }}
+                      </p>
+                      <h2 class="mt-3 text-2xl md:text-3xl font-semibold text-gray-950">
+                        {{ demo.hero_title }}
+                      </h2>
+                      <p class="mt-4 text-gray-600">
+                        {{ demo.hero_text }}
+                      </p>
+                    </div>
+
+                    <div class="space-y-4">
+                      <div class="rounded-[1.5rem] bg-gradient-to-br {{ demo.styles.preview_bg }} p-4">
+                        <div class="rounded-[1.25rem] bg-white p-4 shadow-sm">
+                          <div class="h-36 rounded-[1rem] {{ demo.styles.preview_accent }}"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="border-t border-gray-200 bg-gray-950 px-6 md:px-8 py-8 text-white">
+                  <div class="grid gap-6 md:grid-cols-[1.2fr_0.8fr_0.8fr]">
+                    <div>
+                      <p class="text-base font-semibold">{{ demo.title }}</p>
+                      <p class="mt-2 text-sm text-white/70">{{ demo.summary }}</p>
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-white/60">{% trans "Links" %}</p>
+                      <div class="mt-3 space-y-2 text-sm text-white/80">
+                        {% for item in demo.preview_footer_links %}
+                          <p>{{ item }}</p>
+                        {% endfor %}
+                      </div>
+                    </div>
+                    <div>
+                      <p class="text-sm font-semibold uppercase tracking-[0.18em] text-white/60">{% trans "Contact" %}</p>
+                      <div class="mt-3 space-y-2 text-sm text-white/80">
+                        <p>{{ demo.preview_contact_email }}</p>
+                        <p>{{ demo.preview_contact_phone }}</p>
+                        <p>{{ demo.preview_contact_note }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-8">
+      <div class="max-w-5xl mx-auto px-4">
+        <div class="grid gap-4 md:grid-cols-2">
+          <div class="rounded-[1.75rem] border border-gray-200 bg-white p-6 shadow-sm">
+            <p class="text-sm font-semibold uppercase tracking-[0.22em] {{ demo.styles.accent_text }}">
+              {% trans "Contained preview" %}
+            </p>
+            <h3 class="mt-3 text-xl font-semibold text-gray-950">
+              {% trans "Why this page stays compact" %}
+            </h3>
+            <p class="mt-3 text-gray-600">
+              {% trans "The JCW shell stays visually dominant while the demo itself appears as a framed preview. That keeps the example useful without turning it into a second homepage." %}
+            </p>
+          </div>
+          <div class="rounded-[1.75rem] border border-gray-200 bg-white p-6 shadow-sm">
+            <p class="text-sm font-semibold uppercase tracking-[0.22em] {{ demo.styles.accent_text }}">
+              {% trans "Clone-ready structure" %}
+            </p>
+            <h3 class="mt-3 text-xl font-semibold text-gray-950">
+              {% trans "Still separated from customer sites" %}
+            </h3>
+            <p class="mt-3 text-gray-600">
+              {{ demo.summary }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-20">
+      <div class="max-w-5xl mx-auto px-4">
+        <div class="rounded-[2rem] bg-gray-950 px-6 py-8 md:px-8 text-white">
+          <div class="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+            <div class="max-w-2xl">
+              <p class="text-sm font-semibold uppercase tracking-[0.22em] text-white/60">
+                {% trans "Next step" %}
+              </p>
+              <h2 class="mt-3 text-2xl md:text-3xl font-semibold">
+                {% trans "Want this style as the starting point for your website?" %}
+              </h2>
+              <p class="mt-3 text-white/75">
+                {% trans "Choose a plan or request setup. The preview stays locked, while your future website can be created separately from it." %}
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-3">
+              <a href="{% url 'core:pricing' %}" class="inline-flex items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-semibold text-gray-950 transition hover:bg-gray-100">
+                {% trans "View pricing" %}
+              </a>
+              <a href="{% url 'core:contact' %}" class="inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
+                {% trans "Request setup" %}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {% include "core/footer.html" %}
+  </div>
+{% endblock %}

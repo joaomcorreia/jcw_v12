@@ -1,0 +1,96 @@
+{% load i18n %}
+<footer class="bg-blue-600 text-white border-t border-blue-500" data-jcw-section="footer" data-jcw-section-id="0">
+  <div class="max-w-7xl mx-auto px-4 py-12">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <div class="space-y-4">
+        <h3 class="text-lg font-semibold text-white">{% trans "Just Code Works" %}</h3>
+        <p class="text-sm text-blue-100 leading-relaxed">
+          {% trans "We help businesses build their online presence, manage websites, and order print products — all in one place." %}
+        </p>
+        <div class="space-y-2 text-sm text-blue-100">
+          <a href="mailto:info@justcodeworks.eu" class="inline-flex transition-colors hover:text-white hover:underline">
+            info@justcodeworks.eu
+          </a>
+          <p>{% trans "Amsterdam, Netherlands" %}</p>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <h3 class="text-lg font-semibold text-white">{% trans "Websites" %}</h3>
+        <ul class="space-y-3">
+          <li>
+            <a href="{% url 'core:websites_jcw_system' %}" class="text-sm text-blue-100 hover:text-white transition-colors">
+              {% trans "JCW System" %}
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'core:websites_wordpress' %}" class="text-sm text-blue-100 hover:text-white transition-colors">
+              {% trans "WordPress website" %}
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'core:websites_how_it_works' %}" class="text-sm text-blue-100 hover:text-white transition-colors">
+              {% trans "How it works" %}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="space-y-4">
+        <h3 class="text-lg font-semibold text-white">{% trans "PrintLab" %}</h3>
+        <ul class="space-y-3">
+          <li>
+            <a href="{% url 'core:printlab_business_cards' %}" class="text-sm text-blue-100 hover:text-white transition-colors">
+              {% trans "Business cards" %}
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'core:printlab_apparel' %}" class="text-sm text-blue-100 hover:text-white transition-colors">
+              {% trans "Clothing" %}
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'core:printlab_merch' %}" class="text-sm text-blue-100 hover:text-white transition-colors">
+              {% trans "Gifts & promo items" %}
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'core:printlab' %}" class="text-sm text-blue-100 hover:text-white transition-colors">
+              {% trans "How it works" %}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="space-y-4">
+        <h3 class="text-lg font-semibold text-white">{% trans "Support" %}</h3>
+        <ul class="space-y-3">
+          <li>
+            <a href="{% url 'core:help_center' %}" class="text-sm text-blue-100 hover:text-white transition-colors">
+              {% trans "Help Center" %}
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'core:contact' %}" class="text-sm text-blue-100 hover:text-white transition-colors">
+              {% trans "Contact" %}
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'core:blog_index' %}" class="text-sm text-blue-100 hover:text-white transition-colors">
+              {% trans "Blog" %}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t border-blue-500/70 bg-blue-800">
+    <div class="max-w-7xl mx-auto px-4 py-4">
+      <div class="flex flex-col items-center justify-between gap-2 text-sm text-blue-200 md:flex-row">
+        <div>{% trans "© 2026 Just Code Works" %}</div>
+        <div>{% trans "Amsterdam, Netherlands | KVK 42007323" %}</div>
+      </div>
+    </div>
+  </div>
+</footer>

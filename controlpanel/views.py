@@ -4,10 +4,11 @@ from urllib.parse import urlencode, urlsplit, urlunsplit, parse_qsl
 
 from django import forms
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.conf import settings
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponseBadRequest, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.text import slugify
@@ -25,6 +26,7 @@ from core.models import (
     RightSidebarPanel,
     SectionContent,
     Site,
+    Subscription,
     WebsiteTemplate,
 )
 from core.tenant import tenant_site_url
@@ -34,6 +36,22 @@ from controlpanel.models import ManagedSite
 
 def staff_required(view_func):
     return login_required(user_passes_test(lambda u: u.is_staff)(view_func))
+
+
+def _control_panel_overview_context():
+    tenant_qs = Site.objects.filter(is_main=False)
+    last_tenant = tenant_qs.order_by("-created_at").first()
+    return {
+        "stats": {
+            "total_tenants": tenant_qs.count(),
+            "total_users": get_user_model().objects.count(),
+            "total_active_plans": Plan.objects.filter(is_active=True).count(),
+            "total_active_subscriptions": Subscription.objects.filter(
+                status=Subscription.STATUS_ACTIVE
+            ).count(),
+        },
+        "last_tenant": last_tenant,
+    }
 
 
 class WebsiteTemplateForm(forms.ModelForm):
@@ -122,7 +140,7 @@ def dashboard(request):
 
 @staff_required
 def home(request):
-    return render(request, "controlpanel/home.html")
+    return render(request, "controlpanel/home.html", _control_panel_overview_context())
 
 
 @staff_required
@@ -321,8 +339,37 @@ def content_map(request):
 
 @staff_required
 def tenants(request):
+    lang = request.LANGUAGE_CODE or get_language() or "en"
     sites = Site.objects.select_related("owner", "plan").order_by("-created_at")
-    return render(request, "controlpanel/tenants.html", {"sites": sites})
+    host = request.get_host() or ""
+    current_port = ""
+    if ":" in host:
+        current_port = host.split(":", 1)[1]
+
+    tenant_rows = []
+    for site in sites:
+        try:
+            dashboard_url = tenant_site_url(site, f"/{lang}/dashboard/", request=request)
+            site_url = tenant_site_url(site, f"/{lang}/", request=request)
+        except ValueError:
+            dashboard_url = ""
+            site_url = ""
+
+        domain_label = "--"
+        if site.subdomain:
+            domain_label = f"{site.subdomain}.{settings.MAIN_DOMAIN}"
+            if current_port:
+                domain_label = f"{domain_label}:{current_port}"
+
+        tenant_rows.append(
+            {
+                "site": site,
+                "domain_label": domain_label,
+                "dashboard_url": dashboard_url,
+                "site_url": site_url,
+            }
+        )
+    return render(request, "controlpanel/tenants.html", {"tenant_rows": tenant_rows})
 
 
 class PlanForm(forms.ModelForm):
@@ -457,6 +504,9 @@ def tenant_edit(request, tenant_id):
 
 @staff_required
 def tenant_impersonate(request, tenant_id):
+    if not request.user.is_superuser:
+        return HttpResponseForbidden("Impersonation is restricted to superusers.")
+
     site = Site.objects.filter(id=tenant_id).first()
     if site and not site.is_main:
         request.session["impersonate_tenant_id"] = site.id

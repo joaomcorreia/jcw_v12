@@ -1,0 +1,177 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="jcw-page">
+  <section class="jcw-page-hero">
+    <div class="jcw-page-hero__container">
+      <div class="jcw-page-hero__content">
+        <div class="jcw-page-badge">
+          <span class="jcw-page-badge__dot"></span>
+          {% trans "Websites" %}
+        </div>
+        <h1 class="jcw-page-title">
+          {% trans "Choose the website path that fits your business" %}
+        </h1>
+        <p class="jcw-page-intro">
+          {% blocktrans %}There are two different ways to build your website with JCW: an ongoing system built for updates, visibility, and growth over time, or a one-time WordPress build for a simpler traditional setup.{% endblocktrans %}
+        </p>
+        <div class="jcw-card-grid">
+          <article class="jcw-choice-card jcw-choice-card--light">
+            <p class="jcw-card-label jcw-card-label--hero">{% trans "Ongoing path" %}</p>
+            <h2 class="jcw-card-title">{% trans "JCW System" %}</h2>
+            <p class="jcw-card-text">
+              {% trans "Monthly plan. Built for businesses that want a website that can keep improving, support better visibility over time, and grow in a more structured way." %}
+            </p>
+            <div class="jcw-button-row">
+              <a class="jcw-button jcw-button--light" href="{% url 'core:websites_jcw_system' %}">
+              {% trans "Explore JCW System" %}
+              </a>
+            </div>
+          </article>
+          <article class="jcw-choice-card jcw-choice-card--light">
+            <p class="jcw-card-label jcw-card-label--hero">{% trans "One-time path" %}</p>
+            <h2 class="jcw-card-title">{% trans "WordPress" %}</h2>
+            <p class="jcw-card-text">
+              {% trans "One-time payment. A simpler traditional website build for businesses that want to get online with a completed site first and handle long-term growth later." %}
+            </p>
+            <div class="jcw-button-row">
+              <a class="jcw-button jcw-button--light" href="{% url 'core:websites_wordpress' %}">
+              {% trans "Explore WordPress" %}
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="jcw-page-section">
+    <div class="jcw-page-section__container">
+      <div class="jcw-page-stack">
+        <section class="jcw-content-card">
+          <h2 class="jcw-section-title">{% trans "Choose based on where you want the website to go next" %}</h2>
+          <div class="jcw-table-wrap">
+            <table class="jcw-compare-table">
+            <thead>
+              <tr>
+                <th>{% trans "Compare" %}</th>
+                <th>{% trans "JCW System" %}</th>
+                <th>{% trans "WordPress" %}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{% trans "Payment model" %}</td>
+                <td>{% trans "Monthly plan" %}</td>
+                <td>{% trans "One-time payment" %}</td>
+              </tr>
+              <tr>
+                <td>{% trans "Best for" %}</td>
+                <td>{% trans "Businesses that want support, updates, and a clearer long-term growth path" %}</td>
+                <td>{% trans "Businesses that want a simpler traditional website setup first" %}</td>
+              </tr>
+              <tr>
+                <td>{% trans "Updates" %}</td>
+                <td>{% trans "Built to keep updating as the business changes" %}</td>
+                <td>{% trans "Starts with the main setup, then depends more on later maintenance" %}</td>
+              </tr>
+              <tr>
+                <td>{% trans "Visibility and SEO" %}</td>
+                <td>{% trans "Better suited for structured visibility and SEO growth over time" %}</td>
+                <td>{% trans "Depends more on the initial setup and what happens later through maintenance" %}</td>
+              </tr>
+              <tr>
+                <td>{% trans "Long-term flexibility" %}</td>
+                <td>{% trans "Stronger fit if you expect to expand step by step" %}</td>
+                <td>{% trans "Better if you mainly want a one-time website foundation" %}</td>
+              </tr>
+              <tr>
+                <td>{% trans "Support style" %}</td>
+                <td>{% trans "Ongoing and built around future changes" %}</td>
+                <td>{% trans "Traditional build with later support when needed" %}</td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+        </section>
+
+        <section class="jcw-content-card">
+          <h2 class="jcw-section-title">{% trans "Choose based on the outcome you want" %}</h2>
+          <div class="jcw-split-grid">
+          <article class="jcw-content-card jcw-content-card--muted">
+            <h3 class="jcw-card-title">{% trans "Choose JCW System if..." %}</h3>
+            <ul class="jcw-checklist">
+              <li>{% trans "You want a website that can keep improving as your business grows" %}</li>
+              <li>{% trans "You expect updates, expansion, or stronger visibility later" %}</li>
+              <li>{% trans "You want a clearer long-term path for support, SEO, and growth" %}</li>
+            </ul>
+          </article>
+          <article class="jcw-content-card jcw-content-card--muted">
+            <h3 class="jcw-card-title">{% trans "Choose WordPress if..." %}</h3>
+            <ul class="jcw-checklist">
+              <li>{% trans "You prefer a one-time website build" %}</li>
+              <li>{% trans "You want full control over your website and content" %}</li>
+              <li>{% trans "You are comfortable handling updates and changes yourself" %}</li>
+            </ul>
+          </article>
+          </div>
+        </section>
+
+        <section class="jcw-content-card jcw-content-card--center">
+          <h2 class="jcw-section-title">{% trans "Choose the setup that fits how you want your website to grow." %}</h2>
+          <p class="jcw-section-text">
+          {% blocktrans %}If your website needs to grow, stay visible, and keep improving over time, JCW System is the stronger path. If you want a simpler traditional website build first, WordPress is the clearer choice.{% endblocktrans %}
+          </p>
+        </section>
+
+        <section class="jcw-content-card">
+          <h2 class="jcw-section-title">{% trans "Frequently Asked Questions" %}</h2>
+          <div class="jcw-card-grid">
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "What is the main difference?" %}</h3>
+              <p class="jcw-card-text">{% trans "JCW System is the ongoing website path. WordPress is the one-time website build path." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Can I switch later?" %}</h3>
+              <p class="jcw-card-text">{% trans "Yes. If your needs change later, the next step can be reviewed with you." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Which option is better for SEO?" %}</h3>
+              <p class="jcw-card-text">{% trans "JCW System is better suited for long-term visibility and structured growth. WordPress depends more on the setup and what happens later through maintenance." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Do I need technical knowledge?" %}</h3>
+              <p class="jcw-card-text">{% trans "No. The choice is mainly about how you want the website to be managed and grow over time." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "How do updates and maintenance work?" %}</h3>
+              <p class="jcw-card-text">{% trans "With JCW System, updates and improvements are handled continuously. With WordPress, updates and maintenance need to be handled over time." %}</p>
+            </article>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="jcw-page-section">
+    <div class="jcw-page-section__container">
+      <div class="jcw-cta-card">
+        <h2 class="jcw-section-title">{% trans "Choose your website path" %}</h2>
+        <p class="jcw-card-text">
+          {% trans "Pick the route that matches how you want your website to be built, supported, and developed over time." %}
+        </p>
+        <div class="jcw-button-row">
+          <a class="jcw-button jcw-button--light" href="{% url 'core:websites_jcw_system' %}">
+            {% trans "JCW System" %}
+          </a>
+          <a class="jcw-button jcw-button--ghost-light" href="{% url 'core:websites_wordpress' %}">
+            {% trans "WordPress" %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% include 'core/footer.html' %}
+{% endblock content %}

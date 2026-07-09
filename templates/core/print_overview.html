@@ -1,0 +1,129 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="jcw-page">
+  <section class="jcw-page-hero">
+    <div class="jcw-page-hero__container">
+      <div class="jcw-page-hero__content">
+        <div class="jcw-page-badge">
+          <span class="jcw-page-badge__dot"></span>
+          {% trans "Print" %}
+        </div>
+        <h1 class="jcw-page-title">
+          {% trans "Print materials ready for your business" %}
+        </h1>
+        <p class="jcw-page-intro">
+          {% blocktrans %}JCW Print connects to your business information and branding, so you do not need to start from scratch. Your name, logo, colors, and business direction are already easier to carry into the print materials you need next.{% endblocktrans %}
+        </p>
+        <div class="jcw-card-grid">
+          <article class="jcw-choice-card jcw-choice-card--light">
+            <p class="jcw-card-label jcw-card-label--hero">{% trans "Business print" %}</p>
+            <h2 class="jcw-card-title">{% trans "Business Print" %}</h2>
+            <p class="jcw-card-text">{% trans "Business cards, flyers, brochures, and everyday print materials that help your business communicate clearly." %}</p>
+            <div class="jcw-button-row">
+              <a class="jcw-button jcw-button--light" href="{% url 'core:print_business' %}">
+                {% trans "Explore business print" %}
+              </a>
+            </div>
+          </article>
+          <article class="jcw-choice-card jcw-choice-card--light">
+            <p class="jcw-card-label jcw-card-label--hero">{% trans "Merch" %}</p>
+            <h2 class="jcw-card-title">{% trans "Merch" %}</h2>
+            <p class="jcw-card-text">{% trans "Apparel, branded products, and promotional items that keep your business visible beyond the website." %}</p>
+            <div class="jcw-button-row">
+              <a class="jcw-button jcw-button--light" href="{% url 'core:print_merch' %}">
+                {% trans "Explore merch print" %}
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="jcw-page-section">
+    <div class="jcw-page-section__container">
+      <div class="jcw-page-stack">
+        <section class="jcw-content-card">
+          <h2 class="jcw-section-title">{% trans "How the print path works" %}</h2>
+          <div class="jcw-card-grid">
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Your business info is already set" %}</h3>
+              <p class="jcw-card-text">{% trans "Your business details and branding direction are already easier to carry into the print process." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Choose a product" %}</h3>
+              <p class="jcw-card-text">{% trans "Start with the business print or merch item that fits what you need next." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Select a design" %}</h3>
+              <p class="jcw-card-text">{% trans "Choose a design direction that matches your business and branding." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Your details are applied" %}</h3>
+              <p class="jcw-card-text">{% trans "Your business information is applied so the print materials are faster to prepare." %}</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="jcw-content-card">
+          <h2 class="jcw-section-title">{% trans "Choose the print path you need" %}</h2>
+          <div class="jcw-split-grid">
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Business Print" %}</h3>
+              <p class="jcw-card-text">{% trans "For business cards, flyers, brochures, and other practical materials used in daily business communication." %}</p>
+              <div class="jcw-button-row">
+                <a class="jcw-button jcw-button--light" href="{% url 'core:print_business' %}">
+                  {% trans "Go to Business Print" %}
+                </a>
+              </div>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Merch" %}</h3>
+              <p class="jcw-card-text">{% trans "For apparel, branded products, and promotional items that help your business stay visible in a more physical way." %}</p>
+              <div class="jcw-button-row">
+                <a class="jcw-button jcw-button--light" href="{% url 'core:print_merch' %}">
+                  {% trans "Go to Merch" %}
+                </a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="jcw-content-card jcw-content-card--center">
+          <h2 class="jcw-section-title">{% trans "Why this is easier" %}</h2>
+          <p class="jcw-section-text">
+            {% blocktrans %}You do not need to design everything from scratch. Your information is already available, your branding stays more consistent, and the ordering process is faster because the business setup is already there.{% endblocktrans %}
+          </p>
+        </section>
+
+        <section class="jcw-content-card jcw-content-card--center">
+          <h2 class="jcw-section-title">{% trans "You do not need design experience to start" %}</h2>
+          <p class="jcw-section-text">
+            {% blocktrans %}The process is built to stay simple. You choose the product, select the direction, and use ready-to-use templates instead of starting from a blank design process.{% endblocktrans %}
+          </p>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="jcw-page-section">
+    <div class="jcw-page-section__container">
+      <div class="jcw-cta-card">
+        <h2 class="jcw-section-title">{% trans "Choose the print route that fits your business" %}</h2>
+        <p class="jcw-card-text">{% trans "Go to Business Print for everyday materials, or choose Merch for branded products and apparel." %}</p>
+        <div class="jcw-button-row">
+          <a class="jcw-button jcw-button--light" href="{% url 'core:print_business' %}">
+            {% trans "Business print" %}
+          </a>
+          <a class="jcw-button jcw-button--ghost-light" href="{% url 'core:print_merch' %}">
+            {% trans "Merch print" %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% include "core/footer.html" %}
+{% endblock content %}

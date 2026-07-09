@@ -1,0 +1,137 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
+    <link rel="stylesheet" href="{% static 'jcw/public-floating-ui.css' %}">
+    <link rel="icon" href="{% static 'favicon.png' %}">
+    <title>{{ seo_title|default:"JustCodeWorks" }}</title>
+    <meta name="robots" content="{% if launch_noindex %}noindex, nofollow{% else %}{{ seo_robots|default:'index, follow' }}{% endif %}">
+    <meta name="description" content="{{ seo_description|default:'Website builder and content management platform' }}">
+    <style>
+      {% block extra_style %}{% endblock %}
+      .plan-section {
+        border: 2px solid rgba(15, 23, 42, 0.08);
+        border-left-width: 6px;
+        border-radius: 16px;
+        background: #fff;
+        box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+      }
+      .plan-b1 { border-left-color: #3b82f6; }
+      .plan-b2 { border-left-color: #22c55e; }
+      .plan-b3 { border-left-color: #a855f7; }
+      .plan-b4 { border-left-color: #f97316; }
+      .plan-b5 { border-left-color: #06b6d4; }
+      .timeline-grid {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .timeline-step {
+        border: 1px solid rgba(15, 23, 42, 0.1);
+        border-radius: 14px;
+        padding: 16px;
+        background: #fff;
+      }
+      .timeline-step-num {
+        width: 28px;
+        height: 28px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        font-weight: 700;
+        color: #1d4ed8;
+        background: #dbeafe;
+        margin-bottom: 8px;
+      }
+      .plan-cta-band {
+        background: linear-gradient(120deg, #0f172a, #312e81);
+      }
+      @media (max-width: 1024px) {
+        .timeline-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+      @media (max-width: 640px) {
+        .timeline-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    {% if canonical_url %}
+    <link rel="canonical" href="{{ canonical_url }}">
+    {% endif %}
+    {% if hreflang_urls %}
+      {% for alternate in hreflang_urls %}
+    <link rel="alternate" hreflang="{{ alternate.lang }}" href="{{ alternate.url }}">
+      {% endfor %}
+    {% endif %}
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "w0rrp5mkxz");
+    </script>
+  </head>
+  <body class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium">
+    {% include 'core/includes/coming_soon_modal.html' %}
+    <div class="min-h-screen ltr" data-locale="{{ LANGUAGE_CODE }}">
+      {% include 'core/main_nav.html' %}
+      <div class="min-h-screen">
+        <div class="relative overflow-hidden">
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900"></div>
+          <div class="relative z-10 max-w-7xl mx-auto px-4 py-20 sm:py-32">
+            <div class="text-center text-white">
+              <div class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm font-medium mb-8">
+                <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                {% block product_badge %}{% endblock %}
+              </div>
+              <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent leading-tight">
+                {% block product_title %}{% endblock %}
+              </h1>
+              <p class="text-xl md:text-2xl mb-12 text-blue-100 max-w-4xl mx-auto leading-relaxed">
+                {% block product_subtitle %}{% endblock %}
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a class="px-8 py-4 bg-white text-blue-900 font-bold rounded-xl hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 shadow-xl" href="{% block primary_cta_url %}{{ sections_by_key.hero.content.cta_primary_url|default:'#details' }}{% endblock %}">
+                  {% block primary_cta_label %}{% trans "Start now" %}{% endblock %}
+                </a>
+                <a class="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300" href="{% block secondary_cta_url %}#details{% endblock %}">
+                  {% block secondary_cta_label %}{% trans "See details" %}{% endblock %}
+                </a>
+              </div>
+              {% block hero_extra %}{% endblock %}
+            </div>
+          </div>
+        </div>
+
+        <div id="details" class="py-16 bg-gray-50">
+          <div class="max-w-7xl mx-auto px-4 space-y-8">
+            {% block details_content %}
+              {% block section_plan_cards %}{% endblock %}
+              {% block section_who_its_for %}{% endblock %}
+              {% block section_what_you_get %}{% endblock %}
+              {% block section_included %}{% endblock %}
+              {% block section_not_included %}{% endblock %}
+              {% block section_timeline %}{% endblock %}
+              {% block section_upgrade_path %}{% endblock %}
+              {% block section_faq %}{% endblock %}
+            {% endblock %}
+          </div>
+        </div>
+
+        {% block section_final_cta %}{% endblock %}
+      </div>
+      {% include 'core/footer.html' %}
+    </div>
+    {% include 'core/includes/public_floating_ui.html' %}
+    <script src="{% static 'jcw/js/jcw-ui.js' %}"></script>
+    <script src="{% static 'jcw/js/public-floating-ui.js' %}" defer></script>
+    {% include 'core/right_sidebar.html' %}
+  </body>
+</html>

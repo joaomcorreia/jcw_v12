@@ -1,269 +1,99 @@
-{% load static i18n %}
-<!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
-    <link rel="icon" href="{% static 'favicon.png' %}">
-    <title>
-      {{ seo_title|default:"JustCodeWorks" }}
-    </title>
-    <meta name="robots" content="{% if launch_noindex %}noindex, nofollow{% else %}{{ seo_robots|default:'index, follow' }}{% endif %}">
-    <meta name="description" content="{{ seo_description|default:'Website builder and content management platform' }}">
-    <style>
-      .plan-section {
-        border: 2px solid rgba(15, 23, 42, 0.08);
-        border-left-width: 6px;
-        border-radius: 16px;
-        background: #ffffff;
-      }
-      .plan-b1 {
-        border-left-color: #3b82f6;
-      }
-      .plan-b2 {
-        border-left-color: #22c55e;
-      }
-      .plan-b3 {
-        border-left-color: #a855f7;
-      }
-      .plan-b4 {
-        border-left-color: #f97316;
-      }
-      .plan-b5 {
-        border-left-color: #06b6d4;
-      }
-      .plan-visual {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 28px;
-        align-items: center;
-      }
-      .plan-mock {
-        border-radius: 18px;
-        border: 1px solid rgba(15, 23, 42, 0.08);
-        background: linear-gradient(135deg, #e0f2fe, #f3e8ff);
-        padding: 28px;
-        min-height: 260px;
-      }
-      .plan-mock-inner {
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 14px;
-        padding: 20px;
-        box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
-      }
-      .plan-cta-band {
-        background: linear-gradient(120deg, #4c1d95, #312e81);
-        color: #ffffff;
-      }
-      .plan-cards {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 20px;
-      }
-      @media (max-width: 1024px) {
-        .plan-visual {
-          grid-template-columns: 1fr;
-        }
-        .plan-cards {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-      }
-      @media (max-width: 640px) {
-        .plan-cards {
-          grid-template-columns: 1fr;
-        }
-      }
-    </style>
-      {% if canonical_url %}
-    <link rel="canonical" href="{{ canonical_url }}">
-    {% endif %}
-    {% if hreflang_urls %}
-      {% for alternate in hreflang_urls %}
-    <link rel="alternate" hreflang="{{ alternate.lang }}" href="{{ alternate.url }}">
-      {% endfor %}
-    {% endif %}</head>
-  <body class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium">
-    <div class="min-h-screen ltr" data-locale="{{ LANGUAGE_CODE }}">
-      {% include 'core/main_nav.html' %}
-      <div class="min-h-screen">
-        <div class="relative overflow-hidden">
-          <div class="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
-            <div class="absolute inset-0 opacity-20">
-              <div class="absolute top-0 left-0 w-2 h-2 bg-white rounded-full animate-ping">
-              </div>
-              <div class="absolute top-10 left-20 w-1 h-1 bg-blue-300 rounded-full animate-pulse">
-              </div>
-              <div class="absolute top-20 right-10 w-1 h-1 bg-purple-300 rounded-full animate-ping">
-              </div>
-              <div class="absolute bottom-20 left-10 w-2 h-2 bg-pink-300 rounded-full animate-pulse">
-              </div>
-            </div>
-            <div class="absolute top-0 left-0 w-full h-full">
-              <div class="absolute top-20 left-20 w-32 h-32 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob">
-              </div>
-              <div class="absolute top-40 right-20 w-32 h-32 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000">
-              </div>
-              <div class="absolute -bottom-8 left-40 w-32 h-32 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000">
-              </div>
-            </div>
-          </div>
-          <div class="relative z-10 max-w-7xl mx-auto px-4 py-20 sm:py-32">
-            <div class="text-center text-white">
-              <div class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm font-medium mb-8">
-                <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
-                {% trans "Multi Page Website" %}
-              </div>
-              <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent leading-tight">
-                {% trans "Multi Page Website" %}
-              </h1>
-              <p class="text-xl md:text-2xl mb-12 text-blue-100 max-w-4xl mx-auto leading-relaxed">
-                {% trans "A structured website with multiple pages, so every part of your business has its own space. Each topic gets a clear home for your visitors." %}
-              </p>
-              <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a class="px-8 py-4 bg-white text-blue-900 font-bold rounded-xl hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 shadow-xl" href="{{ sections_by_key.hero.content.cta_primary_url|default:'#' }}">
-                  {% trans "Start now" %}
-                </a>
-                <a class="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300" href="#plan-cta">
-                  {% trans "See plans" %}
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="bg-white">
-          <div class="max-w-7xl mx-auto px-4 py-6">
-            <div class="plan-section plan-b1 bg-white/95 p-6">
-              <div class="text-xs uppercase tracking-wide text-slate-500 mb-3">
-                {% trans "As featured" %}
-              </div>
-              <div class="flex flex-wrap items-center gap-3 text-sm font-semibold text-slate-600">
-                <span class="px-3 py-1 rounded-full bg-slate-100">{% trans "Google" %}</span>
-                <span class="px-3 py-1 rounded-full bg-slate-100">{% trans "Trustpilot" %}</span>
-                <span class="px-3 py-1 rounded-full bg-slate-100">{% trans "Printful" %}</span>
-                <span class="px-3 py-1 rounded-full bg-slate-100">{% trans "Stripe" %}</span>
-                <span class="px-3 py-1 rounded-full bg-slate-100">{% trans "EU-ready" %}</span>
-              </div>
-            </div>
-          </div>
-        </div>
+{% extends "pages/websites/product_page_base.html" %}
+{% load i18n %}
 
-        <div class="py-16 bg-gray-50">
-          <div class="max-w-7xl mx-auto px-4 space-y-10">
-            <!-- TODO: Map plan block copy into Page sections for admin editing. -->
-            <section class="plan-section plan-b2 p-8">
-              <div class="plan-visual">
-                <div class="plan-mock">
-                  <div class="plan-mock-inner">
-                    <div class="h-3 w-24 bg-slate-200 rounded-full mb-4"></div>
-                    <div class="space-y-3">
-                      <div class="h-3 w-full bg-slate-200 rounded-full"></div>
-                      <div class="h-3 w-5/6 bg-slate-200 rounded-full"></div>
-                      <div class="h-3 w-4/6 bg-slate-200 rounded-full"></div>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <h2 class="text-3xl font-bold text-gray-900 mb-4">
-                    {% trans "Clear structure for your customers" %}
-                  </h2>
-                  <p class="text-gray-700 mb-4">
-                    {% blocktrans %}A multi-page website separates your content into clear sections. Instead of putting everything on one long page, each topic gets its own page. This makes your website easier to understand and more comfortable to use. Visitors can quickly find what they are looking for and feel more confident in what you offer.{% endblocktrans %}
-                  </p>
-                  <ul class="text-gray-700 space-y-2">
-                    <li>{% trans "Separate pages for services, about, and contact" %}</li>
-                    <li>{% trans "Cleaner navigation and better user flow" %}</li>
-                    <li>{% trans "More professional appearance" %}</li>
-                  </ul>
-                </div>
-              </div>
-            </section>
+{% block product_badge %}{% trans "Multi Page Website" %}{% endblock %}
+{% block product_title %}{% trans "Multi Page Website" %}{% endblock %}
+{% block product_subtitle %}{% trans "Give every service, audience, or topic its own page so visitors navigate faster and trust your business faster." %}{% endblock %}
+{% block primary_cta_label %}{% trans "Start your multi-page site" %}{% endblock %}
+{% block secondary_cta_label %}{% trans "See multi-page details" %}{% endblock %}
+{% block primary_cta_url %}{% url 'core:pricing' %}{% endblock %}
+{% block secondary_cta_url %}{% url 'core:contact' %}{% endblock %}
 
-            <section class="plan-section plan-b3 p-8">
-              <div class="plan-visual">
-                <div class="order-2 plan-mock md:order-none">
-                  <div class="plan-mock-inner">
-                    <div class="h-3 w-24 bg-slate-200 rounded-full mb-4"></div>
-                    <div class="space-y-3">
-                      <div class="h-3 w-full bg-slate-200 rounded-full"></div>
-                      <div class="h-3 w-5/6 bg-slate-200 rounded-full"></div>
-                      <div class="h-3 w-4/6 bg-slate-200 rounded-full"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="order-1 md:order-none">
-                  <h2 class="text-3xl font-bold text-gray-900 mb-4">
-                    {% trans "Built to grow with your business" %}
-                  </h2>
-                  <p class="text-gray-700 mb-4">
-                    {% blocktrans %}This plan is ideal when your business is growing or already offers multiple services. You can start with a few pages and add more later without rebuilding your site. New services, locations, or information can be added anytime. Your website grows together with your business and stays organized as you expand.{% endblocktrans %}
-                  </p>
-                  <ul class="text-gray-700 space-y-2">
-                    <li>{% trans "Add new pages when needed" %}</li>
-                    <li>{% trans "Flexible structure for future expansion" %}</li>
-                    <li>{% trans "Easy updates from one place" %}</li>
-                  </ul>
-                </div>
-              </div>
-            </section>
+{% block section_who_its_for %}
+  {% trans "Who This Is For" as who_title %}
+  {% trans "Choose this plan when one page is no longer enough to explain everything you offer." as who_intro %}
+  {% trans "Businesses with multiple services or categories" as who_audience1 %}
+  {% trans "Teams that need dedicated About, Services, and Contact pages" as who_audience2 %}
+  {% trans "Companies planning ongoing content updates" as who_audience3 %}
+  {% trans "Brands that want a stronger, more professional structure" as who_audience4 %}
+  {% include "components/product/who_its_for.html" with title=who_title intro=who_intro audience1=who_audience1 audience2=who_audience2 audience3=who_audience3 audience4=who_audience4 %}
+  {% trans "Preview example website styles" as showcase_title %}
+  {% trans "See how different website directions can look before you choose the structure that fits your business best." as showcase_intro %}
+  {% include "components/websites/demo_showcase_section.html" with showcase_title=showcase_title showcase_intro=showcase_intro demo_showcase_cards=demo_showcase_cards %}
+{% endblock %}
 
-            <section class="plan-section plan-b5 p-8">
-              <div class="plan-cards">
-                <div class="bg-white/90 rounded-xl p-6 border border-slate-100 shadow-sm">
-                  <h3 class="text-xl font-bold text-gray-900 mb-2">
-                    {% trans "Better navigation" %}
-                  </h3>
-                  <p class="text-gray-700">
-                    {% trans "Separate pages make it easier for visitors to explore your website." %}
-                  </p>
-                </div>
-                <div class="bg-white/90 rounded-xl p-6 border border-slate-100 shadow-sm">
-                  <h3 class="text-xl font-bold text-gray-900 mb-2">
-                    {% trans "More room for content" %}
-                  </h3>
-                  <p class="text-gray-700">
-                    {% trans "Each service or topic has its own page, without clutter." %}
-                  </p>
-                </div>
-                <div class="bg-white/90 rounded-xl p-6 border border-slate-100 shadow-sm">
-                  <h3 class="text-xl font-bold text-gray-900 mb-2">
-                    {% trans "Stronger foundation" %}
-                  </h3>
-                  <p class="text-gray-700">
-                    {% trans "A flexible structure that supports future upgrades like SEO or online stores." %}
-                  </p>
-                </div>
-              </div>
-              <p class="text-gray-700 mt-6">
-                {% blocktrans %}You are not locked into this plan. You can upgrade later to add SEO features, more pages, or online selling. Your existing content stays in place, so you do not have to start over.{% endblocktrans %}
-              </p>
-            </section>
+{% block section_what_you_get %}
+  {% trans "What You Get" as get_title %}
+  {% trans "A structured website with clear navigation and room to grow." as get_intro %}
+  {% trans "Homepage plus dedicated internal pages" as get_deliverable1 %}
+  {% trans "Service page templates that can be replicated" as get_deliverable2 %}
+  {% trans "Navigation architecture and internal linking" as get_deliverable3 %}
+  {% trans "Conversion-focused contact and CTA blocks" as get_deliverable4 %}
+  {% trans "Mobile-optimized and performance-ready layout" as get_deliverable5 %}
+  {% trans "Basic SEO-ready page structure for each core page" as get_deliverable6 %}
+  {% include "components/product/what_you_get.html" with title=get_title intro=get_intro deliverable1=get_deliverable1 deliverable2=get_deliverable2 deliverable3=get_deliverable3 deliverable4=get_deliverable4 deliverable5=get_deliverable5 deliverable6=get_deliverable6 %}
+{% endblock %}
 
-          </div>
-        </div>
-        <section id="plan-cta" class="plan-cta-band py-16">
-          <div class="max-w-7xl mx-auto px-4">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-              <div>
-                <h2 class="text-3xl md:text-4xl font-bold mb-3">
-                  {% trans "Need more than a single page?" %}
-                </h2>
-                <p class="text-blue-100 text-lg">
-                  {% trans "A multi-page website gives your business more room to explain what you do." %}
-                </p>
-              </div>
-              <a class="inline-flex items-center px-6 py-3 bg-white text-blue-900 font-semibold rounded-lg hover:bg-blue-50 transition-colors" href="{{ sections_by_key.cta.content.cta_primary_url|default:'#' }}">
-                {% trans "Start now" %}
-              </a>
-            </div>
-          </div>
-        </section>
-      </div>
-      {% include 'core/footer.html' %}
-    </div>
-    <script src="{% static 'jcw/js/jcw-ui.js' %}"></script>
-    {% include 'core/right_sidebar.html' %}
-  </body>
-</html>
+{% block section_included %}
+  {% trans "Included In This Plan" as included_title %}
+  {% trans "Core page set: Home, Services, About, Contact" as included1 %}
+  {% trans "Support for additional core pages based on scope" as included2 %}
+  {% trans "Reusable section blocks for future expansions" as included3 %}
+  {% trans "Page-level metadata and heading hierarchy" as included4 %}
+  {% trans "Launch support and revision round" as included5 %}
+  {% include "components/product/included.html" with title=included_title include1=included1 include2=included2 include3=included3 include4=included4 include5=included5 %}
+{% endblock %}
+
+{% block section_not_included %}
+  {% trans "What Is Not Included" as not_title %}
+  {% trans "Advanced local SEO program (city clusters, authority strategy)" as not1 %}
+  {% trans "Full ecommerce checkout and payment flows" as not2 %}
+  {% trans "Complex third-party app integrations" as not3 %}
+  {% trans "Custom backend systems" as not4 %}
+  {% include "components/product/not_included.html" with title=not_title not1=not1 not2=not2 not3=not3 not4=not4 %}
+{% endblock %}
+
+{% block section_timeline %}
+  {% trans "Timeline" as timeline_title %}
+  {% trans "Planning" as timeline_step1_title %}
+  {% trans "Define page architecture and conversion goals." as timeline_step1_desc %}
+  {% trans "Wireframe and copy" as timeline_step2_title %}
+  {% trans "Prepare content hierarchy across pages." as timeline_step2_desc %}
+  {% trans "Build" as timeline_step3_title %}
+  {% trans "Implement templates and responsive layout." as timeline_step3_desc %}
+  {% trans "Review" as timeline_step4_title %}
+  {% trans "Validate messaging and page flow." as timeline_step4_desc %}
+  {% trans "Publish" as timeline_step5_title %}
+  {% trans "Run launch checks and go live." as timeline_step5_desc %}
+  {% include "components/product/timeline.html" with title=timeline_title step1_title=timeline_step1_title step1_desc=timeline_step1_desc step2_title=timeline_step2_title step2_desc=timeline_step2_desc step3_title=timeline_step3_title step3_desc=timeline_step3_desc step4_title=timeline_step4_title step4_desc=timeline_step4_desc step5_title=timeline_step5_title step5_desc=timeline_step5_desc %}
+{% endblock %}
+
+{% block section_upgrade_path %}
+  {% trans "Upgrade Path" as upgrade_title %}
+  {% trans "Upgrade to Multi Page + SEO for stronger search visibility" as upgrade1 %}
+  {% trans "Add catalog pages when you want product browsing" as upgrade2 %}
+  {% trans "Add Starter or Premium eStore checkout when ready to sell" as upgrade3 %}
+  {% trans "Move to Custom Website for unique workflows" as upgrade4 %}
+  {% include "components/product/upgrade_path.html" with title=upgrade_title upgrade1=upgrade1 upgrade2=upgrade2 upgrade3=upgrade3 upgrade4=upgrade4 %}
+{% endblock %}
+
+{% block section_faq %}
+  {% trans "Frequently Asked Questions" as faq_title %}
+  {% trans "How many pages can I have?" as faq_q1 %}
+  {% trans "You start with a core set and can add more pages as your business grows." as faq_a1 %}
+  {% trans "Can I migrate from One Page?" as faq_q2 %}
+  {% trans "Yes. Existing content can be reorganized into dedicated pages." as faq_a2 %}
+  {% trans "Is this enough for SEO?" as faq_q3 %}
+  {% trans "It is a strong base. For aggressive growth, Multi Page + SEO is recommended." as faq_a3 %}
+  {% include "components/product/faq.html" with title=faq_title q1=faq_q1 a1=faq_a1 q2=faq_q2 a2=faq_a2 q3=faq_q3 a3=faq_a3 %}
+{% endblock %}
+
+{% block section_final_cta %}
+  {% trans "Ready for a website with room to grow?" as final_title %}
+  {% trans "Build a structure that supports your next phase instead of rebuilding later." as final_intro %}
+  {% trans "Start now" as final_cta_label %}
+  {% url 'core:contact' as contact_url %}
+  {% include "components/product/final_cta.html" with title=final_title intro=final_intro cta_label=final_cta_label cta_url=contact_url %}
+{% endblock %}
 
 

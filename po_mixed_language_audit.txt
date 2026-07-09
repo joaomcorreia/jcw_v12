@@ -1,4 +1,0 @@
-PO Mixed-Language Audit
-=======================
-
-Note: Heuristic detection; review suggested English msgids manually.

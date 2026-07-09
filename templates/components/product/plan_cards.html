@@ -1,0 +1,62 @@
+{% load i18n %}
+<section class="plan-section plan-b3 p-8">
+  <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+    <div>
+      <h2 class="text-3xl font-bold text-gray-900 mb-2">{% trans "Choose Your Business Website Plan" %}</h2>
+      <p class="text-gray-700 max-w-3xl">{% trans "Pick the website that fits your business today." %}</p>
+    </div>
+  </div>
+
+  <div class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
+    <article class="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div class="mb-5">
+        <h3 class="text-2xl font-bold text-slate-900">{% trans "One Page Website" %}</h3>
+        <p class="mt-3 text-3xl font-bold text-slate-900">{% blocktrans %}&euro;29.95 / month{% endblocktrans %}</p>
+        <p class="mt-3 text-sm text-slate-600">{% trans "Best if you just need a simple website" %}</p>
+      </div>
+      <ul class="space-y-3 text-slate-700 list-disc pl-5">
+        <li>{% trans "Show your business online" %}</li>
+        <li>{% trans "Make it easy for people to contact you" %}</li>
+        <li>{% trans "A simple way to get started" %}</li>
+      </ul>
+      <a class="mt-6 inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800" href="{% url 'core:websites_one_page' %}">
+        {% trans "Start with this plan" %}
+      </a>
+    </article>
+
+    <article class="relative flex h-full flex-col rounded-2xl border border-blue-200 bg-white p-6 shadow-sm shadow-blue-100/60">
+      <div class="mb-5">
+        <span class="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-blue-700">
+          {% trans "Most popular" %}
+        </span>
+        <h3 class="mt-4 text-2xl font-bold text-slate-900">{% trans "Business Website" %}</h3>
+        <p class="mt-3 text-3xl font-bold text-slate-900">{% blocktrans %}&euro;49.95 / month{% endblocktrans %}</p>
+        <p class="mt-3 text-sm text-slate-600">{% trans "Best for most businesses" %}</p>
+      </div>
+      <ul class="space-y-3 text-slate-700 list-disc pl-5">
+        <li>{% trans "Show more services and information" %}</li>
+        <li>{% trans "Give each part of your business its own page" %}</li>
+        <li>{% trans "Easy to grow later" %}</li>
+      </ul>
+      <a class="mt-6 inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700" href="{% url 'core:websites_multi_page' %}">
+        {% trans "Start with this plan" %}
+      </a>
+    </article>
+
+    <article class="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div class="mb-5">
+        <h3 class="text-2xl font-bold text-slate-900">{% trans "Business Website + SEO" %}</h3>
+        <p class="mt-3 text-3xl font-bold text-slate-900">{% blocktrans %}&euro;59.95 / month{% endblocktrans %}</p>
+        <p class="mt-3 text-sm text-slate-600">{% trans "Best if you want more people to find you" %}</p>
+      </div>
+      <ul class="space-y-3 text-slate-700 list-disc pl-5">
+        <li>{% trans "Helps your business get found on Google" %}</li>
+        <li>{% trans "Good for businesses that want more visitors" %}</li>
+        <li>{% trans "Built to grow over time" %}</li>
+      </ul>
+      <a class="mt-6 inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800" href="{% url 'core:websites_multi_page_seo' %}">
+        {% trans "Start with this plan" %}
+      </a>
+    </article>
+  </div>
+</section>

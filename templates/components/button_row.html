@@ -1,0 +1,11 @@
+<div class="dashboard-cta-actions">
+  {% if action1_url and action1_label %}
+  <a class="{{ action1_class|default:'dashboard-button' }}" href="{{ action1_url }}"{% if action1_target_blank %} target="_blank" rel="noopener"{% endif %}>{{ action1_label }}</a>
+  {% endif %}
+  {% if action2_url and action2_label %}
+  <a class="{{ action2_class|default:'dashboard-button dashboard-button--secondary' }}" href="{{ action2_url }}"{% if action2_target_blank %} target="_blank" rel="noopener"{% endif %}>{{ action2_label }}</a>
+  {% endif %}
+  {% if action3_url and action3_label %}
+  <a class="{{ action3_class|default:'dashboard-button dashboard-button--secondary' }}" href="{{ action3_url }}"{% if action3_target_blank %} target="_blank" rel="noopener"{% endif %}>{{ action3_label }}</a>
+  {% endif %}
+</div>

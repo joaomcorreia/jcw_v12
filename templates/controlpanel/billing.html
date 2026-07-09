@@ -5,7 +5,12 @@
 
 {% block content %}
 <div class="dashboard-page">
+  {% url 'control_panel:plans_list' as plans_url %}
+  {% trans "Open plans" as open_plans_label %}
   <h1 class="dashboard-title">{% trans "Billing" %}</h1>
-  <p class="dashboard-muted">{% trans "Coming soon." %}</p>
+  <div class="dashboard-card dashboard-card--auto">
+    <p class="dashboard-muted">{% trans "Billing is currently managed through plan configuration. Stripe wiring can be added later without changing this route." %}</p>
+    {% include "components/button_row.html" with action1_url=plans_url action1_label=open_plans_label %}
+  </div>
 </div>
 {% endblock %}

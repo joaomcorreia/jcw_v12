@@ -14,6 +14,7 @@
     }
 
     var nav = document.querySelector("[data-jcw-nav]");
+    var mainNav = document.querySelector("[data-jcw-main-nav]");
     if (nav) {
       var scrollTarget = document.querySelector("[data-embed-root]") || scrollRoot;
       var getScrollY = function () {
@@ -26,6 +27,9 @@
         var y = getScrollY();
         var isScrolled = y > 0;
         nav.classList.toggle("jcw-nav-scrolled", isScrolled);
+        if (mainNav) {
+          mainNav.classList.toggle("jcw-nav-scrolled", isScrolled);
+        }
         document.body.classList.toggle("scrolled", isScrolled);
       };
       window.addEventListener("scroll", onScroll, { passive: true });

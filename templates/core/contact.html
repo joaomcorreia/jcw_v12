@@ -1,0 +1,114 @@
+{% extends "pages/websites/product_page_base.html" %}
+{% load i18n %}
+
+{% block product_badge %}{% trans "Contact" %}{% endblock %}
+{% block product_title %}{% trans "Submit Your Request" %}{% endblock %}
+{% block product_subtitle %}{% trans "Use this request form to tell us what you need so we can match you to the right setup, website plan, or visibility service." %}{% endblock %}
+{% block primary_cta_label %}{% trans "Start here" %}{% endblock %}
+{% block secondary_cta_label %}{% trans "See pricing" %}{% endblock %}
+{% block primary_cta_url %}#request-form{% endblock %}
+{% block secondary_cta_url %}{% url 'core:pricing' %}{% endblock %}
+
+{% block section_who_its_for %}
+  {% trans "How Requests Work" as who_title %}
+  {% trans "The contact page is a structured request flow. Use it to explain what your business needs so the next step stays clear and controlled." as who_intro %}
+  {% trans "Request setup help for a new online presence" as who_audience1 %}
+  {% trans "Request a website plan or Facebook visibility support" as who_audience2 %}
+  {% trans "Share the basics before pricing and service scope are confirmed" as who_audience3 %}
+  {% trans "Use one request form instead of starting multiple conversations" as who_audience4 %}
+  {% include "components/product/who_its_for.html" with title=who_title intro=who_intro audience1=who_audience1 audience2=who_audience2 audience3=who_audience3 audience4=who_audience4 %}
+{% endblock %}
+
+{% block section_what_you_get %}
+<section id="request-form" class="plan-section plan-b3 p-8">
+  <h2 class="text-3xl font-bold text-gray-900 mb-4">{% trans "Request Form" %}</h2>
+  <p class="text-gray-700 mb-6">
+    {% blocktrans %}This form collects your request details on the page so you can describe the service you need before any backend workflow is connected.{% endblocktrans %}
+  </p>
+
+  {% if contact_form_submitted %}
+  <div class="mb-6 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-green-900">
+    {% trans "Your request details were captured in this page preview. We can connect this form to a real backend flow next." %}
+  </div>
+  {% endif %}
+
+  <form class="space-y-5" method="post">
+    {% csrf_token %}
+    <div class="grid gap-5 sm:grid-cols-2">
+      <div>
+        <label class="mb-2 block text-sm font-medium text-slate-700" for="id_name">{% trans "Name" %}</label>
+        <input id="id_name" name="name" type="text" value="{{ contact_form_values.name }}" class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+      </div>
+      <div>
+        <label class="mb-2 block text-sm font-medium text-slate-700" for="id_business_name">{% trans "Business name" %}</label>
+        <input id="id_business_name" name="business_name" type="text" value="{{ contact_form_values.business_name }}" class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+      </div>
+    </div>
+
+    <div class="grid gap-5 sm:grid-cols-2">
+      <div>
+        <label class="mb-2 block text-sm font-medium text-slate-700" for="id_email">{% trans "Email" %}</label>
+        <input id="id_email" name="email" type="email" value="{{ contact_form_values.email }}" class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+      </div>
+      <div>
+        <label class="mb-2 block text-sm font-medium text-slate-700" for="id_phone">{% trans "Phone" %}</label>
+        <input id="id_phone" name="phone" type="text" value="{{ contact_form_values.phone }}" class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+      </div>
+    </div>
+
+    <div>
+      <label class="mb-2 block text-sm font-medium text-slate-700" for="id_message">{% trans "Message" %}</label>
+      <textarea id="id_message" name="message" rows="6" class="w-full rounded-xl border border-slate-300 px-4 py-3 text-slate-900 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200">{{ contact_form_values.message }}</textarea>
+    </div>
+
+    <button type="submit" class="inline-flex items-center justify-center rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition hover:bg-blue-700">
+      {% trans "Submit request" %}
+    </button>
+  </form>
+</section>
+{% endblock %}
+
+{% block section_included %}
+  {% trans "What to Include" as included_title %}
+  {% trans "A clearer request helps the next step stay efficient and accurate." as included_intro %}
+  {% trans "Your business type and main service" as include1 %}
+  {% trans "Whether you need setup help, a website plan, Facebook support, or a combination" as include2 %}
+  {% trans "Whether you already have an existing website or Facebook page" as include3 %}
+  {% trans "Your preferred timeline" as include4 %}
+  {% include "components/product/included.html" with title=included_title intro=included_intro include1=include1 include2=include2 include3=include3 include4=include4 %}
+{% endblock %}
+
+{% block section_timeline %}
+  {% trans "What Happens Next" as timeline_title %}
+  {% trans "Request review" as timeline_step1_title %}
+  {% trans "We review the details you submitted and identify the service path that fits best." as timeline_step1_desc %}
+  {% trans "Service match" as timeline_step2_title %}
+  {% trans "We confirm whether you need setup, a monthly plan, or a combined request." as timeline_step2_desc %}
+  {% trans "Scope confirmation" as timeline_step3_title %}
+  {% trans "The right offer and next action are clarified before anything is committed." as timeline_step3_desc %}
+  {% trans "Follow-up" as timeline_step4_title %}
+  {% trans "We respond with the next step for the request flow." as timeline_step4_desc %}
+  {% trans "Start" as timeline_step5_title %}
+  {% trans "Once confirmed, the selected service can move forward in a structured way." as timeline_step5_desc %}
+  {% include "components/product/timeline.html" with title=timeline_title step1_title=timeline_step1_title step1_desc=timeline_step1_desc step2_title=timeline_step2_title step2_desc=timeline_step2_desc step3_title=timeline_step3_title step3_desc=timeline_step3_desc step4_title=timeline_step4_title step4_desc=timeline_step4_desc step5_title=timeline_step5_title step5_desc=timeline_step5_desc %}
+{% endblock %}
+
+{% block section_faq %}
+  {% trans "Frequently Asked Questions" as faq_title %}
+  {% trans "Does submitting this form create a booking?" as faq_q1 %}
+  {% trans "No. The form currently captures your request details on the page and does not create a booking or charge anything." as faq_a1 %}
+  {% trans "Can I request more than one service?" as faq_q2 %}
+  {% trans "Yes. Use the message field to describe whether you need setup, a website plan, Facebook support, or a combination." as faq_a2 %}
+  {% trans "What should I write in the message field?" as faq_q3 %}
+  {% trans "Describe what your business needs first, what already exists, and the timeline you are aiming for." as faq_a3 %}
+  {% include "components/product/faq.html" with title=faq_title q1=faq_q1 a1=faq_a1 q2=faq_q2 a2=faq_a2 q3=faq_q3 a3=faq_a3 %}
+{% endblock %}
+
+{% block section_final_cta %}
+  {% trans "Ready to submit your request?" as final_title %}
+  {% trans "Start with a clear request so the next step stays focused, structured, and easy to confirm." as final_intro %}
+  {% trans "Submit request" as final_cta_label %}
+  {% trans "See pricing" as final_secondary_cta_label %}
+  {% url 'core:pricing' as pricing_url %}
+  {% include "components/product/final_cta.html" with title=final_title intro=final_intro cta_label=final_cta_label cta_url='#request-form' secondary_cta_label=final_secondary_cta_label secondary_cta_url=pricing_url %}
+{% endblock %}

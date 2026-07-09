@@ -27,12 +27,18 @@ def edit_mode(request):
     if not request.user.is_authenticated:
         return {"is_edit_mode": False}
     if request.user.is_staff or request.user.is_superuser:
-        return {"is_edit_mode": True}
-    site = getattr(request, "tenant", None) or getattr(request, "site", None)
-    if not site or getattr(site, "is_main", False):
-        return {"is_edit_mode": False}
-    if getattr(site, "owner_id", None) == request.user.id:
-        return {"is_edit_mode": True}
+        raw_host = request.get_host()
+        host = (raw_host or "").split(":", 1)[0].lower().strip()
+        main_domain = getattr(settings, "MAIN_DOMAIN", "justcodeworks.local").lower()
+        main_hosts = {
+            "localhost",
+            "127.0.0.1",
+            main_domain,
+            "justcodeworks.local",
+            f"www.{main_domain}",
+        }
+        if host in main_hosts:
+            return {"is_edit_mode": True}
     return {"is_edit_mode": False}
 
 
@@ -100,70 +106,34 @@ def nav_pages(request):
 
     nav_items = [
         ("home", _("Home"), "core:home"),
-        ("services", _("Services"), "core:services"),
         ("websites", _("Websites"), "core:websites"),
-        ("printlab", _("Print Lab"), "core:printlab"),
-        ("pos-systems", _("Card Payments"), "core:pos_systems"),
+        ("printlab", _("PrintLab"), "core:printlab"),
         ("blog", _("Blog"), "core:blog_index"),
-        ("help-center", _("Help Center"), "core:help_center"),
+        ("help", _("Help"), "core:help"),
     ]
-    slugs = [slug for slug, _, _ in nav_items]
-    pages = (
-        Page.objects.filter(slug__in=slugs, is_active=True, site__isnull=True)
-        .prefetch_related("translations")
-    )
-    page_map = {page.slug: page for page in pages}
-
     items = []
     for slug, fallback_label, route_name in nav_items:
-        page = page_map.get(slug)
-        if page:
-            label = page.safe_translation_getter("nav_label", any_language=True) or page.slug
-        else:
-            label = fallback_label
         url = reverse(route_name)
-        items.append({"slug": slug, "label": label, "url": url})
+        items.append({"slug": slug, "label": fallback_label, "url": url})
 
     websites_dropdown_items = [
         {
-            "slug": "websites",
-            "label": _("Websites"),
-            "url": reverse("core:websites"),
+            "slug": "jcw-system",
+            "label": _("JCW System"),
+            "url": reverse("core:websites_jcw_system"),
+            "subtitle": _("Simple website setup with guidance, updates, and room to grow."),
         },
         {
-            "slug": "websites-one-page",
-            "label": _("One-page websites"),
-            "url": reverse("core:websites_one_page"),
+            "slug": "websites-wordpress",
+            "label": _("WordPress Websites"),
+            "url": reverse("core:websites_wordpress"),
+            "subtitle": _("One-time website setup with WordPress and full control."),
         },
         {
-            "slug": "websites-multi-page",
-            "label": _("Multi-page websites"),
-            "url": reverse("core:websites_multi_page"),
-        },
-        {
-            "slug": "websites-multi-page-seo",
-            "label": _("Multi-page SEO"),
-            "url": reverse("core:websites_multi_page_seo"),
-        },
-        {
-            "slug": "websites-catalog-site",
-            "label": _("Catalog websites"),
-            "url": reverse("core:websites_catalog_site"),
-        },
-        {
-            "slug": "websites-eshop-starter",
-            "label": _("Starter eStore"),
-            "url": reverse("core:websites_eshop_starter"),
-        },
-        {
-            "slug": "websites-eshop-premium",
-            "label": _("Premium eStores"),
-            "url": reverse("core:websites_eshop_premium"),
-        },
-        {
-            "slug": "websites-custom",
-            "label": _("Custom websites"),
-            "url": reverse("core:websites_custom"),
+            "slug": "websites-how-it-works",
+            "label": _("How It Works"),
+            "url": reverse("core:websites_how_it_works"),
+            "subtitle": _("See the steps from signup to launch."),
         },
     ]
     printlab_dropdown_items = [
@@ -269,10 +239,11 @@ def feature_flags(request):
 
 
 def launch_settings(request):
-    settings = get_site_settings()
+    settings_obj = get_site_settings()
+    force_noindex = getattr(settings, "SEO_NOINDEX", False)
     return {
-        "launch_noindex": settings.launch_noindex,
-        "launch_disallow_robots": settings.launch_disallow_robots,
+        "launch_noindex": force_noindex or settings_obj.launch_noindex,
+        "launch_disallow_robots": force_noindex or settings_obj.launch_disallow_robots,
     }
 
 

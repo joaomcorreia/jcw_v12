@@ -1,0 +1,14 @@
+{% load i18n %}
+<section class="plan-section plan-b1 p-8">
+  <h2 class="text-3xl font-bold text-gray-900 mb-4">{{ title }}</h2>
+  {% if intro %}
+  <p class="text-gray-700 mb-4">{{ intro }}</p>
+  {% endif %}
+  <ul class="text-gray-700 space-y-2 list-disc pl-5">
+    {% if audience1 %}<li>{{ audience1 }}</li>{% endif %}
+    {% if audience2 %}<li>{{ audience2 }}</li>{% endif %}
+    {% if audience3 %}<li>{{ audience3 }}</li>{% endif %}
+    {% if audience4 %}<li>{{ audience4 }}</li>{% endif %}
+    {% if audience5 %}<li>{{ audience5 }}</li>{% endif %}
+  </ul>
+</section>

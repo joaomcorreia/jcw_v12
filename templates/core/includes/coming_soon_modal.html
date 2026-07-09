@@ -1,0 +1,81 @@
+{% load i18n %}
+{% url 'core:pricing' as pricing_url %}
+{% url 'core:onboarding' as onboarding_url %}
+<div class="fixed inset-0 z-[2147483647] hidden" data-coming-soon-modal aria-hidden="true">
+  <div class="fixed inset-0 bg-slate-900/50" data-coming-soon-close></div>
+  <div class="fixed left-1/2 top-1/2 z-[2147483647] w-full max-w-sm -translate-x-1/2 -translate-y-1/2 px-4">
+    <div class="w-full rounded-3xl bg-white p-8 text-center shadow-2xl">
+    <h3 class="text-2xl font-bold text-gray-900">
+      {% trans "Coming soon" %}
+    </h3>
+    <div class="mt-6">
+      <button type="button" data-coming-soon-close class="inline-flex items-center justify-center rounded-full bg-gray-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-gray-800">
+        {% trans "Close" %}
+      </button>
+    </div>
+  </div>
+  </div>
+</div>
+<script>
+  (function () {
+    if (window.JCWComingSoonModalInit) return;
+    window.JCWComingSoonModalInit = true;
+
+    var modal = document.querySelector("[data-coming-soon-modal]");
+    if (!modal) return;
+    var pricingPath = "{{ pricing_url|escapejs }}";
+    var onboardingPath = "{{ onboarding_url|escapejs }}";
+
+    function normalizePath(path) {
+      if (!path) return "";
+      return path.replace(/\/+$/, "") || "/";
+    }
+
+    function openModal() {
+      modal.classList.remove("hidden");
+      modal.setAttribute("aria-hidden", "false");
+    }
+
+    function closeModal() {
+      modal.classList.add("hidden");
+      modal.setAttribute("aria-hidden", "true");
+    }
+
+    document.addEventListener("click", function (event) {
+      var closeTarget = event.target.closest("[data-coming-soon-close]");
+      if (closeTarget) {
+        closeModal();
+        return;
+      }
+
+      var explicitTrigger = event.target.closest("[data-coming-soon-trigger]");
+      if (explicitTrigger) {
+        event.preventDefault();
+        openModal();
+        return;
+      }
+
+      var link = event.target.closest("a[href]");
+      if (!link) return;
+
+      try {
+        var url = new URL(link.href, window.location.href);
+        var normalizedPath = normalizePath(url.pathname);
+        if (
+          normalizedPath === normalizePath(pricingPath) ||
+          normalizedPath === normalizePath(onboardingPath)
+        ) {
+          event.preventDefault();
+          openModal();
+        }
+      } catch (error) {
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && modal.getAttribute("aria-hidden") === "false") {
+        closeModal();
+      }
+    });
+  })();
+</script>

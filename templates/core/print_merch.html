@@ -1,0 +1,137 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="jcw-page">
+  <section class="jcw-page-hero">
+    <div class="jcw-page-hero__container">
+      <div class="jcw-page-hero__content">
+        <div class="jcw-page-badge">
+          <span class="jcw-page-badge__dot"></span>
+          {% trans "Merch Print" %}
+        </div>
+        <h1 class="jcw-page-title">
+          {% trans "Branded merchandise for your business" %}
+        </h1>
+        <p class="jcw-page-intro">
+          {% blocktrans %}This path is for apparel and promotional products with your logo and brand applied, so your printed materials stay consistent with your website identity and business image.{% endblocktrans %}
+        </p>
+        <div class="jcw-button-row jcw-button-row--center">
+          <a class="jcw-button jcw-button--light" href="{% url 'core:contact' %}">
+            {% trans "Start your merch request" %}
+          </a>
+          <a class="jcw-button jcw-button--ghost-light" href="{% url 'core:print_overview' %}">
+            {% trans "Back to print paths" %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="jcw-page-section">
+    <div class="jcw-page-section__container">
+      <div class="jcw-page-stack">
+        <section class="jcw-content-card">
+          <h2 class="jcw-section-title">{% trans "What fits here" %}</h2>
+          <div class="jcw-card-grid">
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "T-shirts and apparel" %}</h3>
+              <p class="jcw-card-text">{% trans "A practical fit for staff clothing, branded shirts, and everyday apparel that keeps the business looking consistent." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Hoodies and workwear" %}</h3>
+              <p class="jcw-card-text">{% trans "Useful when your team needs branded clothing that looks professional and works in day-to-day business use." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Accessories and promo items" %}</h3>
+              <p class="jcw-card-text">{% trans "A good option for giveaways, events, and branded items that help people remember your business." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Consistent business branding" %}</h3>
+              <p class="jcw-card-text">{% trans "This path helps your merch stay aligned with the same business identity used across your website and materials." %}</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="jcw-content-card">
+          <h2 class="jcw-section-title">{% trans "How it works" %}</h2>
+          <div class="jcw-card-grid">
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Choose a product" %}</h3>
+              <p class="jcw-card-text">{% trans "Start with the merch or apparel item that fits your business best." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Choose a design" %}</h3>
+              <p class="jcw-card-text">{% trans "Pick the design direction that matches your branding and the product you selected." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Your brand is applied" %}</h3>
+              <p class="jcw-card-text">{% trans "Your logo, colors, and business identity are applied to keep the merch consistent." %}</p>
+            </article>
+            <article class="jcw-content-card jcw-content-card--muted">
+              <h3 class="jcw-card-title">{% trans "Review and order" %}</h3>
+              <p class="jcw-card-text">{% trans "Review the direction and move forward once the merch looks right for your business." %}</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="jcw-content-card">
+          <h2 class="jcw-section-title">{% trans "Why this matters" %}</h2>
+          <ul class="jcw-checklist">
+            <li>{% trans "It helps improve brand recognition" %}</li>
+            <li>{% trans "It makes your business look more professional" %}</li>
+            <li>{% trans "It is useful for teams, staff, and events" %}</li>
+            <li>{% trans "It supports marketing and business visibility" %}</li>
+          </ul>
+        </section>
+
+        <section class="jcw-content-card jcw-content-card--center">
+          <h2 class="jcw-section-title">{% trans "You do not need design experience to start" %}</h2>
+          <p class="jcw-section-text">
+            {% blocktrans %}The process is kept simple. Templates are available, and your logo and colors can be used automatically so you do not need to build the design from scratch yourself.{% endblocktrans %}
+          </p>
+        </section>
+
+        <section class="jcw-content-card">
+          <h2 class="jcw-section-title">{% trans "Real products, ready to print" %}</h2>
+          {% if printful_products %}
+          <div class="jcw-card-grid">
+            {% for product in printful_products %}
+            <article class="jcw-content-card jcw-content-card--muted">
+              {% if product.image_url %}
+              <img src="{{ product.image_url }}" alt="{{ product.name }}" class="w-full h-48 object-cover rounded-xl mb-4">
+              {% endif %}
+              <h3 class="jcw-card-title">{{ product.name }}</h3>
+              {% if product.price %}
+              <p class="jcw-card-text">{% trans "From" %} {{ product.price }}</p>
+              {% endif %}
+            </article>
+            {% endfor %}
+          </div>
+          {% else %}
+          <p class="jcw-section-text">{% trans "Product previews will appear here when the Printful connection is available." %}</p>
+          {% endif %}
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="jcw-page-section">
+    <div class="jcw-page-section__container">
+      <div class="jcw-cta-card">
+        <h2 class="jcw-section-title">{% trans "Start your branded merch order" %}</h2>
+        <p class="jcw-card-text">{% trans "Choose this route when you want branded apparel or promotional items that match your business identity." %}</p>
+        <div class="jcw-button-row">
+          <a class="jcw-button jcw-button--light" href="{% url 'core:contact' %}">
+            {% trans "Start your merch request" %}
+          </a>
+          <a class="jcw-button jcw-button--ghost-light" href="{% url 'core:print_overview' %}">
+            {% trans "Compare print paths" %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+{% include "core/footer.html" %}
+{% endblock content %}

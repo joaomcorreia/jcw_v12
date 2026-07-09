@@ -1,0 +1,12 @@
+<div class="dashboard-card dashboard-card--auto">
+  <div class="dashboard-card-header">
+    <h3 class="dashboard-card-title">{{ title }}</h3>
+  </div>
+  <p class="dashboard-card-value">{{ value }}</p>
+  {% if subtitle %}
+  <p class="dashboard-muted">{{ subtitle }}</p>
+  {% endif %}
+  {% if link_url and link_label %}
+  <a class="dashboard-link" href="{{ link_url }}">{{ link_label }}</a>
+  {% endif %}
+</div>

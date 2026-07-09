@@ -1,330 +1,197 @@
-{% load static i18n %}
-<!DOCTYPE html>
-<html lang="{{ LANGUAGE_CODE }}" dir="ltr" class="jcw-theme-dark">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
-    <link rel="icon" href="{% static 'favicon.png' %}">
-    <title>
-      {{ seo_title|default:"JustCodeWorks" }}
-    </title>
-    <meta name="robots" content="{% if launch_noindex %}noindex, nofollow{% else %}{{ seo_robots|default:'index, follow' }}{% endif %}">
-    <meta name="description" content="{{ seo_description|default:'Website builder and content management platform' }}">
-    <style>
-      .jcw-plan-grid {
-        display: grid;
-        grid-template-columns: repeat(12, minmax(0, 1fr));
-        gap: 24px;
-      }
-      .jcw-plan-card {
-        border-radius: 18px;
-        padding: 24px;
-        box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
-        border: 1px solid rgba(15, 23, 42, 0.06);
-      }
-      .jcw-plan-card--blue {
-        background: #eff6ff;
-      }
-      .jcw-plan-card--green {
-        background: #ecfdf3;
-      }
-      .jcw-plan-card--purple {
-        background: #f5f3ff;
-      }
-      .jcw-plan-card--amber {
-        background: #fffbeb;
-      }
-      .jcw-plan-card--slate {
-        background: #f8fafc;
-      }
-      @property --jcw-border-angle {
-        syntax: "<angle>";
-        inherits: false;
-        initial-value: 0deg;
-      }
-      .jcw-interactive-border {
-        --jcw-border-angle: 0deg;
-        border: 4px solid transparent;
-        border-radius: 22px;
-        background:
-          linear-gradient(#eff6ff, #eff6ff) padding-box,
-          conic-gradient(
-            from var(--jcw-border-angle),
-            #1c5aa7,
-            #5c33d8,
-            #780994,
-            #2a63a8
-          )
-          border-box;
-        animation: jcw-border-spin 7s linear infinite;
-      }
-      .jcw-interactive-border:hover {
-        animation-duration: 2.5s;
-        box-shadow: 0 18px 40px rgba(37, 99, 235, 0.2);
-      }
-      @keyframes jcw-border-spin {
-        to {
-          --jcw-border-angle: 360deg;
-        }
-      }
-      [data-jcw-nav] {
-        position: relative;
-      }
-      [data-jcw-nav].jcw-nav-scrolled::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #60a5fa, #a78bfa, #f472b6, #60a5fa);
-        background-size: 200% 100%;
-        animation: jcw-nav-border 6s linear infinite;
-      }
-      [data-jcw-nav].jcw-nav-scrolled:hover::after {
-        animation-duration: 2.5s;
-      }
-      @keyframes jcw-nav-border {
-        0% {
-          background-position: 0% 50%;
-        }
-        100% {
-          background-position: 200% 50%;
-        }
-      }
-      .jcw-plan-span-12 {
-        grid-column: span 12;
-      }
-      .jcw-plan-span-7 {
-        grid-column: span 7;
-      }
-      .jcw-plan-span-6 {
-        grid-column: span 6;
-      }
-      .jcw-plan-span-5 {
-        grid-column: span 5;
-      }
-      .jcw-plan-span-4 {
-        grid-column: span 4;
-      }
-      .jcw-plan-card ul {
-        list-style: disc;
-        padding-left: 20px;
-      }
-      .jcw-plan-card li {
-        margin-bottom: 8px;
-      }
-      @media (max-width: 1024px) {
-        .jcw-plan-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-        .jcw-plan-grid [class*="jcw-plan-span-"] {
-          grid-column: span 2;
-        }
-        .jcw-plan-span-4 {
-          grid-column: span 1;
-        }
-      }
-      @media (max-width: 640px) {
-        .jcw-plan-grid {
-          grid-template-columns: 1fr;
-        }
-        .jcw-plan-grid [class*="jcw-plan-span-"] {
-          grid-column: span 1;
-        }
-      }
-    </style>
-      {% if canonical_url %}
-    <link rel="canonical" href="{{ canonical_url }}">
-    {% endif %}
-    {% if hreflang_urls %}
-      {% for alternate in hreflang_urls %}
-    <link rel="alternate" hreflang="{{ alternate.lang }}" href="{{ alternate.url }}">
-      {% endfor %}
-    {% endif %}</head>
-  <body class="min-h-screen antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-50 transition-colors duration-200 font-medium">
-    <div class="min-h-screen ltr" data-locale="{{ LANGUAGE_CODE }}">
-      {% include 'core/main_nav.html' %}
-      <div class="min-h-screen">
-        <div class="relative overflow-hidden">
-          <div class="absolute inset-0 bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
-            <div class="absolute inset-0 opacity-20">
-              <div class="absolute top-0 left-0 w-2 h-2 bg-white rounded-full animate-ping">
-              </div>
-              <div class="absolute top-10 left-20 w-1 h-1 bg-blue-300 rounded-full animate-pulse">
-              </div>
-              <div class="absolute top-20 right-10 w-1 h-1 bg-purple-300 rounded-full animate-ping">
-              </div>
-              <div class="absolute bottom-20 left-10 w-2 h-2 bg-pink-300 rounded-full animate-pulse">
-              </div>
-            </div>
-            <div class="absolute top-0 left-0 w-full h-full">
-              <div class="absolute top-20 left-20 w-32 h-32 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob">
-              </div>
-              <div class="absolute top-40 right-20 w-32 h-32 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000">
-              </div>
-              <div class="absolute -bottom-8 left-40 w-32 h-32 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000">
-              </div>
-            </div>
-          </div>
-          <div class="relative z-10 max-w-7xl mx-auto px-4 py-20 sm:py-32">
-            <div class="text-center text-white">
-              <div class="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm font-medium mb-8">
-                <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
-                {% trans "One Page Website" %}
-              </div>
-              <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent leading-tight">
-                {% trans "One Page Website" %}
-              </h1>
-              <p class="text-xl md:text-2xl mb-12 text-blue-100 max-w-4xl mx-auto leading-relaxed">
-                {% trans "A single-page website designed to get you online fast, with one clear message and a strong call to action." %}
-              </p>
-              <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a class="px-8 py-4 bg-white text-blue-900 font-bold rounded-xl hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 shadow-xl" href="{{ sections_by_key.hero.content.cta_primary_url|default:'#' }}">
-                  {% trans "Start now" %}
-                </a>
-                <button class="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300">
-                  {% trans "See plans" %}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="py-20 bg-gray-50">
-          <div class="max-w-7xl mx-auto px-4">
-            <div class="jcw-plan-grid">
-              <div class="jcw-plan-card jcw-plan-card--blue jcw-plan-span-12 jcw-interactive-border">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-                  {% trans "One Page Website" %}
-                </h2>
-                <p class="text-lg text-gray-700 mb-6">
-                  {% trans "A single-page website designed to get you online fast, with one clear message and a strong call to action." %}
-                </p>
-                <a class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors" href="{{ sections_by_key.hero.content.cta_primary_url|default:'#' }}">
-                  {% trans "Start now" %}
-                </a>
-              </div>
+{% extends "pages/websites/product_page_base.html" %}
+{% load i18n static %}
 
-              <div class="jcw-plan-card jcw-plan-card--slate jcw-plan-span-7">
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">
-                  {% trans "What this plan is for" %}
-                </h3>
-                <p class="text-gray-700 mb-4">
-                  {% blocktrans %}This plan is perfect when you want a simple online presence without complexity. Everything lives on one clear page, so visitors immediately understand what you offer and how to contact you.{% endblocktrans %}
-                </p>
-                <ul class="text-gray-700">
-                  <li>{% trans "One clear page with a strong call to action" %}</li>
-                  <li>{% trans "Ideal when you want customers to contact you fast" %}</li>
-                  <li>{% trans "Perfect for services, freelancers, and small businesses" %}</li>
-                  <li>{% trans "No unnecessary pages or features" %}</li>
-                </ul>
-              </div>
+{% block product_badge %}{% trans "One Page Website" %}{% endblock %}
+{% block product_title %}{% trans "One Page Website" %}{% endblock %}
+{% block product_subtitle %}{% trans "Launch a focused website with one clear message, one strong call to action, and everything your visitors need in a single scroll." %}{% endblock %}
+{% block primary_cta_label %}{% trans "Start your one-page site" %}{% endblock %}
+{% block secondary_cta_label %}{% trans "See one-page details" %}{% endblock %}
+{% block primary_cta_url %}{% url 'core:pricing' %}{% endblock %}
+{% block secondary_cta_url %}{% url 'core:contact' %}{% endblock %}
 
-              <div class="jcw-plan-card jcw-plan-card--green jcw-plan-span-5">
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">
-                  {% trans "What's included" %}
-                </h3>
-                <p class="text-gray-700 mb-4">
-                  {% trans "Your one-page website includes everything you need to present your business clearly and professionally." %}
-                </p>
-                <ul class="text-gray-700">
-                  <li>{% trans "Up to 6 content sections on one page" %}</li>
-                  <li>{% trans "Clear call-to-action buttons (contact, call, or request)" %}</li>
-                  <li>{% trans "Mobile-optimized layout for all devices" %}</li>
-                  <li>{% trans "Clean structure ready for basic SEO" %}</li>
-                  <li>{% trans "Translation-ready for multiple languages" %}</li>
-                </ul>
-              </div>
-
-              <div class="jcw-plan-card jcw-plan-card--purple jcw-plan-span-4">
-                <div class="text-3xl mb-3">📱</div>
-                <h4 class="text-xl font-bold text-gray-900 mb-2">
-                  {% trans "Mobile-friendly" %}
-                </h4>
-                <p class="text-gray-700">
-                  {% trans "Your website works smoothly on phones, tablets, and desktops, so customers can reach you anywhere." %}
-                </p>
-              </div>
-
-              <div class="jcw-plan-card jcw-plan-card--amber jcw-plan-span-4">
-                <div class="text-3xl mb-3">🔍</div>
-                <h4 class="text-xl font-bold text-gray-900 mb-2">
-                  {% trans "Built to be found" %}
-                </h4>
-                <p class="text-gray-700">
-                  {% trans "Fast loading pages, proper headings, and a clean structure that search engines understand." %}
-                </p>
-              </div>
-
-              <div class="jcw-plan-card jcw-plan-card--green jcw-plan-span-4">
-                <div class="text-3xl mb-3">🌍</div>
-                <h4 class="text-xl font-bold text-gray-900 mb-2">
-                  {% trans "Multiple languages" %}
-                </h4>
-                <p class="text-gray-700">
-                  {% trans "Add translations when you're ready and reach customers in different languages without rebuilding your site." %}
-                </p>
-              </div>
-
-              <div class="jcw-plan-card jcw-plan-card--slate jcw-plan-span-6">
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">
-                  {% trans "What's NOT included" %}
-                </h3>
-                <p class="text-gray-700 mb-4">
-                  {% trans "To keep this plan simple and affordable, some advanced features are intentionally not included." %}
-                </p>
-                <ul class="text-gray-700">
-                  <li>{% trans "Multiple separate pages" %}</li>
-                  <li>{% trans "Online store or payment systems" %}</li>
-                  <li>{% trans "Complex custom integrations" %}</li>
-                </ul>
-              </div>
-
-              <div class="jcw-plan-card jcw-plan-card--blue jcw-plan-span-6">
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">
-                  {% trans "Upgrade anytime" %}
-                </h3>
-                <p class="text-gray-700 mb-4">
-                  {% blocktrans %}Your website is not locked in. You can start simple and upgrade whenever your business grows. Move to a multi-page website, add SEO features, or connect other tools later without losing your content.{% endblocktrans %}
-                </p>
-                <ul class="text-gray-700">
-                  <li>{% trans "Upgrade to a multi-page website" %}</li>
-                  <li>{% trans "Add service pages when needed" %}</li>
-                  <li>{% trans "Connect online store or POS features later" %}</li>
-                </ul>
-              </div>
-
-              <div class="jcw-plan-card jcw-plan-card--purple jcw-plan-span-12">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                  <div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-2">
-                      {% trans "Not sure if this is enough?" %}
-                    </h3>
-                    <p class="text-gray-700">
-                      {% blocktrans %}Start with a one-page website and upgrade later if needed. If you're unsure, we're happy to guide you to the right option.{% endblocktrans %}
-                    </p>
-                  </div>
-                  {% if sections_by_key.cta.content.cta_primary_url %}
-                  <a class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors" href="{{ sections_by_key.cta.content.cta_primary_url }}">
-                    {% trans "Start now" %}
-                  </a>
-                  {% else %}
-                  <a class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors" href="{% url 'core:help_center' %}">
-                    {% trans "Start now" %}
-                  </a>
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      {% include 'core/footer.html' %}
+{% block section_who_its_for %}
+  <section class="plan-section plan-b1 p-8">
+    <div class="max-w-3xl">
+      <p class="text-sm font-semibold uppercase tracking-wide text-blue-700">{% trans "Who This Is For" %}</p>
+      <h2 class="mt-3 text-3xl font-bold text-gray-900">{% trans "A simple website for businesses that want to get online fast" %}</h2>
+      <p class="mt-4 text-gray-700">{% trans "This plan works best when you want one clear page that explains what you do and helps people contact you quickly." %}</p>
     </div>
-    <script src="{% static 'jcw/js/jcw-ui.js' %}"></script>
-    {% include 'core/right_sidebar.html' %}
-  </body>
-</html>
+    <div class="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <article class="rounded-2xl border border-slate-200 bg-slate-50 p-5 shadow-sm">
+        <div class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-blue-100 text-blue-700">
+          <span class="h-2.5 w-2.5 rounded-full bg-current"></span>
+        </div>
+        <h3 class="mt-4 text-lg font-semibold text-slate-900">{% trans "Local services" %}</h3>
+        <p class="mt-2 text-sm leading-6 text-slate-600">{% trans "A strong fit for businesses that mainly want calls, messages, or quote requests." %}</p>
+      </article>
+      <article class="rounded-2xl border border-slate-200 bg-slate-50 p-5 shadow-sm">
+        <div class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
+          <span class="h-2.5 w-2.5 rounded-full bg-current"></span>
+        </div>
+        <h3 class="mt-4 text-lg font-semibold text-slate-900">{% trans "Freelancers" %}</h3>
+        <p class="mt-2 text-sm leading-6 text-slate-600">{% trans "Ideal when you offer a focused service and want a professional first impression." %}</p>
+      </article>
+      <article class="rounded-2xl border border-slate-200 bg-slate-50 p-5 shadow-sm">
+        <div class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100 text-amber-700">
+          <span class="h-2.5 w-2.5 rounded-full bg-current"></span>
+        </div>
+        <h3 class="mt-4 text-lg font-semibold text-slate-900">{% trans "New businesses" %}</h3>
+        <p class="mt-2 text-sm leading-6 text-slate-600">{% trans "A practical starting point when you need to launch quickly without building too much." %}</p>
+      </article>
+      <article class="rounded-2xl border border-slate-200 bg-slate-50 p-5 shadow-sm">
+        <div class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-violet-100 text-violet-700">
+          <span class="h-2.5 w-2.5 rounded-full bg-current"></span>
+        </div>
+        <h3 class="mt-4 text-lg font-semibold text-slate-900">{% trans "Simple offers" %}</h3>
+        <p class="mt-2 text-sm leading-6 text-slate-600">{% trans "Best when one page is enough to explain your service, trust points, and next step." %}</p>
+      </article>
+    </div>
+  </section>
+{% endblock %}
 
+{% block section_what_you_get %}
+  <section class="plan-section plan-b2 p-8">
+    <div class="max-w-3xl">
+      <p class="text-sm font-semibold uppercase tracking-wide text-emerald-700">{% trans "What You Get" %}</p>
+      <h2 class="mt-3 text-3xl font-bold text-gray-900">{% trans "Everything you need to present your business clearly and turn visitors into real enquiries." %}</h2>
+      <p class="mt-4 text-gray-700">{% trans "A one-page website should feel easy to understand, easy to trust, and easy to contact. This plan is built around that goal." %}</p>
+    </div>
 
+    <div class="mt-8 space-y-6">
+      <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div>
+            <div class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-100 text-blue-700">
+              <span class="h-2.5 w-2.5 rounded-full bg-current"></span>
+            </div>
+            <h3 class="mt-4 text-xl font-semibold text-slate-900">{% trans "A page that converts visitors into contacts" %}</h3>
+            <ul class="mt-4 space-y-2 list-disc pl-5 text-sm leading-6 text-slate-700">
+              <li>{% trans "Clear headline and strong first impression" %}</li>
+              <li>{% trans "Sections that explain what you do in seconds" %}</li>
+              <li>{% trans "Call-to-action buttons placed where they matter" %}</li>
+            </ul>
+          </div>
+          <div>
+            <img
+              src="{% static 'jcw/img/websites/one-page/website-conversion-visual.png' %}"
+              class="w-full rounded-xl object-contain"
+            >
+          </div>
+        </div>
+      </article>
+
+      <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div>
+            <div class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700">
+              <span class="h-2.5 w-2.5 rounded-full bg-current"></span>
+            </div>
+            <h3 class="mt-4 text-xl font-semibold text-slate-900">{% trans "Everything your customers expect" %}</h3>
+            <ul class="mt-4 space-y-2 list-disc pl-5 text-sm leading-6 text-slate-700">
+              <li>{% trans "Service or offer sections tailored to your business" %}</li>
+              <li>{% trans "Trust elements like testimonials or highlights" %}</li>
+              <li>{% trans "Easy contact options (phone, email, WhatsApp, form)" %}</li>
+            </ul>
+          </div>
+          <div>
+            <img
+              src="{% static 'jcw/img/websites/one-page/website-structure-visual.png' %}"
+              alt="{% trans 'Support visual showing a one-page website structure with key business sections' %}"
+              class="w-full rounded-xl object-contain"
+            >
+          </div>
+        </div>
+      </article>
+
+      <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div>
+            <div class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-violet-100 text-violet-700">
+              <span class="h-2.5 w-2.5 rounded-full bg-current"></span>
+            </div>
+            <h3 class="mt-4 text-xl font-semibold text-slate-900">{% trans "Built to work everywhere and grow later" %}</h3>
+            <ul class="mt-4 space-y-2 list-disc pl-5 text-sm leading-6 text-slate-700">
+              <li>{% trans "Mobile-first layout that looks good on any device" %}</li>
+              <li>{% trans "Fast-loading structure for better user experience" %}</li>
+              <li>{% trans "SEO-ready foundation so your site can be found" %}</li>
+              <li>{% trans "Ready to expand into more pages when needed" %}</li>
+            </ul>
+          </div>
+          <div>
+            <img
+              src="{% static 'jcw/img/websites/one-page/website-responsive-visual.png' %}"
+              alt="{% trans 'Support visual showing a one-page website working well across devices and ready to grow' %}"
+              class="w-full rounded-xl object-contain"
+            >
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+{% endblock %}
+
+{% block section_included %}
+  {% trans "Included In This Plan" as included_title %}
+  {% trans "Everything you need to launch a focused one-page website with a professional structure and a clear next step for your visitors." as included_intro %}
+  {% trans "A complete one-page website built around your business" as included1 %}
+  {% trans "Up to 6 core content sections" as included2 %}
+  {% trans "Clear call-to-action buttons to guide enquiries" as included3 %}
+  {% trans "Smooth on-page navigation for a better visitor experience" as included4 %}
+  {% trans "Mobile-friendly layout for phones, tablets, and desktops" as included5 %}
+  {% trans "Launch-ready structure with support for going live" as included6 %}
+  {% include "components/product/included.html" with title=included_title intro=included_intro include1=included1 include2=included2 include3=included3 include4=included4 include5=included5 include6=included6 %}
+{% endblock %}
+
+{% block section_timeline %}
+  {% trans "How it works" as timeline_title %}
+  {% trans "Get your website online in minutes with a simple step-by-step setup." as timeline_intro %}
+  {% trans "Register" as timeline_step1_title %}
+  {% trans "Create your account and enter basic business details." as timeline_step1_desc %}
+  {% trans "Confirm your email" as timeline_step2_title %}
+  {% trans "Activate your account securely." as timeline_step2_desc %}
+  {% trans "Access your dashboard" as timeline_step3_title %}
+  {% trans "Your website is already generated and ready to review." as timeline_step3_desc %}
+  {% trans "Review and adjust" as timeline_step4_title %}
+  {% trans "Make quick edits if needed using the simple editor." as timeline_step4_desc %}
+  {% trans "Go live instantly" as timeline_step5_title %}
+  {% trans "Publish your site and start receiving enquiries." as timeline_step5_desc %}
+  {% include "components/product/timeline.html" with title=timeline_title intro=timeline_intro step1_title=timeline_step1_title step1_desc=timeline_step1_desc step2_title=timeline_step2_title step2_desc=timeline_step2_desc step3_title=timeline_step3_title step3_desc=timeline_step3_desc step4_title=timeline_step4_title step4_desc=timeline_step4_desc step5_title=timeline_step5_title step5_desc=timeline_step5_desc %}
+{% endblock %}
+
+{% block section_upgrade_path %}
+  {% trans "Upgrade Path" as upgrade_title %}
+  {% trans "You can start simple and expand without rebuilding from zero." as upgrade_intro %}
+  {% trans "Move to Multi Page when you need dedicated service pages" as upgrade1 %}
+  {% trans "Add SEO-focused page clusters for city or service targeting" as upgrade2 %}
+  {% trans "Add catalog or eStore capabilities when you start selling online" as upgrade3 %}
+  {% trans "Introduce custom workflows as your operations grow" as upgrade4 %}
+  {% trans "View upgrade options" as upgrade_cta_label %}
+  {% url 'core:pricing' as pricing_url %}
+  {% include "components/product/upgrade_path.html" with title=upgrade_title intro=upgrade_intro upgrade1=upgrade1 upgrade2=upgrade2 upgrade3=upgrade3 upgrade4=upgrade4 upgrade_cta_label=upgrade_cta_label upgrade_cta_url=pricing_url %}
+  {% trans "Preview example website styles" as showcase_title %}
+  {% trans "See how different website directions can look before you choose the structure that fits your business best." as showcase_intro %}
+  {% include "components/websites/demo_showcase_section.html" with showcase_title=showcase_title showcase_intro=showcase_intro demo_showcase_cards=demo_showcase_cards %}
+{% endblock %}
+
+{% block section_faq %}
+  {% trans "Frequently Asked Questions" as faq_title %}
+  {% trans "Can I add more sections later?" as faq_q1 %}
+  {% trans "Yes. You can update and expand the page, or move to a multi-page structure when needed." as faq_a1 %}
+  {% trans "Is this good enough for Google?" as faq_q2 %}
+  {% trans "For a focused offer, yes. It includes a clean SEO-ready structure. For broader ranking goals, Multi Page + SEO is usually better." as faq_a2 %}
+  {% trans "Can this work in multiple languages?" as faq_q3 %}
+  {% trans "Yes. The page is built translation-ready so you can add languages without redesigning the site." as faq_a3 %}
+  {% trans "How fast can we launch?" as faq_q4 %}
+  {% trans "Many one-page projects launch in days, depending on content readiness and review speed." as faq_a4 %}
+  {% include "components/product/faq.html" with title=faq_title q1=faq_q1 a1=faq_a1 q2=faq_q2 a2=faq_a2 q3=faq_q3 a3=faq_a3 q4=faq_q4 a4=faq_a4 %}
+{% endblock %}
+
+{% block section_final_cta %}
+  {% trans "Ready to launch a focused one-page website?" as final_title %}
+  {% trans "Start with the simplest plan that gets results. Upgrade only when your business needs more." as final_intro %}
+  {% trans "Start now" as final_cta_label %}
+  {% trans "Need guidance first" as final_secondary_cta_label %}
+  {% url 'core:pricing' as pricing_url %}
+  {% url 'core:contact' as contact_url %}
+  {% include "components/product/final_cta.html" with title=final_title intro=final_intro cta_label=final_cta_label cta_url=contact_url secondary_cta_label=final_secondary_cta_label secondary_cta_url=contact_url %}
+{% endblock %}

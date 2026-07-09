@@ -5,7 +5,40 @@
 
 {% block content %}
 <div class="dashboard-page">
-  <h1 class="dashboard-title">{% trans "Control Panel" %}</h1>
-  <p class="dashboard-muted">{% trans "Coming soon." %}</p>
+  {% url 'control_panel:plans_list' as plans_url %}
+  {% url 'control_panel:tenants' as tenants_url %}
+  {% url 'control_panel:website_builder' as website_builder_url %}
+  {% url 'control_panel:templates_list' as templates_url %}
+
+  {% trans "Total tenants" as total_tenants_title %}
+  {% trans "All non-main tenant sites" as total_tenants_subtitle %}
+  {% trans "Total users" as total_users_title %}
+  {% trans "Registered platform users" as total_users_subtitle %}
+  {% trans "Active plans/subscriptions" as plans_title %}
+  {% trans "Configured plans vs active subscriptions" as plans_subtitle %}
+  {% trans "Manage plans" as manage_plans_label %}
+  {% trans "Last created tenant" as last_tenant_title %}
+  {% trans "Open tenants" as open_tenants_label %}
+  {% trans "No tenants yet" as no_tenant_value %}
+  {% trans "Create your first tenant to start" as no_tenant_subtitle %}
+  {% trans "Open Website builder" as open_builder_label %}
+  {% trans "Open templates" as open_templates_label %}
+
+  <h1 class="dashboard-title">{% trans "Overview" %}</h1>
+  <p class="dashboard-muted">{% trans "Control panel status for tenants, accounts and plan availability." %}</p>
+
+  <div class="dashboard-cards">
+    {% include "components/stat_card.html" with title=total_tenants_title value=stats.total_tenants subtitle=total_tenants_subtitle link_url="" link_label="" %}
+    {% include "components/stat_card.html" with title=total_users_title value=stats.total_users subtitle=total_users_subtitle link_url="" link_label="" %}
+    {% blocktrans with active_plans=stats.total_active_plans active_subscriptions=stats.total_active_subscriptions asvar plan_stats %}{{ active_plans }} plans / {{ active_subscriptions }} subscriptions{% endblocktrans %}
+    {% include "components/stat_card.html" with title=plans_title value=plan_stats subtitle=plans_subtitle link_url=plans_url link_label=manage_plans_label %}
+    {% if last_tenant %}
+      {% include "components/stat_card.html" with title=last_tenant_title value=last_tenant.name subtitle=last_tenant.subdomain link_url=tenants_url link_label=open_tenants_label %}
+    {% else %}
+      {% include "components/stat_card.html" with title=last_tenant_title value=no_tenant_value subtitle=no_tenant_subtitle link_url=tenants_url link_label=open_tenants_label %}
+    {% endif %}
+  </div>
+
+  {% include "components/button_row.html" with action1_url=website_builder_url action1_label=open_builder_label action2_url=tenants_url action2_label=open_tenants_label action3_url=templates_url action3_label=open_templates_label %}
 </div>
 {% endblock %}

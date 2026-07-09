@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'dashboard/dashboard.css' %}">
     <link rel="icon" href="{% static 'favicon.png' %}">
-    <title>{% block title %}Control Panel{% endblock %}</title>
+    <title>{% block title %}{% trans "Control Panel" %}{% endblock %}</title>
   </head>
   <body class="dashboard-body">
     <div class="dashboard-app" data-dashboard data-current-url="{{ request.resolver_match.url_name }}" data-current-namespace="{{ request.resolver_match.namespace }}">
       <header class="dashboard-topbar">
         <div class="dashboard-topbar-left">
-          <a class="dashboard-brand" href="{% url 'core:home' %}">Just Code Works - Control Panel</a>
+          <a class="dashboard-brand" href="{% url 'core:home' %}">{% trans "Just Code Works - Control Panel" %}</a>
         </div>
         <div class="dashboard-topbar-right">
           <a class="dashboard-top-link" href="{% url 'core:home' %}">{% trans "Main Site" %}</a>
@@ -22,7 +22,7 @@
 
       <div class="dashboard-shell">
         <aside class="dashboard-sidebar" data-dashboard-sidebar>
-          <button class="dashboard-toggle dashboard-toggle-left" type="button" data-dashboard-toggle="sidebar" aria-label="Collapse sidebar">
+          <button class="dashboard-toggle dashboard-toggle-left" type="button" data-dashboard-toggle="sidebar" aria-label="{% trans 'Collapse sidebar' %}">
             <
           </button>
           <nav class="dashboard-nav">
@@ -44,11 +44,14 @@
         </aside>
 
         <main class="dashboard-content">
+          {% if preview_mode %}
+          <div>{% blocktrans with version=preview_version|default:"next" %}Preview mode: v={{ version }}{% endblocktrans %}</div>
+          {% endif %}
           {% block content %}{% endblock %}
         </main>
 
         <aside class="dashboard-drawer" data-dashboard-drawer>
-          <button class="dashboard-toggle dashboard-toggle-right" type="button" data-dashboard-toggle="drawer" aria-label="Collapse drawer">
+          <button class="dashboard-toggle dashboard-toggle-right" type="button" data-dashboard-toggle="drawer" aria-label="{% trans 'Collapse drawer' %}">
             >
           </button>
           <div class="dashboard-drawer-inner">
@@ -58,7 +61,7 @@
       </div>
 
       <footer class="dashboard-footer">
-        Just Code Works
+        {% trans "Just Code Works" %}
       </footer>
       {% if DEBUG_ENV %}
       <div class="dashboard-debug-bar">
@@ -66,7 +69,7 @@
         <span>{{ DEBUG_ENV.db }}</span>
         <span>{{ DEBUG_ENV.user }}</span>
         <span>{{ DEBUG_ENV.tenant }}</span>
-        <span>impersonate: {{ DEBUG_ENV.impersonate }}</span>
+        <span>{% blocktrans with value=DEBUG_ENV.impersonate %}impersonate: {{ value }}{% endblocktrans %}</span>
       </div>
       {% endif %}
     </div>

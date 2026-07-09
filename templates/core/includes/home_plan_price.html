@@ -1,0 +1,14 @@
+{% load i18n %}
+<div class="mb-4 rounded-2xl border border-white/70 bg-white/80 px-4 py-3 shadow-sm backdrop-blur-sm">
+  {% if custom_label %}
+    <p class="text-lg font-bold {{ accent_text }}">{{ custom_label }}</p>
+    <p class="mt-1 text-sm text-gray-500">{{ custom_subtext }}</p>
+  {% else %}
+    <p class="text-2xl font-bold leading-tight {{ accent_text }}">
+      {% blocktrans with amount=first_month_amount %}{{ amount }} first month{% endblocktrans %}
+    </p>
+    <p class="mt-1 text-sm font-medium text-gray-500">
+      {% blocktrans with amount=normal_amount %}{{ amount }} / month{% endblocktrans %}
+    </p>
+  {% endif %}
+</div>
