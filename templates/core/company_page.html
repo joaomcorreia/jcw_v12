@@ -1,0 +1,57 @@
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}" class="jcw-theme-dark">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}"><link rel="stylesheet" href="{% static 'jcw/public-floating-ui.css' %}"><link rel="icon" href="{% static 'favicon.png' %}">
+  <title>{{ seo_title }}</title><meta name="description" content="{{ seo_description }}">
+  <meta name="robots" content="{% if launch_noindex %}noindex, nofollow{% else %}{{ seo_robots|default:'index, follow' }}{% endif %}">
+  {% if canonical_url %}<link rel="canonical" href="{{ canonical_url }}">{% endif %}
+  {% if hreflang_urls %}{% for alternate in hreflang_urls %}<link rel="alternate" hreflang="{{ alternate.lang }}" href="{{ alternate.url }}">{% endfor %}{% endif %}
+</head>
+<body class="min-h-screen antialiased bg-white text-slate-900 font-medium">
+  {% include 'core/main_nav.html' %}
+  <main class="pt-28">
+    <section class="relative overflow-hidden bg-gradient-to-br from-blue-950 via-blue-800 to-indigo-900 text-white">
+      <div class="max-w-7xl mx-auto px-4 py-24 sm:py-32">
+        <p class="text-sm uppercase tracking-[0.2em] text-blue-200">Just Code Works</p>
+        {% if request.resolver_match.url_name == "about" %}
+          <h1 class="mt-5 max-w-4xl text-4xl md:text-6xl font-bold leading-tight">A company built around reusable digital systems.</h1>
+          <p class="mt-6 max-w-3xl text-xl leading-relaxed text-blue-100">Just Code Works designs, develops and operates practical digital platforms. We focus on reusable foundations, connected workflows and automation that can grow into larger commercial products.</p>
+        {% elif request.resolver_match.url_name == "what_we_build" %}
+          <h1 class="mt-5 max-w-4xl text-4xl md:text-6xl font-bold leading-tight">Platforms designed for operation, adaptation and growth.</h1>
+          <p class="mt-6 max-w-3xl text-xl leading-relaxed text-blue-100">Platforms designed for expansion across multiple European markets.</p>
+        {% elif request.resolver_match.url_name == "how_we_work" %}
+          <h1 class="mt-5 max-w-4xl text-4xl md:text-6xl font-bold leading-tight">From one business model to a reusable platform.</h1>
+          <p class="mt-6 max-w-3xl text-xl leading-relaxed text-blue-100">Custom platform work is scoped individually according to functionality, integrations, languages and rollout requirements.</p>
+        {% else %}
+          <h1 class="mt-5 max-w-4xl text-4xl md:text-6xl font-bold leading-tight">Discuss a custom platform</h1>
+          <p class="mt-6 max-w-3xl text-xl leading-relaxed text-blue-100">Tell us what the platform should do, who will use it and how it could grow. We review custom platform, white-label, reseller and partnership enquiries individually.</p>
+        {% endif %}
+      </div>
+    </section>
+    {% if request.resolver_match.url_name == "what_we_build" %}
+    <section class="py-20 bg-slate-50"><div class="max-w-7xl mx-auto px-4"><div class="grid gap-6 md:grid-cols-2">
+      <article class="rounded-2xl bg-white border border-slate-200 p-8 shadow-sm"><h2 class="text-2xl font-bold">Custom business platforms</h2><p class="mt-3 text-slate-600">Customer portals, dashboards, ordering systems, directories, marketplaces and operational tools.</p></article>
+      <article class="rounded-2xl bg-white border border-slate-200 p-8 shadow-sm"><h2 class="text-2xl font-bold">Multilingual platforms</h2><p class="mt-3 text-slate-600">Systems structured for multiple languages and market-specific content from the beginning.</p></article>
+      <article class="rounded-2xl bg-white border border-slate-200 p-8 shadow-sm"><h2 class="text-2xl font-bold">White-label systems</h2><p class="mt-3 text-slate-600">Platforms that can be rebranded and adapted for another company, operator or service provider.</p></article>
+      <article class="rounded-2xl bg-white border border-slate-200 p-8 shadow-sm"><h2 class="text-2xl font-bold">Reseller platforms</h2><p class="mt-3 text-slate-600">Systems designed so operators can sell services, subscriptions or products to their own customers.</p></article>
+    </div><div class="mt-12 text-center"><a class="inline-flex rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700" href="{% url 'core:contact' %}">Discuss a custom platform</a></div></div></section>
+    {% elif request.resolver_match.url_name == "how_we_work" %}
+    <section class="py-20 bg-slate-50"><div class="max-w-5xl mx-auto px-4"><div class="grid gap-6 md:grid-cols-2">
+      <article class="rounded-2xl bg-white border border-slate-200 p-8"><span class="text-sm font-bold text-blue-600">01</span><h2 class="mt-3 text-2xl font-bold">Understand the model</h2><p class="mt-3 text-slate-600">Define the users, products, services, workflows and commercial structure.</p></article>
+      <article class="rounded-2xl bg-white border border-slate-200 p-8"><span class="text-sm font-bold text-blue-600">02</span><h2 class="mt-3 text-2xl font-bold">Build the modular core</h2><p class="mt-3 text-slate-600">Create a reusable technical foundation instead of a one-off collection of pages.</p></article>
+      <article class="rounded-2xl bg-white border border-slate-200 p-8"><span class="text-sm font-bold text-blue-600">03</span><h2 class="mt-3 text-2xl font-bold">Adapt to markets</h2><p class="mt-3 text-slate-600">Prepare language, content, payments, support flows and integrations for different operating environments.</p></article>
+      <article class="rounded-2xl bg-white border border-slate-200 p-8"><span class="text-sm font-bold text-blue-600">04</span><h2 class="mt-3 text-2xl font-bold">Launch and expand</h2><p class="mt-3 text-slate-600">Start with a focused version, validate it and add new operators, markets or services over time.</p></article>
+    </div></div></section>
+    {% elif request.resolver_match.url_name == "contact" %}
+    <section class="py-20 bg-slate-50"><div class="max-w-3xl mx-auto px-4"><div class="rounded-2xl bg-white border border-slate-200 p-8 shadow-sm"><h2 class="text-2xl font-bold">info@justcodeworks.eu</h2><p class="mt-4 text-slate-600">The Netherlands</p><a class="mt-6 inline-flex rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700" href="mailto:info@justcodeworks.eu">Send an enquiry</a><p class="mt-8 border-t border-slate-200 pt-6 text-sm text-slate-500">Just Code Works does not currently offer standard website packages directly through this website. Website enquiries may be directed to an appropriate service after review.</p><p class="mt-4 text-sm text-slate-600">KVK 42007323<br>VAT NL005429577B55</p></div></div></section>
+    {% else %}
+    <section class="py-20 bg-slate-50"><div class="max-w-4xl mx-auto px-4"><h2 class="text-3xl font-bold">Practical systems with room to grow.</h2><p class="mt-6 text-lg leading-relaxed text-slate-600">We connect product thinking, technical foundations, automation and operational detail so a platform can be run, adapted and extended without starting again each time.</p></div></section>
+    {% endif %}
+  </main>
+  {% include 'core/footer.html' %}
+  <script src="{% static 'jcw/js/jcw-ui.js' %}"></script>
+</body>
+</html>

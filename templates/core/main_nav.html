@@ -3,133 +3,35 @@
   <div class="jcw-nav-utility transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1">
       <div class="grid grid-cols-3 items-center text-xs sm:text-sm">
-        <div class="flex items-center justify-start">
-          <a
-            class="jcw-nav-utility-link whitespace-nowrap transition-colors duration-300 hover:underline"
-            href="mailto:info@justcodeworks.eu"
-          >
-            info@justcodeworks.eu
-          </a>
-        </div>
-        <div class="flex items-center justify-center">
-          <span class="jcw-nav-utility-meta whitespace-nowrap text-center">
-            {% trans "Amsterdam, The Netherlands" %}
-          </span>
-        </div>
-        <div class="flex items-center justify-end">
-          <a
-            class="jcw-nav-utility-link whitespace-nowrap transition-colors duration-300"
-            href="{% if request.resolver_match.url_name == 'home' %}#contact{% else %}{% url 'core:contact' %}{% endif %}"
-          >
-            {% trans "Contact" %}
-          </a>
-        </div>
+        <a class="jcw-nav-utility-link whitespace-nowrap hover:underline" href="mailto:info@justcodeworks.eu">info@justcodeworks.eu</a>
+        <span class="jcw-nav-utility-meta whitespace-nowrap text-center">{% trans "The Netherlands" %}</span>
+        <a class="jcw-nav-utility-link whitespace-nowrap text-right hover:underline" href="{% url 'core:contact' %}">{% trans "Contact" %}</a>
       </div>
     </div>
   </div>
-  <nav
-    data-jcw-nav class="bg-transparent border-transparent transition-all duration-300 sticky top-0 z-50"{% if is_edit_mode %} style="top:56px !important;"{% endif %}
-  >
-    <div
-      class="absolute -bottom-px left-0 w-full transition-all duration-700 ease-in-out opacity-0 transform translate-y-2 h-0 jcw-inline-ecb9870fdd"
-    >
-    </div>
+  <nav data-jcw-nav class="bg-transparent border-transparent transition-all duration-300 sticky top-0 z-50"{% if is_edit_mode %} style="top:56px !important;"{% endif %}>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-20">
-        <div class="flex-shrink-0 flex items-center gap-3">
-          <a
-            class="text-xl font-bold transition-colors duration-300 jcw-inline-0895b29029"
-            href="{% url 'core:home' %}"
-          >
-            <img src="{% static 'brand/logo-light.png' %}" alt="{% trans 'JustCodeWorks' %}" class="h-8 w-auto jcw-logo-light">
-            <img src="{% static 'brand/logo-dark.png' %}" alt="{% trans 'JustCodeWorks' %}" class="h-8 w-auto jcw-logo-dark" style="display:none;">
-          </a>
-        </div>
-        <div class="hidden md:flex items-center space-x-8">
-          {% if request.resolver_match.url_name == "home" %}
-            <a class="px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 hover:opacity-80 jcw-inline-0895b29029" href="#top">
-              {% trans "Home" %}
-            </a>
-            <a class="px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 hover:opacity-80 jcw-inline-0895b29029" href="#builds">
-              {% trans "What We Build" %}
-            </a>
-            <a class="px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 hover:opacity-80 jcw-inline-0895b29029" href="#contact">
-              {% trans "Contact" %}
-            </a>
-          {% else %}
+        <a class="flex items-center" href="{% url 'core:home' %}">
+          <img src="{% static 'brand/logo-light.png' %}" alt="{% trans 'Just Code Works' %}" class="h-8 w-auto jcw-logo-light">
+          <img src="{% static 'brand/logo-dark.png' %}" alt="{% trans 'Just Code Works' %}" class="h-8 w-auto jcw-logo-dark" style="display:none;">
+        </a>
+        <div class="hidden md:flex items-center space-x-2">
           {% for item in nav_pages %}
-            {% if item.slug == "websites" %}
-            <div class="relative jcw-dropdown" data-jcw-dropdown>
-              <button class="px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 hover:opacity-80 jcw-inline-0895b29029" type="button" data-jcw-dropdown-toggle>
-                {{ item.label }}
-              </button>
-              <div class="absolute left-0 mt-2 w-72 rounded-xl bg-white shadow-lg border border-slate-200 jcw-dropdown-menu">
-                <div class="py-2">
-                  <div class="jcw-megamenu-grid">
-                    {% for sub in websites_dropdown_pages %}
-                      <a class="block px-5 py-4 hover:bg-slate-50 transition-colors rounded-lg" href="{{ sub.url }}">
-                        <div class="text-sm font-semibold text-slate-900 jcw-megamenu-title">{{ sub.label }}</div>
-                        <div class="text-xs text-slate-500 jcw-megamenu-subtitle">{{ sub.subtitle }}</div>
-                      </a>
-                    {% endfor %}
-                  </div>
-                </div>
-              </div>
-            </div>
-            {% else %}
-            <a class="px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 hover:opacity-80 jcw-inline-0895b29029" href="{{ item.url }}">
-              {{ item.label }}
-            </a>
-            {% endif %}
+          <a class="jcw-main-nav-link px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 hover:opacity-80" href="{{ item.url }}">{{ item.label }}</a>
           {% endfor %}
-          {% endif %}
         </div>
-        <div class="flex items-center space-x-4">
-          <div class="flex items-center space-x-2">
-            <a
-              class="text-sm font-medium transition-colors duration-300 hover:opacity-80 jcw-inline-0895b29029"
-              href="{% url 'login' %}"
-            >
-              {% trans "Login" %}
-            </a>
-            <button class="p-2 rounded-md transition-colors duration-300 md:hidden" data-jcw-mobile-toggle aria-label="{% trans 'Toggle menu' %}">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
-                </path>
-              </svg>
-            </button>
-            <button
-              class="p-2 rounded-md transition-colors duration-300 jcw-inline-1b83e6b7a5"
-              title="{% trans 'Contact & Support' %}"
-              data-jcw-sidebar-toggle
-            >
-              <svg
-                class="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                >
-                </path>
-              </svg>
-            </button>
-          </div>
-          <div class="relative">
+        <div class="flex items-center space-x-2">
+          <button class="p-2 rounded-md transition-colors duration-300 md:hidden" data-jcw-mobile-toggle aria-label="{% trans 'Toggle menu' %}">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" d="M4 6h16M4 12h16M4 18h-16"></path></svg>
+          </button>
+          <div class="relative hidden sm:block">
             <form action="{% url 'set_language' %}" method="post">
-              {% csrf_token %}
-              <input type="hidden" name="next" value="{{ request.get_full_path }}">
+              {% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}">
               <label class="sr-only" for="language-select">{% trans "Language" %}</label>
-              <select id="language-select" name="language" class="px-3 py-2 border rounded-lg transition-all duration-300 text-sm font-medium uppercase tracking-wide min-w-[50px] flex items-center justify-center bg-white/10 border-white/30 text-white hover:bg-white/20" onchange="this.form.submit()">
-                {% get_current_language as current_language %}
-                {% get_available_languages as available_languages %}
-                {% for code, name in available_languages %}
-                  <option value="{{ code }}"{% if code == current_language %} selected{% endif %}>{{ code }}</option>
-                {% endfor %}
+              <select id="language-select" name="language" class="px-3 py-2 border rounded-lg bg-white/10 border-white/30 text-white uppercase" onchange="this.form.submit()">
+                {% get_current_language as current_language %}{% get_available_languages as available_languages %}
+                {% for code, name in available_languages %}<option value="{{ code }}"{% if code == current_language %} selected{% endif %}>{{ code }}</option>{% endfor %}
               </select>
             </form>
           </div>
@@ -137,41 +39,9 @@
       </div>
       <div class="md:hidden" data-jcw-mobile-menu>
         <div class="pt-2 pb-3 space-y-1">
-          {% if request.resolver_match.url_name == "home" %}
-            <a class="block px-3 py-2 rounded-md text-base font-medium transition-colors duration-300 hover:opacity-80 jcw-inline-0895b29029" href="#top">
-              {% trans "Home" %}
-            </a>
-            <a class="block px-3 py-2 rounded-md text-base font-medium transition-colors duration-300 hover:opacity-80 jcw-inline-0895b29029" href="#builds">
-              {% trans "What We Build" %}
-            </a>
-            <a class="block px-3 py-2 rounded-md text-base font-medium transition-colors duration-300 hover:opacity-80 jcw-inline-0895b29029" href="#contact">
-              {% trans "Contact" %}
-            </a>
-          {% else %}
           {% for item in nav_pages %}
-            {% if item.slug == "websites" %}
-            <div class="jcw-dropdown" data-jcw-dropdown>
-              <button class="w-full text-left px-3 py-2 rounded-md text-base font-medium transition-colors duration-300 hover:opacity-80 jcw-inline-0895b29029" type="button" data-jcw-dropdown-toggle>
-                {{ item.label }}
-              </button>
-              <div class="pl-3 jcw-dropdown-menu">
-                <div class="jcw-megamenu-grid">
-                  {% for sub in websites_dropdown_pages %}
-                    <a class="block px-3 py-2 transition-colors duration-300 hover:opacity-80 jcw-inline-0895b29029" href="{{ sub.url }}">
-                      <div class="text-sm font-semibold jcw-megamenu-title">{{ sub.label }}</div>
-                      <div class="text-xs text-slate-500 jcw-megamenu-subtitle">{{ sub.subtitle }}</div>
-                    </a>
-                  {% endfor %}
-                </div>
-              </div>
-            </div>
-            {% else %}
-            <a class="block px-3 py-2 rounded-md text-base font-medium transition-colors duration-300 hover:opacity-80 jcw-inline-0895b29029" href="{{ item.url }}">
-              {{ item.label }}
-            </a>
-            {% endif %}
+          <a class="jcw-main-nav-link jcw-mobile-nav-link block px-3 py-2 rounded-md text-base font-medium hover:opacity-80" href="{{ item.url }}">{{ item.label }}</a>
           {% endfor %}
-          {% endif %}
         </div>
       </div>
     </div>

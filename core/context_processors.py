@@ -106,10 +106,10 @@ def nav_pages(request):
 
     nav_items = [
         ("home", _("Home"), "core:home"),
-        ("websites", _("Websites"), "core:websites"),
-        ("printlab", _("PrintLab"), "core:printlab"),
-        ("blog", _("Blog"), "core:blog_index"),
-        ("help", _("Help"), "core:help"),
+        ("about", _("About"), "core:about"),
+        ("what-we-build", _("What We Build"), "core:what_we_build"),
+        ("how-we-work", _("How We Work"), "core:how_we_work"),
+        ("contact", _("Contact"), "core:contact"),
     ]
     items = []
     for slug, fallback_label, route_name in nav_items:
@@ -240,7 +240,10 @@ def feature_flags(request):
 
 def launch_settings(request):
     settings_obj = get_site_settings()
-    force_noindex = getattr(settings, "SEO_NOINDEX", False)
+    path = (request.path or "/").rstrip("/") or "/"
+    launch_paths = {"/en", "/en/about", "/en/what-we-build", "/en/how-we-work", "/en/contact"}
+    main_site_legacy_path = not getattr(request, "tenant", None) and path not in launch_paths
+    force_noindex = getattr(settings, "SEO_NOINDEX", False) or main_site_legacy_path
     return {
         "launch_noindex": force_noindex or settings_obj.launch_noindex,
         "launch_disallow_robots": force_noindex or settings_obj.launch_disallow_robots,

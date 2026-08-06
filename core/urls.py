@@ -20,6 +20,9 @@ app_name = "core"
 urlpatterns = [
     # Main site public pages
     path("", views.home, name="home"),
+    path("about/", views.about, name="about"),
+    path("what-we-build/", views.what_we_build, name="what_we_build"),
+    path("how-we-work/", views.how_we_work, name="how_we_work"),
     # Main site API endpoints (used by marketing editor)
     path("main/api/main-section-settings/", views.main_section_settings, name="main_section_settings"),
     path("main/api/main-inline-save/", views.main_inline_save, name="main_inline_save"),

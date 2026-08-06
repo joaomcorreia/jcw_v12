@@ -518,7 +518,41 @@ def home(request):
             "printful_products_preview": _get_printful_products(limit=3),
             "marketing_particles_enabled": True,
             "particles_settings_json": particles_config,
+            "seo_title": _("Just Code Works | Multilingual Platforms"),
+            "seo_description": _("Just Code Works develops multilingual digital platforms for businesses and new ventures."),
         },
+    )
+
+
+def _company_page(request, title, description):
+    return render(
+        request,
+        "core/company_page.html",
+        {"seo_title": title, "seo_description": description},
+    )
+
+
+def about(request):
+    return _company_page(
+        request,
+        _("About Just Code Works"),
+        _("Learn how Just Code Works designs and operates reusable digital systems."),
+    )
+
+
+def what_we_build(request):
+    return _company_page(
+        request,
+        _("What We Build | Just Code Works"),
+        _("Explore multilingual, custom, white-label and reseller digital platforms."),
+    )
+
+
+def how_we_work(request):
+    return _company_page(
+        request,
+        _("How We Work | Just Code Works"),
+        _("See how Just Code Works turns business models into reusable digital platforms."),
     )
 
 
@@ -1054,38 +1088,11 @@ def pricing(request):
 
 
 def contact(request):
-    form_values = {
-        "name": "",
-        "business_name": "",
-        "email": "",
-        "phone": "",
-        "message": "",
-    }
-    submitted = False
-    if request.method == "POST":
-        submitted = True
-        form_values = {
-            "name": (request.POST.get("name") or "").strip(),
-            "business_name": (request.POST.get("business_name") or "").strip(),
-            "email": (request.POST.get("email") or "").strip(),
-            "phone": (request.POST.get("phone") or "").strip(),
-            "message": (request.POST.get("message") or "").strip(),
-        }
-
-    return render_page(
+    return _company_page(
         request,
-        "contact",
-        "core/contact.html",
-        extra_context={
-            "seo_title": _("Contact"),
-            "seo_description": _(
-                "Get in touch to request your setup, website plan, or Facebook visibility support."
-            ),
-            "contact_form_values": form_values,
-            "contact_form_submitted": submitted,
-        },
+        _("Contact | Just Code Works"),
+        _("Discuss a custom, white-label, reseller or partnership platform with Just Code Works."),
     )
-
 
 def facebook_visibility(request):
     return render_page(
@@ -3403,22 +3410,17 @@ def tenant_robots_txt(request):
 
 
 def sitemap_xml(request):
-    sitemap_urls = []
-    for code, _name in settings.LANGUAGES:
-        loc = request.build_absolute_uri(reverse("sitemap_language", args=[code]))
-        sitemap_urls.append(loc)
-
+    # The launch sitemap is intentionally limited to the English company pages.
+    loc = request.build_absolute_uri(reverse("sitemap_language", args=["en"]))
     xml = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+        "  <sitemap>",
+        f"    <loc>{escape(loc)}</loc>",
+        "  </sitemap>",
+        "</sitemapindex>",
     ]
-    for loc in sitemap_urls:
-        xml.append("  <sitemap>")
-        xml.append(f"    <loc>{escape(loc)}</loc>")
-        xml.append("  </sitemap>")
-    xml.append("</sitemapindex>")
     return HttpResponse("\n".join(xml), content_type="application/xml")
-
 
 def tenant_sitemap_xml(request):
     tenant = resolve_active_site(request)
@@ -3450,104 +3452,37 @@ def tenant_sitemap_xml(request):
 
 
 def sitemap_language_xml(request, lang):
-    valid_langs = {code for code, _name in settings.LANGUAGES}
-    if lang not in valid_langs:
-        return HttpResponse(status=404)
-    site = resolve_active_site(request)
-    if not site:
-        site = Site.objects.filter(is_main=True).first()
-    caps = get_seo_caps(request=request, tenant=site)
-    is_main_site = bool(site and site.is_main)
+    if lang != "en":
+        xml = [
+            '<?xml version="1.0" encoding="UTF-8"?>',
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+            "</urlset>",
+        ]
+        return HttpResponse("\n".join(xml), content_type="application/xml")
 
-    pages = []
-    if site:
-        pages = list(
-            Page.objects.filter(site=site, is_active=True, noindex=False).order_by(
-                "slug"
-            )
-        )
-
-    entries = []
-    has_home = False
-    for page in pages:
-        if not is_page_indexable(site, page):
-            continue
-        if page.slug == "home":
-            has_home = True
-            loc = request.build_absolute_uri(f"/{lang}/")
-            priority = "1.0"
-        else:
-            loc = request.build_absolute_uri(f"/{lang}/{page.slug}/")
-            priority = "0.6"
-        lastmod = page.updated_at.date().isoformat() if getattr(page, "updated_at", None) else None
-        entry = {"loc": loc, "lastmod": lastmod, "priority": priority}
-        entries.append(entry)
-
-    if site and not has_home and is_slug_indexable(site, "home"):
-        entries.insert(
-            0,
-            {
-                "loc": request.build_absolute_uri(f"/{lang}/"),
-                "lastmod": None,
-                "priority": "1.0",
-            },
-        )
-
-    if is_main_site:
-        now = timezone.now()
-        latest_post = (
-            BlogPost.objects.filter(is_published=True, published_at__lte=now)
-            .order_by("-published_at")
-            .first()
-        )
-        blog_lastmod = (
-            latest_post.updated_at.date().isoformat()
-            if latest_post and getattr(latest_post, "updated_at", None)
-            else None
-        )
-        entries.append(
-            {
-                "loc": request.build_absolute_uri(f"/{lang}/blog/"),
-                "lastmod": blog_lastmod,
-                "priority": "0.6",
-            }
-        )
-        posts = BlogPost.objects.filter(is_published=True, published_at__lte=now).order_by(
-            "-published_at"
-        )
-        for post in posts:
-            lastmod = post.updated_at.date().isoformat() if getattr(post, "updated_at", None) else None
-            entries.append(
-                {
-                    "loc": request.build_absolute_uri(f"/{lang}/blog/{post.slug}/"),
-                    "lastmod": lastmod,
-                    "priority": "0.5",
-                }
-            )
-
-    if site:
-        for entry in get_location_entries_for_site(site, lang, request):
-            entries.append(entry)
-
-    cap = caps["sitemap_cap"]
-    if cap and len(entries) > cap:
-        entries = entries[:cap]
-
+    paths = [
+        ("/en/", "1.0"),
+        ("/en/about/", "0.8"),
+        ("/en/what-we-build/", "0.8"),
+        ("/en/how-we-work/", "0.8"),
+        ("/en/contact/", "0.8"),
+    ]
     urlset = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     ]
-    for entry in entries:
-        urlset.append("  <url>")
-        urlset.append(f"    <loc>{escape(entry['loc'])}</loc>")
-        if entry.get("lastmod"):
-            urlset.append(f"    <lastmod>{entry['lastmod']}</lastmod>")
-        urlset.append("    <changefreq>weekly</changefreq>")
-        urlset.append(f"    <priority>{entry['priority']}</priority>")
-        urlset.append("  </url>")
+    for path, priority in paths:
+        urlset.extend(
+            [
+                "  <url>",
+                f"    <loc>{escape(request.build_absolute_uri(path))}</loc>",
+                "    <changefreq>weekly</changefreq>",
+                f"    <priority>{priority}</priority>",
+                "  </url>",
+            ]
+        )
     urlset.append("</urlset>")
     return HttpResponse("\n".join(urlset), content_type="application/xml")
-
 
 def tenant_sitemap_language_xml(request, lang):
     valid_langs = {code for code, _name in settings.LANGUAGES}

@@ -1,86 +1,28 @@
 {% load i18n %}
-<footer class="bg-blue-600 text-white border-t border-blue-500" data-jcw-section="footer" data-jcw-section-id="0">
+<footer class="jcw-main-footer text-white border-t" data-jcw-section="footer">
   <div class="max-w-7xl mx-auto px-4 py-10">
-    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
       <div class="space-y-4">
-        <h3 class="text-base font-semibold tracking-wide text-white">{% trans "Just Code Works" %}</h3>
-        <p class="text-sm leading-relaxed text-blue-100">
-          {% trans "Just Code Works is the company behind practical small-business platforms, from fast websites and launch tools to AI assistants and future growth projects." %}
-        </p>
-        <div class="space-y-2 text-sm text-blue-100">
-          <a href="mailto:info@justcodeworks.eu" class="inline-flex transition-colors hover:text-white hover:underline">
-            info@justcodeworks.eu
-          </a>
-          <p>{% trans "Amsterdam, The Netherlands" %}</p>
-        </div>
+        <h2 class="text-base font-semibold tracking-wide">{% trans "Just Code Works" %}</h2>
+        <p class="text-sm leading-relaxed text-blue-100">{% trans "Just Code Works develops multilingual digital platforms that can be operated directly, adapted for other companies, or expanded across multiple markets." %}</p>
+        <a href="mailto:info@justcodeworks.eu" class="text-sm text-blue-100 hover:text-white hover:underline">info@justcodeworks.eu</a>
       </div>
-
       <div class="space-y-4">
-        <h3 class="text-base font-semibold tracking-wide text-white">{% trans "Platforms" %}</h3>
-        <ul class="space-y-3">
-          <li>
-            <a href="https://getonlinefast.eu/" target="_blank" rel="noopener" class="text-sm text-blue-100/90 hover:text-white transition-colors">
-              {% trans "Get Online Fast" %}
-            </a>
-          </li>
-          <li>
-            <a href="https://siteexpress.pt/" target="_blank" rel="noopener" class="text-sm text-blue-100/90 hover:text-white transition-colors">
-              {% trans "SiteExpress.pt" %}
-            </a>
-          </li>
+        <h2 class="text-base font-semibold tracking-wide">{% trans "Company" %}</h2>
+        <ul class="space-y-3 text-sm text-blue-100">
+          <li><a class="hover:text-white" href="{% url 'core:about' %}">{% trans "About" %}</a></li>
+          <li><a class="hover:text-white" href="{% url 'core:what_we_build' %}">{% trans "What We Build" %}</a></li>
+          <li><a class="hover:text-white" href="{% url 'core:how_we_work' %}">{% trans "How We Work" %}</a></li>
+          <li><a class="hover:text-white" href="{% url 'core:contact' %}">{% trans "Contact" %}</a></li>
         </ul>
       </div>
-
       <div class="space-y-4">
-        <h3 class="text-base font-semibold tracking-wide text-white">{% trans "Company" %}</h3>
-        <ul class="space-y-3">
-          <li>
-            <a href="{% url 'core:help_center' %}" class="text-sm text-blue-100/90 hover:text-white transition-colors">
-              {% trans "Support" %}
-            </a>
-          </li>
-          <li>
-            <a href="{% if request.resolver_match.url_name == 'home' %}#contact{% else %}{% url 'core:contact' %}{% endif %}" class="text-sm text-blue-100/90 hover:text-white transition-colors">
-              {% trans "Contact" %}
-            </a>
-          </li>
-          <li>
-            <a href="{% url 'core:blog_index' %}" class="text-sm text-blue-100/90 hover:text-white transition-colors">
-              {% trans "Updates" %}
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="space-y-4">
-        <h3 class="text-base font-semibold tracking-wide text-white">{% trans "Support" %}</h3>
-        <ul class="space-y-3">
-          <li>
-            <a href="{% url 'core:help_center' %}" class="text-sm text-blue-100/90 hover:text-white transition-colors">
-              {% trans "Help Center" %}
-            </a>
-          </li>
-          <li>
-            <a href="{% if request.resolver_match.url_name == 'home' %}#contact{% else %}{% url 'core:contact' %}{% endif %}" class="text-sm text-blue-100/90 hover:text-white transition-colors">
-              {% trans "Contact" %}
-            </a>
-          </li>
-          <li>
-            <a href="{% url 'core:blog_index' %}" class="text-sm text-blue-100/90 hover:text-white transition-colors">
-              {% trans "Blog" %}
-            </a>
-          </li>
-        </ul>
+        <h2 class="text-base font-semibold tracking-wide">{% trans "Company information" %}</h2>
+        <p class="text-sm text-blue-100">info@justcodeworks.eu</p>
+        <p class="text-sm text-blue-100">{% trans "The Netherlands" %}</p>
+        <p class="text-sm text-blue-100">{% trans "KVK 42007323" %}<br>{% trans "VAT NL005429577B55" %}</p>
       </div>
     </div>
   </div>
-
-  <div class="bg-blue-700/90">
-    <div class="max-w-7xl mx-auto px-4 py-3">
-      <div class="flex flex-col items-center justify-between gap-1 text-xs text-blue-100/85 md:flex-row">
-        <div>{% blocktrans %}&copy; 2026 Just Code Works{% endblocktrans %}</div>
-        <div>{% trans "Amsterdam, The Netherlands | KVK 42007323" %}</div>
-      </div>
-    </div>
-  </div>
+  <div class="jcw-main-footer-strip"><div class="max-w-7xl mx-auto px-4 py-3 text-xs text-blue-100/85">&copy; 2026 Just Code Works</div></div>
 </footer>
