@@ -14,28 +14,133 @@
 <body class="min-h-screen antialiased bg-white text-slate-900 font-medium">
   <div id="top" class="min-h-screen ltr" data-locale="{{ LANGUAGE_CODE }}">
     {% include 'core/main_nav.html' %}
-    <section class="relative h-screen overflow-hidden bg-gradient-to-br from-blue-950 via-blue-800 to-indigo-900 text-white">
+
+    <section class="jcw-home-hero relative h-screen overflow-hidden text-white">
       {% if marketing_particles_enabled %}<div id="particles-js" class="jcw-particles-layer" aria-hidden="true"></div>{% endif %}
       <div class="absolute inset-0 bg-black/20"></div>
       <div class="relative z-10 h-full flex items-center justify-center px-4">
         <div class="text-center max-w-5xl mx-auto">
-          <p class="text-sm uppercase tracking-[0.2em] text-blue-200">Just Code Works</p>
-          <h1 class="mt-5 text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">Building multilingual platforms for businesses and new ventures.</h1>
-          <p class="mt-6 text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed text-blue-100">Just Code Works develops connected digital platforms that can be operated directly, adapted for other companies, or expanded across multiple markets.</p>
+          <p class="text-sm uppercase tracking-[0.2em] text-blue-200">{% trans "Just Code Works" %}</p>
+          <h1 class="mt-5 text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">{% trans "Building multilingual platforms for businesses and new ventures." %}</h1>
+          <p class="mt-6 text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed text-blue-100">{% trans "Just Code Works develops connected digital platforms that can be operated directly, adapted for other companies, or expanded across multiple markets." %}</p>
           <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-            <a class="rounded-lg bg-yellow-400 px-8 py-4 text-lg font-semibold text-slate-900 hover:bg-yellow-300" href="{% url 'core:what_we_build' %}">What We Build</a>
-            <a class="rounded-lg border-2 border-white px-8 py-4 text-lg font-semibold hover:bg-white hover:text-slate-900" href="{% url 'core:contact' %}">Contact</a>
-          </div>
-          <div class="mt-16 grid gap-8 md:grid-cols-3 text-center">
-            <div><h2 class="text-lg font-semibold mb-2">Custom platforms</h2><p class="text-sm text-blue-100">Systems designed around specific products, services and business workflows.</p></div>
-            <div><h2 class="text-lg font-semibold mb-2">Built for multiple markets</h2><p class="text-sm text-blue-100">Flexible foundations for different languages, locations and commercial models.</p></div>
-            <div><h2 class="text-lg font-semibold mb-2">Ready to grow</h2><p class="text-sm text-blue-100">Platforms that can evolve into licensed, white-label or reseller opportunities.</p></div>
+            <a class="rounded-lg bg-yellow-400 px-8 py-4 text-lg font-semibold text-slate-900 hover:bg-yellow-300" href="{% url 'core:what_we_build' %}">{% trans "What We Build" %}</a>
+            <a class="jcw-home-secondary-cta rounded-lg border-2 border-white px-8 py-4 text-lg font-semibold" href="{% url 'core:contact' %}">{% trans "Contact" %}</a>
           </div>
         </div>
       </div>
     </section>
-    <section id="builds" class="py-20 bg-slate-50"><div class="max-w-4xl mx-auto px-4 text-center"><h2 class="text-3xl md:text-4xl font-bold">Digital systems built for the next stage.</h2><p class="mt-5 text-lg text-slate-600">We design reusable foundations that connect products, services, workflows and operations.</p></div></section>
-    <section id="contact" class="py-20 bg-white"><div class="max-w-3xl mx-auto px-4 text-center"><h2 class="text-3xl md:text-4xl font-bold">Start with the model.</h2><p class="mt-5 text-lg text-slate-600">Tell us what the platform should do and how it could grow.</p><a class="mt-8 inline-flex rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white hover:bg-blue-700" href="{% url 'core:contact' %}">Contact</a></div></section>
+
+    <section id="builds" class="jcw-home-content-section jcw-home-light-section jcw-home-cinematic-section flex items-center">
+      <div class="jcw-home-container max-w-7xl mx-auto w-full px-4">
+        <div class="jcw-home-section-heading max-w-3xl">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-blue-700">{% trans "Foundations" %}</p>
+          <h2 class="mt-4 text-3xl md:text-5xl font-bold text-slate-900">{% trans "Digital systems built for the next stage." %}</h2>
+          <p class="mt-5 text-lg md:text-xl leading-relaxed text-slate-600">{% trans "Reusable platforms that connect products, services, workflows and operations." %}</p>
+        </div>
+        <div class="jcw-home-card-grid grid gap-6 md:grid-cols-3">
+          <article class="jcw-home-card rounded-2xl border border-slate-200 bg-white p-8 md:p-10 shadow-sm">
+            <h3 class="text-2xl font-bold text-slate-900">{% trans "Custom platforms" %}</h3>
+            <p class="mt-4 text-lg leading-relaxed text-slate-600">{% trans "Systems designed around specific products, services and business workflows." %}</p>
+          </article>
+          <article class="jcw-home-card rounded-2xl border border-slate-200 bg-white p-8 md:p-10 shadow-sm">
+            <h3 class="text-2xl font-bold text-slate-900">{% trans "Built for multiple markets" %}</h3>
+            <p class="mt-4 text-lg leading-relaxed text-slate-600">{% trans "Flexible foundations for different languages, locations and commercial models." %}</p>
+          </article>
+          <article class="jcw-home-card rounded-2xl border border-slate-200 bg-white p-8 md:p-10 shadow-sm">
+            <h3 class="text-2xl font-bold text-slate-900">{% trans "Ready to grow" %}</h3>
+            <p class="mt-4 text-lg leading-relaxed text-slate-600">{% trans "Platforms that can evolve into licensed, white-label or reseller opportunities." %}</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="what-we-build" class="jcw-home-content-section jcw-home-blue-section jcw-home-cinematic-section flex items-center">
+      <div class="jcw-home-container max-w-7xl mx-auto w-full px-4">
+        <div class="jcw-home-section-heading max-w-3xl">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-blue-300">{% trans "What We Build" %}</p>
+          <h2 class="mt-4 text-3xl md:text-5xl font-bold">{% trans "Platforms for real operating models." %}</h2>
+          <p class="mt-5 text-lg md:text-xl leading-relaxed text-slate-300">{% trans "Connected products that make complex services easier to operate, adapt and expand." %}</p>
+        </div>
+        <div class="jcw-home-card-grid grid gap-6 md:grid-cols-3">
+          <article class="jcw-home-card rounded-2xl border border-slate-700 bg-slate-800 p-8 md:p-10">
+            <h3 class="text-2xl font-bold">{% trans "Business platforms" %}</h3>
+            <p class="mt-4 text-lg leading-relaxed text-slate-300">{% trans "Customer portals, operational dashboards and service workflows shaped around how a business actually runs." %}</p>
+          </article>
+          <article class="jcw-home-card rounded-2xl border border-slate-700 bg-slate-800 p-8 md:p-10">
+            <h3 class="text-2xl font-bold">{% trans "Commerce & marketplaces" %}</h3>
+            <p class="mt-4 text-lg leading-relaxed text-slate-300">{% trans "Ordering, catalogue, subscription and marketplace foundations for products, services and multiple operators." %}</p>
+          </article>
+          <article class="jcw-home-card rounded-2xl border border-slate-700 bg-slate-800 p-8 md:p-10">
+            <h3 class="text-2xl font-bold">{% trans "Custom tools & workflows" %}</h3>
+            <p class="mt-4 text-lg leading-relaxed text-slate-300">{% trans "Focused tools and connected workflows that reduce manual work and fit the way each platform operates." %}</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="ai-business-tools" class="jcw-home-content-section jcw-home-light-section jcw-home-cinematic-section jcw-home-ai-section relative isolate overflow-hidden flex items-center">
+      <div class="jcw-home-ai-background-layer" aria-hidden="true">
+        <div class="jcw-home-ai-background"></div>
+        <div class="jcw-home-ai-overlay"></div>
+      </div>
+      <div class="jcw-home-container max-w-7xl mx-auto w-full px-4 relative z-10">
+        <div class="jcw-home-section-heading max-w-3xl">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300">{% trans "AI-powered business tools" %}</p>
+          <h2 class="mt-4 text-3xl md:text-5xl font-bold">{% trans "AI-powered business tools" %}</h2>
+          <p class="mt-5 text-lg md:text-xl leading-relaxed text-blue-100">{% trans "We build practical AI tools around real business information, helping companies support customers, create content, work across languages and automate repetitive tasks." %}</p>
+        </div>
+        <div class="jcw-home-card-grid grid gap-6 md:grid-cols-3">
+          <article class="jcw-home-card rounded-2xl border border-blue-800 bg-blue-900/60 p-8 md:p-10">
+            <h3 class="text-2xl font-bold">{% trans "Multilingual AI Assistants" %}</h3>
+            <p class="mt-4 text-lg leading-relaxed text-blue-100">{% trans "Customer-facing assistants connected to business knowledge, with multilingual replies, lead capture, contact handoff and dashboard-based management." %}</p>
+          </article>
+          <article class="jcw-home-card rounded-2xl border border-blue-800 bg-blue-900/60 p-8 md:p-10">
+            <h3 class="text-2xl font-bold">{% trans "Content & Localisation" %}</h3>
+            <p class="mt-4 text-lg leading-relaxed text-blue-100">{% trans "AI tools for website copy, product and service descriptions, social content, FAQs and multilingual publishing." %}</p>
+          </article>
+          <article class="jcw-home-card rounded-2xl border border-blue-800 bg-blue-900/60 p-8 md:p-10">
+            <h3 class="text-2xl font-bold">{% trans "Automation & Insights" %}</h3>
+            <p class="mt-4 text-lg leading-relaxed text-blue-100">{% trans "Use enquiries, customer activity and business data to generate summaries, qualify leads, recommend actions and simplify recurring workflows." %}</p>
+          </article>
+        </div>
+      </div>
+    </section>
+    <section id="connected-systems" class="jcw-home-content-section jcw-home-blue-section jcw-home-cinematic-section flex items-center">
+      <div class="jcw-home-container max-w-7xl mx-auto w-full px-4">
+        <div class="jcw-home-section-heading max-w-3xl">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-blue-700">{% trans "Connected Systems" %}</p>
+          <h2 class="mt-4 text-3xl md:text-5xl font-bold text-slate-900">{% trans "Built as connected systems." %}</h2>
+          <p class="mt-5 text-lg md:text-xl leading-relaxed text-slate-600">{% trans "A strong core can support focused products now and new opportunities later." %}</p>
+        </div>
+        <div class="jcw-home-card-grid grid gap-6 md:grid-cols-3">
+          <article class="jcw-home-card rounded-2xl border border-slate-200 bg-slate-50 p-8 md:p-10">
+            <h3 class="text-2xl font-bold text-slate-900">{% trans "Shared foundations" %}</h3>
+            <p class="mt-4 text-lg leading-relaxed text-slate-600">{% trans "Common identity, data, language and workflow foundations keep related products consistent." %}</p>
+          </article>
+          <article class="jcw-home-card rounded-2xl border border-slate-200 bg-slate-50 p-8 md:p-10">
+            <h3 class="text-2xl font-bold text-slate-900">{% trans "Independent products" %}</h3>
+            <p class="mt-4 text-lg leading-relaxed text-slate-600">{% trans "Each product can stay focused on its users, proposition and commercial model." %}</p>
+          </article>
+          <article class="jcw-home-card rounded-2xl border border-slate-200 bg-slate-50 p-8 md:p-10">
+            <h3 class="text-2xl font-bold text-slate-900">{% trans "Expandable infrastructure" %}</h3>
+            <p class="mt-4 text-lg leading-relaxed text-slate-600">{% trans "New operators, markets and services can be added without rebuilding the platform from scratch." %}</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="jcw-home-cta-section py-20 md:py-24 bg-white">
+      <div class="max-w-3xl mx-auto px-4 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold">{% trans "Tell us what your business needs." %}</h2>
+        <p class="mt-5 text-lg leading-relaxed text-slate-600">{% trans "Describe what you want to improve, automate or build. Our AI assistant can help you explore the options and identify the next step." %}</p>
+        <div class="jcw-home-cta-actions mt-8 flex flex-col items-stretch justify-center gap-4 sm:flex-row sm:items-center">
+          <a class="jcw-home-primary-cta inline-flex min-h-12 items-center justify-center rounded-lg bg-yellow-400 px-6 py-3 font-semibold text-slate-900 hover:bg-yellow-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-500" href="{% url 'core:contact' %}" data-jcw-clippy-open>{% trans "Ask the AI Assistant" %}</a>
+          <a class="jcw-home-secondary-cta inline-flex min-h-12 items-center justify-center rounded-lg border-2 px-6 py-3 font-semibold" href="{% url 'core:contact' %}">{% trans "Contact options" %}</a>
+        </div>
+      </div>
+    </section>
+
     {% include 'core/footer.html' %}
   </div>
   {% if marketing_particles_enabled and particles_settings_json %}

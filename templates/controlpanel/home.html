@@ -40,5 +40,13 @@
   </div>
 
   {% include "components/button_row.html" with action1_url=website_builder_url action1_label=open_builder_label action2_url=tenants_url action2_label=open_tenants_label action3_url=templates_url action3_label=open_templates_label %}
+
+  <h2 class="dashboard-subtitle">{% trans "Technical administration" %}</h2>
+  <div class="dashboard-cards">
+    {% include "components/stat_card.html" with title="Pages" value=counts.pages subtitle="Django-managed pages" link_url=links.pages link_label="Open admin" %}
+    {% include "components/stat_card.html" with title="Sections" value=counts.sections subtitle="Page sections" link_url=links.sections link_label="Open admin" %}
+    {% include "components/stat_card.html" with title="Features" value=counts.features subtitle="Configured features" link_url=links.features link_label="Open admin" %}
+    {% include "components/stat_card.html" with title="Managed sites" value=counts.managed_sites subtitle="Operator-managed sites" link_url=links.managed_sites link_label="Open admin" %}
+  </div>
 </div>
 {% endblock %}
