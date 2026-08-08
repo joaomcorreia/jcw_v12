@@ -2,7 +2,7 @@ from django.urls import path
 from django.views.generic import RedirectView
 
 from .views_admin import admin_tool
-
+from .views_content import content_translation_edit, content_translations
 from .views import (
     billing,
     dashboard,
@@ -33,6 +33,8 @@ urlpatterns = [
     path("", home, name="home"),
     path("dashboard/", RedirectView.as_view(pattern_name="control_panel:home", permanent=False), name="dashboard"),
     path("website-builder/", website_builder, name="website_builder"),
+    path("content-translations/", content_translations, name="content_translations"),
+    path("content-translations/<int:block_id>/<slug:language_code>/", content_translation_edit, name="content_translation_edit"),
     path("domains-hosting/", domains_hosting, name="domains_hosting"),
     path("templates/", templates_list, name="templates_list"),
     path("templates/new/", templates_create, name="templates_create"),

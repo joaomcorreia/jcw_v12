@@ -8,6 +8,10 @@ from .models import (
     BlogCategory,
     BlogPost,
     City,
+    ContentBlock,
+    ContentBlockTranslation,
+    ContentGlossaryTerm,
+    ContentSiteSettings,
     HeroParticlesSettings,
     MediaAsset,
     Page,
@@ -310,6 +314,37 @@ class CityAdmin(admin.ModelAdmin):
     list_filter = ("country_code", "is_top_city")
     search_fields = ("name", "slug", "country_code")
 
+
+
+
+@admin.register(ContentBlock)
+class ContentBlockAdmin(admin.ModelAdmin):
+    list_display = ("key", "site", "content_type", "last_source_language", "is_active")
+    list_filter = ("content_type", "is_active")
+    search_fields = ("key", "label", "site__name")
+
+
+@admin.register(ContentBlockTranslation)
+class ContentBlockTranslationAdmin(admin.ModelAdmin):
+    list_display = ("block", "language_code", "status", "is_protected", "is_published", "provenance")
+    list_filter = ("language_code", "status", "is_protected", "is_published", "provenance")
+    search_fields = ("block__key", "block__label")
+    formfield_overrides = {models.JSONField: {"widget": Textarea(attrs={"rows": 10, "cols": 100})}}
+
+
+@admin.register(ContentGlossaryTerm)
+class ContentGlossaryTermAdmin(admin.ModelAdmin):
+    list_display = ("term", "never_translate", "is_active", "updated_at")
+    list_filter = ("never_translate", "is_active")
+    search_fields = ("term",)
+    formfield_overrides = {models.JSONField: {"widget": Textarea(attrs={"rows": 6, "cols": 100})}}
+
+
+@admin.register(ContentSiteSettings)
+class ContentSiteSettingsAdmin(admin.ModelAdmin):
+    list_display = ("site", "auto_translate_updates", "updated_at")
+    list_filter = ("auto_translate_updates",)
+    search_fields = ("site__name",)
 
 @admin.register(TenantSEOSettings)
 class TenantSEOSettingsAdmin(admin.ModelAdmin):

@@ -8,6 +8,7 @@
   {% url 'control_panel:plans_list' as plans_url %}
   {% url 'control_panel:tenants' as tenants_url %}
   {% url 'control_panel:website_builder' as website_builder_url %}
+  {% url 'control_panel:content_translations' as content_translations_url %}
   {% url 'control_panel:templates_list' as templates_url %}
 
   {% trans "Total tenants" as total_tenants_title %}
@@ -22,6 +23,7 @@
   {% trans "No tenants yet" as no_tenant_value %}
   {% trans "Create your first tenant to start" as no_tenant_subtitle %}
   {% trans "Open Website builder" as open_builder_label %}
+  {% trans "Open Content & Translations" as open_content_translations_label %}
   {% trans "Open templates" as open_templates_label %}
 
   <h1 class="dashboard-title">{% trans "Overview" %}</h1>
@@ -39,7 +41,7 @@
     {% endif %}
   </div>
 
-  {% include "components/button_row.html" with action1_url=website_builder_url action1_label=open_builder_label action2_url=tenants_url action2_label=open_tenants_label action3_url=templates_url action3_label=open_templates_label %}
+  {% include "components/button_row.html" with action1_url=website_builder_url action1_label=open_builder_label action2_url=content_translations_url action2_label=open_content_translations_label action3_url=templates_url action3_label=open_templates_label %}
 
   <h2 class="dashboard-subtitle">{% trans "Technical administration" %}</h2>
   <div class="dashboard-cards">

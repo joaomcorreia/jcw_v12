@@ -34,6 +34,7 @@
             <a class="dashboard-nav-item{% if request.resolver_match.namespace == 'control_panel' and request.resolver_match.url_name == 'users' %} is-active{% endif %}" href="{% url 'control_panel:users' %}">{% trans "Users" %}</a>
             <a class="dashboard-nav-item{% if request.resolver_match.namespace == 'control_panel' and request.resolver_match.url_name == 'billing' %} is-active{% endif %}" href="{% url 'control_panel:billing' %}">{% trans "Billing" %}</a>
             <a class="dashboard-nav-item{% if request.resolver_match.namespace == 'control_panel' and request.resolver_match.url_name == 'content_map' %} is-active{% endif %}" href="{% url 'control_panel:content_map' %}">{% trans "Content map" %}</a>
+            <a class="dashboard-nav-item{% if request.resolver_match.namespace == 'control_panel' and request.resolver_match.url_name|slice:":19" == 'content_translation' %} is-active{% endif %}" href="{% url 'control_panel:content_translations' %}">{% trans "Content & Translations" %}</a>
             <a class="dashboard-nav-item{% if request.resolver_match.namespace == 'control_panel' and request.resolver_match.url_name|slice:":5" == 'plans' %} is-active{% endif %}" href="{% url 'control_panel:plans_list' %}">{% trans "Plans" %}</a>
             <a class="dashboard-nav-item{% if request.resolver_match.namespace == 'control_panel' and request.resolver_match.url_name|slice:":6" == 'tenant' %} is-active{% endif %}" href="{% url 'control_panel:tenants' %}">{% trans "Tenants" %}</a>
             <div class="dashboard-nav-separator"></div>

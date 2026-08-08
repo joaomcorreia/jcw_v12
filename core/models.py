@@ -633,6 +633,110 @@ class MainSiteContent(models.Model):
         return f"{self.key} [{self.language}]"
 
 
+class ContentBlock(models.Model):
+    site = models.ForeignKey(
+        "Site",
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name="content_blocks",
+    )
+    key = models.SlugField(max_length=120)
+    slug = models.SlugField(max_length=120)
+    label = models.CharField(max_length=200)
+    placement = models.CharField(max_length=200, blank=True)
+    content_type = models.CharField(max_length=80, default="homepage_cards_v1")
+    is_active = models.BooleanField(default=True)
+    last_source_language = models.CharField(max_length=12, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["site_id", "key"]
+        constraints = [
+            models.UniqueConstraint(fields=["site", "key"], name="unique_content_block_site_key"),
+            models.UniqueConstraint(fields=["site", "slug"], name="unique_content_block_site_slug"),
+        ]
+
+    def __str__(self):
+        site_label = f"site:{self.site_id}" if self.site_id else "global"
+        return f"{site_label}:{self.key}"
+
+
+class ContentSiteSettings(models.Model):
+    site = models.OneToOneField("Site", on_delete=models.CASCADE, related_name="content_settings")
+    auto_translate_updates = models.BooleanField(default=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"content-settings:{self.site_id}"
+
+
+class ContentGlossaryTerm(models.Model):
+    term = models.CharField(max_length=200, unique=True)
+    preferred_translations = models.JSONField(default=dict, blank=True)
+    never_translate = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["term"]
+
+    def __str__(self):
+        return self.term
+
+
+class ContentBlockTranslation(models.Model):
+    STATUS_CURRENT = "current"
+    STATUS_OUTDATED = "outdated"
+    STATUS_NEEDS_REVIEW = "needs_review"
+
+    STATUS_CHOICES = [
+        (STATUS_CURRENT, "Current"),
+        (STATUS_OUTDATED, "Outdated"),
+        (STATUS_NEEDS_REVIEW, "Needs review"),
+    ]
+
+    PROVENANCE_SEEDED = "seeded"
+    PROVENANCE_MANUAL = "manual"
+    PROVENANCE_AUTOMATIC = "automatic"
+
+    PROVENANCE_CHOICES = [
+        (PROVENANCE_SEEDED, "Seeded"),
+        (PROVENANCE_MANUAL, "Manual"),
+        (PROVENANCE_AUTOMATIC, "Automatic"),
+    ]
+
+    block = models.ForeignKey(ContentBlock, on_delete=models.CASCADE, related_name="translations")
+    language_code = models.CharField(max_length=12)
+    payload_json = models.JSONField(default=dict, blank=True)
+    source_language = models.CharField(max_length=12, blank=True)
+    source_revision_hash = models.CharField(max_length=64, blank=True)
+    translated_from_revision_hash = models.CharField(max_length=64, blank=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default=STATUS_CURRENT)
+    is_protected = models.BooleanField(default=False)
+    is_published = models.BooleanField(default=True)
+    provenance = models.CharField(max_length=20, choices=PROVENANCE_CHOICES, default=PROVENANCE_MANUAL)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["block_id", "language_code"]
+        constraints = [
+            models.UniqueConstraint(fields=["block", "language_code"], name="unique_content_block_translation_language")
+        ]
+
+    def __str__(self):
+        return f"{self.block.key}:{self.language_code}"
+
+    @property
+    def display_status(self):
+        if self.is_protected:
+            return "Protected"
+        return dict(self.STATUS_CHOICES).get(self.status, self.status)
+
+
 class SiteVisibility(models.Model):
     MODE_BASIC = "basic"
     MODE_LOCATIONS = "locations"

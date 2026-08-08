@@ -1,0 +1,39 @@
+{% extends "controlpanel/base_controlpanel.html" %}
+{% load i18n %}
+
+{% block title %}{{ block.label }}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <p><a class="dashboard-top-link" href="{{ back_url }}">{% trans "Back to Content & Translations" %}</a></p>
+  <h1 class="dashboard-title">{{ block.label }}</h1>
+  <p class="dashboard-muted">{% blocktrans with code=language_code|upper source=block.last_source_language|upper %}Editing {{ code }}. The current source language for this block is {{ source }}.{% endblocktrans %}</p>
+
+  <div class="dashboard-cards" style="margin-bottom:1.5rem;">
+    {% for item in all_translations %}
+    <article class="dashboard-card" style="padding:1rem;">
+      <strong>{{ item.language_code|upper }}</strong>
+      <div class="dashboard-muted">{{ item.display_status }}</div>
+    </article>
+    {% endfor %}
+  </div>
+
+  <form method="post" class="dashboard-form" style="display:grid; gap:1rem; max-width:900px;">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="dashboard-form-row" style="display:grid; gap:.5rem;">
+      <label class="dashboard-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {{ field }}
+      {% if field.help_text %}<p class="dashboard-muted">{{ field.help_text }}</p>{% endif %}
+      {% for error in field.errors %}<p class="dashboard-error">{{ error }}</p>{% endfor %}
+    </div>
+    {% endfor %}
+    <div class="dashboard-cta-actions">
+      <button class="dashboard-button" type="submit">{% trans "Save content" %}</button>
+      {% if not content_settings.auto_translate_updates %}
+      <a class="dashboard-button dashboard-button--secondary" href="{{ back_url }}">{% trans "Translations will update from the list page" %}</a>
+      {% endif %}
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "controlpanel/base_controlpanel.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Content & Translations" %}{% endblock %}
+
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">{% trans "Content & Translations" %}</h1>
+  <p class="dashboard-muted">{% trans "Edit reusable homepage content and keep language versions in sync without moving website copy into .po files." %}</p>
+
+  <section class="dashboard-card" style="padding: 1.5rem; margin-bottom: 1.5rem;">
+    <form method="post" class="dashboard-form">
+      {% csrf_token %}
+      <input type="hidden" name="action" value="settings">
+      <div class="dashboard-form-row">
+        <label class="dashboard-label" for="id_auto_translate_updates">{% trans "Automatic translation updates" %}</label>
+        {{ settings_form.auto_translate_updates }}
+      </div>
+      <div class="dashboard-cta-actions">
+        <button class="dashboard-button" type="submit">{% trans "Save setting" %}</button>
+        {% if not content_settings.auto_translate_updates %}
+        <button class="dashboard-button dashboard-button--secondary" type="submit" name="action" value="update_translations">{% trans "Update translations" %}</button>
+        {% endif %}
+      </div>
+    </form>
+  </section>
+
+  <div class="dashboard-cards">
+    {% for summary in block_summaries %}
+    <article class="dashboard-card" style="padding: 1.5rem;">
+      <h2 class="dashboard-subtitle" style="margin-top: 0;">{{ summary.block.label }}</h2>
+      <p class="dashboard-muted">{% trans "Placement" %}: <code>{{ summary.block.placement }}</code></p>
+      <p class="dashboard-muted">{% trans "Last updated source language" %}: <strong>{{ summary.last_source_language|upper }}</strong></p>
+      <div style="display:grid; gap:.5rem; margin:1rem 0;">
+        {% for language in summary.languages %}
+        <div style="display:flex; justify-content:space-between; gap:1rem; align-items:center; border:1px solid #d7deea; border-radius:.75rem; padding:.75rem 1rem;">
+          <div>
+            <strong>{{ language.code|upper }}</strong>
+            <span class="dashboard-muted" style="margin-left:.75rem;">{{ language.status }}</span>
+          </div>
+          <a class="dashboard-button dashboard-button--secondary" href="{% url 'control_panel:content_translation_edit' summary.block.id language.code %}">{% trans "Edit" %}</a>
+        </div>
+        {% endfor %}
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
