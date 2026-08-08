@@ -182,7 +182,7 @@ def auto_update_block_translations(block, source_translation, backend=None, lang
         translation.source_language = source_translation.language_code
         translation.source_revision_hash = source_translation.source_revision_hash
         translation.translated_from_revision_hash = source_translation.source_revision_hash
-        translation.status = ContentBlockTranslation.STATUS_NEEDS_REVIEW
+        translation.status = ContentBlockTranslation.STATUS_CURRENT
         translation.provenance = ContentBlockTranslation.PROVENANCE_AUTOMATIC
         translation.save()
         updated_languages.append(language_code)
@@ -251,6 +251,19 @@ def save_block_translation(block, language_code, payload, *, is_protected=False,
         auto_result = auto_update_block_translations(block, translation, backend=backend)
     return {"translation": translation, "content_changed": True, "auto_result": auto_result}
 
+def update_block_translations(block, backend=None):
+    source_translation = get_source_translation(block)
+    if not source_translation:
+        return {"updated": [], "skipped": [], "failed": [], "backend_available": False}
+
+    result = auto_update_block_translations(block, source_translation, backend=backend)
+    return {
+        "updated": [f"{block.key}:{code}" for code in result["updated_languages"]],
+        "skipped": [f"{block.key}:{code}" for code in result["skipped_languages"]],
+        "failed": [f"{block.key}:{code}" for code in result["failed_languages"]],
+        "backend_available": result["backend_available"],
+    }
+
 def update_site_translations(site, backend=None):
     ensure_pilot_content_blocks(site)
     backend = backend or get_content_translation_backend()
@@ -284,6 +297,13 @@ def build_block_summary(block):
         "label": get_content_block_ui_label(block.key),
         "languages": languages,
         "last_source_language": block.last_source_language or "en",
+        "has_pending": any(
+            translation and not translation.is_protected and translation.status in (
+                ContentBlockTranslation.STATUS_OUTDATED,
+                ContentBlockTranslation.STATUS_NEEDS_REVIEW,
+            )
+            for translation in by_language.values()
+        ),
     }
 
 def get_block_summaries(site):

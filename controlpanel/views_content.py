@@ -7,7 +7,7 @@ from django.utils.translation import gettext as _
 
 from core.content_blocks import get_content_block_ui_label, get_supported_content_languages
 from core.models import ContentBlock, Site
-from core.services.content_translations import ensure_content_site_settings, ensure_pilot_content_blocks, get_block_payload, get_block_summaries, get_translation, save_block_translation, update_site_translations
+from core.services.content_translations import ensure_content_site_settings, ensure_pilot_content_blocks, get_block_payload, get_block_summaries, get_translation, save_block_translation, update_block_translations
 
 
 def staff_required(view_func):
@@ -92,10 +92,14 @@ def content_translations(request):
                 settings_obj.save(update_fields=["auto_translate_updates", "updated_at"])
                 messages.success(request, _("Automatic translation updates setting saved."))
                 return redirect("control_panel:content_translations")
-        elif action == "update_translations":
-            result = update_site_translations(site)
+        elif action == "update_block_translations":
+            block = get_object_or_404(ContentBlock, pk=request.POST.get("block_id"), site=site, is_active=True)
+            result = update_block_translations(block)
             if result["backend_available"]:
-                messages.success(request, _("Translations updated for %(count)s language entries.") % {"count": len(result["updated"])})
+                if result["failed"]:
+                    messages.warning(request, _("Translations updated for %(count)s language entries; %(failed)s failed and need review.") % {"count": len(result["updated"]), "failed": len(result["failed"])})
+                else:
+                    messages.success(request, _("Translations updated for %(count)s language entries.") % {"count": len(result["updated"])})
             else:
                 messages.warning(request, _("Automatic translation backend is not configured yet. Outdated translations were left unchanged."))
             return redirect("control_panel:content_translations")

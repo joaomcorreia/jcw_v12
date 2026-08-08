@@ -1,8 +1,8 @@
-﻿from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from core.models import ContentBlock, ContentBlockTranslation, Plan, Site
-from core.services.content_translations import ensure_glossary_terms, ensure_pilot_content_blocks, get_block_payload, save_block_translation, update_site_translations
+from core.services.content_translations import ensure_glossary_terms, ensure_pilot_content_blocks, get_block_payload, save_block_translation, update_block_translations
 
 User = get_user_model()
 
@@ -61,7 +61,7 @@ class ContentTranslationsV1Tests(TestCase):
         self.assertTrue(result["auto_result"]["updated_languages"])
 
         dutch = ContentBlockTranslation.objects.get(block=block, language_code="nl")
-        self.assertEqual(dutch.status, ContentBlockTranslation.STATUS_NEEDS_REVIEW)
+        self.assertEqual(dutch.status, ContentBlockTranslation.STATUS_CURRENT)
         self.assertEqual(dutch.source_language, "en")
         self.assertEqual(dutch.source_revision_hash, english.source_revision_hash)
 
@@ -172,6 +172,60 @@ class ContentTranslationsV1Tests(TestCase):
         french = ContentBlockTranslation.objects.get(block=block, language_code="fr")
         self.assertEqual(french.source_language, "nl")
         self.assertIn(french.status, (ContentBlockTranslation.STATUS_OUTDATED, ContentBlockTranslation.STATUS_NEEDS_REVIEW))
+    def test_per_block_update_only_changes_requested_block(self):
+        backend = FakeTranslationBackend()
+        foundations = ContentBlock.objects.get(site=self.main_site, key="home-foundations")
+        ai_tools = ContentBlock.objects.get(site=self.main_site, key="home-ai-business-tools")
+        connected = ContentBlock.objects.get(site=self.main_site, key="home-connected-systems")
+
+        foundations_payload = get_block_payload(foundations, "nl")
+        foundations_payload["heading"] = "Acceptance test Nederlandse bron"
+        save_block_translation(foundations, "nl", foundations_payload, auto_translate_enabled=False)
+        german = ContentBlockTranslation.objects.get(block=foundations, language_code="de")
+        german_payload = german.payload_json
+        german.is_protected = True
+        german.save(update_fields=["is_protected", "updated_at"])
+
+        unrelated_before = {
+            block.key: {
+                language_code: (
+                    ContentBlockTranslation.objects.get(block=block, language_code=language_code).payload_json,
+                    ContentBlockTranslation.objects.get(block=block, language_code=language_code).status,
+                    ContentBlockTranslation.objects.get(block=block, language_code=language_code).source_revision_hash,
+                )
+                for language_code in ("en", "de", "es", "fr", "nl", "pt")
+            }
+            for block in (ai_tools, connected)
+        }
+        source_hash = ContentBlockTranslation.objects.get(block=foundations, language_code="nl").source_revision_hash
+
+        result = update_block_translations(foundations, backend=backend)
+
+        self.assertEqual(result["updated"], [
+            "home-foundations:en",
+            "home-foundations:es",
+            "home-foundations:fr",
+            "home-foundations:pt",
+        ])
+        self.assertIn("home-foundations:de", result["skipped"])
+        self.assertEqual(ContentBlockTranslation.objects.get(block=foundations, language_code="nl").status, ContentBlockTranslation.STATUS_CURRENT)
+        self.assertEqual(ContentBlockTranslation.objects.get(block=foundations, language_code="nl").source_revision_hash, source_hash)
+        self.assertTrue(all(
+            ContentBlockTranslation.objects.get(block=foundations, language_code=code).status == ContentBlockTranslation.STATUS_CURRENT
+            for code in ("en", "es", "fr", "pt")
+        ))
+        self.assertTrue(all(
+            ContentBlockTranslation.objects.get(block=foundations, language_code=code).translated_from_revision_hash == source_hash
+            for code in ("en", "es", "fr", "pt")
+        ))
+        german.refresh_from_db()
+        self.assertTrue(german.is_protected)
+        self.assertEqual(german.payload_json, german_payload)
+        self.assertEqual(german.status, ContentBlockTranslation.STATUS_OUTDATED)
+        for block in (ai_tools, connected):
+            for language_code, before in unrelated_before[block.key].items():
+                current = ContentBlockTranslation.objects.get(block=block, language_code=language_code)
+                self.assertEqual((current.payload_json, current.status, current.source_revision_hash), before)
     def test_failed_target_does_not_rollback_source_or_other_targets(self):
         backend = FailingFrenchBackend()
         block = ContentBlock.objects.get(site=self.main_site, key="home-foundations")
@@ -189,7 +243,7 @@ class ContentTranslationsV1Tests(TestCase):
         self.assertIn("fr", result["auto_result"]["failed_languages"])
         self.assertEqual(french.payload_json, original_french)
         self.assertEqual(french.status, ContentBlockTranslation.STATUS_NEEDS_REVIEW)
-        self.assertEqual(german.status, ContentBlockTranslation.STATUS_NEEDS_REVIEW)
+        self.assertEqual(german.status, ContentBlockTranslation.STATUS_CURRENT)
 
     def test_pilot_blocks_are_main_site_only(self):
         tenant_owner = User.objects.create_user(username="scope-tenant-owner", password="testpass123")
@@ -209,10 +263,10 @@ class ContentTranslationsV1Tests(TestCase):
         spanish = ContentBlockTranslation.objects.get(block=block, language_code="es")
         self.assertEqual(spanish.status, ContentBlockTranslation.STATUS_OUTDATED)
 
-        result = update_site_translations(self.main_site, backend=backend)
+        result = update_block_translations(block, backend=backend)
         spanish.refresh_from_db()
         self.assertTrue(result["updated"])
-        self.assertEqual(spanish.status, ContentBlockTranslation.STATUS_NEEDS_REVIEW)
+        self.assertEqual(spanish.status, ContentBlockTranslation.STATUS_CURRENT)
 
     def test_brand_glossary_terms_are_available_to_translation_backend(self):
         backend = FakeTranslationBackend()
