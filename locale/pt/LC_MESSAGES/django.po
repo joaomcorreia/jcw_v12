@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Just Code Works\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-08 03:50+0200\n"
+"POT-Creation-Date: 2026-08-08 11:37+0200\n"
 "PO-Revision-Date: 2026-08-07 20:55+0200\n"
 "Last-Translator: Joao Correia <info@justcodeworks.eu>\n"
 "Language-Team: Portuguese (Portugal)\n"
@@ -68,6 +68,92 @@ msgstr "Plano bloqueado."
 msgid "Tenant updated."
 msgstr "Cliente atualizado."
 
+msgid "Automatic translation updates"
+msgstr "Atualizações automáticas das traduções"
+
+#| msgid "Section"
+msgid "Section label"
+msgstr "Etiqueta da secção"
+
+msgid "Heading"
+msgstr "Título"
+
+#| msgid "Production"
+msgid "Introduction"
+msgstr "Introdução"
+
+#| msgid "Clear page titles"
+msgid "Card 1 title"
+msgstr "Título do cartão 1"
+
+#| msgid "CTA text"
+msgid "Card 1 text"
+msgstr "Texto do cartão 1"
+
+#| msgid "Clear page titles"
+msgid "Card 2 title"
+msgstr "Título do cartão 2"
+
+#| msgid "CTA text"
+msgid "Card 2 text"
+msgstr "Texto do cartão 2"
+
+#| msgid "Clear page titles"
+msgid "Card 3 title"
+msgstr "Título do cartão 3"
+
+#| msgid "CTA text"
+msgid "Card 3 text"
+msgstr "Texto do cartão 3"
+
+msgid "Protect this translation from automatic updates"
+msgstr "Proteger esta tradução das atualizações automáticas"
+
+msgid "Published"
+msgstr "Publicado"
+
+msgid "Automatic translation updates setting saved."
+msgstr "Definição das atualizações automáticas das traduções guardada."
+
+#, python-format
+msgid "Translations updated for %(count)s language entries."
+msgstr "Traduções atualizadas para %(count)s entradas de idioma."
+
+msgid ""
+"Automatic translation backend is not configured yet. Outdated translations "
+"were left unchanged."
+msgstr ""
+"O serviço de tradução automática ainda não está configurado. As traduções "
+"desatualizadas não foram alteradas."
+
+#| msgid "Preferred language"
+msgid "Unsupported language."
+msgstr "Idioma não suportado."
+
+#, python-format
+msgid ""
+"Content saved. %(count)s translation(s) updated; %(failed)s could not be "
+"updated and remain marked for review."
+msgstr ""
+"Conteúdo guardado. Foram atualizadas %(count)s tradução(ões); %(failed)s não "
+"puderam ser atualizadas e permanecem marcadas para revisão."
+
+#, python-format
+msgid "Content saved. Automatic updates ran for %(count)s translation(s)."
+msgstr ""
+"Conteúdo guardado. Foram executadas atualizações automáticas para %(count)s "
+"tradução(ões)."
+
+msgid ""
+"Content saved. Other translations were marked outdated because no automatic "
+"translation backend is configured yet."
+msgstr ""
+"Conteúdo guardado. As outras traduções foram marcadas como desatualizadas "
+"porque o serviço de tradução automática ainda não está configurado."
+
+msgid "Content saved. Other translations were marked outdated."
+msgstr "Conteúdo guardado. As outras traduções foram marcadas como desatualizadas."
+
 msgid "Plan updated for this site."
 msgstr "Plano atualizado para este site."
 
@@ -83,17 +169,153 @@ msgstr "Localizações"
 msgid "EU"
 msgstr "UE"
 
+#| msgid "Digital systems built for the next stage."
+msgid "Homepage: Digital systems built for the next stage."
+msgstr "Página inicial: Sistemas digitais preparados para a próxima etapa."
+
+#| msgid "AI-powered business tools"
+msgid "Homepage: AI-powered business tools"
+msgstr "Página inicial: Ferramentas empresariais com IA"
+
+#| msgid "Built as connected systems."
+msgid "Homepage: Built as connected systems."
+msgstr "Página inicial: Construído como um conjunto de sistemas interligados."
+
+msgid "Foundations"
+msgstr "Bases"
+
+msgid "Digital systems built for the next stage."
+msgstr "Sistemas digitais preparados para a próxima etapa."
+
+msgid ""
+"Reusable platforms that connect products, services, workflows and operations."
+msgstr ""
+"Plataformas reutilizáveis que ligam produtos, serviços, processos e "
+"operações."
+
+msgid "Custom platforms"
+msgstr "Plataformas personalizadas"
+
+msgid ""
+"Systems designed around specific products, services and business workflows."
+msgstr ""
+"Sistemas concebidos em torno de produtos, serviços e processos empresariais "
+"específicos."
+
+msgid "Built for multiple markets"
+msgstr "Preparado para vários mercados"
+
+msgid ""
+"Flexible foundations for different languages, locations and commercial "
+"models."
+msgstr ""
+"Bases flexíveis para diferentes idiomas, localizações e modelos comerciais."
+
+msgid "Ready to grow"
+msgstr "Preparado para evoluir"
+
+msgid ""
+"Platforms that can evolve into licensed, white-label or reseller "
+"opportunities."
+msgstr ""
+"Plataformas que podem evoluir para modelos licenciados, de marca branca ou "
+"para revendedores."
+
+msgid "AI-powered business tools"
+msgstr "Ferramentas empresariais com IA"
+
+msgid ""
+"We build practical AI tools around real business information, helping "
+"companies support customers, create content, work across languages and "
+"automate repetitive tasks."
+msgstr ""
+"Desenvolvemos ferramentas práticas de IA com base em informações reais das "
+"empresas, ajudando-as a apoiar clientes, criar conteúdos, trabalhar em "
+"vários idiomas e automatizar tarefas repetitivas."
+
+msgid "Multilingual AI Assistants"
+msgstr "Assistentes de IA multilingues"
+
+msgid ""
+"Customer-facing assistants connected to business knowledge, with "
+"multilingual replies, lead capture, contact handoff and dashboard-based "
+"management."
+msgstr ""
+"Assistentes para clientes ligados ao conhecimento da empresa, com respostas "
+"multilingues, recolha de contactos, encaminhamento para contacto e gestão "
+"através do painel de controlo."
+
+msgid "Content & Localisation"
+msgstr "Conteúdos e localização"
+
+msgid ""
+"AI tools for website copy, product and service descriptions, social content, "
+"FAQs and multilingual publishing."
+msgstr ""
+"Ferramentas de IA para textos de sites, descrições de produtos e serviços, "
+"conteúdos para redes sociais, FAQ e publicação multilingue."
+
+msgid "Automation & Insights"
+msgstr "Automação e insights"
+
+msgid ""
+"Use enquiries, customer activity and business data to generate summaries, "
+"qualify leads, recommend actions and simplify recurring workflows."
+msgstr ""
+"Utilize pedidos de contacto, atividade dos clientes e dados da empresa para "
+"gerar resumos, qualificar leads, recomendar ações e simplificar processos "
+"recorrentes."
+
+msgid "Connected Systems"
+msgstr "Sistemas interligados"
+
+msgid "Built as connected systems."
+msgstr "Construído como um conjunto de sistemas interligados."
+
+msgid ""
+"A strong core can support focused products now and new opportunities later."
+msgstr ""
+"Uma base sólida pode suportar produtos específicos agora e novas "
+"oportunidades mais tarde."
+
+msgid "Shared foundations"
+msgstr "Bases partilhadas"
+
+msgid ""
+"Common identity, data, language and workflow foundations keep related "
+"products consistent."
+msgstr ""
+"Bases comuns de identidade, dados, idiomas e processos mantêm os produtos "
+"relacionados consistentes."
+
+msgid "Independent products"
+msgstr "Produtos independentes"
+
+msgid ""
+"Each product can stay focused on its users, proposition and commercial model."
+msgstr ""
+"Cada produto pode manter-se focado nos seus utilizadores, proposta e modelo "
+"comercial."
+
+msgid "Expandable infrastructure"
+msgstr "Infraestrutura expansível"
+
+msgid ""
+"New operators, markets and services can be added without rebuilding the "
+"platform from scratch."
+msgstr ""
+"Novos operadores, mercados e serviços podem ser adicionados sem reconstruir "
+"a plataforma de raiz."
+
 msgid "Home"
 msgstr "Início"
 
 msgid "About"
 msgstr "Sobre nós"
 
-#| msgid "What we do"
 msgid "What We Build"
 msgstr "O que desenvolvemos"
 
-#| msgid "How It Works"
 msgid "How We Work"
 msgstr "Como trabalhamos"
 
@@ -783,7 +1005,6 @@ msgstr ""
 "Um estilo acolhedor para apresentar menus, horários de funcionamento e as "
 "principais informações do estabelecimento."
 
-#| msgid "Just Code Works - Control Panel"
 msgid "Just Code Works | Multilingual Platforms"
 msgstr "Just Code Works | Plataformas multilingues"
 
@@ -794,7 +1015,6 @@ msgstr ""
 "A Just Code Works desenvolve plataformas digitais multilingues para empresas "
 "e novos projetos."
 
-#| msgid "Just Code Works"
 msgid "About Just Code Works"
 msgstr "Sobre a Just Code Works"
 
@@ -804,17 +1024,15 @@ msgstr ""
 "Conheça a forma como a Just Code Works concebe e gere sistemas digitais "
 "reutilizáveis."
 
-#| msgid "How people use Just Code Works"
 msgid "What We Build | Just Code Works"
 msgstr "O que desenvolvemos | Just Code Works"
 
 msgid ""
 "Explore multilingual, custom, white-label and reseller digital platforms."
 msgstr ""
-"Explore plataformas digitais multilingues, personalizadas, de marca branca "
-"e para revendedores."
+"Explore plataformas digitais multilingues, personalizadas, de marca branca e "
+"para revendedores."
 
-#| msgid "How people use Just Code Works"
 msgid "How We Work | Just Code Works"
 msgstr "Como trabalhamos | Just Code Works"
 
@@ -871,7 +1089,6 @@ msgstr ""
 "Preços para sites web, ferramentas digitais, visibilidade online e serviços "
 "complementares da JCW."
 
-#| msgid "Just Code Works"
 msgid "Contact | Just Code Works"
 msgstr "Contacto | Just Code Works"
 
@@ -989,15 +1206,12 @@ msgstr "A segmentação SEO foi guardada."
 msgid "Upgrade to add more cities."
 msgstr "Passe para um plano superior para adicionar mais cidades."
 
-#| msgid "Save plan"
 msgid "No active plan"
 msgstr "Nenhum plano ativo"
 
-#| msgid "Connected"
 msgid "Not connected"
 msgstr "Não ligado"
 
-#| msgid "Manage"
 msgid "Media Manager"
 msgstr "Gestor de multimédia"
 
@@ -1008,7 +1222,6 @@ msgstr ""
 "Esta página será a área onde poderá gerir os ficheiros multimédia utilizados "
 "no seu site web."
 
-#| msgid "Schema status"
 msgid "Media status"
 msgstr "Estado dos conteúdos multimédia"
 
@@ -1019,7 +1232,6 @@ msgstr ""
 "O gestor de multimédia está a ser preparado para permitir gerir ficheiros e "
 "imagens a partir de uma área central."
 
-#| msgid "Google Ads"
 msgid "Google Analytics"
 msgstr "Google Analytics"
 
@@ -1043,7 +1255,6 @@ msgstr ""
 "Quando a integração for ativada, o estado da ligação e o acesso aos "
 "relatórios aparecerão nesta secção."
 
-#| msgid "Facebook Posting"
 msgid "Facebook Insights"
 msgstr "Estatísticas do Facebook"
 
@@ -1054,7 +1265,6 @@ msgstr ""
 "Esta página apresentará a ligação ao Facebook e as estatísticas da página "
 "quando esta funcionalidade estiver disponível no painel de controlo."
 
-#| msgid "Indexing status"
 msgid "Insights status"
 msgstr "Estado das estatísticas"
 
@@ -1073,10 +1283,9 @@ msgid ""
 "This page will organize future social content planning connected to your "
 "website and services."
 msgstr ""
-"Esta página reunirá o planeamento de conteúdos para redes sociais relacionado "
-"com o seu site web e os seus serviços."
+"Esta página reunirá o planeamento de conteúdos para redes sociais "
+"relacionado com o seu site web e os seus serviços."
 
-#| msgid "Indexing status"
 msgid "Planning status"
 msgstr "Estado do planeamento"
 
@@ -1097,7 +1306,6 @@ msgstr ""
 "Esta página permitirá preparar de forma simples imagens para o site web e "
 "para as redes sociais a partir do painel de controlo."
 
-#| msgid "Site status"
 msgid "Tool status"
 msgstr "Estado da ferramenta"
 
@@ -1115,8 +1323,8 @@ msgid ""
 "This page will provide a simple way to create QR codes connected to your "
 "website and print materials."
 msgstr ""
-"Esta página permitirá criar facilmente códigos QR relacionados com o seu site "
-"web e materiais impressos."
+"Esta página permitirá criar facilmente códigos QR relacionados com o seu "
+"site web e materiais impressos."
 
 msgid ""
 "The QR code maker is being prepared and will appear here as a stable "
@@ -1132,10 +1340,9 @@ msgid ""
 "Use this area to understand where dashboard help and support options will "
 "appear."
 msgstr ""
-"Utilize esta área para consultar as opções de ajuda e assistência disponíveis "
-"no painel de controlo."
+"Utilize esta área para consultar as opções de ajuda e assistência "
+"disponíveis no painel de controlo."
 
-#| msgid "Support style"
 msgid "Support status"
 msgstr "Estado da assistência"
 
@@ -1504,6 +1711,10 @@ msgstr "Faturação"
 msgid "Content map"
 msgstr "Mapa de conteúdo"
 
+#| msgid "Content & Localisation"
+msgid "Content & Translations"
+msgstr "Conteúdos e traduções"
+
 msgid "Plans"
 msgstr "Planos"
 
@@ -1561,6 +1772,67 @@ msgstr "Ver página"
 
 msgid "No marketing pages found."
 msgstr "Não foram encontradas páginas de marketing."
+
+#| msgid "Content & Localisation"
+msgid "Back to Content & Translations"
+msgstr "Voltar a Conteúdos e traduções"
+
+#, python-format
+msgid ""
+"Editing %(code)s. The current source language for this block is %(source)s."
+msgstr ""
+"A editar %(code)s. O idioma de origem atual deste bloco é %(source)s."
+
+#| msgid "Not connected"
+msgid "Protected"
+msgstr "Protegido"
+
+#| msgid "Currently"
+msgid "Current"
+msgstr "Atual"
+
+#| msgid "Updated"
+msgid "Outdated"
+msgstr "Desatualizado"
+
+#| msgid "Request review"
+msgid "Needs review"
+msgstr "A rever"
+
+#| msgid "Save tenant"
+msgid "Save content"
+msgstr "Guardar conteúdo"
+
+msgid "Translations will update from the list page"
+msgstr "As traduções podem ser atualizadas a partir da página de resumo"
+
+msgid ""
+"Edit reusable homepage content and keep language versions in sync without "
+"moving website copy into .po files."
+msgstr ""
+"Edite conteúdos reutilizáveis da página inicial e mantenha as versões nos "
+"vários idiomas sincronizadas sem transferir os textos do site para ficheiros "
+".po."
+
+#| msgid "Site settings"
+msgid "Save setting"
+msgstr "Guardar definição"
+
+msgid "Update translations"
+msgstr "Atualizar traduções"
+
+msgid "Placement"
+msgstr "Localização"
+
+#| msgid "Homepage preview"
+msgid "Homepage"
+msgstr "Página inicial"
+
+msgid "Last updated source language"
+msgstr "Último idioma de origem utilizado"
+
+msgid "Edit"
+msgstr "Editar"
 
 msgid "Staff-only dashboard for core system objects."
 msgstr ""
@@ -1645,6 +1917,10 @@ msgstr "Crie o primeiro cliente para começar"
 msgid "Open Website builder"
 msgstr "Abrir criador de sites"
 
+#| msgid "Content & Localisation"
+msgid "Open Content & Translations"
+msgstr "Abrir Conteúdos e traduções"
+
 msgid "Open templates"
 msgstr "Abrir modelos"
 
@@ -1692,9 +1968,6 @@ msgstr "Inativo"
 msgid "Frozen"
 msgstr "Bloqueado"
 
-msgid "Edit"
-msgstr "Editar"
-
 msgid "Freeze"
 msgstr "Bloquear"
 
@@ -1727,9 +2000,6 @@ msgstr "Guardar modelo"
 
 msgid "Back to list"
 msgstr "Voltar à lista"
-
-msgid "Published"
-msgstr "Publicado"
 
 msgid "Updated"
 msgstr "Atualizado"
@@ -2753,20 +3023,15 @@ msgstr ""
 "opções de configuração, utilize o JCW Assistant ou as opções de contacto "
 "disponíveis para obter ajuda."
 
-#| msgid "Just Code Works"
 msgid "JustCodeWorks"
 msgstr "JustCodeWorks"
 
 msgid "Website builder and content management platform"
 msgstr "Plataforma de criação de sites e gestão de conteúdos"
 
-#| msgid "Launch your website quickly"
 msgid "Launch your site fast"
 msgstr "Coloque o seu site online rapidamente"
 
-#| msgid ""
-#| "Launch a clean catalog first, then upgrade when you are ready to sell "
-#| "online."
 msgid ""
 "Publish a clean homepage, then add pages and services when you are ready."
 msgstr ""
@@ -2884,7 +3149,6 @@ msgstr ""
 msgid "Learn more"
 msgstr "Saber mais"
 
-#| msgid "Back to website options"
 msgid "Fast-track website option"
 msgstr "Opção de criação rápida de site"
 
@@ -3396,7 +3660,6 @@ msgstr "Em breve"
 msgid "This page is still being prepared."
 msgstr "Esta página ainda está a ser preparada."
 
-#| msgid "Launch your business website and print materials in one place"
 msgid "Launch and manage your business online from one place"
 msgstr "Comece e gira a presença online da sua empresa a partir de um só lugar"
 
@@ -3408,15 +3671,12 @@ msgstr ""
 "desde sites de lançamento rápido e ferramentas locais a assistentes de IA e "
 "sistemas preparados para futuras necessidades."
 
-#| msgid "Start my website"
 msgid "Start with a website"
 msgstr "Começar com um site"
 
-#| msgid "Explore products"
 msgid "Explore platforms"
 msgstr "Explorar plataformas"
 
-#| msgid "JCW Assistant"
 msgid "Ask JCW Assistant"
 msgstr "Perguntar ao JCW Assistant"
 
@@ -3436,16 +3696,13 @@ msgstr ""
 "Venda produtos ou aceite marcações através de uma loja simples e adicione "
 "mais funcionalidades à medida que o seu catálogo evolui."
 
-#| msgid "Business Website"
 msgid "Business website"
 msgstr "Site empresarial"
 
-#| msgid "Businesses that want a traditional website setup"
 msgid "For businesses that need a professional website online quickly."
 msgstr ""
 "Para empresas que precisam de um site profissional online num prazo reduzido."
 
-#| msgid "JCW Assistant"
 msgid "AI Website Assistant"
 msgstr "Assistente de IA para o site"
 
@@ -3465,7 +3722,6 @@ msgstr ""
 "Ferramentas simples para parceiros e pessoas que recomendam os serviços a "
 "novas empresas."
 
-#| msgid "Registered platform users"
 msgid "Future platforms"
 msgstr "Plataformas futuras"
 
@@ -3474,7 +3730,6 @@ msgstr ""
 "Novas plataformas JCW para listagens, viagens, conteúdos e desenvolvimento "
 "de negócios."
 
-#| msgid "How people use Just Code Works"
 msgid "Platforms built by Just Code Works"
 msgstr "Plataformas desenvolvidas pela Just Code Works"
 
@@ -3485,40 +3740,34 @@ msgstr ""
 "A Just Code Works é a empresa central por detrás de plataformas digitais "
 "práticas para pequenas empresas, projetos ativos e futuros lançamentos."
 
-#| msgid "Website paths"
 msgid "Website platform"
 msgstr "Plataforma de sites"
 
-#| msgid "Online store"
 msgid "Get Online Fast"
 msgstr "Get Online Fast"
 
 msgid "Fast professional websites for small businesses in Europe."
-msgstr "Sites profissionais de lançamento rápido para pequenas empresas na Europa."
+msgstr ""
+"Sites profissionais de lançamento rápido para pequenas empresas na Europa."
 
-#| msgid "View website plans"
 msgid "Fast website launch"
 msgstr "Lançamento rápido de sites"
 
-#| msgid "Quote focus"
 msgid "Europe-focused"
 msgstr "Focado na Europa"
 
-#| msgid "Active city"
 msgid "Active platform"
 msgstr "Plataforma ativa"
 
 msgid "Portuguese market"
 msgstr "Mercado português"
 
-#| msgid "Sites"
 msgid "SiteExpress"
 msgstr "SiteExpress"
 
 msgid "Portugal-focused"
 msgstr "Focado em Portugal"
 
-#| msgid "Template setup"
 msgid "Simple setup"
 msgstr "Configuração simples"
 
@@ -3528,7 +3777,6 @@ msgstr "Opção de lançamento acessível"
 msgid "In development"
 msgstr "Em desenvolvimento"
 
-#| msgid "Coming soon"
 msgid "Add-on / coming soon"
 msgstr "Complemento / em breve"
 
@@ -3546,11 +3794,9 @@ msgstr "Responde às perguntas dos visitantes"
 msgid "Helps collect leads"
 msgstr "Ajuda a recolher contactos de potenciais clientes"
 
-#| msgid "Fast enquiries"
 msgid "Supports website enquiries"
 msgstr "Facilita os contactos através do site"
 
-#| msgid "Registered platform users"
 msgid "Future platform"
 msgstr "Plataforma futura"
 
@@ -3564,7 +3810,6 @@ msgstr ""
 "Uma plataforma planeada de listagens e descoberta de empresas, locais e "
 "serviços."
 
-#| msgid "Projects"
 msgid "Planned project"
 msgstr "Projeto planeado"
 
@@ -3578,11 +3823,9 @@ msgstr ""
 "Uma plataforma planeada de viagens e conteúdos, com espaço para guias, "
 "ofertas de afiliados e descoberta local."
 
-#| msgid "Private dining"
 msgid "Private / in progress"
 msgstr "Privado / em desenvolvimento"
 
-#| msgid "Partners"
 msgid "Partner Tools"
 msgstr "Ferramentas para parceiros"
 
@@ -3736,11 +3979,9 @@ msgstr ""
 msgid "Not sure which POS fits your business?"
 msgstr "Não sabe qual o sistema POS mais adequado à sua empresa?"
 
-#| msgid "Website goal"
 msgid "Website AI add-on"
 msgstr "Complemento de IA para o site"
 
-#| msgid "Best for most businesses"
 msgid "AI assistants for modern business websites"
 msgstr "Assistentes de IA para sites empresariais modernos"
 
@@ -3764,19 +4005,15 @@ msgstr "Perguntar sobre o Assistente de IA"
 msgid "24/7"
 msgstr "24/7"
 
-#| msgid "Based on your answers"
 msgid "Visitor answers"
 msgstr "Respostas aos visitantes"
 
-#| msgid "Service match"
 msgid "Service guidance"
 msgstr "Orientação sobre serviços"
 
-#| msgid "Barcode-ready"
 msgid "Lead-ready"
 msgstr "Preparado para recolher contactos"
 
-#| msgid "Contact us"
 msgid "Contact handoff"
 msgstr "Encaminhamento para contacto"
 
@@ -3786,9 +4023,6 @@ msgstr "Exemplos"
 msgid "How people use Just Code Works"
 msgstr "Como as empresas podem utilizar a Just Code Works"
 
-#| msgid ""
-#| "Simple examples of how different businesses use websites, print, and "
-#| "payments together."
 msgid ""
 "Simple examples of how different businesses use websites, AI assistants, and "
 "launch platforms together."
@@ -3806,7 +4040,6 @@ msgstr ""
 "Um site empresarial de lançamento rápido que apresenta os serviços de forma "
 "clara e facilita o contacto por parte dos clientes locais."
 
-#| msgid "Local services"
 msgid "Small service business"
 msgstr "Pequena empresa de serviços"
 
@@ -3838,7 +4071,6 @@ msgstr ""
 "Plataformas futuras como ListaAcross e TravelAcross poderão ampliar "
 "progressivamente o ecossistema JCW para além dos sites web."
 
-#| msgid "Just Code Works"
 msgid "What is Just Code Works?"
 msgstr "O que é a Just Code Works?"
 
@@ -3852,7 +4084,6 @@ msgstr ""
 "de sites, assistentes de IA para sites, ferramentas para parceiros e futuros "
 "projetos de descoberta."
 
-#| msgid "What this option is"
 msgid "What is Get Online Fast?"
 msgstr "O que é Get Online Fast?"
 
@@ -3864,7 +4095,6 @@ msgstr ""
 "a criar uma presença online profissional através de um processo simples e "
 "rápido."
 
-#| msgid "Can I make changes to my website later?"
 msgid "Can I add an AI assistant to my website?"
 msgstr "Posso adicionar um assistente de IA ao meu site?"
 
@@ -3877,7 +4107,6 @@ msgstr ""
 "para sites empresariais, permitindo responder a perguntas, explicar serviços "
 "e facilitar o contacto dos visitantes com a empresa."
 
-#| msgid "What fits here"
 msgid "What is SiteExpress?"
 msgstr "O que é SiteExpress?"
 
@@ -3922,12 +4151,12 @@ msgstr ""
 "Sim. O conteúdo e as funcionalidades podem ser alterados e ampliados ao "
 "longo do tempo, de acordo com as necessidades da sua empresa."
 
-#| msgid "Plan updated."
 msgid "Platform update"
 msgstr "Atualização da plataforma"
 
 msgid "Get Online Fast remains the core website launch platform"
-msgstr "Get Online Fast continua a ser a principal plataforma de lançamento de sites"
+msgstr ""
+"Get Online Fast continua a ser a principal plataforma de lançamento de sites"
 
 msgid ""
 "JCW continues to focus the main live offer on fast professional websites for "
@@ -3936,11 +4165,9 @@ msgstr ""
 "A JCW continua a concentrar a principal oferta ativa em sites profissionais "
 "de lançamento rápido para pequenas empresas."
 
-#| msgid "Tenant updated."
 msgid "Read update"
 msgstr "Ler atualização"
 
-#| msgid "SEO progress"
 msgid "In progress"
 msgstr "Em desenvolvimento"
 
@@ -3976,50 +4203,6 @@ msgstr ""
 "operadas diretamente, adaptadas a outras empresas ou expandidas para vários "
 "mercados."
 
-#| msgid "Locations"
-msgid "Foundations"
-msgstr "Bases"
-
-msgid "Digital systems built for the next stage."
-msgstr "Sistemas digitais preparados para a próxima etapa."
-
-msgid ""
-"Reusable platforms that connect products, services, workflows and operations."
-msgstr ""
-"Plataformas reutilizáveis que ligam produtos, serviços, processos e "
-"operações."
-
-#| msgid "Custom apparel"
-msgid "Custom platforms"
-msgstr "Plataformas personalizadas"
-
-msgid ""
-"Systems designed around specific products, services and business workflows."
-msgstr ""
-"Sistemas concebidos em torno de produtos, serviços e processos empresariais "
-"específicos."
-
-#| msgid "Built for support"
-msgid "Built for multiple markets"
-msgstr "Preparado para vários mercados"
-
-msgid ""
-"Flexible foundations for different languages, locations and commercial "
-"models."
-msgstr ""
-"Bases flexíveis para diferentes idiomas, localizações e modelos comerciais."
-
-#| msgid "Ready to get started?"
-msgid "Ready to grow"
-msgstr "Preparado para evoluir"
-
-msgid ""
-"Platforms that can evolve into licensed, white-label or reseller "
-"opportunities."
-msgstr ""
-"Plataformas que podem evoluir para modelos licenciados, de marca branca ou "
-"para revendedores."
-
 msgid "Platforms for real operating models."
 msgstr "Plataformas para modelos de operação reais."
 
@@ -4030,7 +4213,6 @@ msgstr ""
 "Produtos interligados que tornam serviços complexos mais fáceis de operar, "
 "adaptar e expandir."
 
-#| msgid "Business cards"
 msgid "Business platforms"
 msgstr "Plataformas empresariais"
 
@@ -4041,7 +4223,6 @@ msgstr ""
 "Portais de clientes, painéis de controlo operacionais e processos de serviço "
 "adaptados à forma como cada empresa funciona."
 
-#| msgid "eCommerce made easy"
 msgid "Commerce & marketplaces"
 msgstr "Comércio e marketplaces"
 
@@ -4062,97 +4243,6 @@ msgstr ""
 "Ferramentas específicas e processos interligados que reduzem o trabalho "
 "manual e se adaptam à forma como cada plataforma funciona."
 
-#| msgid "Explore business print"
-msgid "AI-powered business tools"
-msgstr "Ferramentas empresariais com IA"
-
-msgid ""
-"We build practical AI tools around real business information, helping "
-"companies support customers, create content, work across languages and "
-"automate repetitive tasks."
-msgstr ""
-"Desenvolvemos ferramentas práticas de IA com base em informações reais das "
-"empresas, ajudando-as a apoiar clientes, criar conteúdos, trabalhar em vários "
-"idiomas e automatizar tarefas repetitivas."
-
-msgid "Multilingual AI Assistants"
-msgstr "Assistentes de IA multilingues"
-
-msgid ""
-"Customer-facing assistants connected to business knowledge, with "
-"multilingual replies, lead capture, contact handoff and dashboard-based "
-"management."
-msgstr ""
-"Assistentes para clientes ligados ao conhecimento da empresa, com respostas "
-"multilingues, recolha de contactos, encaminhamento para contacto e gestão "
-"através do painel de controlo."
-
-msgid "Content & Localisation"
-msgstr "Conteúdos e localização"
-
-msgid ""
-"AI tools for website copy, product and service descriptions, social content, "
-"FAQs and multilingual publishing."
-msgstr ""
-"Ferramentas de IA para textos de sites, descrições de produtos e serviços, "
-"conteúdos para redes sociais, FAQ e publicação multilingue."
-
-msgid "Automation & Insights"
-msgstr "Automação e insights"
-
-msgid ""
-"Use enquiries, customer activity and business data to generate summaries, "
-"qualify leads, recommend actions and simplify recurring workflows."
-msgstr ""
-"Utilize pedidos de contacto, atividade dos clientes e dados da empresa para "
-"gerar resumos, qualificar leads, recomendar ações e simplificar processos "
-"recorrentes."
-
-#| msgid "Connected"
-msgid "Connected Systems"
-msgstr "Sistemas interligados"
-
-#| msgid "Custom backend systems"
-msgid "Built as connected systems."
-msgstr "Construído como um conjunto de sistemas interligados."
-
-msgid ""
-"A strong core can support focused products now and new opportunities later."
-msgstr ""
-"Uma base sólida pode suportar produtos específicos agora e novas "
-"oportunidades mais tarde."
-
-msgid "Shared foundations"
-msgstr "Bases partilhadas"
-
-msgid ""
-"Common identity, data, language and workflow foundations keep related "
-"products consistent."
-msgstr ""
-"Bases comuns de identidade, dados, idiomas e processos mantêm os produtos "
-"relacionados consistentes."
-
-#| msgid "See merch products"
-msgid "Independent products"
-msgstr "Produtos independentes"
-
-msgid ""
-"Each product can stay focused on its users, proposition and commercial model."
-msgstr ""
-"Cada produto pode manter-se focado nos seus utilizadores, proposta e modelo "
-"comercial."
-
-msgid "Expandable infrastructure"
-msgstr "Infraestrutura expansível"
-
-msgid ""
-"New operators, markets and services can be added without rebuilding the "
-"platform from scratch."
-msgstr ""
-"Novos operadores, mercados e serviços podem ser adicionados sem reconstruir "
-"a plataforma de raiz."
-
-#| msgid "Tell us about your business"
 msgid "Tell us what your business needs."
 msgstr "Diga-nos do que a sua empresa precisa."
 
@@ -4164,11 +4254,9 @@ msgstr ""
 "assistente de IA pode ajudá-lo a explorar as opções e identificar a próxima "
 "etapa."
 
-#| msgid "JCW Assistant"
 msgid "Ask the AI Assistant"
 msgstr "Perguntar ao Assistente de IA"
 
-#| msgid "Contact us"
 msgid "Contact options"
 msgstr "Opções de contacto"
 
@@ -4198,17 +4286,12 @@ msgstr "Brindes e artigos promocionais"
 msgid "Support"
 msgstr "Acompanhamento"
 
-#| msgid "Just Code Works"
 msgid "© 2026 Just Code Works"
 msgstr "© 2026 Just Code Works"
 
-#| msgid "Just Code Works – The Netherlands | KVK 42007323"
 msgid "Amsterdam, Netherlands | KVK 42007323"
 msgstr "Amesterdão, Países Baixos | KVK 42007323"
 
-#| msgid ""
-#| "We help businesses build their online presence, manage websites, and "
-#| "order print products — all in one place."
 msgid ""
 "We help businesses build their online presence, manage websites, and order "
 "print products - all in one place."
@@ -4225,11 +4308,9 @@ msgstr ""
 "operadas diretamente, adaptadas a outras empresas ou expandidas para vários "
 "mercados."
 
-#| msgid "Compare"
 msgid "Company"
 msgstr "Empresa"
 
-#| msgid "Visit information"
 msgid "Company information"
 msgstr "Informações da empresa"
 
@@ -5495,7 +5576,8 @@ msgid "Print Studio available on higher plans."
 msgstr "O Print Studio está disponível em determinados planos."
 
 msgid "Building practical web platforms for small businesses in Europe."
-msgstr "Desenvolvemos plataformas web práticas para pequenas empresas na Europa."
+msgstr ""
+"Desenvolvemos plataformas web práticas para pequenas empresas na Europa."
 
 msgid ""
 "Just Code Works creates and operates focused platforms for websites, local "
@@ -5509,7 +5591,6 @@ msgstr ""
 msgid "#platforms"
 msgstr "#plataformas"
 
-#| msgid "View reports"
 msgid "View platforms"
 msgstr "Ver plataformas"
 
@@ -5523,7 +5604,6 @@ msgstr ""
 "A Just Code Works é a base empresarial por detrás de plataformas específicas "
 "para cada mercado, processos de clientes e ferramentas operacionais."
 
-#| msgid "Built for local bookings"
 msgid "Built for local markets"
 msgstr "Criado para mercados locais"
 
@@ -6525,7 +6605,6 @@ msgstr ""
 msgid "Start your WordPress website"
 msgstr "Começar o seu site WordPress"
 
-#| msgid "Amount"
 msgid "My Account"
 msgstr "A minha conta"
 
@@ -6536,31 +6615,24 @@ msgstr ""
 "Consulte as informações da sua conta e o site atualmente ligado ao seu "
 "painel de controlo."
 
-#| msgid "Not sure yet?"
 msgid "Not set"
 msgstr "Não definido"
 
-#| msgid "See details"
 msgid "User details"
 msgstr "Dados do utilizador"
 
-#| msgid "Users"
 msgid "Username"
 msgstr "Nome de utilizador"
 
-#| msgid "Website Design"
 msgid "Website connection"
 msgstr "Ligação ao site"
 
-#| msgid "Websites"
 msgid "Website"
 msgstr "Site web"
 
-#| msgid "Domain"
 msgid "Subdomain"
 msgstr "Subdomínio"
 
-#| msgid "Business print"
 msgid "Business profile"
 msgstr "Perfil da empresa"
 
@@ -6571,19 +6643,15 @@ msgstr "A visualizar: %(tenant_name)s"
 msgid "Exit"
 msgstr "Sair"
 
-#| msgid "Subscription plan"
 msgid "Subscriptions"
 msgstr "Subscrições"
 
-#| msgid "Domain"
 msgid "Domains"
 msgstr "Domínios"
 
-#| msgid "midnight"
 msgid "Insights"
 msgstr "Insights"
 
-#| msgid "Website paths"
 msgid "Website Upgrades"
 msgstr "Opções de evolução do site"
 
@@ -6597,7 +6665,6 @@ msgid "Select a tenant to view the customer dashboard."
 msgstr "Selecione um cliente para ver o respetivo painel de controlo."
 
 #, python-format
-#| msgid "impersonate: %(value)s"
 msgid "impersonate: %(impersonate_id)s"
 msgstr "iniciar sessão como: %(impersonate_id)s"
 
@@ -6607,12 +6674,13 @@ msgstr "Plano atual"
 msgid "Manage subscription"
 msgstr "Gerir subscrição"
 
-#| msgid "Website Status"
 msgid "Website status"
 msgstr "Estado do site"
 
 msgid "Your dashboard is connected to your current tenant website."
-msgstr "O seu painel de controlo está ligado ao site atualmente associado à sua conta."
+msgstr ""
+"O seu painel de controlo está ligado ao site atualmente associado à sua "
+"conta."
 
 msgid "Payment method"
 msgstr "Método de pagamento"
@@ -6679,15 +6747,12 @@ msgstr ""
 "Consulte o domínio ligado ao seu site e veja nesta área as respetivas "
 "informações de configuração."
 
-#| msgid "Schema status"
 msgid "Domain status"
 msgstr "Estado do domínio"
 
-#| msgid "Open website"
 msgid "Current website"
 msgstr "Site atual"
 
-#| msgid "Current plan"
 msgid "Current subdomain"
 msgstr "Subdomínio atual"
 
@@ -6702,9 +6767,6 @@ msgstr "Editar página inicial"
 msgid "This editor is coming soon."
 msgstr "Este editor estará disponível em breve."
 
-#| msgid ""
-#| "Use the overview below to move into the service area that fits your "
-#| "business best."
 msgid ""
 "Use this overview to open the main areas of your website, services, tools, "
 "and support."
@@ -6721,73 +6783,57 @@ msgstr "Escolha um modelo para começar."
 msgid "Choose template"
 msgstr "Escolher modelo"
 
-#| msgid "Open plans"
 msgid "Open billing"
 msgstr "Abrir faturação"
 
-#| msgid "Open plans"
 msgid "Open domains"
 msgstr "Abrir domínios"
 
-#| msgid "Manage subscription"
 msgid "Open subscriptions"
 msgstr "Abrir subscrições"
 
-#| msgid "Open website"
 msgid "Open editor"
 msgstr "Abrir editor"
 
-#| msgid "Open website"
 msgid "Open website details"
 msgstr "Abrir detalhes do site"
 
 msgid "Open media manager"
 msgstr "Abrir gestor de multimédia"
 
-#| msgid "Site settings"
 msgid "Open site settings"
 msgstr "Abrir definições do site"
 
-#| msgid "Open tenants"
 msgid "Open Google Analytics"
 msgstr "Abrir Google Analytics"
 
-#| msgid "Facebook Posting"
 msgid "Open Facebook Insights"
 msgstr "Abrir Facebook Insights"
 
-#| msgid "Open plans"
 msgid "Open SEO plans"
 msgstr "Abrir opções de SEO"
 
-#| msgid "Social Content Planning"
 msgid "Open social content planning"
 msgstr "Abrir planeamento de conteúdos para redes sociais"
 
-#| msgid "Open Website builder"
 msgid "Open website upgrades"
 msgstr "Abrir opções de evolução do site"
 
-#| msgid "PrintLab"
 msgid "Open PrintLab"
 msgstr "Abrir PrintLab"
 
-#| msgid "Image Resizer"
 msgid "Open Image Resizer"
 msgstr "Abrir redimensionador de imagens"
 
-#| msgid "QR Code Maker"
 msgid "Open QR Code Maker"
 msgstr "Abrir criador de códigos QR"
 
-#| msgid "Open plans"
 msgid "Open help"
 msgstr "Abrir ajuda"
 
 msgid "Core"
 msgstr "Principal"
 
-#| msgid "My site"
 msgid "My Website"
 msgstr "O meu site"
 
@@ -6807,11 +6853,9 @@ msgstr ""
 msgid "See which services are connected to your current website setup."
 msgstr "Veja que serviços estão atualmente ligados ao seu site."
 
-#| msgid "Order management"
 msgid "Website Management"
 msgstr "Gestão do site"
 
-#| msgid "Websites"
 msgid "Edit Website"
 msgstr "Editar site"
 
@@ -6820,14 +6864,12 @@ msgstr ""
 "Gira as suas páginas e aceda à principal área de edição dos conteúdos do "
 "site."
 
-#| msgid "Website Design"
 msgid "Website Details"
 msgstr "Detalhes do site"
 
 msgid ""
 "Review your website name, language, template, and subdomain in one place."
-msgstr ""
-"Consulte num só lugar o nome, idioma, modelo e subdomínio do seu site."
+msgstr "Consulte num só lugar o nome, idioma, modelo e subdomínio do seu site."
 
 msgid ""
 "Open the future media area where website images and files will be managed."
@@ -6835,7 +6877,6 @@ msgstr ""
 "Abra a futura área de multimédia onde poderá gerir as imagens e ficheiros do "
 "site."
 
-#| msgid "Site settings"
 msgid "Site Settings"
 msgstr "Definições do site"
 
@@ -6851,24 +6892,21 @@ msgstr ""
 "Abra a futura área de Facebook Insights para acompanhar a presença da sua "
 "empresa no Facebook."
 
-#| msgid "Plans"
 msgid "SEO Plans"
 msgstr "Opções de SEO"
 
 msgid ""
 "Review visibility and SEO-related options connected to your website plan."
-msgstr ""
-"Consulte as opções de visibilidade e SEO disponíveis para o seu site."
+msgstr "Consulte as opções de visibilidade e SEO disponíveis para o seu site."
 
 msgid ""
 "Open the future planning area for social content connected to your services."
 msgstr ""
-"Abra a futura área de planeamento de conteúdos para redes sociais relacionados "
-"com os seus serviços."
+"Abra a futura área de planeamento de conteúdos para redes sociais "
+"relacionados com os seus serviços."
 
 msgid "Explore future website improvements and optional service upgrades."
-msgstr ""
-"Explore futuras melhorias para o site e serviços adicionais opcionais."
+msgstr "Explore futuras melhorias para o site e serviços adicionais opcionais."
 
 msgid ""
 "Open your print area for branded materials, clothing, and future print "
@@ -6918,12 +6956,9 @@ msgstr ""
 "Esta área está a ser preparada e as opções de pagamento suportadas "
 "aparecerão aqui quando estiverem disponíveis."
 
-#| msgid "See upgrades"
 msgid "Website upgrades"
 msgstr "Opções de evolução do site"
 
-#| msgid ""
-#| "Explore print products and production options available for your site."
 msgid ""
 "Explore website improvements and additional services for your current setup."
 msgstr ""
@@ -6935,8 +6970,6 @@ msgid ""
 msgstr ""
 "Esta área está a ser preparada e serão adicionadas mais opções de evolução."
 
-#| msgid ""
-#| "Explore print products and production options available for your site."
 msgid "Explore print products and branded materials connected to your website."
 msgstr ""
 "Explore produtos de impressão e materiais personalizados relacionados com a "
@@ -6981,9 +7014,6 @@ msgstr "Editar secção de contacto"
 #, python-format
 msgid "Edit contact: %(page_slug)s"
 msgstr "Editar contacto: %(page_slug)s"
-
-msgid "Heading"
-msgstr "Título"
 
 msgid "Intro"
 msgstr "Introdução"
@@ -7084,7 +7114,6 @@ msgstr "Ainda não existem páginas"
 msgid "Business Cards"
 msgstr "Cartões de visita"
 
-#| msgid "Available Services"
 msgid "Available soon"
 msgstr "Disponível em breve"
 
@@ -7100,11 +7129,9 @@ msgstr "Apresente serviços e ofertas através de flyers personalizados."
 msgid "Custom stickers for packaging or giveaways."
 msgstr "Autocolantes personalizados para embalagens ou ações promocionais."
 
-#| msgid "Accessories and promo items"
 msgid "Clothing and promo items"
 msgstr "Vestuário e artigos promocionais"
 
-#| msgid "Integrations"
 msgid "In preparation"
 msgstr "Em preparação"
 
@@ -7114,12 +7141,9 @@ msgstr ""
 "Adicione vestuário personalizado e artigos promocionais impressos a partir "
 "do mesmo painel de controlo."
 
-#| msgid "PrintLab"
 msgid "PrintLab status"
 msgstr "Estado do PrintLab"
 
-#| msgid ""
-#| "Explore print products and production options available for your site."
 msgid ""
 "More product groups and production options will appear here as your PrintLab "
 "area expands."
@@ -7146,7 +7170,6 @@ msgstr ""
 "Consulte os serviços ligados ao seu site e os detalhes das subscrições "
 "associadas."
 
-#| msgid "Core services"
 msgid "Current service status"
 msgstr "Estado atual dos serviços"
 
@@ -7332,15 +7355,12 @@ msgstr ""
 "Consulte as principais informações do site atualmente ligado a este painel "
 "de controlo."
 
-#| msgid "Clean website addresses"
 msgid "Current website details"
 msgstr "Detalhes atuais do site"
 
-#| msgid "Website goal"
 msgid "Website name"
 msgstr "Nome do site"
 
-#| msgid "Templates"
 msgid "Template"
 msgstr "Modelo"
 
@@ -7415,19 +7435,15 @@ msgstr "Pacote de widgets AutoFix"
 msgid "Onboarding"
 msgstr "Configuração inicial"
 
-#| msgid "Start your one-page site"
 msgid "Set up your online store"
 msgstr "Configure a sua loja online"
 
-#| msgid "Start your WordPress website"
 msgid "Set up your WordPress website"
 msgstr "Configure o seu site WordPress"
 
-#| msgid "Start your print request"
 msgid "Set up your print request"
 msgstr "Configure o seu pedido de impressão"
 
-#| msgid "Send your business details"
 msgid "Set up your business website"
 msgstr "Configure o site da sua empresa"
 
@@ -7449,35 +7465,28 @@ msgstr ""
 msgid "Panel 1"
 msgstr "Painel 1"
 
-#| msgid "Business Website"
 msgid "Business basics"
 msgstr "Informações principais da empresa"
 
-#| msgid ""
-#| "Provide the details needed to prepare the website around your business."
 msgid ""
 "Add the main details customers need to recognise and contact your business."
 msgstr ""
 "Adicione as principais informações de que os clientes precisam para "
 "identificar e contactar a sua empresa."
 
-#| msgid "Meta description"
 msgid "Continue to description"
 msgstr "Continuar para a descrição"
 
 msgid "Panel 2"
 msgstr "Painel 2"
 
-#| msgid "Meta description"
 msgid "Short description"
 msgstr "Descrição curta"
 
-#| msgid "Sections that explain what you do in seconds"
 msgid "Write a short introduction that explains what your business does."
 msgstr ""
 "Escreva uma breve apresentação que explique a atividade da sua empresa."
 
-#| msgid "Meta description"
 msgid "Business description"
 msgstr "Descrição da empresa"
 
@@ -7488,18 +7497,15 @@ msgstr ""
 "Esta descrição será guardada e reutilizada nas áreas relevantes da "
 "configuração da sua empresa."
 
-#| msgid "View products"
 msgid "Continue to products"
 msgstr "Continuar para os produtos"
 
-#| msgid "Core services"
 msgid "Continue to services"
 msgstr "Continuar para os serviços"
 
 msgid "Panel 3"
 msgstr "Painel 3"
 
-#| msgid "Production"
 msgid "Products"
 msgstr "Produtos"
 
@@ -7509,19 +7515,15 @@ msgstr "Adicione até três produtos para esta primeira pré-visualização."
 msgid "Add up to three services for this first preview."
 msgstr "Adicione até três serviços para esta primeira pré-visualização."
 
-#| msgid "Production"
 msgid "Product 1"
 msgstr "Produto 1"
 
-#| msgid "Production"
 msgid "Product 2"
 msgstr "Produto 2"
 
-#| msgid "Production"
 msgid "Product 3"
 msgstr "Produto 3"
 
-#| msgid "Service 1"
 msgid "Service 3"
 msgstr "Serviço 3"
 
@@ -7532,14 +7534,12 @@ msgstr ""
 "Estes três itens são utilizados apenas para a pré-visualização nesta fase e "
 "ainda não são guardados no perfil da empresa."
 
-#| msgid "Continue editing"
 msgid "Continue to branding"
 msgstr "Continuar para a identidade visual"
 
 msgid "Panel 4"
 msgstr "Painel 4"
 
-#| msgid "Heading"
 msgid "Branding"
 msgstr "Identidade visual"
 
@@ -7548,7 +7548,6 @@ msgstr ""
 "Escolha uma cor para a sua marca e prepare os elementos da identidade visual "
 "para a etapa seguinte."
 
-#| msgid "Content upload"
 msgid "Logo upload"
 msgstr "Carregamento do logótipo"
 
@@ -7556,9 +7555,9 @@ msgid ""
 "Logo upload will be added in the next phase. For now, use the preview to "
 "shape the rest of your first draft."
 msgstr ""
-"O carregamento do logótipo estará disponível numa etapa posterior. Por agora, "
-"utilize a pré-visualização para definir os restantes elementos da primeira "
-"versão."
+"O carregamento do logótipo estará disponível numa etapa posterior. Por "
+"agora, utilize a pré-visualização para definir os restantes elementos da "
+"primeira versão."
 
 msgid ""
 "Saving this form stores the core business details already supported by the "
@@ -7567,31 +7566,24 @@ msgstr ""
 "Ao guardar este formulário, serão registadas as principais informações da "
 "empresa atualmente suportadas nesta configuração."
 
-#| msgid "Create account to continue"
 msgid "Save and continue"
 msgstr "Guardar e continuar"
 
-#| msgid "Open preview"
 msgid "Live preview"
 msgstr "Pré-visualização em tempo real"
 
-#| msgid "Your website is prepared"
 msgid "Your first website card"
 msgstr "Primeira apresentação do seu site"
 
-#| msgid "Open preview"
 msgid "Store preview"
 msgstr "Pré-visualização da loja"
 
-#| msgid "Open preview"
 msgid "Print preview"
 msgstr "Pré-visualização da impressão"
 
-#| msgid "Website Preview"
 msgid "Website preview"
 msgstr "Pré-visualização do site"
 
-#| msgid "Business name"
 msgid "Your business name"
 msgstr "Nome da sua empresa"
 
@@ -7599,10 +7591,8 @@ msgid "Your city"
 msgstr "A sua cidade"
 
 msgid "Your short business description will appear here as you type."
-msgstr ""
-"A descrição curta da sua empresa aparecerá aqui à medida que escreve."
+msgstr "A descrição curta da sua empresa aparecerá aqui à medida que escreve."
 
-#| msgid "Add your main services here."
 msgid "Add your first item on the left."
 msgstr "Adicione o primeiro item à esquerda."
 
@@ -7612,11 +7602,9 @@ msgstr "Adicione um segundo item, se necessário."
 msgid "Add a third item for a fuller preview."
 msgstr "Adicione um terceiro item para uma pré-visualização mais completa."
 
-#| msgid "Book now"
 msgid "Shop now"
 msgstr "Comprar agora"
 
-#| msgid "Request quote"
 msgid "Request a quote"
 msgstr "Pedir orçamento"
 
@@ -7624,9 +7612,9 @@ msgid ""
 "The preview updates instantly while you type. Services and logo upload are "
 "visual only for this first pass and will be connected in phase 2."
 msgstr ""
-"A pré-visualização é atualizada à medida que escreve. Nesta fase, os serviços "
-"e o logótipo são apresentados apenas visualmente e serão ligados ao processo "
-"de configuração posteriormente."
+"A pré-visualização é atualizada à medida que escreve. Nesta fase, os "
+"serviços e o logótipo são apresentados apenas visualmente e serão ligados ao "
+"processo de configuração posteriormente."
 
 msgid "Operator Control Panel"
 msgstr "Painel de controlo do operador"
@@ -9704,9 +9692,6 @@ msgstr "Campos"
 
 #~ msgid "Clear"
 #~ msgstr "Limpar"
-
-#~ msgid "Currently"
-#~ msgstr "Atualmente"
 
 #~ msgid "Change"
 #~ msgstr "Alterar"

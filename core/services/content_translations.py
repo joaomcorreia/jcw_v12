@@ -5,6 +5,7 @@ from core.content_blocks import (
     BRAND_GLOSSARY_TERMS,
     PILOT_CONTENT_BLOCK_DEFINITIONS,
     build_default_block_payload,
+    get_content_block_ui_label,
     get_supported_content_languages,
 )
 from core.models import ContentBlock, ContentBlockTranslation, ContentGlossaryTerm, ContentSiteSettings, Site
@@ -190,8 +191,31 @@ def auto_update_block_translations(block, source_translation, backend=None, lang
 
 def save_block_translation(block, language_code, payload, *, is_protected=False, is_published=True, auto_translate_enabled=True, backend=None):
     normalized_payload = normalize_block_payload(block.key, payload, language_code)
+    existing_translation = get_translation(block, language_code)
+    existing_payload = (
+        normalize_block_payload(block.key, existing_translation.payload_json, language_code)
+        if existing_translation
+        else None
+    )
+    content_changed = existing_translation is None or existing_payload != normalized_payload
+    translation = existing_translation or get_translation(block, language_code, create=True)
+
+    if not content_changed:
+        translation.is_protected = is_protected
+        translation.is_published = is_published
+        translation.save(update_fields=["is_protected", "is_published", "updated_at"])
+        return {
+            "translation": translation,
+            "content_changed": False,
+            "auto_result": {
+                "updated_languages": [],
+                "skipped_languages": [],
+                "failed_languages": [],
+                "backend_available": False,
+            },
+        }
+
     source_revision_hash = build_revision_hash(normalized_payload)
-    translation = get_translation(block, language_code, create=True)
     translation.payload_json = normalized_payload
     translation.source_language = language_code
     translation.source_revision_hash = source_revision_hash
@@ -209,17 +233,23 @@ def save_block_translation(block, language_code, payload, *, is_protected=False,
         if other_language == language_code:
             continue
         other_translation = get_translation(block, other_language, create=True)
+        if other_translation.is_protected:
+            continue
         other_translation.source_language = language_code
         other_translation.source_revision_hash = source_revision_hash
         if other_translation.translated_from_revision_hash != source_revision_hash:
             other_translation.status = ContentBlockTranslation.STATUS_OUTDATED
         other_translation.save(update_fields=["source_language", "source_revision_hash", "status"])
 
-    auto_result = {"updated_languages": [], "skipped_languages": [], "backend_available": False}
+    auto_result = {
+        "updated_languages": [],
+        "skipped_languages": [],
+        "failed_languages": [],
+        "backend_available": False,
+    }
     if auto_translate_enabled:
         auto_result = auto_update_block_translations(block, translation, backend=backend)
-    return {"translation": translation, "auto_result": auto_result}
-
+    return {"translation": translation, "content_changed": True, "auto_result": auto_result}
 
 def update_site_translations(site, backend=None):
     ensure_pilot_content_blocks(site)
@@ -245,14 +275,20 @@ def build_block_summary(block):
         translation = by_language.get(language_code)
         languages.append({
             "code": language_code,
-            "status": translation.display_status if translation else "Missing",
+            "status": translation.status if translation else "missing",
             "is_protected": bool(translation and translation.is_protected),
             "updated_at": translation.updated_at if translation else None,
         })
-    return {"block": block, "languages": languages, "last_source_language": block.last_source_language or "en"}
-
+    return {
+        "block": block,
+        "label": get_content_block_ui_label(block.key),
+        "languages": languages,
+        "last_source_language": block.last_source_language or "en",
+    }
 
 def get_block_summaries(site):
     ensure_pilot_content_blocks(site)
-    blocks = ContentBlock.objects.filter(site=site, is_active=True).prefetch_related("translations").order_by("key")
+    blocks = ContentBlock.objects.filter(site=site, is_active=True).prefetch_related("translations")
+    order = {definition["key"]: index for index, definition in enumerate(PILOT_CONTENT_BLOCK_DEFINITIONS)}
+    blocks = sorted(blocks, key=lambda block: order.get(block.key, len(order)))
     return [build_block_summary(block) for block in blocks]

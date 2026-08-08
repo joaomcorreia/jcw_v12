@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext as _
 
-from core.content_blocks import get_supported_content_languages
+from core.content_blocks import get_content_block_ui_label, get_supported_content_languages
 from core.models import ContentBlock, Site
 from core.services.content_translations import ensure_content_site_settings, ensure_pilot_content_blocks, get_block_payload, get_block_summaries, get_translation, save_block_translation, update_site_translations
 
@@ -151,7 +151,9 @@ def content_translation_edit(request, block_id, language_code):
 
     return render(request, "controlpanel/content_translation_edit.html", {
         "block": block,
+        "block_label": get_content_block_ui_label(block.key),
         "language_code": language_code,
+        "source_language": (block.last_source_language or "en").upper(),
         "form": form,
         "translation": translation,
         "all_translations": block.translations.order_by("language_code"),

@@ -1,4 +1,4 @@
-{% extends "controlpanel/base_controlpanel.html" %}
+﻿{% extends "controlpanel/base_controlpanel.html" %}
 {% load i18n %}
 
 {% block title %}{% trans "Content & Translations" %}{% endblock %}
@@ -28,15 +28,21 @@
   <div class="dashboard-cards">
     {% for summary in block_summaries %}
     <article class="dashboard-card" style="padding: 1.5rem;">
-      <h2 class="dashboard-subtitle" style="margin-top: 0;">{{ summary.block.label }}</h2>
-      <p class="dashboard-muted">{% trans "Placement" %}: <code>{{ summary.block.placement }}</code></p>
+      <h2 class="dashboard-subtitle" style="margin-top: 0;">{{ summary.label }}</h2>
+      <p class="dashboard-muted">{% trans "Placement" %}: {% trans "Homepage" %}</p>
       <p class="dashboard-muted">{% trans "Last updated source language" %}: <strong>{{ summary.last_source_language|upper }}</strong></p>
       <div style="display:grid; gap:.5rem; margin:1rem 0;">
         {% for language in summary.languages %}
         <div style="display:flex; justify-content:space-between; gap:1rem; align-items:center; border:1px solid #d7deea; border-radius:.75rem; padding:.75rem 1rem;">
           <div>
             <strong>{{ language.code|upper }}</strong>
-            <span class="dashboard-muted" style="margin-left:.75rem;">{{ language.status }}</span>
+            <span class="dashboard-muted" style="margin-left:.75rem;">
+              {% if language.is_protected %}{% trans "Protected" %}
+              {% elif language.status == "current" %}{% trans "Current" %}
+              {% elif language.status == "outdated" %}{% trans "Outdated" %}
+              {% elif language.status == "needs_review" %}{% trans "Needs review" %}
+              {% else %}{% trans "Missing" %}{% endif %}
+            </span>
           </div>
           <a class="dashboard-button dashboard-button--secondary" href="{% url 'control_panel:content_translation_edit' summary.block.id language.code %}">{% trans "Edit" %}</a>
         </div>

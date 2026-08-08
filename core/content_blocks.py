@@ -1,8 +1,18 @@
-from django.conf import settings
+﻿from django.conf import settings
 from django.utils import translation
 from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy
 
 
+PILOT_CONTENT_UI_LABELS = {
+    "home-foundations": gettext_lazy("Homepage: Digital systems built for the next stage."),
+    "home-ai-business-tools": gettext_lazy("Homepage: AI-powered business tools"),
+    "home-connected-systems": gettext_lazy("Homepage: Built as connected systems."),
+}
+
+
+def get_content_block_ui_label(block_key):
+    return PILOT_CONTENT_UI_LABELS.get(block_key, block_key)
 BRAND_GLOSSARY_TERMS = [
     "Just Code Works",
     "JCW",

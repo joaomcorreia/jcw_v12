@@ -1,19 +1,25 @@
-{% extends "controlpanel/base_controlpanel.html" %}
+﻿{% extends "controlpanel/base_controlpanel.html" %}
 {% load i18n %}
 
-{% block title %}{{ block.label }}{% endblock %}
+{% block title %}{{ block_label }}{% endblock %}
 
 {% block content %}
 <div class="dashboard-page">
   <p><a class="dashboard-top-link" href="{{ back_url }}">{% trans "Back to Content & Translations" %}</a></p>
-  <h1 class="dashboard-title">{{ block.label }}</h1>
-  <p class="dashboard-muted">{% blocktrans with code=language_code|upper source=block.last_source_language|upper %}Editing {{ code }}. The current source language for this block is {{ source }}.{% endblocktrans %}</p>
+  <h1 class="dashboard-title">{{ block_label }}</h1>
+  <p class="dashboard-muted">{% blocktrans with code=language_code|upper source=source_language %}Editing {{ code }}. The current source language for this block is {{ source }}.{% endblocktrans %}</p>
 
   <div class="dashboard-cards" style="margin-bottom:1.5rem;">
     {% for item in all_translations %}
     <article class="dashboard-card" style="padding:1rem;">
       <strong>{{ item.language_code|upper }}</strong>
-      <div class="dashboard-muted">{{ item.display_status }}</div>
+      <div class="dashboard-muted">
+        {% if item.is_protected %}{% trans "Protected" %}
+        {% elif item.status == "current" %}{% trans "Current" %}
+        {% elif item.status == "outdated" %}{% trans "Outdated" %}
+        {% elif item.status == "needs_review" %}{% trans "Needs review" %}
+        {% else %}{% trans "Missing" %}{% endif %}
+      </div>
     </article>
     {% endfor %}
   </div>

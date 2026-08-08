@@ -96,6 +96,82 @@ class ContentTranslationsV1Tests(TestCase):
         self.assertEqual(german.payload_json["heading"], "Geschuetzte deutsche Fassung")
         self.assertEqual(german.display_status, "Protected")
 
+    def _make_dutch_source(self, block):
+        payload = get_block_payload(block, "nl")
+        payload["heading"] = "Nieuwe Nederlandse bron"
+        save_block_translation(block, "nl", payload, auto_translate_enabled=False)
+        block.refresh_from_db()
+
+    def test_editing_dutch_payload_makes_dutch_source(self):
+        block = ContentBlock.objects.get(site=self.main_site, key="home-foundations")
+        self._make_dutch_source(block)
+        dutch = ContentBlockTranslation.objects.get(block=block, language_code="nl")
+        self.assertEqual(block.last_source_language, "nl")
+        self.assertEqual(dutch.status, ContentBlockTranslation.STATUS_CURRENT)
+        self.assertEqual(dutch.source_language, "nl")
+
+    def test_protecting_german_without_content_change_keeps_dutch_source(self):
+        block = ContentBlock.objects.get(site=self.main_site, key="home-foundations")
+        self._make_dutch_source(block)
+        german = ContentBlockTranslation.objects.get(block=block, language_code="de")
+        original_payload = german.payload_json.copy()
+        save_block_translation(block, "de", original_payload, is_protected=True, auto_translate_enabled=False)
+        block.refresh_from_db()
+        german.refresh_from_db()
+        self.assertEqual(block.last_source_language, "nl")
+        self.assertTrue(german.is_protected)
+        self.assertEqual(german.payload_json, original_payload)
+        self.assertEqual(german.status, ContentBlockTranslation.STATUS_OUTDATED)
+
+    def test_published_toggle_without_content_change_keeps_dutch_source(self):
+        block = ContentBlock.objects.get(site=self.main_site, key="home-ai-business-tools")
+        self._make_dutch_source(block)
+        german = ContentBlockTranslation.objects.get(block=block, language_code="de")
+        save_block_translation(block, "de", german.payload_json, is_published=False, auto_translate_enabled=False)
+        block.refresh_from_db()
+        german.refresh_from_db()
+        self.assertEqual(block.last_source_language, "nl")
+        self.assertFalse(german.is_published)
+
+    def test_unchanged_german_submission_keeps_dutch_source(self):
+        block = ContentBlock.objects.get(site=self.main_site, key="home-connected-systems")
+        self._make_dutch_source(block)
+        german = ContentBlockTranslation.objects.get(block=block, language_code="de")
+        original_status = german.status
+        save_block_translation(block, "de", german.payload_json, auto_translate_enabled=False)
+        block.refresh_from_db()
+        german.refresh_from_db()
+        self.assertEqual(block.last_source_language, "nl")
+        self.assertEqual(german.status, original_status)
+
+    def test_actual_german_content_edit_makes_german_source(self):
+        block = ContentBlock.objects.get(site=self.main_site, key="home-foundations")
+        self._make_dutch_source(block)
+        german = ContentBlockTranslation.objects.get(block=block, language_code="de")
+        payload = german.payload_json.copy()
+        payload["items"][0]["body"] = "Geaenderter deutscher Inhalt"
+        save_block_translation(block, "de", payload, auto_translate_enabled=False)
+        block.refresh_from_db()
+        german.refresh_from_db()
+        self.assertEqual(block.last_source_language, "de")
+        self.assertEqual(german.status, ContentBlockTranslation.STATUS_CURRENT)
+        self.assertEqual(german.payload_json["items"][0]["body"], "Geaenderter deutscher Inhalt")
+
+    def test_protected_german_survives_later_dutch_source_edit(self):
+        block = ContentBlock.objects.get(site=self.main_site, key="home-ai-business-tools")
+        german = ContentBlockTranslation.objects.get(block=block, language_code="de")
+        original_payload = german.payload_json.copy()
+        save_block_translation(block, "de", original_payload, is_protected=True, auto_translate_enabled=False)
+        self._make_dutch_source(block)
+        block.refresh_from_db()
+        german.refresh_from_db()
+        self.assertEqual(block.last_source_language, "nl")
+        self.assertTrue(german.is_protected)
+        self.assertEqual(german.payload_json, original_payload)
+        self.assertEqual(german.display_status, "Protected")
+        french = ContentBlockTranslation.objects.get(block=block, language_code="fr")
+        self.assertEqual(french.source_language, "nl")
+        self.assertIn(french.status, (ContentBlockTranslation.STATUS_OUTDATED, ContentBlockTranslation.STATUS_NEEDS_REVIEW))
     def test_failed_target_does_not_rollback_source_or_other_targets(self):
         backend = FailingFrenchBackend()
         block = ContentBlock.objects.get(site=self.main_site, key="home-foundations")

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Just Code Works\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-07 19:16+0200\n"
+"POT-Creation-Date: 2026-08-08 11:37+0200\n"
 "PO-Revision-Date: 2026-08-07 18:35+0200\n"
 "Language-Team: Dutch\n"
 "Language: nl\n"
@@ -62,6 +62,92 @@ msgstr "Plan vergrendeld."
 msgid "Tenant updated."
 msgstr "Klantomgeving bijgewerkt."
 
+msgid "Automatic translation updates"
+msgstr "Automatische vertaalupdates"
+
+#| msgid "Section"
+msgid "Section label"
+msgstr "Sectielabel"
+
+msgid "Heading"
+msgstr "Koptekst"
+
+#| msgid "Production"
+msgid "Introduction"
+msgstr "Introductie"
+
+#| msgid "Clear page titles"
+msgid "Card 1 title"
+msgstr "Titel van kaart 1"
+
+#| msgid "CTA text"
+msgid "Card 1 text"
+msgstr "Tekst van kaart 1"
+
+#| msgid "Clear page titles"
+msgid "Card 2 title"
+msgstr "Titel van kaart 2"
+
+#| msgid "CTA text"
+msgid "Card 2 text"
+msgstr "Tekst van kaart 2"
+
+#| msgid "Clear page titles"
+msgid "Card 3 title"
+msgstr "Titel van kaart 3"
+
+#| msgid "CTA text"
+msgid "Card 3 text"
+msgstr "Tekst van kaart 3"
+
+msgid "Protect this translation from automatic updates"
+msgstr "Deze vertaling beschermen tegen automatische updates"
+
+msgid "Published"
+msgstr "Gepubliceerd"
+
+msgid "Automatic translation updates setting saved."
+msgstr "Instelling voor automatische vertaalupdates opgeslagen."
+
+#, python-format
+msgid "Translations updated for %(count)s language entries."
+msgstr "Vertalingen bijgewerkt voor %(count)s taalitems."
+
+msgid ""
+"Automatic translation backend is not configured yet. Outdated translations "
+"were left unchanged."
+msgstr ""
+"De automatische vertaalfunctie is nog niet geconfigureerd. Verouderde "
+"vertalingen zijn niet gewijzigd."
+
+#| msgid "Preferred language"
+msgid "Unsupported language."
+msgstr "Niet-ondersteunde taal."
+
+#, python-format
+msgid ""
+"Content saved. %(count)s translation(s) updated; %(failed)s could not be "
+"updated and remain marked for review."
+msgstr ""
+"Content opgeslagen. %(count)s vertaling(en) zijn bijgewerkt; %(failed)s "
+"konden niet worden bijgewerkt en blijven gemarkeerd voor controle."
+
+#, python-format
+msgid "Content saved. Automatic updates ran for %(count)s translation(s)."
+msgstr ""
+"Content opgeslagen. Automatische updates zijn uitgevoerd voor %(count)s "
+"vertaling(en)."
+
+msgid ""
+"Content saved. Other translations were marked outdated because no automatic "
+"translation backend is configured yet."
+msgstr ""
+"Content opgeslagen. Andere vertalingen zijn als verouderd gemarkeerd omdat "
+"de automatische vertaalfunctie nog niet is geconfigureerd."
+
+msgid "Content saved. Other translations were marked outdated."
+msgstr "Content opgeslagen. Andere vertalingen zijn als verouderd gemarkeerd."
+
 msgid "Plan updated for this site."
 msgstr "Plan voor deze site bijgewerkt."
 
@@ -77,17 +163,154 @@ msgstr "Locaties"
 msgid "EU"
 msgstr "EU"
 
+#| msgid "Digital systems built for the next stage."
+msgid "Homepage: Digital systems built for the next stage."
+msgstr "Homepage: Digitale systemen ontwikkeld voor de volgende fase."
+
+#| msgid "AI-powered business tools"
+msgid "Homepage: AI-powered business tools"
+msgstr "Homepage: AI-tools voor bedrijven"
+
+#| msgid "Built as connected systems."
+msgid "Homepage: Built as connected systems."
+msgstr "Homepage: Ontwikkeld als verbonden systemen."
+
+msgid "Foundations"
+msgstr "Fundament"
+
+msgid "Digital systems built for the next stage."
+msgstr "Digitale systemen ontwikkeld voor de volgende fase."
+
+msgid ""
+"Reusable platforms that connect products, services, workflows and operations."
+msgstr ""
+"Herbruikbare platforms die producten, diensten, werkprocessen en "
+"bedrijfsactiviteiten met elkaar verbinden."
+
+msgid "Custom platforms"
+msgstr "Maatwerkplatforms"
+
+msgid ""
+"Systems designed around specific products, services and business workflows."
+msgstr ""
+"Systemen die zijn ontworpen rond specifieke producten, diensten en "
+"bedrijfsprocessen."
+
+msgid "Built for multiple markets"
+msgstr "Ontwikkeld voor meerdere markten"
+
+msgid ""
+"Flexible foundations for different languages, locations and commercial "
+"models."
+msgstr ""
+"Flexibele fundamenten voor verschillende talen, locaties en commerciële "
+"modellen."
+
+msgid "Ready to grow"
+msgstr "Klaar om verder te groeien"
+
+msgid ""
+"Platforms that can evolve into licensed, white-label or reseller "
+"opportunities."
+msgstr ""
+"Platforms die kunnen doorgroeien naar licentie-, white-label- of "
+"resellermodellen."
+
+msgid "AI-powered business tools"
+msgstr "AI-tools voor bedrijven"
+
+msgid ""
+"We build practical AI tools around real business information, helping "
+"companies support customers, create content, work across languages and "
+"automate repetitive tasks."
+msgstr ""
+"We ontwikkelen praktische AI-tools op basis van echte bedrijfsinformatie. "
+"Daarmee kunnen bedrijven klanten ondersteunen, content maken, in meerdere "
+"talen werken en terugkerende taken automatiseren."
+
+msgid "Multilingual AI Assistants"
+msgstr "Meertalige AI-assistenten"
+
+msgid ""
+"Customer-facing assistants connected to business knowledge, with "
+"multilingual replies, lead capture, contact handoff and dashboard-based "
+"management."
+msgstr ""
+"Assistenten voor klanten die zijn gekoppeld aan bedrijfskennis, met "
+"meertalige antwoorden, het verzamelen van contactaanvragen, doorverwijzing "
+"naar contact en beheer via het dashboard."
+
+msgid "Content & Localisation"
+msgstr "Content & lokalisatie"
+
+msgid ""
+"AI tools for website copy, product and service descriptions, social content, "
+"FAQs and multilingual publishing."
+msgstr ""
+"AI-tools voor websiteteksten, product- en dienstbeschrijvingen, socialmedia-"
+"content, veelgestelde vragen en meertalige publicatie."
+
+msgid "Automation & Insights"
+msgstr "Automatisering & Insights"
+
+msgid ""
+"Use enquiries, customer activity and business data to generate summaries, "
+"qualify leads, recommend actions and simplify recurring workflows."
+msgstr ""
+"Gebruik aanvragen, klantactiviteit en bedrijfsgegevens om samenvattingen te "
+"maken, potentiële klanten te beoordelen, acties aan te bevelen en "
+"terugkerende processen te vereenvoudigen."
+
+msgid "Connected Systems"
+msgstr "Verbonden systemen"
+
+msgid "Built as connected systems."
+msgstr "Ontwikkeld als verbonden systemen."
+
+msgid ""
+"A strong core can support focused products now and new opportunities later."
+msgstr ""
+"Een sterke kern kan nu gerichte producten ondersteunen en later ruimte "
+"bieden voor nieuwe mogelijkheden."
+
+msgid "Shared foundations"
+msgstr "Gedeelde fundamenten"
+
+msgid ""
+"Common identity, data, language and workflow foundations keep related "
+"products consistent."
+msgstr ""
+"Gedeelde fundamenten voor identiteit, gegevens, talen en werkprocessen "
+"zorgen voor samenhang tussen gerelateerde producten."
+
+msgid "Independent products"
+msgstr "Zelfstandige producten"
+
+msgid ""
+"Each product can stay focused on its users, proposition and commercial model."
+msgstr ""
+"Elk product kan gericht blijven op zijn eigen gebruikers, aanbod en "
+"commerciële model."
+
+msgid "Expandable infrastructure"
+msgstr "Uitbreidbare infrastructuur"
+
+msgid ""
+"New operators, markets and services can be added without rebuilding the "
+"platform from scratch."
+msgstr ""
+"Nieuwe aanbieders, markten en diensten kunnen worden toegevoegd zonder het "
+"platform volledig opnieuw te hoeven bouwen."
+
 msgid "Home"
 msgstr "Home"
 
 msgid "About"
 msgstr "Over ons"
 
-#| msgid "What we do"
 msgid "What We Build"
 msgstr "Wat we ontwikkelen"
 
-#| msgid "How It Works"
 msgid "How We Work"
 msgstr "Hoe we werken"
 
@@ -770,7 +993,6 @@ msgstr ""
 "Warme, uitnodigende vormgeving voor menu's, openingstijden en een duidelijke "
 "online presentatie van het horecabedrijf."
 
-#| msgid "Just Code Works - The Netherlands"
 msgid "Just Code Works | Multilingual Platforms"
 msgstr "Just Code Works | Meertalige platforms"
 
@@ -781,7 +1003,6 @@ msgstr ""
 "Just Code Works ontwikkelt meertalige digitale platforms voor bedrijven en "
 "nieuwe ondernemingen."
 
-#| msgid "Just Code Works"
 msgid "About Just Code Works"
 msgstr "Over Just Code Works"
 
@@ -791,16 +1012,13 @@ msgstr ""
 "Ontdek hoe Just Code Works herbruikbare digitale systemen ontwerpt en "
 "beheert."
 
-#| msgid "Just Code Works"
 msgid "What We Build | Just Code Works"
 msgstr "Wat we ontwikkelen | Just Code Works"
 
 msgid ""
 "Explore multilingual, custom, white-label and reseller digital platforms."
-msgstr ""
-"Ontdek meertalige, maatwerk-, white-label- en resellerplatforms."
+msgstr "Ontdek meertalige, maatwerk-, white-label- en resellerplatforms."
 
-#| msgid "Just Code Works"
 msgid "How We Work | Just Code Works"
 msgstr "Hoe we werken | Just Code Works"
 
@@ -857,7 +1075,6 @@ msgstr ""
 "Prijzen voor websites, digitale tools, online zichtbaarheid en aanvullende "
 "JCW-diensten."
 
-#| msgid "Just Code Works"
 msgid "Contact | Just Code Works"
 msgstr "Contact | Just Code Works"
 
@@ -865,8 +1082,8 @@ msgid ""
 "Discuss a custom, white-label, reseller or partnership platform with Just "
 "Code Works."
 msgstr ""
-"Bespreek met Just Code Works de mogelijkheden voor een maatwerk-, "
-"white-label-, reseller- of partnerplatform."
+"Bespreek met Just Code Works de mogelijkheden voor een maatwerk-, white-"
+"label-, reseller- of partnerplatform."
 
 msgid "Facebook Visibility"
 msgstr "Facebook-zichtbaarheid"
@@ -976,15 +1193,12 @@ msgstr "SEO-doelgebieden opgeslagen."
 msgid "Upgrade to add more cities."
 msgstr "Upgrade je plan om meer steden toe te voegen."
 
-#| msgid "Create plan"
 msgid "No active plan"
 msgstr "Geen actief plan"
 
-#| msgid "Not indexed"
 msgid "Not connected"
 msgstr "Niet gekoppeld"
 
-#| msgid "Manage"
 msgid "Media Manager"
 msgstr "Mediabeheer"
 
@@ -995,7 +1209,6 @@ msgstr ""
 "Op deze pagina kun je straks de afbeeldingen en bestanden beheren die op je "
 "website worden gebruikt."
 
-#| msgid "Schema status"
 msgid "Media status"
 msgstr "Mediastatus"
 
@@ -1029,7 +1242,6 @@ msgstr ""
 "onderdeel is geactiveerd, worden hier de verbindingsstatus en toegang tot "
 "rapportages weergegeven."
 
-#| msgid "Facebook Posting"
 msgid "Facebook Insights"
 msgstr "Facebook Insights"
 
@@ -1040,7 +1252,6 @@ msgstr ""
 "Deze pagina toont straks de Facebook-koppeling en pagina-inzichten wanneer "
 "deze functie in het klantdashboard beschikbaar is."
 
-#| msgid "Site status"
 msgid "Insights status"
 msgstr "Insights-status"
 
@@ -1059,10 +1270,9 @@ msgid ""
 "This page will organize future social content planning connected to your "
 "website and services."
 msgstr ""
-"Deze pagina wordt de centrale plek voor toekomstige planning van "
-"socialmedia-inhoud rond je website en diensten."
+"Deze pagina wordt de centrale plek voor toekomstige planning van socialmedia-"
+"inhoud rond je website en diensten."
 
-#| msgid "Planning"
 msgid "Planning status"
 msgstr "Planningsstatus"
 
@@ -1083,7 +1293,6 @@ msgstr ""
 "Op deze pagina kun je straks eenvoudig afbeeldingen voor je website en "
 "sociale media voorbereiden vanuit het dashboard."
 
-#| msgid "Site status"
 msgid "Tool status"
 msgstr "Toolstatus"
 
@@ -1121,7 +1330,6 @@ msgstr ""
 "Gebruik dit onderdeel om te zien waar hulp en ondersteuningsopties voor het "
 "dashboard beschikbaar zullen zijn."
 
-#| msgid "Support style"
 msgid "Support status"
 msgstr "Supportstatus"
 
@@ -1449,7 +1657,6 @@ msgstr ""
 msgid "Control Panel"
 msgstr "Control Panel"
 
-#| msgid "Just Code Works - The Netherlands"
 msgid "Just Code Works - Control Panel"
 msgstr "Just Code Works - Control Panel"
 
@@ -1483,6 +1690,10 @@ msgstr "Facturatie"
 msgid "Content map"
 msgstr "Contentoverzicht"
 
+#| msgid "Content & Localisation"
+msgid "Content & Translations"
+msgstr "Content & Vertalingen"
+
 msgid "Plans"
 msgstr "Plannen"
 
@@ -1493,7 +1704,6 @@ msgid "Admin"
 msgstr "Beheer"
 
 #, python-format
-#| msgid "Preview mode"
 msgid "Preview mode: v=%(version)s"
 msgstr "Voorbeeldmodus: v=%(version)s"
 
@@ -1504,7 +1714,6 @@ msgid "Just Code Works"
 msgstr "Just Code Works"
 
 #, python-format
-#| msgid "Impersonate"
 msgid "impersonate: %(value)s"
 msgstr "Inloggen als: %(value)s"
 
@@ -1542,10 +1751,70 @@ msgstr "Bekijk pagina"
 msgid "No marketing pages found."
 msgstr "Geen marketingpagina’s gevonden."
 
-msgid "Staff-only dashboard for core system objects."
-msgstr "Dashboard alleen voor medewerkers voor de belangrijkste systeemobjecten."
+#| msgid "Content & Localisation"
+msgid "Back to Content & Translations"
+msgstr "Terug naar Content & Vertalingen"
 
-#| msgid "Open user admin"
+#, python-format
+msgid ""
+"Editing %(code)s. The current source language for this block is %(source)s."
+msgstr ""
+"%(code)s wordt bewerkt. De huidige brontaal voor dit blok is %(source)s."
+
+#| msgid "Not connected"
+msgid "Protected"
+msgstr "Beschermd"
+
+#| msgid "Current plan"
+msgid "Current"
+msgstr "Actueel"
+
+#| msgid "Updated"
+msgid "Outdated"
+msgstr "Verouderd"
+
+#| msgid "Request review"
+msgid "Needs review"
+msgstr "Controle nodig"
+
+#| msgid "Save tenant"
+msgid "Save content"
+msgstr "Content opslaan"
+
+msgid "Translations will update from the list page"
+msgstr "Vertalingen kunnen vanaf de overzichtspagina worden bijgewerkt"
+
+msgid ""
+"Edit reusable homepage content and keep language versions in sync without "
+"moving website copy into .po files."
+msgstr ""
+"Bewerk herbruikbare homepagecontent en houd taalversies gesynchroniseerd "
+"zonder websiteteksten naar .po-bestanden te verplaatsen."
+
+#| msgid "Site settings"
+msgid "Save setting"
+msgstr "Instelling opslaan"
+
+msgid "Update translations"
+msgstr "Vertalingen bijwerken"
+
+msgid "Placement"
+msgstr "Plaatsing"
+
+#| msgid "Homepage preview"
+msgid "Homepage"
+msgstr "Homepage"
+
+msgid "Last updated source language"
+msgstr "Laatst gebruikte brontaal"
+
+msgid "Edit"
+msgstr "Bewerken"
+
+msgid "Staff-only dashboard for core system objects."
+msgstr ""
+"Dashboard alleen voor medewerkers voor de belangrijkste systeemobjecten."
+
 msgid "Open Django Admin"
 msgstr "Django Admin openen"
 
@@ -1553,43 +1822,33 @@ msgid "Pages"
 msgstr "Pagina’s"
 
 # ############
-#| msgid "Manage plans"
 msgid "Manage pages"
 msgstr "Pagina’s beheren"
 
-#| msgid "Section"
 msgid "Sections"
 msgstr "Secties"
 
-#| msgid "Manage subscription"
 msgid "Manage sections"
 msgstr "Secties beheren"
 
-#| msgid "Manage plans"
 msgid "Sidebar Panels"
 msgstr "Zijbalkpanelen"
 
-#| msgid "Manage plans"
 msgid "Manage sidebar panels"
 msgstr "Zijbalkpanelen beheren"
 
-#| msgid "Advanced features"
 msgid "Features"
 msgstr "Functies"
 
-#| msgid "Advanced features"
 msgid "Manage features"
 msgstr "Functies beheren"
 
-#| msgid "Main Site"
 msgid "Managed Sites"
 msgstr "Beheerde sites"
 
-#| msgid "One-page websites"
 msgid "Manage sites"
 msgstr "Sites beheren"
 
-#| msgid "Latest from the blog"
 msgid "Latest media upload"
 msgstr "Laatste media-upload"
 
@@ -1636,6 +1895,10 @@ msgstr "Maak je eerste tenant aan om te beginnen"
 msgid "Open Website builder"
 msgstr "Open website builder"
 
+#| msgid "Content & Localisation"
+msgid "Open Content & Translations"
+msgstr "Content & Vertalingen openen"
+
 msgid "Open templates"
 msgstr "Open templates"
 
@@ -1662,7 +1925,6 @@ msgstr "Naam"
 msgid "Slug"
 msgstr "Slug"
 
-#| msgid "SSL active"
 msgid "Active"
 msgstr "Actief"
 
@@ -1671,101 +1933,76 @@ msgstr ""
 "SEO-regels voor plannen worden beheerd in Django Admin (CORE -> Plan SEO "
 "settings)."
 
-#| msgid "Create plan"
 msgid "Save plan"
 msgstr "Plan opslaan"
 
 msgid "Tier"
 msgstr "Niveau"
 
-#| msgid "SSL active"
 msgid "Inactive"
 msgstr "Inactief"
 
 msgid "Frozen"
 msgstr "Vastgezet"
 
-#| msgid "Edit plan"
-msgid "Edit"
-msgstr "Bewerken"
-
 msgid "Freeze"
 msgstr "Vastzetten"
 
-#| msgid "No tenants yet"
 msgid "No plans yet"
 msgstr "Nog geen plannen"
 
-#| msgid "Coming Next"
 msgid "Coming soon."
 msgstr "Binnenkort beschikbaar."
 
-#| msgid "Edit plan"
 msgid "Edit template"
 msgstr "Template bewerken"
 
-#| msgid "Open templates"
 msgid "New template"
 msgstr "Nieuwe template"
 
 msgid "Description"
 msgstr "Beschrijving"
 
-#| msgid "Manage plans"
 msgid "Languages"
 msgstr "Talen"
 
-#| msgid "Section"
 msgid "Sections JSON"
 msgstr "Secties JSON"
 
 msgid "Example JSON:"
 msgstr "Voorbeeld-JSON:"
 
-#| msgid "Starter Template"
 msgid "Save template"
 msgstr "Template opslaan"
 
-#| msgid "Back to top"
 msgid "Back to list"
 msgstr "Terug naar lijst"
 
-#| msgid "Publish"
-msgid "Published"
-msgstr "Gepubliceerd"
-
-#| msgid "Plan updated."
 msgid "Updated"
 msgstr "Bijgewerkt"
 
 msgid "Draft"
 msgstr "Concept"
 
-#| msgid "Publish"
 msgid "Unpublish"
 msgstr "Publicatie intrekken"
 
 msgid "Publish"
 msgstr "Publiceren"
 
-#| msgid "No tenants yet"
 msgid "No templates yet"
 msgstr "Nog geen templates"
 
-#| msgid "Edit plan"
 msgid "Edit tenant"
 msgstr "Tenant bewerken"
 
 #, python-format
-#| msgid "Impersonate"
 msgid "Edit tenant: %(name)s"
 msgstr "Tenant bewerken: %(name)s"
 
-#| msgid "Plans"
 msgid "Plan"
 msgstr "Plan"
 
-#| msgid "Open tenants"
 msgid "Save tenant"
 msgstr "Tenant opslaan"
 
@@ -1778,19 +2015,15 @@ msgstr "Domein"
 msgid "Owner"
 msgstr "Eigenaar"
 
-#| msgid "Open tenants"
 msgid "Open tenant dashboard"
 msgstr "Tenantdashboard openen"
 
-#| msgid "Open tenants"
 msgid "Open tenant site"
 msgstr "Tenantsite openen"
 
-#| msgid "Impersonate"
 msgid "Impersonate"
 msgstr "Inloggen als"
 
-#| msgid "Open user admin"
 msgid "Open user admin"
 msgstr "Gebruikersbeheer openen"
 
@@ -1798,60 +2031,48 @@ msgid ""
 "User administration is handled in Django Admin. Use this shortcut to manage "
 "accounts safely."
 msgstr ""
-"Gebruikersbeheer wordt uitgevoerd in Django Admin. Gebruik deze snelkoppeling "
-"om accounts veilig te beheren."
+"Gebruikersbeheer wordt uitgevoerd in Django Admin. Gebruik deze "
+"snelkoppeling om accounts veilig te beheren."
 
-#| msgid "Edit homepage"
 msgid "Editing homepage hero"
 msgstr "Hero van homepage bewerken"
 
-#| msgid "Overview"
 msgid "Preview"
 msgstr "Voorbeeld"
 
-#| msgid "Preview mode"
 msgid "Preview mode"
 msgstr "Voorbeeldmodus"
 
-#| msgid "Desk mats"
 msgid "Desktop"
 msgstr "Desktop"
 
 msgid "Mobile"
 msgstr "Mobiel"
 
-#| msgid "Homepage hero saved."
 msgid "Homepage preview"
 msgstr "Voorbeeld van homepage"
 
-#| msgid "Meta title"
 msgid "Hero fields"
 msgstr "Hero-velden"
 
-#| msgid "Meta title"
 msgid "Hero title"
 msgstr "Hero-titel"
 
-#| msgid "Subtitle"
 msgid "Hero subtitle"
 msgstr "Hero-subtitel"
 
-#| msgid "CTA URL"
 msgid "Primary CTA label"
 msgstr "Tekst primaire CTA"
 
-#| msgid "CTA URL"
 msgid "Primary CTA URL"
 msgstr "URL primaire CTA"
 
 msgid "Secondary CTA label"
 msgstr "Tekst secundaire CTA"
 
-#| msgid "CTA URL"
 msgid "Secondary CTA URL"
 msgstr "URL secundaire CTA"
 
-#| msgid "Start here"
 msgid "Save hero"
 msgstr "Hero opslaan"
 
@@ -2211,15 +2432,12 @@ msgstr ""
 "We maken en publiceren regelmatig Facebook-berichten om je bedrijf actief en "
 "zichtbaar te houden en het contact met lokale klanten te ondersteunen."
 
-#| msgid "View service"
 msgid "View Pricing"
 msgstr "Prijzen bekijken"
 
-#| msgid "View service"
 msgid "Request service"
 msgstr "Dienst aanvragen"
 
-#| msgid "Facebook Posting"
 msgid "8 posts per month"
 msgstr "Regelmatige Facebook-berichten"
 
@@ -2228,7 +2446,6 @@ msgstr ""
 "Een regelmatig publicatieritme om je bedrijfspagina actief en zichtbaar te "
 "houden."
 
-#| msgid "Choose your layout"
 msgid "Done for you"
 msgstr "Volledig verzorgd"
 
@@ -2237,7 +2454,6 @@ msgstr ""
 "Wij bereiden de berichten voor en publiceren ze, zodat je dit niet zelf "
 "hoeft te doen."
 
-#| msgid "Best for most businesses"
 msgid "Built for small businesses"
 msgstr "Ontwikkeld voor kleine bedrijven"
 
@@ -2246,7 +2462,6 @@ msgstr ""
 "Een eenvoudige dienst om je lokale online aanwezigheid regelmatig actief te "
 "houden."
 
-#| msgid "What You Get"
 msgid "What You Get Every Month"
 msgstr "Wat je elke maand krijgt"
 
@@ -2258,19 +2473,15 @@ msgstr ""
 "je Facebook-pagina actief blijft zonder dat je dit zelf wekelijks hoeft te "
 "beheren."
 
-#| msgid "Facebook Posting"
 msgid "8 Facebook posts per month"
 msgstr "Regelmatige Facebook-berichten per maand"
 
-#| msgid "Ready for your business"
 msgid "Captions prepared for your business"
 msgstr "Teksten afgestemd op je bedrijf"
 
-#| msgid "Updates handled for you"
 msgid "Publishing handled for you"
 msgstr "Publicatie voor je verzorgd"
 
-#| msgid "A simple way to get started"
 msgid "A simple weekly content rhythm"
 msgstr "Een eenvoudig en regelmatig contentritme"
 
@@ -2290,7 +2501,6 @@ msgstr ""
 "vertrouwenwekkende content om je pagina actief en relevant te houden voor "
 "potentiële klanten."
 
-#| msgid "Promotional items"
 msgid "Promotional Post"
 msgstr "Promotiebericht"
 
@@ -2306,7 +2516,6 @@ msgstr ""
 "Een klantbeoordeling, voor-en-na-voorbeeld of bericht dat vertrouwen en "
 "geloofwaardigheid ondersteunt."
 
-#| msgid "Visibility mode"
 msgid "Business Visibility Post"
 msgstr "Zichtbaarheidsbericht"
 
@@ -2315,16 +2524,13 @@ msgstr ""
 "Een handige herinnering, oproep om contact op te nemen of content gericht op "
 "lokale zichtbaarheid."
 
-#| msgid "Choose your plan"
 msgid "Connect your page"
 msgstr "Koppel je pagina"
 
-#| msgid "using your business details and preferred style."
 msgid "We confirm your business page details and what is already in place."
 msgstr ""
 "We controleren de gegevens van je bedrijfspagina en wat er al is ingesteld."
 
-#| msgid "Create your account"
 msgid "We plan your content"
 msgstr "We plannen je content"
 
@@ -2335,7 +2541,6 @@ msgstr ""
 "We stellen een eenvoudig publicatieritme op dat past bij je bedrijf en je "
 "doelen voor lokale zichtbaarheid."
 
-#| msgid "Create post"
 msgid "We prepare the posts"
 msgstr "We bereiden de berichten voor"
 
@@ -2352,7 +2557,6 @@ msgstr ""
 "Je berichten worden volgens planning gepubliceerd, zodat je pagina actief "
 "blijft."
 
-#| msgid "Why this page stays compact"
 msgid "Your page stays active"
 msgstr "Je pagina blijft actief"
 
@@ -2430,10 +2634,9 @@ msgid ""
 "visibility, with a clear monthly scope."
 msgstr ""
 "Deze dienst richt zich op regelmatige organische Facebook-content om de "
-"zichtbaarheid van je bedrijf te ondersteunen, met een duidelijke maandelijkse "
-"afbakening."
+"zichtbaarheid van je bedrijf te ondersteunen, met een duidelijke "
+"maandelijkse afbakening."
 
-#| msgid "Facebook Posting"
 msgid "Organic Facebook posting support"
 msgstr "Ondersteuning voor organische Facebook-content"
 
@@ -2459,7 +2662,6 @@ msgstr ""
 "Nee. Deze dienst is gericht op organische Facebook-content. Betaalde "
 "advertenties en campagnebeheer worden afzonderlijk aangeboden."
 
-#| msgid "What if I don't know what I need yet?"
 msgid "What if I do not have a Facebook page yet?"
 msgstr "Wat als ik nog geen Facebook-pagina heb?"
 
@@ -2478,7 +2680,6 @@ msgstr ""
 "Het aantal berichten wordt afgestemd op de gekozen maandelijkse dienst en "
 "contentplanning."
 
-#| msgid "Share your business information"
 msgid "Do I need to provide photos or business information?"
 msgstr "Moet ik foto’s of bedrijfsinformatie aanleveren?"
 
@@ -2486,8 +2687,8 @@ msgid ""
 "Yes. Basic business information, offers, and any useful photos help us "
 "prepare better posts for your page."
 msgstr ""
-"Ja. Basisinformatie over je bedrijf, actuele aanbiedingen en bruikbare foto’s "
-"helpen ons om relevantere berichten voor je pagina voor te bereiden."
+"Ja. Basisinformatie over je bedrijf, actuele aanbiedingen en bruikbare "
+"foto’s helpen ons om relevantere berichten voor je pagina voor te bereiden."
 
 msgid "Keep Your Facebook Page Active Without Managing It Yourself"
 msgstr "Houd je Facebook-pagina actief zonder alles zelf te beheren"
@@ -2500,7 +2701,6 @@ msgstr ""
 "zichtbaar wilt blijven zonder dat content maken een extra wekelijkse taak "
 "wordt."
 
-#| msgid "Briefly describe this service."
 msgid "Choose this service"
 msgstr "Kies deze dienst"
 
@@ -2729,27 +2929,19 @@ msgstr ""
 "website, lancering of configuratie. Heb je directe hulp nodig, neem dan "
 "contact met ons op zodat we je naar de juiste volgende stap kunnen helpen."
 
-#| msgid ""
-#| "Go here if your question is about website setup, choosing a path, or "
-#| "understanding the website options."
 msgid ""
 "Start here if you are preparing a first website, choosing a plan, or getting "
 "ready for setup."
 msgstr ""
-"Begin hier als je je eerste website voorbereidt, een plan kiest of klaar bent "
-"om met de configuratie te starten."
+"Begin hier als je je eerste website voorbereidt, een plan kiest of klaar "
+"bent om met de configuratie te starten."
 
-#| msgid "Websites"
 msgid "View Website Plans"
 msgstr "Websiteplannen bekijken"
 
-#| msgid "See pricing"
 msgid "See Pricing"
 msgstr "Prijzen bekijken"
 
-#| msgid ""
-#| "Use this when you need help with business print, merch, or choosing the "
-#| "right print path."
 msgid ""
 "Use this section when you need help with structure, updates, or deciding how "
 "your website should grow next."
@@ -2757,11 +2949,9 @@ msgstr ""
 "Gebruik dit onderdeel als je hulp nodig hebt met de structuur, updates of de "
 "volgende uitbreiding van je website."
 
-#| msgid "Contact support"
 msgid "Contact Support"
 msgstr "Contact opnemen met support"
 
-#| msgid "Back to website options"
 msgid "Browse Website Options"
 msgstr "Websiteopties bekijken"
 
@@ -2776,7 +2966,6 @@ msgstr ""
 "configuratie gebeurt rechtstreeks contact met ons op. We helpen je dan "
 "verder."
 
-#| msgid "Back to pages"
 msgid "Talk to Us"
 msgstr "Neem contact met ons op"
 
@@ -2793,11 +2982,9 @@ msgstr ""
 "Een volledig doorzoekbare kennisbank is nog niet beschikbaar. Gebruik de "
 "links op deze pagina of neem contact met ons op voor directe hulp."
 
-#| msgid "Search basics"
 msgid "Search help topics"
 msgstr "Hulponderwerpen doorzoeken"
 
-#| msgid "Search basics"
 msgid "Search"
 msgstr "Zoeken"
 
@@ -2811,20 +2998,15 @@ msgstr ""
 "Als je vraag invloed heeft op de lancering, prijzen of configuratiekeuzes, "
 "neem dan rechtstreeks contact met ons op."
 
-#| msgid "Just Code Works"
 msgid "JustCodeWorks"
 msgstr "Just Code Works"
 
 msgid "Website builder and content management platform"
 msgstr "Platform voor websitebouw en contentbeheer"
 
-#| msgid "Launch your website quickly"
 msgid "Launch your site fast"
 msgstr "Zet je website snel online"
 
-#| msgid ""
-#| "Launch a clean catalog first, then upgrade when you are ready to sell "
-#| "online."
 msgid ""
 "Publish a clean homepage, then add pages and services when you are ready."
 msgstr ""
@@ -2941,7 +3123,6 @@ msgstr ""
 msgid "Learn more"
 msgstr "Meer informatie"
 
-#| msgid "Back to website options"
 msgid "Fast-track website option"
 msgstr "Optie voor een snelle website-lancering"
 
@@ -3450,11 +3631,9 @@ msgstr "Gebaseerd op je bedrijfsinformatie"
 msgid "Coming soon"
 msgstr "Binnenkort beschikbaar"
 
-#| msgid "This page is being updated."
 msgid "This page is still being prepared."
 msgstr "Deze pagina wordt nog voorbereid."
 
-#| msgid "Launch your business website and print materials in one place"
 msgid "Launch and manage your business online from one place"
 msgstr "Breng en beheer je bedrijf online vanuit één centrale omgeving"
 
@@ -3466,19 +3645,15 @@ msgstr ""
 "websites en lokale lanceringstools tot AI-assistenten en systemen voor "
 "verdere groei."
 
-#| msgid "Start my website"
 msgid "Start with a website"
 msgstr "Begin met een website"
 
-#| msgid "Explore products"
 msgid "Explore platforms"
 msgstr "Platforms bekijken"
 
-#| msgid "JCW Assistant"
 msgid "Ask JCW Assistant"
 msgstr "Vraag het aan JCW Assistant"
 
-#| msgid "Perfect for starting your business online"
 msgid "Perfect for simple local businesses"
 msgstr "Geschikt voor eenvoudige lokale bedrijven"
 
@@ -3488,9 +3663,6 @@ msgstr ""
 "Een eenvoudige, gerichte website voor een beperkt aantal diensten. Snel te "
 "starten en eenvoudig bij te werken."
 
-#| msgid ""
-#| "Sell products or services online with a simple store setup that can grow "
-#| "with your business."
 msgid ""
 "Sell products or bookings with a simple store, and upgrade as your catalog "
 "grows."
@@ -3498,18 +3670,13 @@ msgstr ""
 "Verkoop producten of boekingen via een eenvoudige webshop en breid deze uit "
 "wanneer je aanbod groeit."
 
-#| msgid "Business Website"
 msgid "Business website"
 msgstr "Zakelijke website"
 
-#| msgid ""
-#| "Perfect for local services and simple businesses. A clear, professional "
-#| "page to get online quickly."
 msgid "For businesses that need a professional website online quickly."
 msgstr ""
 "Voor bedrijven die snel een professionele website online willen hebben."
 
-#| msgid "JCW Assistant"
 msgid "AI Website Assistant"
 msgstr "AI-assistent voor websites"
 
@@ -3529,7 +3696,6 @@ msgstr ""
 "Eenvoudige tools voor partners en verwijzers die nieuwe bedrijven helpen "
 "online te starten."
 
-#| msgid "Registered platform users"
 msgid "Future platforms"
 msgstr "Toekomstige platforms"
 
@@ -3537,7 +3703,6 @@ msgid "New JCW platforms for listings, travel, content, and business growth."
 msgstr ""
 "Nieuwe JCW-platforms voor vermeldingen, reizen, content en zakelijke groei."
 
-#| msgid "Just Code Works"
 msgid "Platforms built by Just Code Works"
 msgstr "Platforms ontwikkeld door Just Code Works"
 
@@ -3548,22 +3713,18 @@ msgstr ""
 "Just Code Works is het centrale bedrijf achter praktische online platforms "
 "voor kleine bedrijven, actieve projecten en toekomstige lanceringen."
 
-#| msgid "Website paths"
 msgid "Website platform"
 msgstr "Websiteplatform"
 
-#| msgid "Online store"
 msgid "Get Online Fast"
 msgstr "Get Online Fast"
 
 msgid "Fast professional websites for small businesses in Europe."
 msgstr "Professionele websites voor kleine bedrijven in Europa, snel online."
 
-#| msgid "View website plans"
 msgid "Fast website launch"
 msgstr "Snelle website-lancering"
 
-#| msgid "Quote focus"
 msgid "Europe-focused"
 msgstr "Gericht op Europa"
 
@@ -3573,14 +3734,12 @@ msgstr "Actief platform"
 msgid "Portuguese market"
 msgstr "Portugese markt"
 
-#| msgid "Sites"
 msgid "SiteExpress"
 msgstr "SiteExpress"
 
 msgid "Portugal-focused"
 msgstr "Gericht op Portugal"
 
-#| msgid "Template setup"
 msgid "Simple setup"
 msgstr "Eenvoudige configuratie"
 
@@ -3590,7 +3749,6 @@ msgstr "Toegankelijke manier om te starten"
 msgid "In development"
 msgstr "In ontwikkeling"
 
-#| msgid "Coming soon"
 msgid "Add-on / coming soon"
 msgstr "Uitbreiding / binnenkort beschikbaar"
 
@@ -3608,11 +3766,9 @@ msgstr "Beantwoordt vragen van bezoekers"
 msgid "Helps collect leads"
 msgstr "Helpt contactaanvragen verzamelen"
 
-#| msgid "Fast enquiries"
 msgid "Supports website enquiries"
 msgstr "Ondersteunt contactaanvragen via de website"
 
-#| msgid "Registered platform users"
 msgid "Future platform"
 msgstr "Toekomstig platform"
 
@@ -3626,7 +3782,6 @@ msgstr ""
 "Een gepland platform voor het vinden en presenteren van bedrijven, locaties "
 "en diensten."
 
-#| msgid "Projects"
 msgid "Planned project"
 msgstr "Gepland project"
 
@@ -3637,14 +3792,12 @@ msgid ""
 "A planned travel/content platform with room for guides, affiliate offers, "
 "and local discovery."
 msgstr ""
-"Een gepland reis- en contentplatform met ruimte voor gidsen, "
-"affiliate-aanbiedingen en lokale ontdekking."
+"Een gepland reis- en contentplatform met ruimte voor gidsen, affiliate-"
+"aanbiedingen en lokale ontdekking."
 
-#| msgid "Private dining"
 msgid "Private / in progress"
 msgstr "Privé / in ontwikkeling"
 
-#| msgid "Partners"
 msgid "Partner Tools"
 msgstr "Partnertools"
 
@@ -3658,7 +3811,6 @@ msgstr ""
 msgid "Private rollout"
 msgstr "Besloten uitrol"
 
-#| msgid "Starter eStore"
 msgid "eStore"
 msgstr "eStore"
 
@@ -3668,11 +3820,9 @@ msgstr "Starter eStore"
 msgid "One-page shop up to 8 products"
 msgstr "Webshop op één pagina voor een beperkt aantal producten"
 
-#| msgid "View reports"
 msgid "View option"
 msgstr "Optie bekijken"
 
-#| msgid "Premium eStores"
 msgid "Premium"
 msgstr "Premium"
 
@@ -3682,15 +3832,12 @@ msgstr "Premium eStores"
 msgid "All features, built to scale"
 msgstr "Uitgebreide functies met ruimte om verder te groeien"
 
-#| msgid "CTA URL"
 msgid "CTA"
 msgstr "CTA"
 
-#| msgid "No tenants yet"
 msgid "Not sure yet?"
 msgstr "Nog niet zeker?"
 
-#| msgid "Tell us what you need and we’ll prepare everything for you."
 msgid "Tell us what you need and we'll recommend the best option."
 msgstr ""
 "Vertel ons wat je nodig hebt en we helpen je de meest passende optie te "
@@ -3699,7 +3846,6 @@ msgstr ""
 msgid "Get a recommendation"
 msgstr "Advies krijgen"
 
-#| msgid "T-shirts"
 msgid "Kids T-shirt"
 msgstr "Kinder-T-shirt"
 
@@ -3716,22 +3862,18 @@ msgstr ""
 msgid "Retail POS"
 msgstr "POS voor retail"
 
-#| msgid "Best for most businesses"
 msgid "Best for shops and boutiques"
 msgstr "Geschikt voor winkels en boetieks"
 
-#| msgid "Cart and checkout flow"
 msgid "Fast checkout"
 msgstr "Snel afrekenen"
 
 msgid "Barcode-ready"
 msgstr "Geschikt voor barcodes"
 
-#| msgid "Simple and clear"
 msgid "Simple inventory"
 msgstr "Eenvoudig voorraadbeheer"
 
-#| msgid "View reports"
 msgid "View retail options"
 msgstr "Retailopties bekijken"
 
@@ -3750,51 +3892,42 @@ msgstr "Keukenbonnen"
 msgid "Tip-friendly"
 msgstr "Geschikt voor fooien"
 
-#| msgid "View reports"
 msgid "View hospitality options"
 msgstr "Horeca-opties bekijken"
 
-#| msgid "Services"
 msgid "Services POS"
 msgstr "POS voor dienstverleners"
 
 msgid "Best for bookings and invoices"
 msgstr "Geschikt voor afspraken en facturatie"
 
-#| msgid "Repeat appointments"
 msgid "Appointments"
 msgstr "Afspraken"
 
-#| msgid "Invoices"
 msgid "Invoices/receipts"
 msgstr "Facturen en bonnen"
 
-#| msgid "Operational setup"
 msgid "Optional deposits"
 msgstr "Optionele aanbetalingen"
 
-#| msgid "View service"
 msgid "View service options"
 msgstr "Opties voor dienstverleners bekijken"
 
 msgid "Lightspeed"
 msgstr "Lightspeed"
 
-#| msgid "Services"
 msgid "Good for: Retail"
 msgstr "Geschikt voor: retail"
 
 msgid "Inventory-focused POS with clear reports."
 msgstr "POS-oplossing met focus op voorraadbeheer en duidelijke rapportages."
 
-#| msgid "See pricing"
 msgid "Check pricing"
 msgstr "Prijzen bekijken"
 
 msgid "SumUp"
 msgstr "SumUp"
 
-#| msgid "Designed for hospitality"
 msgid "Good for: Hospitality"
 msgstr "Geschikt voor: horeca"
 
@@ -3804,7 +3937,6 @@ msgstr "Eenvoudig afrekenen voor cafés en kleine teams."
 msgid "Square"
 msgstr "Square"
 
-#| msgid "Services"
 msgid "Good for: Services"
 msgstr "Geschikt voor: dienstverlening"
 
@@ -3817,15 +3949,12 @@ msgstr ""
 "Sommige links kunnen partnerlinks zijn. Dit heeft geen invloed op de prijs "
 "die je betaalt."
 
-#| msgid "Choose the path that fits your business"
 msgid "Not sure which POS fits your business?"
 msgstr "Niet zeker welke POS-oplossing bij je bedrijf past?"
 
-#| msgid "Website goal"
 msgid "Website AI add-on"
 msgstr "AI-uitbreiding voor websites"
 
-#| msgid "Best for most businesses"
 msgid "AI assistants for modern business websites"
 msgstr "AI-assistenten voor moderne zakelijke websites"
 
@@ -3837,10 +3966,6 @@ msgstr ""
 "beantwoordt, je diensten uitlegt en het eenvoudiger maakt om contact met je "
 "bedrijf op te nemen."
 
-#| msgid ""
-#| "People use it to create a website, prepare print materials, and connect "
-#| "payments in one place. Each step is guided, with clear explanations and "
-#| "optional help when needed."
 msgid ""
 "Build your website, prepare print materials, and connect payments — with "
 "clear guidance whenever you need it."
@@ -3854,27 +3979,21 @@ msgstr "Vraag naar de AI-assistent"
 msgid "24/7"
 msgstr "24/7"
 
-#| msgid "Based on your answers"
 msgid "Visitor answers"
 msgstr "Antwoorden voor bezoekers"
 
-#| msgid "Service match"
 msgid "Service guidance"
 msgstr "Uitleg over diensten"
 
-#| msgid "Schema ready"
 msgid "Lead-ready"
 msgstr "Voorbereid op contactaanvragen"
 
-#| msgid "Contact us"
 msgid "Contact handoff"
 msgstr "Doorverwijzing naar contact"
 
-#| msgid "Starter eStore"
 msgid "Stories"
 msgstr "Praktijkvoorbeelden"
 
-#| msgid "Just Code Works"
 msgid "How people use Just Code Works"
 msgstr "Hoe bedrijven Just Code Works gebruiken"
 
@@ -3882,8 +4001,8 @@ msgid ""
 "Simple examples of how different businesses use websites, AI assistants, and "
 "launch platforms together."
 msgstr ""
-"Eenvoudige voorbeelden van hoe verschillende bedrijven websites, "
-"AI-assistenten en platforms voor online lanceringen combineren."
+"Eenvoudige voorbeelden van hoe verschillende bedrijven websites, AI-"
+"assistenten en platforms voor online lanceringen combineren."
 
 msgid "Local handyman"
 msgstr "Lokale klusdienst"
@@ -3895,7 +4014,6 @@ msgstr ""
 "Een zakelijke website die diensten duidelijk presenteert en het lokale "
 "klanten gemakkelijk maakt om contact op te nemen."
 
-#| msgid "Local services"
 msgid "Small service business"
 msgstr "Klein dienstverlenend bedrijf"
 
@@ -3903,8 +4021,8 @@ msgid ""
 "A simple website with service pages, enquiry forms, and an AI assistant that "
 "answers common visitor questions."
 msgstr ""
-"Een eenvoudige website met dienstenpagina’s, contactformulieren en een "
-"AI-assistent die veelgestelde vragen van bezoekers beantwoordt."
+"Een eenvoudige website met dienstenpagina’s, contactformulieren en een AI-"
+"assistent die veelgestelde vragen van bezoekers beantwoordt."
 
 msgid "Platform partner"
 msgstr "Platformpartner"
@@ -3913,8 +4031,8 @@ msgid ""
 "Partner tools help a referrer bring new businesses online through the right "
 "JCW platform and launch path."
 msgstr ""
-"Partnertools helpen verwijzers om nieuwe bedrijven naar het passende "
-"JCW-platform en de juiste startoptie te begeleiden."
+"Partnertools helpen verwijzers om nieuwe bedrijven naar het passende JCW-"
+"platform en de juiste startoptie te begeleiden."
 
 msgid "Future growth project"
 msgstr "Toekomstig groeiproject"
@@ -3923,10 +4041,9 @@ msgid ""
 "Future platforms like ListaAcross and TravelAcross expand the JCW ecosystem "
 "beyond websites over time."
 msgstr ""
-"Toekomstige platforms zoals ListaAcross en TravelAcross breiden het "
-"JCW-ecosysteem geleidelijk uit tot meer dan alleen websites."
+"Toekomstige platforms zoals ListaAcross en TravelAcross breiden het JCW-"
+"ecosysteem geleidelijk uit tot meer dan alleen websites."
 
-#| msgid "Just Code Works"
 msgid "What is Just Code Works?"
 msgstr "Wat is Just Code Works?"
 
@@ -3936,11 +4053,10 @@ msgid ""
 "website assistants, partner tools, and future discovery projects."
 msgstr ""
 "Just Code Works is het centrale bedrijf achter een groeiend aanbod van "
-"praktische digitale platforms voor kleine bedrijven, waaronder "
-"website-lanceringen, AI-assistenten voor websites, partnertools en "
-"toekomstige ontdekplatforms."
+"praktische digitale platforms voor kleine bedrijven, waaronder website-"
+"lanceringen, AI-assistenten voor websites, partnertools en toekomstige "
+"ontdekplatforms."
 
-#| msgid "What this option is"
 msgid "What is Get Online Fast?"
 msgstr "Wat is Get Online Fast?"
 
@@ -3948,11 +4064,10 @@ msgid ""
 "Get Online Fast is the active website platform focused on helping small "
 "businesses launch a fast, professional online presence with less friction."
 msgstr ""
-"Get Online Fast is het actieve websiteplatform dat kleine bedrijven helpt "
-"om op een eenvoudige manier snel een professionele online aanwezigheid op te "
+"Get Online Fast is het actieve websiteplatform dat kleine bedrijven helpt om "
+"op een eenvoudige manier snel een professionele online aanwezigheid op te "
 "zetten."
 
-#| msgid "Can I make changes to my website later?"
 msgid "Can I add an AI assistant to my website?"
 msgstr "Kan ik een AI-assistent aan mijn website toevoegen?"
 
@@ -3968,9 +4083,6 @@ msgstr ""
 msgid "What is SiteExpress?"
 msgstr "Wat is SiteExpress?"
 
-#| msgid ""
-#| "Yes. You can begin with a simple website and add pages, visibility "
-#| "features, print materials, or payments whenever you're ready."
 msgid ""
 "Yes. You can begin with a simple website and add pages, visibility features, "
 "print materials, or payments whenever you’re ready."
@@ -3979,13 +4091,9 @@ msgstr ""
 "voor online zichtbaarheid, printmaterialen of andere aanvullende opties "
 "toevoegen."
 
-#| msgid "What if I don't know what I need yet?"
 msgid "What if I don’t know what I need yet?"
 msgstr "Wat als ik nog niet precies weet wat ik nodig heb?"
 
-#| msgid ""
-#| "That's common. You'll find explanations throughout the site, and JCW "
-#| "Assistant can help you understand options and suggest next steps."
 msgid ""
 "That’s common. You’ll find explanations throughout the site, and JCW "
 "Assistant can help you understand options and suggest next steps."
@@ -4009,9 +4117,6 @@ msgstr ""
 msgid "Do you still offer custom website work?"
 msgstr "Bieden jullie nog steeds maatwerkwebsites aan?"
 
-#| msgid ""
-#| "Yes. Content can be updated, regenerated, or expanded over time. You're "
-#| "not locked into a fixed setup."
 msgid ""
 "Yes. Content can be updated, regenerated, or expanded over time. You’re not "
 "locked into a fixed setup."
@@ -4020,12 +4125,12 @@ msgstr ""
 "worden uitgebreid, zodat de website kan meegroeien met veranderende "
 "behoeften."
 
-#| msgid "Plan updated."
 msgid "Platform update"
 msgstr "Platformupdate"
 
 msgid "Get Online Fast remains the core website launch platform"
-msgstr "Get Online Fast blijft het belangrijkste platform voor website-lanceringen"
+msgstr ""
+"Get Online Fast blijft het belangrijkste platform voor website-lanceringen"
 
 msgid ""
 "JCW continues to focus the main live offer on fast professional websites for "
@@ -4034,7 +4139,6 @@ msgstr ""
 "JCW blijft het belangrijkste actieve aanbod richten op professionele "
 "websites voor kleine bedrijven die snel online willen."
 
-#| msgid "Tenant updated."
 msgid "Read update"
 msgstr "Update lezen"
 
@@ -4062,7 +4166,8 @@ msgstr ""
 "begeleiden van bezoekers en het ondersteunen van contactaanvragen."
 
 msgid "Building multilingual platforms for businesses and new ventures."
-msgstr "We ontwikkelen meertalige platforms voor bedrijven en nieuwe ondernemingen."
+msgstr ""
+"We ontwikkelen meertalige platforms voor bedrijven en nieuwe ondernemingen."
 
 msgid ""
 "Just Code Works develops connected digital platforms that can be operated "
@@ -4071,51 +4176,6 @@ msgstr ""
 "Just Code Works ontwikkelt verbonden digitale platforms die rechtstreeks "
 "kunnen worden beheerd, voor andere bedrijven kunnen worden aangepast of naar "
 "meerdere markten kunnen worden uitgebreid."
-
-#| msgid "Locations"
-msgid "Foundations"
-msgstr "Fundament"
-
-msgid "Digital systems built for the next stage."
-msgstr "Digitale systemen ontwikkeld voor de volgende fase."
-
-msgid ""
-"Reusable platforms that connect products, services, workflows and operations."
-msgstr ""
-"Herbruikbare platforms die producten, diensten, werkprocessen en "
-"bedrijfsactiviteiten met elkaar verbinden."
-
-#| msgid "Custom apparel"
-msgid "Custom platforms"
-msgstr "Maatwerkplatforms"
-
-msgid ""
-"Systems designed around specific products, services and business workflows."
-msgstr ""
-"Systemen die zijn ontworpen rond specifieke producten, diensten en "
-"bedrijfsprocessen."
-
-#| msgid "Built for support"
-msgid "Built for multiple markets"
-msgstr "Ontwikkeld voor meerdere markten"
-
-msgid ""
-"Flexible foundations for different languages, locations and commercial "
-"models."
-msgstr ""
-"Flexibele fundamenten voor verschillende talen, locaties en commerciële "
-"modellen."
-
-#| msgid "Ready to get started?"
-msgid "Ready to grow"
-msgstr "Klaar om verder te groeien"
-
-msgid ""
-"Platforms that can evolve into licensed, white-label or reseller "
-"opportunities."
-msgstr ""
-"Platforms die kunnen doorgroeien naar licentie-, white-label- of "
-"resellermodellen."
 
 msgid "Platforms for real operating models."
 msgstr "Platforms voor echte bedrijfsmodellen."
@@ -4127,7 +4187,6 @@ msgstr ""
 "Verbonden producten waarmee complexe diensten eenvoudiger kunnen worden "
 "beheerd, aangepast en uitgebreid."
 
-#| msgid "Business cards"
 msgid "Business platforms"
 msgstr "Bedrijfsplatforms"
 
@@ -4138,7 +4197,6 @@ msgstr ""
 "Klantportalen, operationele dashboards en dienstverleningsprocessen die zijn "
 "afgestemd op de dagelijkse werkwijze van een bedrijf."
 
-#| msgid "Just Code Works marketplace"
 msgid "Commerce & marketplaces"
 msgstr "Commerce & marketplaces"
 
@@ -4159,97 +4217,6 @@ msgstr ""
 "Gerichte tools en verbonden werkprocessen die handmatig werk verminderen en "
 "aansluiten op de manier waarop elk platform werkt."
 
-#| msgid "Show your business online"
-msgid "AI-powered business tools"
-msgstr "AI-tools voor bedrijven"
-
-msgid ""
-"We build practical AI tools around real business information, helping "
-"companies support customers, create content, work across languages and "
-"automate repetitive tasks."
-msgstr ""
-"We ontwikkelen praktische AI-tools op basis van echte bedrijfsinformatie. "
-"Daarmee kunnen bedrijven klanten ondersteunen, content maken, in meerdere "
-"talen werken en terugkerende taken automatiseren."
-
-msgid "Multilingual AI Assistants"
-msgstr "Meertalige AI-assistenten"
-
-msgid ""
-"Customer-facing assistants connected to business knowledge, with "
-"multilingual replies, lead capture, contact handoff and dashboard-based "
-"management."
-msgstr ""
-"Assistenten voor klanten die zijn gekoppeld aan bedrijfskennis, met "
-"meertalige antwoorden, het verzamelen van contactaanvragen, doorverwijzing "
-"naar contact en beheer via het dashboard."
-
-msgid "Content & Localisation"
-msgstr "Content & lokalisatie"
-
-msgid ""
-"AI tools for website copy, product and service descriptions, social content, "
-"FAQs and multilingual publishing."
-msgstr ""
-"AI-tools voor websiteteksten, product- en dienstbeschrijvingen, "
-"socialmedia-content, veelgestelde vragen en meertalige publicatie."
-
-msgid "Automation & Insights"
-msgstr "Automatisering & Insights"
-
-msgid ""
-"Use enquiries, customer activity and business data to generate summaries, "
-"qualify leads, recommend actions and simplify recurring workflows."
-msgstr ""
-"Gebruik aanvragen, klantactiviteit en bedrijfsgegevens om samenvattingen te "
-"maken, potentiële klanten te beoordelen, acties aan te bevelen en "
-"terugkerende processen te vereenvoudigen."
-
-#| msgid "Custom backend systems"
-msgid "Connected Systems"
-msgstr "Verbonden systemen"
-
-#| msgid "Custom backend systems"
-msgid "Built as connected systems."
-msgstr "Ontwikkeld als verbonden systemen."
-
-msgid ""
-"A strong core can support focused products now and new opportunities later."
-msgstr ""
-"Een sterke kern kan nu gerichte producten ondersteunen en later ruimte bieden "
-"voor nieuwe mogelijkheden."
-
-msgid "Shared foundations"
-msgstr "Gedeelde fundamenten"
-
-msgid ""
-"Common identity, data, language and workflow foundations keep related "
-"products consistent."
-msgstr ""
-"Gedeelde fundamenten voor identiteit, gegevens, talen en werkprocessen zorgen "
-"voor samenhang tussen gerelateerde producten."
-
-#| msgid "See merch products"
-msgid "Independent products"
-msgstr "Zelfstandige producten"
-
-msgid ""
-"Each product can stay focused on its users, proposition and commercial model."
-msgstr ""
-"Elk product kan gericht blijven op zijn eigen gebruikers, aanbod en "
-"commerciële model."
-
-msgid "Expandable infrastructure"
-msgstr "Uitbreidbare infrastructuur"
-
-msgid ""
-"New operators, markets and services can be added without rebuilding the "
-"platform from scratch."
-msgstr ""
-"Nieuwe aanbieders, markten en diensten kunnen worden toegevoegd zonder het "
-"platform volledig opnieuw te hoeven bouwen."
-
-#| msgid "Show your business online"
 msgid "Tell us what your business needs."
 msgstr "Vertel ons wat je bedrijf nodig heeft."
 
@@ -4257,15 +4224,13 @@ msgid ""
 "Describe what you want to improve, automate or build. Our AI assistant can "
 "help you explore the options and identify the next step."
 msgstr ""
-"Beschrijf wat je wilt verbeteren, automatiseren of ontwikkelen. Onze "
-"AI-assistent kan je helpen de mogelijkheden te bekijken en de volgende stap "
-"te bepalen."
+"Beschrijf wat je wilt verbeteren, automatiseren of ontwikkelen. Onze AI-"
+"assistent kan je helpen de mogelijkheden te bekijken en de volgende stap te "
+"bepalen."
 
-#| msgid "JCW Assistant"
 msgid "Ask the AI Assistant"
 msgstr "Vraag het aan de AI-assistent"
 
-#| msgid "Contact us"
 msgid "Contact options"
 msgstr "Contactmogelijkheden"
 
@@ -4291,21 +4256,15 @@ msgstr "Hoe het werkt"
 msgid "Gifts & promo items"
 msgstr "Geschenken & promotieartikelen"
 
-#| msgid "Support style"
 msgid "Support"
 msgstr "Support"
 
-#| msgid "Just Code Works"
 msgid "© 2026 Just Code Works"
 msgstr "© 2026 Just Code Works"
 
-#| msgid "Just Code Works – The Netherlands | KVK 42007323"
 msgid "Amsterdam, Netherlands | KVK 42007323"
 msgstr "Amsterdam, Nederland | KVK 42007323"
 
-#| msgid ""
-#| "We help businesses build their online presence, manage websites, and "
-#| "order print products — all in one place."
 msgid ""
 "We help businesses build their online presence, manage websites, and order "
 "print products - all in one place."
@@ -4321,11 +4280,9 @@ msgstr ""
 "kunnen worden beheerd, voor andere bedrijven kunnen worden aangepast of naar "
 "meerdere markten kunnen worden uitgebreid."
 
-#| msgid "Compare"
 msgid "Company"
 msgstr "Bedrijf"
 
-#| msgid "Visit information"
 msgid "Company information"
 msgstr "Bedrijfsgegevens"
 
@@ -4570,18 +4527,16 @@ msgstr "Vergelijk websiteopties"
 msgid "Toggle menu"
 msgstr "Menu openen of sluiten"
 
-#| msgid "Ready for your business"
 msgid "Tell us about your business"
 msgstr "Vertel ons over je bedrijf"
 
 msgid "We will use this to personalize your draft site."
-msgstr "We gebruiken deze informatie om je eerste websiteversie te personaliseren."
+msgstr ""
+"We gebruiken deze informatie om je eerste websiteversie te personaliseren."
 
-#| msgid "Business print"
 msgid "Business type (optional)"
 msgstr "Type bedrijf (optioneel)"
 
-#| msgid "Country"
 msgid "Country code"
 msgstr "Landcode"
 
@@ -4591,46 +4546,36 @@ msgstr "bijv. PT"
 msgid "Preferred language"
 msgstr "Voorkeurstaal"
 
-#| msgid "Continue editing"
 msgid "Continue"
 msgstr "Doorgaan"
 
-#| msgid "Open templates"
 msgid "Choose a template"
 msgstr "Kies een template"
 
 msgid "Pick a starting layout"
 msgstr "Kies een startindeling"
 
-#| msgid "Can I make changes later?"
 msgid "You can change this later."
 msgstr "Je kunt dit later nog aanpassen."
 
-#| msgid "Preview mode"
 msgid "Preview your draft"
 msgstr "Bekijk een voorbeeld van je concept"
 
-#| msgid "Service-led homepage"
 msgid "Preview your homepage"
 msgstr "Bekijk een voorbeeld van je homepage"
 
-#| msgid "Business cards"
 msgid "Business"
 msgstr "Bedrijf"
 
-#| msgid "Edit plan"
 msgid "Edit later"
 msgstr "Later bewerken"
 
-#| msgid "Create account"
 msgid "Create account to continue"
 msgstr "Maak een account aan om door te gaan"
 
-#| msgid "Bold Template"
 msgid "Back to templates"
 msgstr "Terug naar templates"
 
-#| msgid "Open tenants"
 msgid "Save this draft"
 msgstr "Dit concept opslaan"
 
@@ -4646,7 +4591,6 @@ msgstr ""
 "begin met eenvoudige ondersteuning voor posts en breid later uit naar "
 "bredere marketingkanalen."
 
-#| msgid "Back to pages"
 msgid "Talk to us"
 msgstr "Neem contact met ons op"
 
@@ -4684,9 +4628,9 @@ msgid ""
 "Active services link to their own detail pages. Future services stay visible "
 "here with a clear coming-soon state so the offer remains easy to understand."
 msgstr ""
-"Beschikbare diensten linken naar hun eigen detailpagina. Toekomstige diensten "
-"blijven hier zichtbaar en worden duidelijk als binnenkort beschikbaar "
-"aangegeven."
+"Beschikbare diensten linken naar hun eigen detailpagina. Toekomstige "
+"diensten blijven hier zichtbaar en worden duidelijk als binnenkort "
+"beschikbaar aangegeven."
 
 msgid "Facebook Posting"
 msgstr "Facebook-posts"
@@ -4759,11 +4703,9 @@ msgstr "Contactpagina voor vragen over opstart en diensten"
 msgid "Coming Next"
 msgstr "Wat hierna komt"
 
-#| msgid "Can I start small and expand later?"
 msgid "Can I start with one service and add more later?"
 msgstr "Kan ik met één dienst beginnen en later meer toevoegen?"
 
-#| msgid "Online marketing services that can be added as your business grows."
 msgid ""
 "Yes. The online marketing services are meant to be added gradually as the "
 "business grows and needs more visibility support."
@@ -4843,23 +4785,19 @@ msgid ""
 "This page is for businesses that need printed materials such as business "
 "cards, flyers, brochures, and other day-to-day business print items."
 msgstr ""
-"Deze pagina is bedoeld voor bedrijven die printmaterialen nodig hebben, zoals "
-"visitekaartjes, flyers, brochures en andere praktische zakelijke "
+"Deze pagina is bedoeld voor bedrijven die printmaterialen nodig hebben, "
+"zoals visitekaartjes, flyers, brochures en andere praktische zakelijke "
 "printproducten."
 
 msgid "Start your print request"
 msgstr "Start je printaanvraag"
 
-#| msgid "Back to PrintLab"
 msgid "Back to print paths"
 msgstr "Terug naar printopties"
 
 msgid "What fits here"
 msgstr "Wat vind je hier"
 
-#| msgid ""
-#| "A practical starting point when you need to launch quickly without "
-#| "building too much."
 msgid ""
 "A practical starting point when people need a quick way to remember and "
 "contact your business."
@@ -4885,7 +4823,6 @@ msgstr ""
 "Een betere keuze wanneer je meer ruimte nodig hebt om diensten, prijzen of "
 "andere informatie uit te leggen."
 
-#| msgid "Office materials"
 msgid "Other business materials"
 msgstr "Andere zakelijke printmaterialen"
 
@@ -4896,15 +4833,12 @@ msgstr ""
 "Deze optie past ook bij vergelijkbare printmaterialen die je gebruikt voor "
 "dagelijkse zakelijke communicatie."
 
-#| msgid "Choose template"
 msgid "Choose the main item"
 msgstr "Kies het belangrijkste product"
 
-#| msgid "Start with the plan that fits what your business needs right now."
 msgid "Start with the most important printed item you need first."
 msgstr "Begin met het printproduct dat je nu het meest nodig hebt."
 
-#| msgid "See details"
 msgid "Share the details"
 msgstr "Deel de details"
 
@@ -4934,21 +4868,17 @@ msgid ""
 msgstr ""
 "Zodra de opzet duidelijk is, kan de printaanvraag verder worden uitgewerkt."
 
-#| msgid "Businesses that want a simpler traditional website setup first"
 msgid "Businesses that need practical printed materials first"
 msgstr "Bedrijven die eerst praktische printmaterialen nodig hebben"
 
-#| msgid "Businesses with multiple services or categories"
 msgid "Businesses that promote services locally or in person"
 msgstr "Bedrijven die diensten lokaal of persoonlijk promoten"
 
-#| msgid "Businesses that want the website to evolve over time"
 msgid "Businesses that want print to support meetings, events, or handouts"
 msgstr ""
 "Bedrijven die printmaterialen gebruiken voor afspraken, evenementen of "
 "uitdeelacties"
 
-#| msgid "Businesses that need more control than starter checkout"
 msgid "Businesses that need clear printed communication rather than merch"
 msgstr ""
 "Bedrijven die duidelijke zakelijke printcommunicatie nodig hebben in plaats "
@@ -4976,14 +4906,12 @@ msgstr ""
 "Kies deze optie wanneer je volgende stap een praktisch printproduct voor je "
 "bedrijf is."
 
-#| msgid "More print options"
 msgid "Compare print paths"
 msgstr "Printopties vergelijken"
 
 msgid "Merch Print"
 msgstr "Merchandise drukwerk"
 
-#| msgid "Ready for your business"
 msgid "Branded merchandise for your business"
 msgstr "Merchandise in de stijl van je bedrijf"
 
@@ -4996,11 +4924,9 @@ msgstr ""
 "huisstijl, zodat je merchandise aansluit op je website en zakelijke "
 "uitstraling."
 
-#| msgid "Start your request"
 msgid "Start your merch request"
 msgstr "Start je merchandise-aanvraag"
 
-#| msgid "T-shirts and hoodies"
 msgid "T-shirts and apparel"
 msgstr "T-shirts en kleding"
 
@@ -5008,10 +4934,9 @@ msgid ""
 "A practical fit for staff clothing, branded shirts, and everyday apparel "
 "that keeps the business looking consistent."
 msgstr ""
-"Geschikt voor bedrijfskleding, shirts met je merk en andere kleding die zorgt "
-"voor een consistente zakelijke uitstraling."
+"Geschikt voor bedrijfskleding, shirts met je merk en andere kleding die "
+"zorgt voor een consistente zakelijke uitstraling."
 
-#| msgid "T-shirts, hoodies and branded workwear."
 msgid "Hoodies and workwear"
 msgstr "Hoodies en werkkleding"
 
@@ -5022,7 +4947,6 @@ msgstr ""
 "Handig wanneer je team bedrijfskleding nodig heeft die professioneel oogt en "
 "geschikt is voor dagelijks gebruik."
 
-#| msgid "Gifts & promo items"
 msgid "Accessories and promo items"
 msgstr "Accessoires en promotieartikelen"
 
@@ -5033,7 +4957,6 @@ msgstr ""
 "Een goede optie voor weggeefacties, evenementen en merkartikelen die mensen "
 "helpen je bedrijf te onthouden."
 
-#| msgid "Classic business cards"
 msgid "Consistent business branding"
 msgstr "Consistente huisstijl"
 
@@ -5044,31 +4967,26 @@ msgstr ""
 "Met deze optie blijft je merchandise afgestemd op dezelfde huisstijl die je "
 "gebruikt op je website en andere materialen."
 
-#| msgid "Open templates"
 msgid "Choose a product"
 msgstr "Kies een product"
 
-#| msgid "Start with the plan that fits what your business needs right now."
 msgid "Start with the merch or apparel item that fits your business best."
-msgstr "Begin met het merchandise- of kledingproduct dat het best bij je bedrijf past."
+msgstr ""
+"Begin met het merchandise- of kledingproduct dat het best bij je bedrijf "
+"past."
 
-#| msgid "Custom websites"
 msgid "Choose a design"
 msgstr "Kies een ontwerp"
 
-#| msgid "Pick the online store plan that matches what you want to sell."
 msgid ""
 "Pick the design direction that matches your branding and the product you "
 "selected."
 msgstr ""
 "Kies een ontwerpstijl die past bij je huisstijl en het geselecteerde product."
 
-#| msgid "Your brand, beautifully printed."
 msgid "Your brand is applied"
 msgstr "Je huisstijl wordt toegepast"
 
-#| msgid ""
-#| "Your text, images, and business details applied to the selected layout."
 msgid ""
 "Your logo, colors, and business identity are applied to keep the merch "
 "consistent."
@@ -5076,12 +4994,9 @@ msgstr ""
 "Je logo, kleuren en huisstijl worden toegepast om de merchandise consistent "
 "te houden."
 
-#| msgid "Review and adjust"
 msgid "Review and order"
 msgstr "Controleren en bestellen"
 
-#| msgid ""
-#| "Provide the details needed to prepare the website around your business."
 msgid ""
 "Review the direction and move forward once the merch looks right for your "
 "business."
@@ -5089,7 +5004,6 @@ msgstr ""
 "Controleer de gekozen opzet en ga verder zodra de merchandise goed aansluit "
 "bij je bedrijf."
 
-#| msgid "Use this template"
 msgid "Why this matters"
 msgstr "Waarom dit belangrijk is"
 
@@ -5105,7 +5019,6 @@ msgstr "Het is praktisch voor teams, medewerkers en evenementen"
 msgid "It supports marketing and business visibility"
 msgstr "Het ondersteunt marketing en de zichtbaarheid van je bedrijf"
 
-#| msgid "You do not need technical knowledge to start"
 msgid "You do not need design experience to start"
 msgstr "Je hebt geen ontwerpervaring nodig om te beginnen"
 
@@ -5118,7 +5031,6 @@ msgstr ""
 "kleuren kunnen in het ontwerp worden verwerkt, zodat je niet zelf vanaf nul "
 "hoeft te beginnen."
 
-#| msgid "Product previews will appear here"
 msgid ""
 "Product previews will appear here when the Printful connection is available."
 msgstr ""
@@ -5138,7 +5050,6 @@ msgstr ""
 msgid "Print"
 msgstr "Print"
 
-#| msgid "Ready for your business"
 msgid "Print materials ready for your business"
 msgstr "Printmaterialen voor je bedrijf"
 
@@ -5155,7 +5066,6 @@ msgstr ""
 msgid "Business print"
 msgstr "Zakelijk drukwerk"
 
-#| msgid "Business cards, flyers, brochures and other essentials."
 msgid ""
 "Business cards, flyers, brochures, and everyday print materials that help "
 "your business communicate clearly."
@@ -5163,11 +5073,9 @@ msgstr ""
 "Visitekaartjes, flyers, brochures en andere praktische printmaterialen die "
 "je bedrijf helpen duidelijk te communiceren."
 
-#| msgid "Business print"
 msgid "Explore business print"
 msgstr "Zakelijke print bekijken"
 
-#| msgid "Merch Print"
 msgid "Merch"
 msgstr "Merch"
 
@@ -5178,15 +5086,12 @@ msgstr ""
 "Kleding, merkproducten en promotieartikelen waarmee je bedrijf ook buiten de "
 "website zichtbaar blijft."
 
-#| msgid "Merch print"
 msgid "Explore merch print"
 msgstr "Merchandise bekijken"
 
-#| msgid "How it works"
 msgid "How the print path works"
 msgstr "Hoe het printproces werkt"
 
-#| msgid "Share your business information"
 msgid "Your business info is already set"
 msgstr "Je bedrijfsinformatie kan direct worden hergebruikt"
 
@@ -5197,23 +5102,18 @@ msgstr ""
 "Je bedrijfsgegevens en huisstijl kunnen eenvoudig worden meegenomen in het "
 "printproces."
 
-#| msgid "Start with the plan that fits what your business needs right now."
 msgid ""
 "Start with the business print or merch item that fits what you need next."
 msgstr ""
 "Begin met het zakelijke print- of merchandiseproduct dat past bij wat je nu "
 "nodig hebt."
 
-#| msgid "Start designing"
 msgid "Select a design"
 msgstr "Kies een ontwerp"
 
-#| msgid ""
-#| "Choose the option that fits your business now and upgrade anytime later."
 msgid "Choose a design direction that matches your business and branding."
 msgstr "Kies een ontwerpstijl die past bij je bedrijf en huisstijl."
 
-#| msgid "Your website is prepared"
 msgid "Your details are applied"
 msgstr "Je gegevens worden toegepast"
 
@@ -5224,11 +5124,9 @@ msgstr ""
 "Je bedrijfsinformatie wordt gebruikt om de printmaterialen eenvoudiger en "
 "sneller voor te bereiden."
 
-#| msgid "Choose what you need"
 msgid "Choose the print path you need"
 msgstr "Kies de printoptie die je nodig hebt"
 
-#| msgid "Business cards, flyers, brochures and other essentials."
 msgid ""
 "For business cards, flyers, brochures, and other practical materials used in "
 "daily business communication."
@@ -5236,7 +5134,6 @@ msgstr ""
 "Voor visitekaartjes, flyers, brochures en andere praktische materialen voor "
 "dagelijkse zakelijke communicatie."
 
-#| msgid "Business Print"
 msgid "Go to Business Print"
 msgstr "Naar zakelijke print"
 
@@ -5250,7 +5147,6 @@ msgstr ""
 msgid "Go to Merch"
 msgstr "Naar merchandise"
 
-#| msgid "Why this is different"
 msgid "Why this is easier"
 msgstr "Waarom dit eenvoudiger is"
 
@@ -5260,19 +5156,18 @@ msgid ""
 "process is faster because the business setup is already there."
 msgstr ""
 "Je hoeft niet alles vanaf nul te ontwerpen. Bestaande bedrijfsinformatie en "
-"je huisstijl kunnen opnieuw worden gebruikt, waardoor het ontwerp consistenter "
-"blijft en het bestelproces eenvoudiger wordt."
+"je huisstijl kunnen opnieuw worden gebruikt, waardoor het ontwerp "
+"consistenter blijft en het bestelproces eenvoudiger wordt."
 
 msgid ""
 "The process is built to stay simple. You choose the product, select the "
 "direction, and use ready-to-use templates instead of starting from a blank "
 "design process."
 msgstr ""
-"Het proces is bewust eenvoudig gehouden. Je kiest een product en ontwerpstijl "
-"en kunt beschikbare templates gebruiken in plaats van met een volledig leeg "
-"ontwerp te beginnen."
+"Het proces is bewust eenvoudig gehouden. Je kiest een product en "
+"ontwerpstijl en kunt beschikbare templates gebruiken in plaats van met een "
+"volledig leeg ontwerp te beginnen."
 
-#| msgid "Choose the path that fits your business"
 msgid "Choose the print route that fits your business"
 msgstr "Kies de printoptie die bij je bedrijf past"
 
@@ -5639,7 +5534,6 @@ msgstr ""
 msgid "#platforms"
 msgstr "#platforms"
 
-#| msgid "View reports"
 msgid "View platforms"
 msgstr "Platforms bekijken"
 
@@ -5650,10 +5544,9 @@ msgid ""
 "Just Code Works is the company foundation behind market-specific platforms, "
 "customer flows and operational tools."
 msgstr ""
-"Just Code Works is het bedrijf achter marktgerichte platforms, klantprocessen "
-"en operationele tools."
+"Just Code Works is het bedrijf achter marktgerichte platforms, "
+"klantprocessen en operationele tools."
 
-#| msgid "Built for local bookings"
 msgid "Built for local markets"
 msgstr "Ontwikkeld voor lokale markten"
 
@@ -5745,9 +5638,6 @@ msgstr "Bekijk diensten"
 msgid "Available Services"
 msgstr "Beschikbare diensten"
 
-#| msgid ""
-#| "See how different website directions can look before you choose the "
-#| "structure that fits your business best."
 msgid ""
 "Use the overview below to move into the service area that fits your business "
 "best."
@@ -5755,13 +5645,9 @@ msgstr ""
 "Gebruik het overzicht hieronder om naar het onderdeel te gaan dat het beste "
 "bij je bedrijf past."
 
-#| msgid "Store setup"
 msgid "Setup"
 msgstr "Configuratie"
 
-#| msgid ""
-#| "Start with the simplest plan that gets results. Upgrade only when your "
-#| "business needs more."
 msgid ""
 "Start your website with a clear setup flow and upgrade later when your "
 "business needs more."
@@ -5799,11 +5685,9 @@ msgstr ""
 "Kies eerst de dienst die je nodig hebt, ga naar het bijbehorende onderdeel "
 "en voeg later extra ondersteuning toe wanneer dat nodig is."
 
-#| msgid "Choose your layout"
 msgid "Choose your starting point"
 msgstr "Kies je startpunt"
 
-#| msgid "Start with the plan that fits what your business needs right now."
 msgid ""
 "Pick websites, visibility support, or print based on what your business "
 "needs right now."
@@ -5820,7 +5704,6 @@ msgstr ""
 "Elk dienstgebied heeft een eigen volgende stap, prijsopties of "
 "contactmogelijkheid."
 
-#| msgid "Start with this plan"
 msgid "Start with the essentials"
 msgstr "Begin met de basis"
 
@@ -5831,24 +5714,21 @@ msgstr ""
 "Begin met de dienst die op dit moment het belangrijkste probleem voor je "
 "bedrijf oplost."
 
-#| msgid "Support style"
 msgid "Add support later"
 msgstr "Later ondersteuning toevoegen"
 
-#| msgid "You can start simple and expand without rebuilding from zero."
 msgid "Add more support later without rebuilding your setup from zero."
 msgstr ""
 "Voeg later meer ondersteuning toe zonder je bestaande configuratie helemaal "
 "opnieuw op te bouwen."
 
-#| msgid "Everything in one place"
 msgid "Keep everything connected"
 msgstr "Houd alles met elkaar verbonden"
 
 msgid "Keep setup, support, and production inside one connected JCW system."
 msgstr ""
-"Houd configuratie, ondersteuning en productie binnen één verbonden "
-"JCW-systeem."
+"Houd configuratie, ondersteuning en productie binnen één verbonden JCW-"
+"systeem."
 
 msgid "Do I need to start with all services at once?"
 msgstr "Moet ik direct met alle diensten beginnen?"
@@ -5863,14 +5743,12 @@ msgstr ""
 msgid "Can I combine websites, visibility, and print later?"
 msgstr "Kan ik websites, zichtbaarheid en print later combineren?"
 
-#| msgid "Yes. The structure is designed for controlled expansion."
 msgid ""
 "Yes. The service structure is designed so you can add support step by step."
 msgstr ""
 "Ja. De structuur van de diensten is zo opgezet dat je stap voor stap extra "
 "ondersteuning kunt toevoegen."
 
-#| msgid "What if I am not sure what I need?"
 msgid "Where should I start if I am not sure?"
 msgstr "Waar begin ik als ik nog niet zeker weet wat ik nodig heb?"
 
@@ -6196,6 +6074,7 @@ msgstr ""
 
 msgid "How fast can we launch?"
 msgstr "Hoe snel kan de website worden gepubliceerd?"
+
 msgid ""
 "Many one-page projects launch in days, depending on content readiness and "
 "review speed."
@@ -6315,6 +6194,7 @@ msgstr ""
 
 msgid "Long-term flexibility"
 msgstr "Flexibiliteit op lange termijn"
+
 msgid "Stronger fit if you expect to expand step by step"
 msgstr "Geschikt als je verwacht de oplossing stap voor stap uit te breiden"
 
@@ -6364,7 +6244,9 @@ msgid "You are comfortable handling updates and changes yourself"
 msgstr "Je updates en wijzigingen zelf wilt beheren"
 
 msgid "Choose the setup that fits how you want your website to grow."
-msgstr "Kies de opzet die past bij hoe je je website later wilt beheren en uitbreiden."
+msgstr ""
+"Kies de opzet die past bij hoe je je website later wilt beheren en "
+"uitbreiden."
 
 msgid ""
 "If your website needs to grow, stay visible, and keep improving over time, "
@@ -6372,9 +6254,9 @@ msgid ""
 "build first, WordPress is the clearer choice."
 msgstr ""
 "JCW System is geschikt als je doorlopende begeleiding wilt bij wijzigingen, "
-"content en verdere ontwikkeling van je website. WordPress is een duidelijkere "
-"keuze als je eerst een compleet webproject wilt laten opleveren en dit daarna "
-"zelf wilt beheren."
+"content en verdere ontwikkeling van je website. WordPress is een "
+"duidelijkere keuze als je eerst een compleet webproject wilt laten opleveren "
+"en dit daarna zelf wilt beheren."
 
 msgid "What is the main difference?"
 msgstr "Wat is het belangrijkste verschil?"
@@ -6406,8 +6288,8 @@ msgid ""
 msgstr ""
 "Beide opties kunnen een goede SEO-basis bieden. JCW System is meer gericht "
 "op doorlopende begeleiding bij content en optimalisatie, terwijl de verdere "
-"SEO-ontwikkeling van een WordPress-website afhangt van hoe deze na oplevering "
-"wordt beheerd en geoptimaliseerd."
+"SEO-ontwikkeling van een WordPress-website afhangt van hoe deze na "
+"oplevering wordt beheerd en geoptimaliseerd."
 
 msgid "Do I need technical knowledge?"
 msgstr "Heb ik technische kennis nodig?"
@@ -6542,6 +6424,7 @@ msgstr "Bedrijven die de voorkeur geven aan een eenmalig webproject"
 
 msgid "Businesses that want full control over their website"
 msgstr "Bedrijven die hun website na oplevering zelf willen beheren"
+
 msgid "Businesses that are comfortable managing the site over time"
 msgstr "Bedrijven die de website na oplevering zelf willen beheren"
 
@@ -6928,8 +6811,7 @@ msgid "Review the current settings area for your website setup."
 msgstr "Bekijk de huidige instellingen van je website."
 
 msgid "Open the future analytics connection area for your website reporting."
-msgstr ""
-"Open het gedeelte voor analytics en rapportages van je website."
+msgstr "Open het gedeelte voor analytics en rapportages van je website."
 
 msgid "Open the future page insights area for your Facebook presence."
 msgstr ""
@@ -6951,8 +6833,7 @@ msgstr ""
 "Open het gedeelte voor het plannen van social content rond je diensten."
 
 msgid "Explore future website improvements and optional service upgrades."
-msgstr ""
-"Bekijk mogelijke websiteverbeteringen en aanvullende diensten."
+msgstr "Bekijk mogelijke websiteverbeteringen en aanvullende diensten."
 
 msgid ""
 "Open your print area for branded materials, clothing, and future print "
@@ -6974,8 +6855,7 @@ msgstr ""
 msgid ""
 "Open the future tool for creating QR codes for your website and print "
 "materials."
-msgstr ""
-"Open de tool om QR-codes te maken voor je website en printmaterialen."
+msgstr "Open de tool om QR-codes te maken voor je website en printmaterialen."
 
 msgid ""
 "Open the support area that will gather dashboard guidance and customer help."
@@ -7044,6 +6924,7 @@ msgstr "Menu opslaan"
 
 msgid "Create page"
 msgstr "Pagina aanmaken"
+
 msgid "Back to pages"
 msgstr "Terug naar pagina's"
 
@@ -7060,9 +6941,6 @@ msgstr "Contactsectie bewerken"
 #, python-format
 msgid "Edit contact: %(page_slug)s"
 msgstr "Contact bewerken: %(page_slug)s"
-
-msgid "Heading"
-msgstr "Koptekst"
 
 msgid "Intro"
 msgstr "Introductie"
@@ -7187,8 +7065,8 @@ msgstr "In voorbereiding"
 msgid ""
 "Expand into branded clothing and printed promo items from the same dashboard."
 msgstr ""
-"Breid uit met kleding en promotieartikelen met je eigen merk vanuit hetzelfde "
-"dashboard."
+"Breid uit met kleding en promotieartikelen met je eigen merk vanuit "
+"hetzelfde dashboard."
 
 msgid "PrintLab status"
 msgstr "PrintLab-status"
@@ -7246,8 +7124,7 @@ msgstr ""
 "Het Local-plan gebruikt de stad die tijdens de configuratie is geselecteerd."
 
 msgid "Visible within ~50km of your active city."
-msgstr ""
-"Gericht op een gebied van ongeveer 50 km rond je actieve stad."
+msgstr "Gericht op een gebied van ongeveer 50 km rond je actieve stad."
 
 msgid "Active city"
 msgstr "Actieve stad"
@@ -7294,6 +7171,7 @@ msgstr ""
 
 msgid "Local plan: visibility is limited to one city."
 msgstr "Local-plan: de configuratie is beperkt tot één stad."
+
 msgid "Upgrade to Country SEO to unlock country-level visibility."
 msgstr ""
 "Upgrade naar Country SEO voor toegang tot opties voor zichtbaarheid op "
@@ -7392,7 +7270,8 @@ msgid "A trusted local business, ready to help you."
 msgstr "Een lokaal bedrijf dat klaarstaat voor zijn klanten."
 
 msgid "Simple service, clear communication, and fast responses."
-msgstr "Duidelijke dienstverlening, heldere communicatie en persoonlijk contact."
+msgstr ""
+"Duidelijke dienstverlening, heldere communicatie en persoonlijk contact."
 
 msgid "Contact us today"
 msgstr "Neem contact met ons op"
@@ -7535,6 +7414,7 @@ msgstr "Korte beschrijving"
 
 msgid "Write a short introduction that explains what your business does."
 msgstr "Schrijf een korte introductie waarin je uitlegt wat je bedrijf doet."
+
 msgid "Business description"
 msgstr "Bedrijfsbeschrijving"
 
@@ -7542,8 +7422,8 @@ msgid ""
 "This reuses the existing saved description field in the current onboarding "
 "backend."
 msgstr ""
-"Deze beschrijving gebruikt het bestaande opgeslagen beschrijvingsveld van "
-"de huidige configuratie."
+"Deze beschrijving gebruikt het bestaande opgeslagen beschrijvingsveld van de "
+"huidige configuratie."
 
 msgid "Continue to products"
 msgstr "Doorgaan naar producten"
@@ -7638,8 +7518,7 @@ msgid "Your city"
 msgstr "Je stad"
 
 msgid "Your short business description will appear here as you type."
-msgstr ""
-"Je korte bedrijfsbeschrijving verschijnt hier terwijl je typt."
+msgstr "Je korte bedrijfsbeschrijving verschijnt hier terwijl je typt."
 
 msgid "Add your first item on the left."
 msgstr "Voeg links je eerste onderdeel toe."
@@ -7731,6 +7610,7 @@ msgstr "Geen sites gevonden."
 
 msgid "Catalog Site"
 msgstr "Cataloguswebsite"
+
 msgid ""
 "Show products online with clear details and optional prices, without running "
 "full checkout yet."
@@ -7919,6 +7799,7 @@ msgid ""
 msgstr ""
 "Lokale dienstverleners en kleine bedrijven, waaronder zelfstandige "
 "professionals, werkplaatsen en andere dienstverlenende ondernemingen."
+
 msgid ""
 "Businesses that do not need frequent changes and mostly need occasional "
 "updates."
@@ -8167,6 +8048,7 @@ msgstr ""
 "Hosting en domein hangen af van de gekozen aanbieding. Diensten die moeten "
 "worden verlengd, hebben na afloop van de inbegrepen periode hun eigen "
 "verlengingskosten."
+
 msgid "Can I add more pages or features later?"
 msgstr "Kan ik later meer pagina's of functies toevoegen?"
 
@@ -8366,6 +8248,7 @@ msgstr ""
 
 msgid "Multi Page + SEO"
 msgstr "Multi Page + SEO"
+
 msgid ""
 "Get a scalable website plus stronger search foundations so customers can "
 "discover you consistently."
@@ -8615,6 +8498,7 @@ msgstr "Planning van de webshop"
 msgid "Define catalog model, operations, and conversion goals."
 msgstr ""
 "Bepaal de catalogusstructuur, processen en belangrijkste commerciële doelen."
+
 msgid "Store architecture"
 msgstr "Structuur van de webshop"
 
@@ -8861,6 +8745,7 @@ msgstr "Pagina niet gevonden"
 
 msgid "The page you are looking for does not exist."
 msgstr "De pagina die je zoekt bestaat niet."
+
 msgid "Go to homepage"
 msgstr "Naar de homepage"
 
