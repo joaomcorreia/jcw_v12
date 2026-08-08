@@ -1,4 +1,4 @@
-{% load static i18n %}
+﻿{% load static i18n %}
 <div class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" data-jcw-main-nav{% if is_edit_mode %} style="top:56px !important;"{% endif %}>
   <div class="jcw-nav-utility transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1">
@@ -26,14 +26,8 @@
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" d="M4 6h16M4 12h16M4 18h-16"></path></svg>
           </button>
           <div class="relative hidden sm:block">
-            <form action="{% url 'set_language' %}" method="post">
-              {% csrf_token %}<input type="hidden" name="next" value="{{ request.get_full_path }}">
-              <label class="sr-only" for="language-select">{% trans "Language" %}</label>
-              <select id="language-select" name="language" class="px-3 py-2 border rounded-lg bg-white/10 border-white/30 text-white uppercase" onchange="this.form.submit()">
-                {% get_current_language as current_language %}{% get_available_languages as available_languages %}
-                {% for code, name in available_languages %}<option value="{{ code }}"{% if code == current_language %} selected{% endif %}>{{ code }}</option>{% endfor %}
-              </select>
-            </form>
+            {% include 'core/includes/language_selector.html' with language_selector_id='language-select-desktop' %}
+
           </div>
         </div>
       </div>
@@ -42,6 +36,9 @@
           {% for item in nav_pages %}
           <a class="jcw-main-nav-link jcw-mobile-nav-link block px-3 py-2 rounded-md text-base font-medium hover:opacity-80" href="{{ item.url }}">{{ item.label }}</a>
           {% endfor %}
+          <div class="px-3 pt-3">
+            {% include 'core/includes/language_selector.html' with language_selector_id='language-select-mobile' %}
+          </div>
         </div>
       </div>
     </div>

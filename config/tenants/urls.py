@@ -1,4 +1,4 @@
-"""
+﻿"""
 Tenant URL Configuration
 
 This URLConf is used for all tenant subdomains: {tenant}.justcodeworks.local
@@ -32,6 +32,7 @@ urlpatterns = [
 ]
 
 urlpatterns += i18n_patterns(
+    path("i18n/setlang/", core_views.language_switch, name="set_language"),
     # Non-namespaced aliases for legacy reverse("dashboard") / reverse("signup")
     path("dashboard/", core_views.dashboard, name="dashboard"),
     path("signup/", core_views.signup_view, name="signup"),

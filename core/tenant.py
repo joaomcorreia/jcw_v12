@@ -27,8 +27,9 @@ def resolve_active_tenant(request):
     Used for dashboard context, NOT for public page routing.
     """
     impersonate_id = request.session.get("impersonate_tenant_id")
-    if impersonate_id:
-        return Site.objects.filter(id=impersonate_id).first()
+    user = getattr(request, "user", None)
+    if impersonate_id and user and user.is_authenticated and (user.is_staff or user.is_superuser):
+        return Site.objects.filter(id=impersonate_id, is_main=False).first()
 
     user = getattr(request, "user", None)
     if user and user.is_authenticated:
@@ -165,25 +166,19 @@ def resolve_active_site(request):
     if host in main_hosts or host == f"www.{main_domain}":
         return None
 
-    impersonate_id = request.session.get("impersonate_tenant_id")
-    if impersonate_id:
-        return Site.objects.filter(id=impersonate_id).first()
-
     site = getattr(request, "site", None)
     if site:
         # Don't return main site - main site uses different templates (core/home.html)
         if site.is_main:
             return None
+        impersonate_id = request.session.get("impersonate_tenant_id")
+        user = getattr(request, "user", None)
+        if impersonate_id and user and user.is_authenticated and (user.is_staff or user.is_superuser):
+            impersonated = Site.objects.filter(id=impersonate_id, is_main=False).first()
+            if impersonated:
+                return impersonated
         return site
 
-    tenant = resolve_active_tenant(request)
-    if not tenant:
-        return None
-    if isinstance(tenant, Site):
-        return tenant
-    tenant_id = getattr(tenant, "id", None)
-    if tenant_id:
-        return Site.objects.filter(id=tenant_id).first()
     return None
 
 

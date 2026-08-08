@@ -1,0 +1,14 @@
+﻿{% load i18n %}
+<form action="{% url 'set_language' %}" method="post" class="jcw-language-selector">
+  {% csrf_token %}
+  <input type="hidden" name="next" value="{{ request.get_full_path }}">
+  <label class="sr-only" for="{{ language_selector_id|default:'language-select' }}">{% trans "Language" %}</label>
+  <select id="{{ language_selector_id|default:'language-select' }}" name="language" class="px-3 py-2 border rounded-lg bg-white/10 border-white/30 text-white uppercase" onchange="this.form.submit()">
+    {% get_current_language as current_language %}
+    {% get_available_languages as available_languages %}
+    {% for code, name in available_languages %}
+      <option value="{{ code }}"{% if code == current_language %} selected{% endif %}>{{ code|upper }}</option>
+    {% endfor %}
+  </select>
+</form>
+

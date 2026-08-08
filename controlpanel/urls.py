@@ -1,4 +1,7 @@
 from django.urls import path
+from django.views.generic import RedirectView
+
+from .views_admin import admin_tool
 
 from .views import (
     billing,
@@ -20,13 +23,15 @@ from .views import (
     website_builder,
     content_map,
     users,
+    main_site_pages,
+    main_site_page_edit,
 )
 
 app_name = "control_panel"
 
 urlpatterns = [
     path("", home, name="home"),
-    path("dashboard/", dashboard, name="dashboard"),
+    path("dashboard/", RedirectView.as_view(pattern_name="control_panel:home", permanent=False), name="dashboard"),
     path("website-builder/", website_builder, name="website_builder"),
     path("domains-hosting/", domains_hosting, name="domains_hosting"),
     path("templates/", templates_list, name="templates_list"),
@@ -36,6 +41,9 @@ urlpatterns = [
     path("users/", users, name="users"),
     path("billing/", billing, name="billing"),
     path("content-map/", content_map, name="content_map"),
+    path("main-site/pages/", main_site_pages, name="main_site_pages"),
+    path("main-site/pages/<int:page_id>/edit/", main_site_page_edit, name="main_site_page_edit"),
+    path("tools/<slug:slug>/", admin_tool, name="tool"),
     path("plans/", plans_list, name="plans_list"),
     path("plans/create/", plans_create, name="plans_create"),
     path("plans/<int:plan_id>/edit/", plans_edit, name="plans_edit"),

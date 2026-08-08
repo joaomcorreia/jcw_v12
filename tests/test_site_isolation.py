@@ -45,10 +45,11 @@ MANUAL TESTING CHECKLIST:
    - [ ] Event handlers check for jcw-edit-mode class
 """
 
-from django.test import TestCase, Client, override_settings
+from django.test import TestCase, Client, RequestFactory, override_settings
 from django.urls import reverse
 from django.contrib.auth import get_user_model
-from core.models import Site, MainSiteSectionSettings, TenantHeroSettings
+from core.models import Site, Plan, MainSiteSectionSettings, TenantHeroSettings
+from core import views as core_views
 import json
 
 User = get_user_model()
@@ -70,11 +71,14 @@ class MainSiteIsolationTest(TestCase):
             email="regular@example.com",
             password="testpass123",
         )
-        # Create a tenant site
+        cls.plan = Plan.objects.create(key="main-test-plan", slug="main-test-plan")
+        # Create a tenant site with the current required ownership fields.
         cls.tenant_site = Site.objects.create(
             name="Test Tenant",
             subdomain="test",
             is_main=False,
+            owner=cls.regular_user,
+            plan=cls.plan,
         )
 
     def test_main_section_settings_requires_staff(self):
@@ -116,22 +120,17 @@ class MainSiteIsolationTest(TestCase):
         self.assertEqual(record.settings_json.get("background", {}).get("mode"), "color")
 
     def test_main_section_settings_rejected_from_tenant_host(self):
-        """Main section settings endpoint rejects requests from tenant hosts."""
-        client = Client()
-        client.login(username="staff", password="testpass123")
-        response = client.post(
+        """The main-site editor rejects tenant hosts."""
+        request = RequestFactory().post(
             "/en/main/api/main-section-settings/",
-            data=json.dumps({
-                "page": "home",
-                "section_key": "hero",
-                "settings": {"test": True},
-            }),
+            data=json.dumps({"page": "home", "section_key": "hero", "settings": {}}),
             content_type="application/json",
-            HTTP_HOST="test.justcodeworks.local",  # Tenant host
+            HTTP_HOST="test.justcodeworks.local",
         )
+        request.user = self.staff_user
+        response = core_views.main_section_settings(request)
         self.assertEqual(response.status_code, 403)
-        data = response.json()
-        self.assertIn("main site only", data.get("error", ""))
+        self.assertIn("main site only", json.loads(response.content).get("error", ""))
 
 
 class TenantIsolationTest(TestCase):
@@ -150,27 +149,25 @@ class TenantIsolationTest(TestCase):
             email="owner@example.com",
             password="testpass123",
         )
+        cls.plan = Plan.objects.create(key="tenant-test-plan", slug="tenant-test-plan")
         cls.tenant_site = Site.objects.create(
             name="Test Tenant",
             subdomain="test",
             is_main=False,
             owner=cls.tenant_owner,
+            plan=cls.plan,
         )
 
     def test_dashboard_section_settings_rejected_from_main_host(self):
-        """Dashboard section settings endpoint rejects requests from main host."""
-        client = Client()
-        client.login(username="staff", password="testpass123")
-        response = client.post(
+        """The tenant settings view rejects a main-site request."""
+        request = RequestFactory().post(
             "/en/dashboard/api/section-settings/",
-            data=json.dumps({
-                "section_key": "hero",
-                "settings": {"test": True},
-            }),
+            data=json.dumps({"section_key": "hero", "settings": {}}),
             content_type="application/json",
-            HTTP_HOST="justcodeworks.local",  # Main host
+            HTTP_HOST="justcodeworks.local",
         )
-        # Should be 403 because this is main site host
+        request.user = self.staff_user
+        response = core_views.dashboard_section_settings(request)
         self.assertEqual(response.status_code, 403)
 
 
@@ -185,11 +182,13 @@ class CrossContaminationTest(TestCase):
             password="testpass123",
             is_staff=True,
         )
+        cls.plan = Plan.objects.create(key="cross-test-plan", slug="cross-test-plan")
         cls.tenant_site = Site.objects.create(
             name="Test Tenant",
             subdomain="test",
             is_main=False,
             owner=cls.staff_user,
+            plan=cls.plan,
         )
 
     def test_main_settings_dont_affect_tenant(self):
@@ -211,3 +210,101 @@ class CrossContaminationTest(TestCase):
         tenant_settings.refresh_from_db()
         self.assertEqual(tenant_settings.config_json.get("original"), "tenant_value")
         self.assertNotIn("main_only", tenant_settings.config_json)
+
+
+class TenantResolutionIsolationTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.owner_a = User.objects.create_user(username="owner-a", password="testpass123")
+        cls.owner_b = User.objects.create_user(username="owner-b", password="testpass123")
+        cls.staff = User.objects.create_user(
+            username="tenant-staff", password="testpass123", is_staff=True
+        )
+        cls.plan = Plan.objects.create(key="resolution-test-plan", slug="resolution-test-plan")
+        cls.tenant_a = Site.objects.create(
+            name="Tenant A",
+            subdomain="tenant-a",
+            owner=cls.owner_a,
+            plan=cls.plan,
+            is_main=False,
+        )
+        cls.tenant_b = Site.objects.create(
+            name="Tenant B",
+            subdomain="tenant-b",
+            owner=cls.owner_b,
+            plan=cls.plan,
+            is_main=False,
+        )
+
+    def test_owner_can_access_own_host_but_not_other_tenant_host(self):
+        client = Client()
+        client.force_login(self.owner_a)
+
+        own_response = client.get(
+            "/en/dashboard/", HTTP_HOST="tenant-a.justcodeworks.local"
+        )
+        other_response = client.get(
+            "/en/dashboard/", HTTP_HOST="tenant-b.justcodeworks.local"
+        )
+
+        self.assertEqual(own_response.status_code, 200)
+        self.assertEqual(own_response.wsgi_request.tenant, self.tenant_a)
+        self.assertEqual(other_response.status_code, 403)
+        self.assertEqual(other_response.wsgi_request.tenant, self.tenant_b)
+
+    def test_anonymous_user_keeps_public_tenant_context(self):
+        response = Client().get("/en/", HTTP_HOST="tenant-a.justcodeworks.local")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.wsgi_request.tenant, self.tenant_a)
+
+    def test_staff_context_follows_host_without_impersonation(self):
+        client = Client()
+        client.force_login(self.staff)
+
+        response = client.get(
+            "/en/dashboard/", HTTP_HOST="tenant-b.justcodeworks.local"
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.wsgi_request.tenant, self.tenant_b)
+
+    def test_staff_impersonation_can_select_target_and_stop_restores_host(self):
+        client = Client()
+        client.force_login(self.staff)
+        session = client.session
+        session["impersonate_tenant_id"] = self.tenant_a.id
+        session.save()
+
+        impersonated_response = client.get(
+            "/en/dashboard/", HTTP_HOST="tenant-b.justcodeworks.local"
+        )
+        self.assertEqual(impersonated_response.status_code, 200)
+        self.assertEqual(impersonated_response.wsgi_request.tenant, self.tenant_a)
+
+        stop_response = client.get(
+            "/en/control-panel/tenants/stop-impersonate/",
+            HTTP_HOST="justcodeworks.local",
+        )
+        self.assertEqual(stop_response.status_code, 302)
+        self.assertNotIn("impersonate_tenant_id", client.session)
+
+        restored_response = client.get(
+            "/en/dashboard/", HTTP_HOST="tenant-b.justcodeworks.local"
+        )
+        self.assertEqual(restored_response.status_code, 200)
+        self.assertEqual(restored_response.wsgi_request.tenant, self.tenant_b)
+
+    def test_ordinary_session_value_cannot_override_host(self):
+        client = Client()
+        client.force_login(self.owner_a)
+        session = client.session
+        session["impersonate_tenant_id"] = self.tenant_b.id
+        session.save()
+
+        response = client.get(
+            "/en/dashboard/", HTTP_HOST="tenant-a.justcodeworks.local"
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.wsgi_request.tenant, self.tenant_a)

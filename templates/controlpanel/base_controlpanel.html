@@ -1,4 +1,4 @@
-{% load static i18n %}
+﻿{% load static i18n %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}" dir="ltr">
   <head>
@@ -16,6 +16,7 @@
         </div>
         <div class="dashboard-topbar-right">
           <a class="dashboard-top-link" href="{% url 'core:home' %}">{% trans "Main Site" %}</a>
+          {% include 'core/includes/language_selector.html' with language_selector_id='control-panel-language-select' %}
           <a class="dashboard-top-link" href="{% url 'logout' %}">{% trans "Logout" %}</a>
         </div>
       </header>

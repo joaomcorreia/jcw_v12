@@ -4,7 +4,8 @@ from django.conf import settings
 from django.utils.text import slugify
 
 from core.services.site_settings import get_site_settings
-from core.tenant import resolve_active_tenant, resolve_site_from_host
+from core.models import Site
+from core.tenant import resolve_site_from_host
 
 
 class LaunchNoIndexMiddleware:
@@ -26,11 +27,16 @@ class TenantMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        tenant = resolve_active_tenant(request)
-        if not tenant:
-            site = getattr(request, "site", None)
-            if site and not site.is_main:
-                tenant = site
+        host_site = getattr(request, "site", None)
+        tenant = None
+        if host_site and not host_site.is_main:
+            tenant = host_site
+            impersonate_id = request.session.get("impersonate_tenant_id")
+            user = getattr(request, "user", None)
+            if impersonate_id and user and user.is_authenticated and (user.is_staff or user.is_superuser):
+                impersonated = Site.objects.filter(id=impersonate_id, is_main=False).first()
+                if impersonated:
+                    tenant = impersonated
         request.tenant = tenant
         return self.get_response(request)
 

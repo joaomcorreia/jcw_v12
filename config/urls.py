@@ -1,12 +1,12 @@
-"""
+﻿"""
 Main Site URL Configuration
 
 This URLConf is used for the MAIN site only: justcodeworks.local
 Selected by TenantRoutingMiddleware when host matches MAIN_DOMAIN.
 
 ROUTING STRUCTURE:
-- Main site (this file): justcodeworks.local → config.urls
-- Tenant sites: {tenant}.justcodeworks.local → config.tenants.urls
+- Main site (this file): justcodeworks.local â†’ config.urls
+- Tenant sites: {tenant}.justcodeworks.local â†’ config.tenants.urls
 
 WHAT'S AVAILABLE HERE (main site only):
 - /admin/ - Django admin
@@ -23,15 +23,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import RedirectView
-from django.views.i18n import set_language
 
-from controlpanel import views_admin as controlpanel_views_admin
 from core import views as core_views
 from core import views_pay as pay_views
 
 urlpatterns = [
     # Admin tools (custom) - keep this before Django admin catch-all.
-    path("admin/tools/<slug:slug>/", controlpanel_views_admin.admin_tool, name="admin_tool"),
+    path("admin/tools/<slug:slug>/", RedirectView.as_view(pattern_name="control_panel:tool", permanent=False, query_string=True), name="admin_tool"),
     # Django admin
     path('admin/', admin.site.urls),
     path('admin-panel/', RedirectView.as_view(pattern_name='control_panel:home', permanent=False)),
@@ -53,10 +51,11 @@ urlpatterns = [
     path("pay/cancel/", pay_views.pay_cancel, name="pay_cancel"),
     path("stripe/webhook/", pay_views.stripe_webhook, name="stripe_webhook"),
     # i18n
-    path('i18n/setlang/', set_language, name='set_language'),
+    path('i18n/setlang/', core_views.language_switch, name='set_language'),
 ]
 
 urlpatterns += i18n_patterns(
+    path("i18n/setlang/", core_views.language_switch, name="set_language"),
     # Control panel - MAIN SITE ONLY (operators managing tenants)
     # Must come BEFORE core.urls because core.urls has a catch-all <slug:slug>/ pattern
     path('control-panel/', include(('controlpanel.urls', 'controlpanel'), namespace='control_panel')),
@@ -67,6 +66,9 @@ urlpatterns += i18n_patterns(
     # Main site public pages (NO dashboard routes)
     path('', include('core.urls')),
 )
+
+# The unprefixed root is the only URL that performs language detection.
+urlpatterns.insert(0, path('', core_views.language_root, name='language_root'))
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

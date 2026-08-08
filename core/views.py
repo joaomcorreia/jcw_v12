@@ -1,4 +1,4 @@
-from django.conf import settings
+﻿from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
@@ -26,6 +26,7 @@ from django.utils.translation import get_language
 from django.utils.translation import gettext as _
 from django.utils.text import slugify
 from django.views.decorators.http import require_POST
+from django.views.i18n import set_language as django_set_language
 
 from core.models import (
     BlogCategory,
@@ -66,6 +67,7 @@ from core.seo_utils import (
     resolve_page_seo,
 )
 from core.seo_caps import get_seo_caps
+from core.language import language_path_for_request, supported_language_codes
 from core.public.sitemaps import get_location_entries_for_site
 from core.services.visibility import (
     get_country_name,
@@ -81,10 +83,43 @@ from core.visibility_rules import (
 )
 from core.data.eu_locations import COUNTRIES
 from core.seo_utils import build_language_url
-from core.tenant import resolve_active_site, resolve_active_tenant, tenant_site_url
+from core.tenant import main_site_url, resolve_active_site, resolve_active_tenant, tenant_site_url
 from dashboard.forms import HeroContentForm, PageSEOForm
 
 from django.shortcuts import redirect
+
+
+def language_root(request):
+    """Redirect the main-site root using Django's resolved locale preference."""
+    language = get_language() or settings.LANGUAGE_CODE
+    if language not in supported_language_codes():
+        language = "en"
+    return redirect(build_language_path(language, "/"))
+
+
+def language_switch(request):
+    """Persist a language choice and move the current route to its prefix."""
+    if request.method != "POST":
+        return redirect(request.META.get("HTTP_REFERER") or build_language_path("en", "/"))
+
+    language = (request.POST.get("language") or "").lower()
+    if language not in supported_language_codes():
+        language = "en"
+
+    next_path = request.POST.get("next") or request.META.get("HTTP_REFERER") or "/"
+    parsed = urlparse(next_path)
+    if parsed.netloc and parsed.netloc != request.get_host():
+        next_path = "/"
+    else:
+        next_path = parsed.path or "/"
+        if parsed.query:
+            next_path = f"{next_path}?{parsed.query}"
+
+    data = request.POST.copy()
+    data["language"] = language
+    data["next"] = language_path_for_request(language, next_path)
+    request.POST = data
+    return django_set_language(request)
 
 def render_page(request, slug, template_name, extra_context=None):
     site = resolve_active_site(request)
@@ -1432,6 +1467,18 @@ def dashboard_users(request):
     return render(request, "dashboard/users.html")
 
 
+def _control_panel_url(request, path="/control-panel/"):
+    lang = request.LANGUAGE_CODE or get_language() or "en"
+    return main_site_url(build_language_path(lang, path), request=request)
+
+
+@login_required
+def legacy_dashboard_users(request):
+    if request.user.is_staff or request.user.is_superuser:
+        return redirect(_control_panel_url(request, "/control-panel/users/"))
+    return redirect("tenant_dashboard:dashboard")
+
+
 @login_required
 def dashboard_pages(request):
     site = getattr(request, "tenant", None)
@@ -1931,7 +1978,13 @@ def _get_main_site_or_create(request):
 
 
 @login_required
-def dashboard_main_site_pages(request):
+def dashboard_main_site_pages(
+    request,
+    *,
+    dashboard_base_template="dashboard/base_dashboard.html",
+    edit_url_name="tenant_dashboard:main_site_page_edit",
+    page_list_url_name=None,
+):
     if not request.user.is_staff:
         return redirect("core:dashboard")
 
@@ -1966,9 +2019,18 @@ def dashboard_main_site_pages(request):
             "debug_counts": None,
             "has_home": Page.objects.filter(site=site, slug="home").exists(),
             "main_site": True,
-            "edit_url_name": "tenant_dashboard:main_site_page_edit",
+            "edit_url_name": edit_url_name,
+            "dashboard_base_template": dashboard_base_template,
+            "page_list_url": reverse(page_list_url_name) if page_list_url_name else "",
         },
     )
+
+
+@login_required
+def legacy_dashboard_main_site_pages(request):
+    if request.user.is_staff or request.user.is_superuser:
+        return redirect(_control_panel_url(request, "/control-panel/main-site/pages/"))
+    return redirect("tenant_dashboard:dashboard")
 
 
 @login_required
@@ -2271,7 +2333,9 @@ def logout_view(request):
 
 @login_required
 def dashboard_control_panel(request):
-    return render(request, "dashboard/control_panel.html")
+    if request.user.is_staff or request.user.is_superuser:
+        return redirect(_control_panel_url(request))
+    return redirect("tenant_dashboard:dashboard")
 
 
 @login_required
@@ -2720,7 +2784,14 @@ def main_inline_save(request):
 
 
 @login_required
-def _render_page_edit(request, page, redirect_name):
+def _render_page_edit(
+    request,
+    page,
+    redirect_name,
+    *,
+    dashboard_base_template="dashboard/base_dashboard.html",
+    page_list_url_name=None,
+):
     display_title = None
     if hasattr(page, "safe_translation_getter"):
         display_title = page.safe_translation_getter("title", any_language=True)
@@ -2785,6 +2856,8 @@ def _render_page_edit(request, page, redirect_name):
         "display_title": display_title,
         "public_url": public_url,
         "form": form,
+        "dashboard_base_template": dashboard_base_template,
+        "page_list_url": reverse(page_list_url_name) if page_list_url_name else "",
     }
     return render(request, "dashboard/page_edit.html", context)
 
@@ -3108,13 +3181,33 @@ def dashboard_page_seo(request, page_id):
 
 
 @login_required
-def dashboard_main_site_edit_page(request, page_id):
+def dashboard_main_site_edit_page(
+    request,
+    page_id,
+    *,
+    dashboard_base_template="dashboard/base_dashboard.html",
+    redirect_name="tenant_dashboard:main_site_page_edit",
+    page_list_url_name=None,
+):
     if not request.user.is_staff:
         return redirect("core:dashboard")
 
     site = _get_main_site_or_create(request)
     page = get_object_or_404(Page, id=page_id, site=site)
-    return _render_page_edit(request, page, "tenant_dashboard:main_site_page_edit")
+    return _render_page_edit(
+        request,
+        page,
+        redirect_name,
+        dashboard_base_template=dashboard_base_template,
+        page_list_url_name=page_list_url_name,
+    )
+
+
+@login_required
+def legacy_dashboard_main_site_edit_page(request, page_id):
+    if request.user.is_staff or request.user.is_superuser:
+        return redirect(_control_panel_url(request, f"/control-panel/main-site/pages/{page_id}/edit/"))
+    return redirect("tenant_dashboard:dashboard")
 
 
 @login_required
@@ -3460,13 +3553,15 @@ def sitemap_language_xml(request, lang):
         ]
         return HttpResponse("\n".join(xml), content_type="application/xml")
 
+    # Keep the launch sitemap English-only until translated content is published.
     paths = [
-        ("/en/", "1.0"),
-        ("/en/about/", "0.8"),
-        ("/en/what-we-build/", "0.8"),
-        ("/en/how-we-work/", "0.8"),
-        ("/en/contact/", "0.8"),
+        ("/", "1.0"),
+        ("/about/", "0.8"),
+        ("/what-we-build/", "0.8"),
+        ("/how-we-work/", "0.8"),
+        ("/contact/", "0.8"),
     ]
+    paths = [(build_language_path("en", path), priority) for path, priority in paths]
     urlset = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',

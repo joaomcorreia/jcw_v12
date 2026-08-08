@@ -38,6 +38,51 @@ def staff_required(view_func):
     return login_required(user_passes_test(lambda u: u.is_staff)(view_func))
 
 
+@staff_required
+def main_site_pages(request):
+    from core import views as core_views
+
+    return core_views.dashboard_main_site_pages(
+        request,
+        dashboard_base_template="controlpanel/base_controlpanel.html",
+        edit_url_name="control_panel:main_site_page_edit",
+        page_list_url_name="control_panel:main_site_pages",
+    )
+
+
+@staff_required
+def main_site_page_edit(request, page_id):
+    from core import views as core_views
+
+    return core_views.dashboard_main_site_edit_page(
+        request,
+        page_id,
+        dashboard_base_template="controlpanel/base_controlpanel.html",
+        redirect_name="control_panel:main_site_page_edit",
+        page_list_url_name="control_panel:main_site_pages",
+    )
+
+
+def _technical_dashboard_context():
+    return {
+        "counts": {
+            "pages": Page.objects.count(),
+            "sections": PageSection.objects.count(),
+            "sidebar_panels": RightSidebarPanel.objects.count(),
+            "features": Feature.objects.count(),
+            "managed_sites": ManagedSite.objects.count(),
+        },
+        "links": {
+            "pages": reverse("admin:core_page_changelist"),
+            "sections": reverse("admin:core_pagesection_changelist"),
+            "sidebar_panels": reverse("admin:core_rightsidebarpanel_changelist"),
+            "features": reverse("admin:core_feature_changelist"),
+            "managed_sites": reverse("admin:controlpanel_managedsite_changelist"),
+        },
+        "media_asset": MediaAsset.objects.order_by("-created_at").first(),
+    }
+
+
 def _control_panel_overview_context():
     tenant_qs = Site.objects.filter(is_main=False)
     last_tenant = tenant_qs.order_by("-created_at").first()
@@ -118,29 +163,14 @@ class WebsiteTemplateForm(forms.ModelForm):
 
 @staff_required
 def dashboard(request):
-    context = {
-        "counts": {
-            "pages": Page.objects.count(),
-            "sections": PageSection.objects.count(),
-            "sidebar_panels": RightSidebarPanel.objects.count(),
-            "features": Feature.objects.count(),
-            "managed_sites": ManagedSite.objects.count(),
-        },
-        "links": {
-            "pages": reverse("admin:core_page_changelist"),
-            "sections": reverse("admin:core_pagesection_changelist"),
-            "sidebar_panels": reverse("admin:core_rightsidebarpanel_changelist"),
-            "features": reverse("admin:core_feature_changelist"),
-            "managed_sites": reverse("admin:controlpanel_managedsite_changelist"),
-        },
-        "media_asset": MediaAsset.objects.order_by("-created_at").first(),
-    }
-    return render(request, "controlpanel/dashboard.html", context)
+    return render(request, "controlpanel/dashboard.html", _technical_dashboard_context())
 
 
 @staff_required
 def home(request):
-    return render(request, "controlpanel/home.html", _control_panel_overview_context())
+    context = _control_panel_overview_context()
+    context.update(_technical_dashboard_context())
+    return render(request, "controlpanel/home.html", context)
 
 
 @staff_required
@@ -340,7 +370,7 @@ def content_map(request):
 @staff_required
 def tenants(request):
     lang = request.LANGUAGE_CODE or get_language() or "en"
-    sites = Site.objects.select_related("owner", "plan").order_by("-created_at")
+    sites = Site.objects.filter(is_main=False).select_related("owner", "plan").order_by("-created_at")
     host = request.get_host() or ""
     current_port = ""
     if ":" in host:

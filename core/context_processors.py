@@ -1,4 +1,4 @@
-from django.urls import reverse
+﻿from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import get_language, gettext as _
 
@@ -241,7 +241,7 @@ def feature_flags(request):
 def launch_settings(request):
     settings_obj = get_site_settings()
     path = (request.path or "/").rstrip("/") or "/"
-    launch_paths = {"/en", "/en/about", "/en/what-we-build", "/en/how-we-work", "/en/contact"}
+    launch_paths = {f"/{code}{suffix}" for code, _name in settings.LANGUAGES for suffix in ("", "/about", "/what-we-build", "/how-we-work", "/contact")}
     main_site_legacy_path = not getattr(request, "tenant", None) and path not in launch_paths
     force_noindex = getattr(settings, "SEO_NOINDEX", False) or main_site_legacy_path
     return {

@@ -1,4 +1,4 @@
-{% load static i18n %}
+﻿{% load static i18n %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}" dir="ltr">
   <head>
@@ -34,6 +34,7 @@
           </div>
           {% endif %}
           <a class="dashboard-top-link" href="{% url 'core:home' %}">{% trans "Main Site" %}</a>
+          {% include 'core/includes/language_selector.html' with language_selector_id='dashboard-language-select' %}
           <a class="dashboard-top-link" href="{% url 'tenant_dashboard:dashboard_account' %}">{% trans "My Account" %}</a>
           <a class="dashboard-top-link" href="{% url 'logout' %}">{% trans "Logout" %}</a>
         </div>
@@ -50,9 +51,7 @@
             <a class="dashboard-nav-item{% if request.resolver_match.url_name == 'dashboard_billing' %} is-active{% endif %}" href="{% url 'tenant_dashboard:dashboard_billing' %}">{% trans "Billing" %}</a>
             <a class="dashboard-nav-item{% if request.resolver_match.url_name == 'dashboard_subscriptions' %} is-active{% endif %}" href="{% url 'tenant_dashboard:dashboard_subscriptions' %}">{% trans "Subscriptions" %}</a>
             <a class="dashboard-nav-item{% if request.resolver_match.url_name == 'dashboard_domains' %} is-active{% endif %}" href="{% url 'tenant_dashboard:dashboard_domains' %}">{% trans "Domains" %}</a>
-            {% if request.user.is_staff or request.user.is_superuser %}
-            <a class="dashboard-nav-item{% if request.resolver_match.url_name == 'dashboard_users' %} is-active{% endif %}" href="{% url 'tenant_dashboard:dashboard_users' %}">{% trans "Users" %}</a>
-            {% endif %}
+
             <div class="dashboard-nav-group" data-dashboard-group="frontend">
               <button class="dashboard-nav-heading dashboard-nav-heading-button" type="button" data-dashboard-group-toggle="frontend">
                 {% trans "Website" %}
@@ -85,19 +84,10 @@
               </div>
             </div>
             <div class="dashboard-nav-separator"></div>
-            {% url 'admin:index' as admin_url %}
-            {% if admin_url and request.user.is_staff %}
-            <a class="dashboard-nav-item" href="{{ admin_url }}" target="_blank" rel="noopener">{% trans "Admin" %}</a>
-            {% endif %}
-            {% if request.user.is_staff %}
-            <a class="dashboard-nav-item{% if request.resolver_match.url_name == 'main_site_pages' or request.resolver_match.url_name == 'main_site_page_edit' %} is-active{% endif %}" href="{% url 'tenant_dashboard:main_site_pages' %}">{% trans "Main Site" %}</a>
-            {% endif %}
+
             <a class="dashboard-nav-item{% if request.resolver_match.url_name == 'dashboard_print_studio' %} is-active{% endif %}" href="{% url 'tenant_dashboard:dashboard_print_studio' %}">{% trans "PrintLab" %}</a>
             <a class="dashboard-nav-item{% if request.resolver_match.url_name == 'dashboard_help' %} is-active{% endif %}" href="{% url 'tenant_dashboard:dashboard_help' %}">{% trans "Help" %}</a>
-            {% url 'control_panel:home' as cp_home_url %}
-            {% if cp_home_url and request.user.is_staff %}
-            <a class="dashboard-nav-item" href="{{ cp_home_url }}">{% trans "Control Panel" %}</a>
-            {% endif %}
+
           </nav>
         </aside>
 
