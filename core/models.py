@@ -711,6 +711,7 @@ class ContentBlockTranslation(models.Model):
     block = models.ForeignKey(ContentBlock, on_delete=models.CASCADE, related_name="translations")
     language_code = models.CharField(max_length=12)
     payload_json = models.JSONField(default=dict, blank=True)
+    pending_fields = models.JSONField(default=list, blank=True)
     source_language = models.CharField(max_length=12, blank=True)
     source_revision_hash = models.CharField(max_length=64, blank=True)
     translated_from_revision_hash = models.CharField(max_length=64, blank=True)

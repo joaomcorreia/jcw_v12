@@ -1,4 +1,4 @@
-﻿{% extends "controlpanel/base_controlpanel.html" %}
+{% extends "controlpanel/base_controlpanel.html" %}
 {% load i18n %}
 
 {% block title %}{% trans "Content & Translations" %}{% endblock %}
@@ -46,11 +46,11 @@
         {% endfor %}
       </div>
       {% if not content_settings.auto_translate_updates and summary.has_pending %}
-      <form method="post" style="margin-top: 1rem;">
+      <form method="post" style="margin-top: 1rem;" data-loading-form data-loading-label="{% trans 'Updating translations...' %}">
         {% csrf_token %}
         <input type="hidden" name="action" value="update_block_translations">
         <input type="hidden" name="block_id" value="{{ summary.block.id }}">
-        <button class="dashboard-button dashboard-button--secondary" type="submit">{% trans "Update translations" %}</button>
+        <button class="dashboard-button dashboard-button--secondary" type="submit" data-loading-button>{% trans "Update translations" %}</button>
       </form>
       {% endif %}
     </article>

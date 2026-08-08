@@ -17,12 +17,11 @@ class FakeTranslationBackend:
     def translate_payload(self, **kwargs):
         self.calls.append(kwargs)
         source = kwargs["source_payload"]
-        return {
-            "eyebrow": source["eyebrow"],
-            "heading": f"[{kwargs['target_language'].upper()}] {source['heading']}",
-            "intro": source["intro"],
-            "items": source["items"],
-        }
+        fields = kwargs.get("fields") or list(source.keys())
+        result = dict(source)
+        if "heading" in fields:
+            result["heading"] = "[" + kwargs["target_language"].upper() + "] " + source["heading"]
+        return result
 
 
 class FailingFrenchBackend(FakeTranslationBackend):
@@ -293,3 +292,99 @@ class ContentTranslationsV1Tests(TestCase):
         self.assertEqual(ensure_pilot_content_blocks(tenant), [])
         self.assertFalse(ContentBlock.objects.filter(site=tenant).exists())
         self.assertTrue(ContentBlock.objects.filter(site=self.main_site, key="home-foundations").exists())
+
+    def test_field_aware_update_preserves_untouched_fields(self):
+        block = ContentBlock.objects.get(site=self.main_site, key="home-foundations")
+        payload = get_block_payload(block, "nl")
+        payload["heading"] = "Nieuwe veldgerichte kop"
+        old_es = get_block_payload(block, "es")
+        save_block_translation(block, "nl", payload, auto_translate_enabled=False)
+        spanish = ContentBlockTranslation.objects.get(block=block, language_code="es")
+        self.assertEqual(spanish.pending_fields, ["heading"])
+        update_block_translations(block, backend=FieldAwareBackend())
+        spanish.refresh_from_db()
+        self.assertEqual(spanish.payload_json["heading"], "[ES] Nieuwe veldgerichte kop")
+        self.assertEqual(spanish.payload_json["intro"], old_es["intro"])
+        self.assertEqual(spanish.payload_json["items"], old_es["items"])
+        self.assertEqual(spanish.pending_fields, [])
+        self.assertEqual(spanish.status, ContentBlockTranslation.STATUS_CURRENT)
+
+    def test_pending_fields_union_across_source_edits(self):
+        block = ContentBlock.objects.get(site=self.main_site, key="home-ai-business-tools")
+        payload = get_block_payload(block, "nl")
+        payload["heading"] = "Eerste kop"
+        save_block_translation(block, "nl", payload, auto_translate_enabled=False)
+        payload = get_block_payload(block, "nl")
+        payload["items"][1]["body"] = "Tweede kaarttekst"
+        save_block_translation(block, "nl", payload, auto_translate_enabled=False)
+        spanish = ContentBlockTranslation.objects.get(block=block, language_code="es")
+        self.assertEqual(set(spanish.pending_fields), {"heading", "item_2_body"})
+
+    def test_partial_field_failure_preserves_failed_field(self):
+        block = ContentBlock.objects.get(site=self.main_site, key="home-connected-systems")
+        payload = get_block_payload(block, "nl")
+        payload["heading"] = "Nieuwe kop"
+        payload["intro"] = "Nieuwe introductie"
+        old_es = get_block_payload(block, "es")
+        save_block_translation(block, "nl", payload, auto_translate_enabled=False)
+        update_block_translations(block, backend=PartialFieldFailureBackend())
+        spanish = ContentBlockTranslation.objects.get(block=block, language_code="es")
+        self.assertEqual(spanish.payload_json["heading"], "[ES] Nieuwe kop")
+        self.assertEqual(spanish.payload_json["intro"], old_es["intro"])
+        self.assertEqual(spanish.pending_fields, ["intro"])
+        self.assertEqual(spanish.status, ContentBlockTranslation.STATUS_NEEDS_REVIEW)
+
+    def test_protected_translation_receives_no_pending_fields(self):
+        block = ContentBlock.objects.get(site=self.main_site, key="home-foundations")
+        german = ContentBlockTranslation.objects.get(block=block, language_code="de")
+        original = german.payload_json
+        german.is_protected = True
+        german.save(update_fields=["is_protected", "updated_at"])
+        payload = get_block_payload(block, "nl")
+        payload["heading"] = "Kop voor bron"
+        save_block_translation(block, "nl", payload, auto_translate_enabled=False)
+        german.refresh_from_db()
+        self.assertEqual(german.pending_fields, [])
+        self.assertEqual(german.payload_json, original)
+
+    def test_missing_target_gets_full_pending_payload(self):
+        block = ContentBlock.objects.get(site=self.main_site, key="home-connected-systems")
+        ContentBlockTranslation.objects.filter(block=block, language_code="pt").delete()
+        payload = get_block_payload(block, "nl")
+        payload["heading"] = "Nieuwe bronkop"
+        save_block_translation(block, "nl", payload, auto_translate_enabled=False)
+        portuguese = ContentBlockTranslation.objects.get(block=block, language_code="pt")
+        self.assertEqual(set(portuguese.pending_fields), set(PAYLOAD_FIELDS_FOR_TEST))
+
+    def test_unsafe_outdated_source_switch_marks_full_block_pending(self):
+        block = ContentBlock.objects.get(site=self.main_site, key="home-ai-business-tools")
+        payload = get_block_payload(block, "en")
+        payload["heading"] = "English revision"
+        save_block_translation(block, "en", payload, auto_translate_enabled=False)
+        payload = get_block_payload(block, "nl")
+        payload["heading"] = "Onveilige bronwissel"
+        save_block_translation(block, "nl", payload, auto_translate_enabled=False)
+        spanish = ContentBlockTranslation.objects.get(block=block, language_code="es")
+        self.assertEqual(set(spanish.pending_fields), set(PAYLOAD_FIELDS_FOR_TEST))
+
+
+PAYLOAD_FIELDS_FOR_TEST = {
+    "eyebrow", "heading", "intro", "item_1_title", "item_1_body",
+    "item_2_title", "item_2_body", "item_3_title", "item_3_body",
+}
+
+
+class FieldAwareBackend(FakeTranslationBackend):
+    def translate_payload(self, **kwargs):
+        source = kwargs["source_payload"]
+        result = dict(source)
+        if "heading" in result:
+            result["heading"] = "[" + kwargs["target_language"].upper() + "] " + source["heading"]
+        return result
+
+
+class PartialFieldFailureBackend(FieldAwareBackend):
+    def translate_payload(self, **kwargs):
+        result = super().translate_payload(**kwargs)
+        result.pop("intro", None)
+        return result

@@ -1,4 +1,4 @@
-﻿import hashlib
+import hashlib
 import json
 
 from core.content_blocks import (
@@ -45,6 +45,74 @@ def normalize_block_payload(block_key, payload, language_code="en"):
         "items": normalized_items,
     }
 
+
+PAYLOAD_FIELDS = (
+    "eyebrow", "heading", "intro",
+    "item_1_title", "item_1_body",
+    "item_2_title", "item_2_body",
+    "item_3_title", "item_3_body",
+)
+
+
+def _payload_field_values(payload):
+    payload = payload or {}
+    items = payload.get("items", []) if isinstance(payload, dict) else []
+    values = {"eyebrow": payload.get("eyebrow", ""), "heading": payload.get("heading", ""), "intro": payload.get("intro", "")}
+    for index in range(3):
+        item = items[index] if isinstance(items, list) and len(items) > index and isinstance(items[index], dict) else {}
+        values[f"item_{index + 1}_title"] = item.get("title", "")
+        values[f"item_{index + 1}_body"] = item.get("body", "")
+    return values
+
+
+def _payload_fields(payload, fields):
+    values = _payload_field_values(payload)
+    return {field: values[field] for field in fields}
+
+
+def _merge_payload_fields(payload, translated_fields):
+    merged = json.loads(json.dumps(payload or {}, ensure_ascii=False))
+    values = _payload_field_values(merged)
+    values.update(translated_fields)
+    merged["eyebrow"] = values["eyebrow"]
+    merged["heading"] = values["heading"]
+    merged["intro"] = values["intro"]
+    merged["items"] = [{"title": values[f"item_{index}_title"], "body": values[f"item_{index}_body"]} for index in range(1, 4)]
+    return merged
+
+
+def _changed_payload_fields(before, after):
+    before_values = _payload_field_values(before)
+    after_values = _payload_field_values(after)
+    return [field for field in PAYLOAD_FIELDS if before_values[field] != after_values[field]]
+
+
+def _translated_fields_from_response(data, requested_fields):
+    if not isinstance(data, dict):
+        raise ValueError("Translation response must be an object.")
+    if "items" in data:
+        values = _payload_field_values(data)
+        return {field: values[field] for field in requested_fields if field in values}
+    flat_fields = {field: data[field] for field in requested_fields if field in data}
+    if flat_fields:
+        return flat_fields
+    return {}
+
+
+def _can_partially_propagate_source_switch(block, language_code, old_source_hash):
+    if language_code == (block.last_source_language or "en"):
+        return True
+    candidate = get_translation(block, language_code)
+    if not candidate or candidate.is_protected or candidate.status != ContentBlockTranslation.STATUS_CURRENT:
+        return False
+    if candidate.source_revision_hash != old_source_hash or candidate.translated_from_revision_hash != old_source_hash:
+        return False
+    for other in block.translations.all():
+        if other.language_code == language_code or other.is_protected:
+            continue
+        if other.status != ContentBlockTranslation.STATUS_CURRENT or other.source_revision_hash != old_source_hash or other.translated_from_revision_hash != old_source_hash or other.pending_fields:
+            return False
+    return True
 
 def get_content_site_for_request(request=None):
     request_site = getattr(request, "site", None) if request else None
@@ -115,6 +183,7 @@ def get_translation(block, language_code, create=False):
         status=ContentBlockTranslation.STATUS_OUTDATED,
         provenance=ContentBlockTranslation.PROVENANCE_SEEDED,
         is_published=True,
+        pending_fields=list(PAYLOAD_FIELDS),
     )
 
 
@@ -148,19 +217,22 @@ def get_source_translation(block):
 
 def auto_update_block_translations(block, source_translation, backend=None, language_codes=None):
     backend = backend or get_content_translation_backend()
+    target_codes = language_codes or get_supported_content_languages()
     if not backend.is_available():
-        return {"updated_languages": [], "skipped_languages": [code for code in (language_codes or get_supported_content_languages()) if code != source_translation.language_code], "backend_available": False}
+        return {"updated_languages": [], "skipped_languages": [code for code in target_codes if code != source_translation.language_code], "failed_languages": [], "backend_available": False}
     updated_languages = []
     skipped_languages = []
     failed_languages = []
-    for language_code in language_codes or get_supported_content_languages():
+    for language_code in target_codes:
         if language_code == source_translation.language_code:
             continue
-        translation = get_translation(block, language_code, create=True)
+        existing_translation = block.translations.filter(language_code=language_code).first()
+        translation = existing_translation or get_translation(block, language_code, create=True)
         if translation.is_protected or not translation.is_published:
             skipped_languages.append(language_code)
             continue
-        if translation.source_revision_hash == translation.translated_from_revision_hash and translation.status != ContentBlockTranslation.STATUS_OUTDATED:
+        requested_fields = list(translation.pending_fields or PAYLOAD_FIELDS)
+        if not requested_fields and translation.translated_from_revision_hash == source_translation.source_revision_hash and translation.status == ContentBlockTranslation.STATUS_CURRENT:
             continue
         try:
             translated_payload = backend.translate_payload(
@@ -168,35 +240,39 @@ def auto_update_block_translations(block, source_translation, backend=None, lang
                 site_name=block.site.name if block.site_id else "Just Code Works",
                 source_language=source_translation.language_code,
                 target_language=language_code,
-                source_payload=source_translation.payload_json,
-                existing_target_payload=translation.payload_json,
+                source_payload=source_translation.payload_json if set(requested_fields) == set(PAYLOAD_FIELDS) else _payload_fields(source_translation.payload_json, requested_fields),
+                existing_target_payload=translation.payload_json if set(requested_fields) == set(PAYLOAD_FIELDS) else _payload_fields(translation.payload_json, requested_fields),
                 glossary_terms=_glossary_for_language(language_code),
+                fields=requested_fields,
             )
-            normalized_payload = normalize_block_payload(block.key, translated_payload, language_code)
+            translated_fields = _translated_fields_from_response(translated_payload, requested_fields)
+            if not translated_fields:
+                raise ValueError("Translation response contained no requested fields.")
         except Exception:
             translation.status = ContentBlockTranslation.STATUS_NEEDS_REVIEW
-            translation.save(update_fields=["status", "updated_at"])
+            translation.pending_fields = requested_fields
+            translation.save(update_fields=["status", "pending_fields", "updated_at"])
             failed_languages.append(language_code)
             continue
-        translation.payload_json = normalized_payload
+        failed_fields = [field for field in requested_fields if field not in translated_fields]
+        translation.payload_json = _merge_payload_fields(translation.payload_json, translated_fields)
         translation.source_language = source_translation.language_code
         translation.source_revision_hash = source_translation.source_revision_hash
         translation.translated_from_revision_hash = source_translation.source_revision_hash
-        translation.status = ContentBlockTranslation.STATUS_CURRENT
+        translation.pending_fields = failed_fields
+        translation.status = ContentBlockTranslation.STATUS_NEEDS_REVIEW if failed_fields else ContentBlockTranslation.STATUS_CURRENT
         translation.provenance = ContentBlockTranslation.PROVENANCE_AUTOMATIC
         translation.save()
-        updated_languages.append(language_code)
+        if translated_fields:
+            updated_languages.append(language_code)
+        if failed_fields:
+            failed_languages.append(language_code)
     return {"updated_languages": updated_languages, "skipped_languages": skipped_languages, "failed_languages": failed_languages, "backend_available": True}
-
 
 def save_block_translation(block, language_code, payload, *, is_protected=False, is_published=True, auto_translate_enabled=True, backend=None):
     normalized_payload = normalize_block_payload(block.key, payload, language_code)
     existing_translation = get_translation(block, language_code)
-    existing_payload = (
-        normalize_block_payload(block.key, existing_translation.payload_json, language_code)
-        if existing_translation
-        else None
-    )
+    existing_payload = normalize_block_payload(block.key, existing_translation.payload_json, language_code) if existing_translation else None
     content_changed = existing_translation is None or existing_payload != normalized_payload
     translation = existing_translation or get_translation(block, language_code, create=True)
 
@@ -204,19 +280,17 @@ def save_block_translation(block, language_code, payload, *, is_protected=False,
         translation.is_protected = is_protected
         translation.is_published = is_published
         translation.save(update_fields=["is_protected", "is_published", "updated_at"])
-        return {
-            "translation": translation,
-            "content_changed": False,
-            "auto_result": {
-                "updated_languages": [],
-                "skipped_languages": [],
-                "failed_languages": [],
-                "backend_available": False,
-            },
-        }
+        return {"translation": translation, "content_changed": False, "auto_result": {"updated_languages": [], "skipped_languages": [], "failed_languages": [], "backend_available": False}}
 
+    old_source_language = block.last_source_language or "en"
+    old_source_translation = get_translation(block, old_source_language)
+    old_source_hash = old_source_translation.source_revision_hash if old_source_translation else ""
+    partial_safe = _can_partially_propagate_source_switch(block, language_code, old_source_hash)
+    changed_fields = _changed_payload_fields(existing_payload or {}, normalized_payload)
     source_revision_hash = build_revision_hash(normalized_payload)
+
     translation.payload_json = normalized_payload
+    translation.pending_fields = []
     translation.source_language = language_code
     translation.source_revision_hash = source_revision_hash
     translation.translated_from_revision_hash = source_revision_hash
@@ -235,22 +309,21 @@ def save_block_translation(block, language_code, payload, *, is_protected=False,
         other_translation = get_translation(block, other_language, create=True)
         if other_translation.is_protected:
             continue
+        pending_fields = list(other_translation.pending_fields or [])
+        if partial_safe:
+            pending_fields = list(dict.fromkeys(pending_fields + changed_fields))
+        else:
+            pending_fields = list(PAYLOAD_FIELDS)
         other_translation.source_language = language_code
         other_translation.source_revision_hash = source_revision_hash
-        if other_translation.translated_from_revision_hash != source_revision_hash:
-            other_translation.status = ContentBlockTranslation.STATUS_OUTDATED
-        other_translation.save(update_fields=["source_language", "source_revision_hash", "status"])
+        other_translation.pending_fields = pending_fields
+        other_translation.status = ContentBlockTranslation.STATUS_OUTDATED if pending_fields else ContentBlockTranslation.STATUS_CURRENT
+        other_translation.save(update_fields=["source_language", "source_revision_hash", "pending_fields", "status", "updated_at"])
 
-    auto_result = {
-        "updated_languages": [],
-        "skipped_languages": [],
-        "failed_languages": [],
-        "backend_available": False,
-    }
+    auto_result = {"updated_languages": [], "skipped_languages": [], "failed_languages": [], "backend_available": False}
     if auto_translate_enabled:
         auto_result = auto_update_block_translations(block, translation, backend=backend)
     return {"translation": translation, "content_changed": True, "auto_result": auto_result}
-
 def update_block_translations(block, backend=None):
     source_translation = get_source_translation(block)
     if not source_translation:

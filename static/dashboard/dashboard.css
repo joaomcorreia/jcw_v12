@@ -592,3 +592,25 @@ body.dashboard-body {
     min-height: auto;
   }
 }
+
+.dashboard-button.is-loading {
+  cursor: wait;
+  opacity: .75;
+}
+
+.dashboard-button.is-loading::before {
+  content: "";
+  display: inline-block;
+  width: .85em;
+  height: .85em;
+  margin-right: .5em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: dashboard-button-spin .7s linear infinite;
+  vertical-align: -.12em;
+}
+
+@keyframes dashboard-button-spin {
+  to { transform: rotate(360deg); }
+}

@@ -1,4 +1,4 @@
-﻿{% extends "controlpanel/base_controlpanel.html" %}
+{% extends "controlpanel/base_controlpanel.html" %}
 {% load i18n %}
 
 {% block title %}{{ block_label }}{% endblock %}
@@ -24,7 +24,7 @@
     {% endfor %}
   </div>
 
-  <form method="post" class="dashboard-form" style="display:grid; gap:1rem; max-width:900px;">
+  <form method="post" class="dashboard-form" style="display:grid; gap:1rem; max-width:900px;" data-loading-form data-loading-label="{% if content_settings.auto_translate_updates %}{% trans 'Saving & updating translations...' %}{% else %}{% trans 'Saving content...' %}{% endif %}">
     {% csrf_token %}
     {% for field in form %}
     <div class="dashboard-form-row" style="display:grid; gap:.5rem;">
@@ -35,7 +35,7 @@
     </div>
     {% endfor %}
     <div class="dashboard-cta-actions">
-      <button class="dashboard-button" type="submit">{% trans "Save content" %}</button>
+      <button class="dashboard-button" type="submit" data-loading-button>{% trans "Save content" %}</button>
       {% if not content_settings.auto_translate_updates %}
       <a class="dashboard-button dashboard-button--secondary" href="{{ back_url }}">{% trans "Translations will update from the list page" %}</a>
       {% endif %}

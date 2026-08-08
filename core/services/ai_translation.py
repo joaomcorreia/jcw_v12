@@ -32,7 +32,7 @@ class OpenAIContentTranslationBackend(BaseContentTranslationBackend):
     def is_available(self):
         return bool(self.client)
 
-    def translate_payload(self, *, block_label, site_name, source_language, target_language, source_payload, existing_target_payload, glossary_terms):
+    def translate_payload(self, *, block_label, site_name, source_language, target_language, source_payload, existing_target_payload, glossary_terms, fields=None):
         if not self.is_available():
             raise TranslationBackendUnavailable("OpenAI API key is not configured for content translation.")
 
@@ -46,7 +46,8 @@ class OpenAIContentTranslationBackend(BaseContentTranslationBackend):
             else:
                 glossary_lines.append(f"- {term['term']}: preserve when already present")
         glossary_text = "\n".join(glossary_lines) if glossary_lines else "- none"
-        target_variant = "European Portuguese" if target_language == "pt" else target_language
+        target_variant = "European Portuguese (pt-PT)" if target_language == "pt" else target_language
+        requested_fields = fields or list(source_payload.keys())
         instructions = f"""
 Translate the JSON website content for Just Code Works.
 
@@ -57,7 +58,7 @@ Target language: {target_variant}
 
 Rules:
 - Return JSON only.
-- Preserve the exact JSON structure and keys.
+- Return exactly these requested field keys and no others: {requested_fields}.
 - Use natural target-country language.
 - Preserve brand and product names.
 - Preserve prices, URLs, HTML, and template variables.
