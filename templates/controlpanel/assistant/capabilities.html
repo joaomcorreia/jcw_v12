@@ -7,8 +7,15 @@
     <div style="display:grid; gap:.75rem;">
       {% for capability in capabilities %}
       <div class="dashboard-card" style="padding:1rem;">
-        <strong>{{ capability.key }}</strong>
-        <p class="dashboard-muted">{{ capability.key }}</p>
+        {% with definition=capability.definition %}
+        <div style="margin-bottom:.85rem;">
+          <strong style="display:block; font-size:1rem;">{{ definition.label|default:capability.record.key }}</strong>
+          {% if definition.description %}
+          <p class="dashboard-muted" style="margin:.3rem 0 0;">{{ definition.description }}</p>
+          {% endif %}
+          <span class="dashboard-muted" style="display:block; margin-top:.35rem; font-size:.78rem;">{{ capability.record.key }}</span>
+        </div>
+        {% endwith %}
         <label class="dashboard-label"><input type="checkbox" name="frontend_{{ capability.record.key }}" {% if capability.record.frontend_enabled %}checked{% endif %}> {% trans "Public / Frontend" %}</label>
         <label class="dashboard-label"><input type="checkbox" name="backend_{{ capability.record.key }}" {% if capability.record.backend_enabled %}checked{% endif %}> {% trans "Backend / Operator" %}</label>
       </div>

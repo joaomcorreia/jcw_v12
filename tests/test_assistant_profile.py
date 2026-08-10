@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
+from django.template.loader import render_to_string
 from unittest.mock import Mock, patch
 
 from core.models import ContentGlossaryTerm, Plan, Site
@@ -136,6 +137,38 @@ class AssistantProfileTests(TestCase):
                 path += "/"
             response = self.client.get(path, HTTP_HOST="justcodeworks.local", follow=True)
             self.assertEqual(response.status_code, 200, path)
+    def test_capability_cards_use_registry_definition_with_safe_fallback(self):
+        html = render_to_string(
+            "controlpanel/assistant/capabilities.html",
+            {
+                "capabilities": [
+                    {
+                        "record": type("Record", (), {
+                            "key": "answer_business_questions",
+                            "frontend_enabled": True,
+                            "backend_enabled": True,
+                        })(),
+                        "definition": {
+                            "label": "Answer business questions",
+                            "description": "Answer from approved business information.",
+                        },
+                    },
+                    {
+                        "record": type("Record", (), {
+                            "key": "future_capability",
+                            "frontend_enabled": False,
+                            "backend_enabled": False,
+                        })(),
+                        "definition": {},
+                    },
+                ]
+            },
+        )
+        self.assertIn("Answer business questions", html)
+        self.assertIn("Answer from approved business information.", html)
+        self.assertIn("answer_business_questions", html)
+        self.assertIn("future_capability", html)
+        self.assertNotIn(">None<", html)
     def test_authoritative_context_includes_only_selected_site_content(self):
         profile = ensure_assistant_profile(self.main_site)
         profile.business_facts = {"approved_fact": "Main site fact"}
