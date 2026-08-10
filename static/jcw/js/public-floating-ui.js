@@ -64,16 +64,25 @@
       status.textContent = text || "";
       status.hidden = !text;
     }
+    function getCsrfToken() {
+      var field = form.querySelector("input[name=csrfmiddlewaretoken]");
+      return field ? field.value : getCookie("csrftoken");
+    }
     function request(body) {
       return fetch(endpoint, {
         method: "POST",
         headers: {
-          "X-CSRFToken": getCookie("csrftoken"),
+          "X-CSRFToken": getCsrfToken(),
           "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
         },
         body: new URLSearchParams(body),
-        credentials: "same-origin"
+        credentials: "same-origin",
+        referrerPolicy: "same-origin"
       }).then(function (response) {
+        var contentType = response.headers.get("content-type") || "";
+        if (!contentType.toLowerCase().includes("application/json")) {
+          throw new Error("The assistant could not complete that request.");
+        }
         return response.json().then(function (data) {
           if (!response.ok) throw new Error(data.error || "Assistant unavailable.");
           return data;

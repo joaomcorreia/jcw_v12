@@ -1,7 +1,9 @@
+import re
+from pathlib import Path
 from unittest.mock import Mock, patch
 
 from django.contrib.auth import get_user_model
-from django.test import TestCase, override_settings
+from django.test import Client, TestCase, override_settings
 
 from core.models import AssistantProfile, Plan, Site
 from core.services.assistant_profile import ensure_assistant_profile
@@ -63,6 +65,43 @@ class PublicReleaseTests(TestCase):
         language_sitemap = self.client.get("/sitemap-pt.xml", HTTP_HOST="justcodeworks.local")
         self.assertIn("/pt/contact/", language_sitemap.content.decode())
         self.assertNotIn("/en/contact/", language_sitemap.content.decode())
+
+    def test_public_assistant_requires_rendered_csrf_token_for_message_and_clear(self):
+        profile = ensure_assistant_profile(self.main_site)
+        profile.frontend_enabled = True
+        profile.save(update_fields=["frontend_enabled", "updated_at"])
+        csrf_client = Client(enforce_csrf_checks=True)
+        page = csrf_client.get("/pt/", HTTP_HOST="justcodeworks.local")
+        token = re.search(r'name="csrfmiddlewaretoken" value="([^"]+)"', page.content.decode()).group(1)
+        with patch("core.views.request_assistant_response", return_value=("Resposta", {"languages": {"conversation_language": "pt"}})):
+            response = csrf_client.post(
+                "/pt/api/assistant/chat/",
+                {"message": "O que faz a JCW?", "conversation_language": "pt"},
+                HTTP_HOST="justcodeworks.local",
+                HTTP_X_CSRFTOKEN=token,
+            )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()["answer"], "Resposta")
+        clear_response = csrf_client.post(
+            "/pt/api/assistant/chat/",
+            {"action": "clear"},
+            HTTP_HOST="justcodeworks.local",
+            HTTP_X_CSRFTOKEN=token,
+        )
+        self.assertEqual(clear_response.status_code, 200)
+        self.assertTrue(clear_response.json()["cleared"])
+        rejected = csrf_client.post(
+            "/pt/api/assistant/chat/",
+            {"message": "Sem token"},
+            HTTP_HOST="justcodeworks.local",
+        )
+        self.assertEqual(rejected.status_code, 403)
+
+    def test_public_assistant_client_handles_non_json_failures_safely(self):
+        script = Path("static/jcw/js/public-floating-ui.js").read_text(encoding="utf-8")
+        self.assertIn('response.headers.get("content-type")', script)
+        self.assertIn("The assistant could not complete that request.", script)
+        self.assertNotIn("Unexpected token", script)
 
     def test_public_assistant_is_frontend_only_and_main_site_scoped(self):
         profile = ensure_assistant_profile(self.main_site)
