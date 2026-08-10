@@ -1,0 +1,66 @@
+{% load static i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}" class="jcw-theme-dark">
+<head>
+  {% include 'core/includes/analytics_consent.html' %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}">
+  <link rel="stylesheet" href="{% static 'jcw/public-floating-ui.css' %}">
+  <link rel="icon" href="{% static 'favicon.png' %}">
+  <title>{{ seo_title }}</title>
+  <meta name="description" content="{{ seo_description }}">
+  <meta name="robots" content="{% if launch_noindex %}noindex, nofollow{% else %}{{ seo_robots|default:'index, follow' }}{% endif %}">
+  {% if canonical_url %}<link rel="canonical" href="{{ canonical_url }}">{% endif %}
+  {% if hreflang_urls %}
+    {% for alternate in hreflang_urls %}<link rel="alternate" hreflang="{{ alternate.lang }}" href="{{ alternate.url }}">{% endfor %}
+  {% endif %}
+</head>
+<body class="min-h-screen antialiased bg-white text-slate-900 font-medium">
+  {% include 'core/main_nav.html' %}
+  <main class="pt-28 pb-20">
+    <div class="max-w-4xl mx-auto px-4">
+      <header class="mb-12">
+        <p class="text-sm uppercase tracking-[0.2em] text-blue-700">{% trans "Just Code Works" %}</p>
+        <h1 class="mt-4 text-4xl md:text-6xl font-bold">{% trans "Privacy & Cookies" %}</h1>
+        <p class="mt-6 text-lg leading-relaxed text-slate-600">{% trans "This page explains how the public Just Code Works website may process information and how optional analytics consent works." %}</p>
+      </header>
+      <div class="space-y-10 text-slate-700">
+        <section>
+          <h2 class="text-2xl font-bold text-slate-900">{% trans "Operator and privacy contact" %}</h2>
+          <p class="mt-3 leading-relaxed">{% trans "This website is operated by Just Code Works. For privacy or data-protection questions, contact info@justcodeworks.eu." %}</p>
+          <p class="mt-3 leading-relaxed">{% trans "The public site identifies the operator as being in The Netherlands. Its published company details include KVK 42007323 and VAT NL005429577B55." %}</p>
+        </section>
+        <section>
+          <h2 class="text-2xl font-bold text-slate-900">{% trans "Information the site may process" %}</h2>
+          <p class="mt-3 leading-relaxed">{% trans "Depending on how you use the site, JCW may process information you send in an enquiry, technical request information, and information needed to provide requested site functionality." %}</p>
+        </section>
+        <section>
+          <h2 class="text-2xl font-bold text-slate-900">{% trans "Necessary site and session data" %}</h2>
+          <p class="mt-3 leading-relaxed">{% trans "Necessary session, language-selection and security data may be used to keep the site working, remember your language choice and protect requests. This is separate from optional analytics." %}</p>
+        </section>
+        <section>
+          <h2 class="text-2xl font-bold text-slate-900">{% trans "Optional analytics" %}</h2>
+          <p class="mt-3 leading-relaxed">{% trans "Google Analytics 4 and Microsoft Clarity are optional services used to understand how the public site is used and to help verify and improve its operation." %}</p>
+          <p class="mt-3 leading-relaxed">{% trans "Optional analytics is denied by default. It is activated only after you choose Accept analytics in the consent notice. Choosing Reject analytics keeps optional analytics disabled." %}</p>
+          <p class="mt-3 leading-relaxed">{% trans "Your choice is stored in this browser so the notice does not reappear unnecessarily. You can clear the stored site data in your browser to make the choice again." %}</p>
+        </section>
+        <section>
+          <h2 class="text-2xl font-bold text-slate-900">{% trans "Bing Webmaster verification" %}</h2>
+          <p class="mt-3 leading-relaxed">{% trans "The Bing verification tag is used to confirm site ownership. It is not an analytics or advertising tracker and is not controlled by the analytics consent choice." %}</p>
+        </section>
+        <section>
+          <h2 class="text-2xl font-bold text-slate-900">{% trans "Your data-protection rights" %}</h2>
+          <p class="mt-3 leading-relaxed">{% trans "Depending on applicable data-protection law, you may have rights concerning your personal information, such as access, correction, deletion, restriction, objection or data portability. You may also be able to contact your relevant supervisory authority." %}</p>
+          <p class="mt-3 leading-relaxed">{% trans "To ask a privacy question or make a request, contact JCW at info@justcodeworks.eu." %}</p>
+        </section>
+      </div>
+    </div>
+  </main>
+  {% include 'core/footer.html' %}
+  {% include 'core/includes/public_floating_ui.html' %}
+  <script src="{% static 'jcw/js/jcw-ui.js' %}"></script>
+  <script src="{% static 'jcw/js/public-floating-ui.js' %}" defer></script>
+</body>
+</html>

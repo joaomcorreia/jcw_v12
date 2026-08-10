@@ -43,6 +43,28 @@ class PublicAnalyticsConsentTests(TestCase):
             self.assertEqual(body.count("xzzv2ck6mf"), 1)
             self.assertEqual(body.count('name="msvalidate.01"'), 1)
 
+    def test_privacy_page_is_available_in_all_languages_with_seo_and_links(self):
+        for language in ("en", "de", "es", "fr", "nl", "pt"):
+            response = self.client.get(
+                f"/{language}/privacy-cookies/",
+                HTTP_HOST="justcodeworks.local",
+            )
+            self.assertEqual(response.status_code, 200)
+            body = response.content.decode()
+            self.assertIn(f'hreflang="{language}"', body)
+            self.assertIn(f'canonical" href="http://justcodeworks.local/{language}/privacy-cookies/"', body)
+            self.assertIn(f'href="/{language}/privacy-cookies/"', body)
+            self.assertIn("Privacy", body)
+            self.assertEqual(body.count("xzzv2ck6mf"), 1)
+            self.assertNotIn("w0rrp5mkxz", body)
+
+    def test_public_footer_and_consent_notice_link_to_privacy_page(self):
+        response = self.client.get("/nl/", HTTP_HOST="justcodeworks.local")
+        body = response.content.decode()
+        self.assertIn('href="/nl/privacy-cookies/"', body)
+        self.assertIn("Learn more", body)
+        response = self.client.get("/nl/privacy-cookies/", HTTP_HOST="justcodeworks.local")
+        self.assertIn('href="/nl/privacy-cookies/"', response.content.decode())
     def test_internal_pages_do_not_receive_public_analytics_markup(self):
         for path in ("/en/control-panel/", "/admin/"):
             response = self.client.get(path, HTTP_HOST="justcodeworks.local")

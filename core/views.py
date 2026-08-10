@@ -595,6 +595,16 @@ def how_we_work(request):
     )
 
 
+def privacy_cookies(request):
+    return render(
+        request,
+        "core/privacy_cookies.html",
+        {
+            "seo_title": _("Privacy & Cookies | Just Code Works"),
+            "seo_description": _("Privacy and cookies information for the Just Code Works public website."),
+        },
+    )
+
 def _ensure_tenant_home_page(site, language_code):
     page = (
         Page.objects.filter(site=site, slug="home")
@@ -3593,6 +3603,7 @@ def sitemap_language_xml(request, lang):
         ("/what-we-build/", "0.8"),
         ("/how-we-work/", "0.8"),
         ("/contact/", "0.8"),
+        ("/privacy-cookies/", "0.5"),
     ]]
     urlset = [
         '<?xml version="1.0" encoding="UTF-8"?>',

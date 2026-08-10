@@ -9245,3 +9245,87 @@ msgstr "Analyse ablehnen"
 #: templates/core/includes/analytics_consent.html:15
 msgid "Accept analytics"
 msgstr "Analyse akzeptieren"
+
+#: core/views.py:604
+msgid "Privacy & Cookies | Just Code Works"
+msgstr "Datenschutz & Cookies | Just Code Works"
+
+#: core/views.py:605
+msgid "Privacy and cookies information for the Just Code Works public website."
+msgstr "Datenschutz- und Cookie-Informationen für die öffentliche Website von Just Code Works."
+
+#: templates/core/privacy_cookies.html:26
+msgid "Privacy & Cookies"
+msgstr "Datenschutz & Cookies"
+
+#: templates/core/privacy_cookies.html:27
+msgid "This page explains how the public Just Code Works website may process information and how optional analytics consent works."
+msgstr "Diese Seite erklärt, wie die öffentliche Website von Just Code Works Informationen verarbeiten kann und wie die Zustimmung zu optionalen Analysen funktioniert."
+
+#: templates/core/privacy_cookies.html:32
+msgid "Operator and privacy contact"
+msgstr "Betreiber und Datenschutzkontakt"
+
+#: templates/core/privacy_cookies.html:33
+msgid "This website is operated by Just Code Works. For privacy or data-protection questions, contact info@justcodeworks.eu."
+msgstr "Diese Website wird von Just Code Works betrieben. Bei Fragen zum Datenschutz kontaktieren Sie info@justcodeworks.eu."
+
+#: templates/core/privacy_cookies.html:34
+msgid "The public site identifies the operator as being in The Netherlands. Its published company details include KVK 42007323 and VAT NL005429577B55."
+msgstr "Die öffentliche Website nennt den Betreiber in den Niederlanden. Zu den veröffentlichten Unternehmensangaben gehören KVK 42007323 und VAT NL005429577B55."
+
+#: templates/core/privacy_cookies.html:38
+msgid "Information the site may process"
+msgstr "Informationen, die die Website verarbeiten kann"
+
+#: templates/core/privacy_cookies.html:39
+msgid "Depending on how you use the site, JCW may process information you send in an enquiry, technical request information, and information needed to provide requested site functionality."
+msgstr "Je nachdem, wie Sie die Website nutzen, kann JCW Informationen aus Ihrer Anfrage, technische Informationen zur Anfrage und für die gewünschte Website-Funktionalität erforderliche Informationen verarbeiten."
+
+#: templates/core/privacy_cookies.html:43
+msgid "Necessary site and session data"
+msgstr "Notwendige Website- und Sitzungsdaten"
+
+#: templates/core/privacy_cookies.html:44
+msgid "Necessary session, language-selection and security data may be used to keep the site working, remember your language choice and protect requests. This is separate from optional analytics."
+msgstr "Notwendige Sitzungs-, Sprachauswahl- und Sicherheitsdaten können verwendet werden, damit die Website funktioniert, Ihre Sprachauswahl speichert und Anfragen schützt. Dies ist von optionalen Analysen getrennt."
+
+#: templates/core/privacy_cookies.html:48
+msgid "Optional analytics"
+msgstr "Optionale Analysen"
+
+#: templates/core/privacy_cookies.html:49
+msgid "Google Analytics 4 and Microsoft Clarity are optional services used to understand how the public site is used and to help verify and improve its operation."
+msgstr "Google Analytics 4 und Microsoft Clarity sind optionale Dienste, die dazu dienen, die Nutzung der öffentlichen Website zu verstehen und ihren Betrieb zu überprüfen und zu verbessern."
+
+#: templates/core/privacy_cookies.html:50
+msgid "Optional analytics is denied by default. It is activated only after you choose Accept analytics in the consent notice. Choosing Reject analytics keeps optional analytics disabled."
+msgstr "Optionale Analysen sind standardmäßig abgelehnt. Sie werden erst aktiviert, wenn Sie im Zustimmungsfenster Analysen akzeptieren auswählen. Wenn Sie Analysen ablehnen auswählen, bleiben optionale Analysen deaktiviert."
+
+#: templates/core/privacy_cookies.html:51
+msgid "Your choice is stored in this browser so the notice does not reappear unnecessarily. You can clear the stored site data in your browser to make the choice again."
+msgstr "Ihre Auswahl wird in diesem Browser gespeichert, damit das Fenster nicht unnötig erneut erscheint. Sie können die gespeicherten Websitedaten in Ihrem Browser löschen, um die Auswahl erneut zu treffen."
+
+#: templates/core/privacy_cookies.html:55
+msgid "Bing Webmaster verification"
+msgstr "Bing-Webmaster-Verifizierung"
+
+#: templates/core/privacy_cookies.html:56
+msgid "The Bing verification tag is used to confirm site ownership. It is not an analytics or advertising tracker and is not controlled by the analytics consent choice."
+msgstr "Das Bing-Verifizierungs-Tag bestätigt den Besitz der Website. Es ist kein Analyse- oder Werbe-Tracker und wird nicht durch die Auswahl zur Analyse-Zustimmung gesteuert."
+
+#: templates/core/privacy_cookies.html:60
+msgid "Your data-protection rights"
+msgstr "Ihre Datenschutzrechte"
+
+#: templates/core/privacy_cookies.html:61
+msgid "Depending on applicable data-protection law, you may have rights concerning your personal information, such as access, correction, deletion, restriction, objection or data portability. You may also be able to contact your relevant supervisory authority."
+msgstr "Je nach geltendem Datenschutzrecht haben Sie möglicherweise Rechte in Bezug auf Ihre personenbezogenen Daten, etwa auf Auskunft, Berichtigung, Löschung, Einschränkung, Widerspruch oder Datenübertragbarkeit. Möglicherweise können Sie sich auch an Ihre zuständige Aufsichtsbehörde wenden."
+
+#: templates/core/privacy_cookies.html:62
+msgid "To ask a privacy question or make a request, contact JCW at info@justcodeworks.eu."
+msgstr "Für Datenschutzfragen oder Anfragen kontaktieren Sie JCW unter info@justcodeworks.eu."
+
+#: templates/core/includes/analytics_consent.html:11
+msgid "Learn more about privacy and cookies."
+msgstr "Mehr über Datenschutz und Cookies erfahren."

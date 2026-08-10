@@ -9,6 +9,7 @@ INDEXABLE_PUBLIC_PATHS = frozenset({
     "/what-we-build/",
     "/how-we-work/",
     "/contact/",
+    "/privacy-cookies/",
 })
 
 

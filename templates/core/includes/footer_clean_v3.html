@@ -14,6 +14,9 @@
           <li><a class="hover:text-white" href="{% url 'core:what_we_build' %}">{% trans "What We Build" %}</a></li>
           <li><a class="hover:text-white" href="{% url 'core:how_we_work' %}">{% trans "How We Work" %}</a></li>
           <li><a class="hover:text-white" href="{% url 'core:contact' %}">{% trans "Contact" %}</a></li>
+          {% if jcw_site_mode == "main" %}
+          <li><a class="hover:text-white" href="{% url 'core:privacy_cookies' %}">{% trans "Privacy & Cookies" %}</a></li>
+          {% endif %}
         </ul>
       </div>
       <div class="space-y-4">

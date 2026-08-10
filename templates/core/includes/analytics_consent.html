@@ -15,6 +15,9 @@
   <div>
     <strong id="jcw-analytics-consent-title">{% trans "Analytics preferences" %}</strong>
     <p id="jcw-analytics-consent-description">{% trans "We use optional analytics to understand how the public site is used. Necessary site functionality works without it." %}</p>
+{% if jcw_site_mode == "main" %}
+    <a href="{% url 'core:privacy_cookies' %}">{% trans "Learn more about privacy and cookies." %}</a>
+{% endif %}
   </div>
   <div class="jcw-analytics-consent__actions">
     <button type="button" data-analytics-consent-action="reject">{% trans "Reject analytics" %}</button>
