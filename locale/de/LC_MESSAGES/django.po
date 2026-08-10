@@ -9229,3 +9229,19 @@ msgstr "Felder"
 
 #~ msgid "Bizay"
 #~ msgstr "Bizay"
+
+#: templates/core/includes/analytics_consent.html:8
+msgid "Analytics preferences"
+msgstr "Analyse-Einstellungen"
+
+#: templates/core/includes/analytics_consent.html:10
+msgid "We use optional analytics to understand how the public site is used. Necessary site functionality works without it."
+msgstr "Wir verwenden optionale Analysen, um zu verstehen, wie die öffentliche Website genutzt wird. Die notwendige Website-Funktionalität funktioniert auch ohne sie."
+
+#: templates/core/includes/analytics_consent.html:14
+msgid "Reject analytics"
+msgstr "Analyse ablehnen"
+
+#: templates/core/includes/analytics_consent.html:15
+msgid "Accept analytics"
+msgstr "Analyse akzeptieren"

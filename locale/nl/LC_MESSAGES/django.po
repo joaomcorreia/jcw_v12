@@ -8765,3 +8765,19 @@ msgstr "Andere steden"
 
 msgid "Fields"
 msgstr "Velden"
+
+#: templates/core/includes/analytics_consent.html:8
+msgid "Analytics preferences"
+msgstr "Analysevoorkeuren"
+
+#: templates/core/includes/analytics_consent.html:10
+msgid "We use optional analytics to understand how the public site is used. Necessary site functionality works without it."
+msgstr "We gebruiken optionele analyse om te begrijpen hoe de openbare website wordt gebruikt. Noodzakelijke functionaliteit blijft beschikbaar zonder deze analyse."
+
+#: templates/core/includes/analytics_consent.html:14
+msgid "Reject analytics"
+msgstr "Analyse weigeren"
+
+#: templates/core/includes/analytics_consent.html:15
+msgid "Accept analytics"
+msgstr "Analyse accepteren"

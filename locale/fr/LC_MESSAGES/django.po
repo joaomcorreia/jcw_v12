@@ -10246,3 +10246,19 @@ msgstr "Champs"
 
 #~ msgid "Django Community"
 #~ msgstr "Communauté Django"
+
+#: templates/core/includes/analytics_consent.html:8
+msgid "Analytics preferences"
+msgstr "Préférences d’analyse"
+
+#: templates/core/includes/analytics_consent.html:10
+msgid "We use optional analytics to understand how the public site is used. Necessary site functionality works without it."
+msgstr "Nous utilisons des outils d’analyse facultatifs pour comprendre comment le site public est utilisé. Les fonctionnalités nécessaires du site fonctionnent sans eux."
+
+#: templates/core/includes/analytics_consent.html:14
+msgid "Reject analytics"
+msgstr "Refuser les analyses"
+
+#: templates/core/includes/analytics_consent.html:15
+msgid "Accept analytics"
+msgstr "Accepter les analyses"

@@ -1,0 +1,24 @@
+{% load static i18n %}
+{% if BING_SITE_VERIFICATION %}
+<meta name="msvalidate.01" content="{{ BING_SITE_VERIFICATION }}">
+{% endif %}
+{% if GA_MEASUREMENT_ID or CLARITY_PROJECT_ID %}
+<link rel="stylesheet" href="{% static 'jcw/analytics-consent.css' %}">
+<script>
+  window.JCW_ANALYTICS_CONFIG = {
+    gaMeasurementId: "{{ GA_MEASUREMENT_ID|escapejs }}",
+    clarityProjectId: "{{ CLARITY_PROJECT_ID|escapejs }}"
+  };
+</script>
+<script src="{% static 'jcw/js/analytics-consent.js' %}" defer></script>
+<div class="jcw-analytics-consent" data-analytics-consent hidden role="dialog" aria-labelledby="jcw-analytics-consent-title" aria-describedby="jcw-analytics-consent-description">
+  <div>
+    <strong id="jcw-analytics-consent-title">{% trans "Analytics preferences" %}</strong>
+    <p id="jcw-analytics-consent-description">{% trans "We use optional analytics to understand how the public site is used. Necessary site functionality works without it." %}</p>
+  </div>
+  <div class="jcw-analytics-consent__actions">
+    <button type="button" data-analytics-consent-action="reject">{% trans "Reject analytics" %}</button>
+    <button type="button" data-analytics-consent-action="accept">{% trans "Accept analytics" %}</button>
+  </div>
+</div>
+{% endif %}

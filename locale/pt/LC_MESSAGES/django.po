@@ -10169,3 +10169,19 @@ msgstr "Campos"
 
 #~ msgid "Connect, get help, or contribute"
 #~ msgstr "Participe, obtenha ajuda ou contribua"
+
+#: templates/core/includes/analytics_consent.html:8
+msgid "Analytics preferences"
+msgstr "Preferências de análise"
+
+#: templates/core/includes/analytics_consent.html:10
+msgid "We use optional analytics to understand how the public site is used. Necessary site functionality works without it."
+msgstr "We utilizamos análise opcional para compreender como o site público é utilizado. A funcionalidade necessária do site funciona sem esta análise."
+
+#: templates/core/includes/analytics_consent.html:14
+msgid "Reject analytics"
+msgstr "Recusar análise"
+
+#: templates/core/includes/analytics_consent.html:15
+msgid "Accept analytics"
+msgstr "Aceitar análise"

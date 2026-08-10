@@ -46,6 +46,9 @@ STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "").strip()
 STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY", "").strip()
 STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET", "").strip()
 PROFORMA_FROM_EMAIL = os.environ.get("PROFORMA_FROM_EMAIL", "no-reply@justcodeworks.eu").strip()
+GA_MEASUREMENT_ID = os.environ.get("GA_MEASUREMENT_ID", "").strip()
+CLARITY_PROJECT_ID = os.environ.get("CLARITY_PROJECT_ID", "").strip()
+BING_SITE_VERIFICATION = os.environ.get("BING_SITE_VERIFICATION", "").strip()
 
 MAIN_DOMAIN = os.environ.get("JCW_MAIN_DOMAIN", "justcodeworks.local")
 JCW_ALLOW_IFRAME_PREVIEW = env_flag("JCW_ALLOW_IFRAME_PREVIEW", False)
@@ -161,6 +164,7 @@ TEMPLATES = [
                 'core.context_processors.embed_mode',
                 'core.context_processors.edit_mode',
                 'core.context_processors.site_mode_context',
+                'core.context_processors.analytics_config',
                 'core.context_processors.debug_env',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',

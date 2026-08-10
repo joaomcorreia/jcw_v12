@@ -1,0 +1,18 @@
+.jcw-analytics-consent {
+  position: fixed;
+  z-index: 1000;
+  right: 1rem;
+  bottom: 1rem;
+  max-width: 34rem;
+  padding: 1rem;
+  border: 1px solid rgba(148, 163, 184, .45);
+  border-radius: .75rem;
+  background: #fff;
+  color: #0f172a;
+  box-shadow: 0 12px 35px rgba(15, 23, 42, .2);
+}
+.jcw-analytics-consent p { margin: .35rem 0 0; font-size: .875rem; line-height: 1.4; }
+.jcw-analytics-consent__actions { display: flex; gap: .5rem; justify-content: flex-end; margin-top: .8rem; }
+.jcw-analytics-consent button { padding: .55rem .8rem; border: 1px solid #64748b; border-radius: .45rem; background: #fff; color: #0f172a; cursor: pointer; font: inherit; }
+.jcw-analytics-consent button[data-analytics-consent-action="accept"] { background: #0f172a; color: #fff; }
+@media (max-width: 640px) { .jcw-analytics-consent { right: .75rem; bottom: .75rem; left: .75rem; } .jcw-analytics-consent__actions { justify-content: stretch; } .jcw-analytics-consent button { flex: 1; } }

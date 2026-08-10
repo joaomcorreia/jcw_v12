@@ -315,3 +315,10 @@ def dashboard_plan_context(request):
         "current_plan_name": current_plan_name,
         "upgrade_cta_context": upgrade_cta_context,
     }
+
+def analytics_config(request):
+    return {
+        "GA_MEASUREMENT_ID": getattr(settings, "GA_MEASUREMENT_ID", ""),
+        "CLARITY_PROJECT_ID": getattr(settings, "CLARITY_PROJECT_ID", ""),
+        "BING_SITE_VERIFICATION": getattr(settings, "BING_SITE_VERIFICATION", ""),
+    }
