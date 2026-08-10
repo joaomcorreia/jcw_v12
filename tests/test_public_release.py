@@ -48,6 +48,9 @@ class PublicReleaseTests(TestCase):
         robots = self.client.get("/robots.txt", HTTP_HOST="justcodeworks.local")
         body = robots.content.decode()
         self.assertEqual(robots.status_code, 200)
+        self.assertIn("User-agent: OAI-SearchBot\nAllow: /", body)
+        self.assertNotIn("User-agent: OAI-SearchBot\nDisallow: /", body)
+
         self.assertIn("Disallow: /", body)
         self.assertIn("Allow: /en/$", body)
         self.assertIn("Allow: /pt/contact/$", body)

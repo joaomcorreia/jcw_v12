@@ -3505,7 +3505,7 @@ def robots_txt(request):
         content = "User-agent: *\nDisallow: /\n"
         return HttpResponse(content, content_type="text/plain")
 
-    lines = ["User-agent: *", "Disallow: /"]
+    lines = ["User-agent: OAI-SearchBot", "Allow: /", "", "User-agent: *", "Disallow: /"]
     for code, _name in settings.LANGUAGES:
         for public_path in INDEXABLE_PUBLIC_PATHS:
             path = build_language_path(code, public_path)

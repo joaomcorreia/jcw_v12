@@ -9329,3 +9329,23 @@ msgstr "Für Datenschutzfragen oder Anfragen kontaktieren Sie JCW unter info@jus
 #: templates/core/includes/analytics_consent.html:11
 msgid "Learn more about privacy and cookies."
 msgstr "Mehr über Datenschutz und Cookies erfahren."
+
+#: templates/core/privacy_cookies.html:60
+msgid "Purposes and legal basis"
+msgstr "Zwecke und Rechtsgrundlage"
+
+#: templates/core/privacy_cookies.html:61
+msgid "Information sent in a contact enquiry is used to respond to that enquiry. The legal basis for optional analytics is your consent."
+msgstr "Informationen aus einer Kontaktanfrage werden verwendet, um auf diese Anfrage zu antworten. Die Rechtsgrundlage für optionale Analysen ist Ihre Zustimmung."
+
+#: templates/core/privacy_cookies.html:62
+msgid "Necessary session, language and security processing supports requested functionality and security. The application does not define one legal basis for every possible interaction, so JCW must confirm the applicable basis for any additional processing."
+msgstr "Die notwendige Verarbeitung von Sitzungs-, Sprach- und Sicherheitsdaten unterstützt die angeforderte Funktionalität und Sicherheit. Die Anwendung legt keine einheitliche Rechtsgrundlage für jede mögliche Interaktion fest; JCW muss die geltende Grundlage für jede zusätzliche Verarbeitung bestätigen."
+
+#: templates/core/privacy_cookies.html:65
+msgid "Retention"
+msgstr "Aufbewahrung"
+
+#: templates/core/privacy_cookies.html:66
+msgid "Information is retained only as long as necessary for its stated purpose and applicable obligations. This application does not configure fixed retention periods."
+msgstr "Informationen werden nur so lange aufbewahrt, wie es für den angegebenen Zweck und geltende Verpflichtungen erforderlich ist. Diese Anwendung legt keine festen Aufbewahrungsfristen fest."

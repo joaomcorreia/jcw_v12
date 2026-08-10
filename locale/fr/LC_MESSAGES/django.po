@@ -10346,3 +10346,23 @@ msgstr "Pour toute question relative à la confidentialité ou toute demande, co
 #: templates/core/includes/analytics_consent.html:11
 msgid "Learn more about privacy and cookies."
 msgstr "En savoir plus sur la confidentialité et les cookies."
+
+#: templates/core/privacy_cookies.html:60
+msgid "Purposes and legal basis"
+msgstr "Finalités et base juridique"
+
+#: templates/core/privacy_cookies.html:61
+msgid "Information sent in a contact enquiry is used to respond to that enquiry. The legal basis for optional analytics is your consent."
+msgstr "Les informations envoyées dans une demande de contact servent à y répondre. La base juridique des analyses facultatives est votre consentement."
+
+#: templates/core/privacy_cookies.html:62
+msgid "Necessary session, language and security processing supports requested functionality and security. The application does not define one legal basis for every possible interaction, so JCW must confirm the applicable basis for any additional processing."
+msgstr "Le traitement nécessaire des données de session, de langue et de sécurité permet d’assurer la fonctionnalité demandée et la sécurité. L’application ne définit pas une base juridique unique pour chaque interaction possible ; JCW doit donc confirmer la base applicable à tout traitement supplémentaire."
+
+#: templates/core/privacy_cookies.html:65
+msgid "Retention"
+msgstr "Conservation"
+
+#: templates/core/privacy_cookies.html:66
+msgid "Information is retained only as long as necessary for its stated purpose and applicable obligations. This application does not configure fixed retention periods."
+msgstr "Les informations sont conservées uniquement pendant la durée nécessaire à leur finalité et aux obligations applicables. Cette application ne définit pas de durées fixes de conservation."

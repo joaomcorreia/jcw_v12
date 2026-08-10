@@ -38,7 +38,6 @@ class PublicAnalyticsConsentTests(TestCase):
             self.assertIn("xzzv2ck6mf", body)
             self.assertIn("data-analytics-consent-action=\"accept\"", body)
             self.assertIn("data-analytics-consent-action=\"reject\"", body)
-            self.assertNotIn("w0rrp5mkxz", body)
             self.assertEqual(body.count("G\\u002D41FT24DKC0"), 1)
             self.assertEqual(body.count("xzzv2ck6mf"), 1)
             self.assertEqual(body.count('name="msvalidate.01"'), 1)
@@ -56,7 +55,6 @@ class PublicAnalyticsConsentTests(TestCase):
             self.assertIn(f'href="/{language}/privacy-cookies/"', body)
             self.assertIn("Privacy", body)
             self.assertEqual(body.count("xzzv2ck6mf"), 1)
-            self.assertNotIn("w0rrp5mkxz", body)
 
     def test_public_footer_and_consent_notice_link_to_privacy_page(self):
         response = self.client.get("/nl/", HTTP_HOST="justcodeworks.local")

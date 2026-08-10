@@ -8865,3 +8865,23 @@ msgstr "Neem voor een privacyvraag of verzoek contact op met JCW via info@justco
 #: templates/core/includes/analytics_consent.html:11
 msgid "Learn more about privacy and cookies."
 msgstr "Meer over privacy en cookies"
+
+#: templates/core/privacy_cookies.html:60
+msgid "Purposes and legal basis"
+msgstr "Doeleinden en rechtsgrond"
+
+#: templates/core/privacy_cookies.html:61
+msgid "Information sent in a contact enquiry is used to respond to that enquiry. The legal basis for optional analytics is your consent."
+msgstr "Informatie die u in een contactvraag verstuurt, wordt gebruikt om op die vraag te reageren. De rechtsgrond voor optionele analyse is uw toestemming."
+
+#: templates/core/privacy_cookies.html:62
+msgid "Necessary session, language and security processing supports requested functionality and security. The application does not define one legal basis for every possible interaction, so JCW must confirm the applicable basis for any additional processing."
+msgstr "De noodzakelijke verwerking van sessie-, taal- en beveiligingsgegevens ondersteunt de gevraagde functionaliteit en beveiliging. De applicatie bepaalt niet één rechtsgrond voor elke mogelijke interactie; JCW moet de toepasselijke grond voor aanvullende verwerking bevestigen."
+
+#: templates/core/privacy_cookies.html:65
+msgid "Retention"
+msgstr "Bewaring"
+
+#: templates/core/privacy_cookies.html:66
+msgid "Information is retained only as long as necessary for its stated purpose and applicable obligations. This application does not configure fixed retention periods."
+msgstr "Informatie wordt alleen bewaard zolang dat nodig is voor het vermelde doel en toepasselijke verplichtingen. Deze applicatie stelt geen vaste bewaartermijnen in."
