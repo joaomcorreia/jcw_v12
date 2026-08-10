@@ -9334,18 +9334,22 @@ msgstr "Mehr über Datenschutz und Cookies erfahren."
 msgid "Purposes and legal basis"
 msgstr "Zwecke und Rechtsgrundlage"
 
-#: templates/core/privacy_cookies.html:61
-msgid "Information sent in a contact enquiry is used to respond to that enquiry. The legal basis for optional analytics is your consent."
-msgstr "Informationen aus einer Kontaktanfrage werden verwendet, um auf diese Anfrage zu antworten. Die Rechtsgrundlage für optionale Analysen ist Ihre Zustimmung."
-
-#: templates/core/privacy_cookies.html:62
-msgid "Necessary session, language and security processing supports requested functionality and security. The application does not define one legal basis for every possible interaction, so JCW must confirm the applicable basis for any additional processing."
-msgstr "Die notwendige Verarbeitung von Sitzungs-, Sprach- und Sicherheitsdaten unterstützt die angeforderte Funktionalität und Sicherheit. Die Anwendung legt keine einheitliche Rechtsgrundlage für jede mögliche Interaktion fest; JCW muss die geltende Grundlage für jede zusätzliche Verarbeitung bestätigen."
-
 #: templates/core/privacy_cookies.html:65
 msgid "Retention"
 msgstr "Aufbewahrung"
 
-#: templates/core/privacy_cookies.html:66
-msgid "Information is retained only as long as necessary for its stated purpose and applicable obligations. This application does not configure fixed retention periods."
-msgstr "Informationen werden nur so lange aufbewahrt, wie es für den angegebenen Zweck und geltende Verpflichtungen erforderlich ist. Diese Anwendung legt keine festen Aufbewahrungsfristen fest."
+#: templates/core/privacy_cookies.html:56
+msgid "Information submitted in an enquiry is processed to respond to that request and, where applicable, to take steps requested by the person before entering into a contract. The legal basis for optional analytics is your consent."
+msgstr "Informationen aus einer Anfrage werden verarbeitet, um auf diese Anfrage zu antworten und gegebenenfalls vom Betroffenen vor einem Vertragsabschluss gewünschte Schritte zu unternehmen. Die Rechtsgrundlage für optionale Analysen ist Ihre Zustimmung."
+
+#: templates/core/privacy_cookies.html:57
+msgid "Necessary session and language functionality is processed only as needed to provide the requested site functionality."
+msgstr "Die notwendige Sitzungs- und Sprachfunktionalität wird nur insoweit verarbeitet, wie dies zur Bereitstellung der angeforderten Website-Funktionalität erforderlich ist."
+
+#: templates/core/privacy_cookies.html:58
+msgid "Proportionate security and abuse-prevention processing is carried out to protect JCW's systems and services, relying on JCW's legitimate interests where applicable."
+msgstr "Eine angemessene Verarbeitung zur Sicherheit und Missbrauchsvermeidung erfolgt zum Schutz der Systeme und Dienste von JCW, soweit anwendbar auf Grundlage der berechtigten Interessen von JCW."
+
+#: templates/core/privacy_cookies.html:62
+msgid "Personal data is retained only for as long as necessary for the stated purpose and applicable legal or administrative obligations."
+msgstr "Personenbezogene Daten werden nur so lange aufbewahrt, wie dies für den angegebenen Zweck und geltende rechtliche oder administrative Verpflichtungen erforderlich ist."
