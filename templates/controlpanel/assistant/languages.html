@@ -1,0 +1,30 @@
+{% load i18n %}
+<section class="dashboard-card" style="padding:1.5rem;">
+  <h2 class="dashboard-subtitle">{% trans "Languages & Messages" %}</h2>
+  <form method="post" class="dashboard-form" data-loading-form data-loading-label="{% trans 'Saving language messages...' %}">
+    {% csrf_token %}
+    <div class="dashboard-form-row">
+      <label class="dashboard-label" for="default_conversation_language">{% trans "Default conversation language" %}</label>
+      <select class="dashboard-input" id="default_conversation_language" name="default_conversation_language">
+        {% for language in supported_languages %}
+        <option value="{{ language.code }}" {% if profile.default_conversation_language == language.code %}selected{% endif %}>{{ language.label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    {% for config in profile.language_configs.all %}
+    <fieldset class="dashboard-card" style="padding:1rem; margin-top:1rem;">
+      <legend class="dashboard-subtitle">{{ config.language_code|upper }} - {% if config.language_code == "pt" %}pt-PT{% else %}{{ config.language_code }}{% endif %}</legend>
+      <label class="dashboard-label"><input type="checkbox" name="language_{{ config.language_code }}_enabled" {% if config.enabled %}checked{% endif %}> {% trans "Enabled" %}</label>
+      <label class="dashboard-label" for="language_{{ config.language_code }}_greeting">{% trans "Greeting" %}</label>
+      <textarea class="dashboard-textarea" rows="3" id="language_{{ config.language_code }}_greeting" name="language_{{ config.language_code }}_greeting">{{ config.greeting }}</textarea>
+      <label class="dashboard-label" for="language_{{ config.language_code }}_welcome_message">{% trans "Welcome message" %}</label>
+      <textarea class="dashboard-textarea" rows="3" id="language_{{ config.language_code }}_welcome_message" name="language_{{ config.language_code }}_welcome_message">{{ config.welcome_message }}</textarea>
+      <label class="dashboard-label" for="language_{{ config.language_code }}_fallback_message">{% trans "Fallback message" %}</label>
+      <textarea class="dashboard-textarea" rows="3" id="language_{{ config.language_code }}_fallback_message" name="language_{{ config.language_code }}_fallback_message">{{ config.fallback_message }}</textarea>
+      <label class="dashboard-label" for="language_{{ config.language_code }}_handoff_message">{% trans "Human handoff message" %}</label>
+      <textarea class="dashboard-textarea" rows="3" id="language_{{ config.language_code }}_handoff_message" name="language_{{ config.language_code }}_handoff_message">{{ config.handoff_message }}</textarea>
+    </fieldset>
+    {% endfor %}
+    <button class="dashboard-button" type="submit">{% trans "Save language messages" %}</button>
+  </form>
+</section>

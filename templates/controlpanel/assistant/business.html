@@ -1,0 +1,16 @@
+{% load i18n %}
+<section class="dashboard-card" style="padding:1.5rem;">
+  <h2 class="dashboard-subtitle">{% trans "Business Knowledge" %}</h2>
+  <p class="dashboard-muted">{% trans "Only information stored here or in the site's authoritative business profile is available to the assistant." %}</p>
+  <form method="post" class="dashboard-form" data-loading-form data-loading-label="{% trans 'Saving business knowledge...' %}">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="dashboard-form-row">
+      <label class="dashboard-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {{ field }}
+      {% for error in field.errors %}<p class="dashboard-error">{{ error }}</p>{% endfor %}
+    </div>
+    {% endfor %}
+    <button class="dashboard-button" type="submit">{% trans "Save business knowledge" %}</button>
+  </form>
+</section>

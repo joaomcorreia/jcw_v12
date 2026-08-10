@@ -1,0 +1,13 @@
+{% load i18n %}
+<section class="dashboard-card" style="padding:1.5rem;">
+  <h2 class="dashboard-subtitle">{% trans "Website Actions" %}</h2>
+  <p class="dashboard-muted">{% trans "This foundation shows permissions only. No website action is executed from the Test Assistant." %}</p>
+  {% for capability in website_action_capabilities %}
+  <div style="display:flex; justify-content:space-between; gap:1rem; padding:.75rem 0; border-bottom:1px solid #d7deea;">
+    <span>{{ capability.key }}</span>
+    <span class="dashboard-muted">{% if capability.backend_enabled %}{% trans "Configured for backend" %}{% else %}{% trans "Disabled" %}{% endif %}</span>
+  </div>
+  {% empty %}
+  <p class="dashboard-muted">{% trans "No website capabilities configured." %}</p>
+  {% endfor %}
+</section>

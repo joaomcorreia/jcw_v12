@@ -1,0 +1,19 @@
+{% load i18n %}
+<section class="dashboard-card" style="padding:1.5rem;">
+  <h2 class="dashboard-subtitle">{% trans "Capabilities" %}</h2>
+  <p class="dashboard-muted">{% trans "JCW code controls which capabilities are available to each assistant surface." %}</p>
+  <form method="post" data-loading-form data-loading-label="{% trans 'Saving capabilities...' %}">
+    {% csrf_token %}
+    <div style="display:grid; gap:.75rem;">
+      {% for capability in capabilities %}
+      <div class="dashboard-card" style="padding:1rem;">
+        <strong>{{ capability.key }}</strong>
+        <p class="dashboard-muted">{{ capability.key }}</p>
+        <label class="dashboard-label"><input type="checkbox" name="frontend_{{ capability.record.key }}" {% if capability.record.frontend_enabled %}checked{% endif %}> {% trans "Public / Frontend" %}</label>
+        <label class="dashboard-label"><input type="checkbox" name="backend_{{ capability.record.key }}" {% if capability.record.backend_enabled %}checked{% endif %}> {% trans "Backend / Operator" %}</label>
+      </div>
+      {% endfor %}
+    </div>
+    <button class="dashboard-button" type="submit">{% trans "Save capabilities" %}</button>
+  </form>
+</section>

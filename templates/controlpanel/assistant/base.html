@@ -1,0 +1,14 @@
+﻿{% extends "controlpanel/base_controlpanel.html" %}
+{% load i18n %}
+{% block content %}
+<div class="dashboard-page">
+  <h1 class="dashboard-title">{% trans "Assistant" %}</h1>
+  <p class="dashboard-muted">{{ site.name }} - {% trans "site-scoped assistant profile" %}</p>
+  <nav class="dashboard-cards" style="display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:1.5rem;" aria-label="{% trans 'Assistant sections' %}">
+    {% for key, label in assistant_sections %}
+    <a class="dashboard-button{% if active_section == key %} is-active{% endif %}" href="{% url 'control_panel:assistant_section' key %}">{% trans label %}</a>
+    {% endfor %}
+  </nav>
+  {% include section_template %}
+</div>
+{% endblock %}
