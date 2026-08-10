@@ -1,33 +1,35 @@
-{% if jcw_site_mode != "main" %}
+{% if public_assistant_enabled or jcw_site_mode != "main" %}
 {% load i18n %}
 <div class="jcw-floating-ui" aria-hidden="false">
-  <button
-    type="button"
-    class="jcw-back-to-top"
-    data-jcw-back-to-top
-    aria-label="{% trans 'Back to top' %}"
-    title="{% trans 'Back to top' %}"
-  >
-    <span aria-hidden="true">â†‘</span>
+  <button type="button" class="jcw-back-to-top" data-jcw-back-to-top aria-label="{% trans 'Back to top' %}" title="{% trans 'Back to top' %}">
+    <span aria-hidden="true">^</span>
     <span>{% trans "Top" %}</span>
   </button>
 
-  <div class="jcw-clippy-shell" id="jcw-assistant" data-jcw-clippy>
-    <button
-      type="button"
-      class="jcw-clippy-tab"
-      data-jcw-clippy-toggle
-      aria-expanded="false"
-      aria-controls="jcw-clippy-panel"
-    >
+  <div class="jcw-clippy-shell" id="jcw-assistant" data-jcw-clippy data-jcw-assistant-endpoint="{% if public_assistant_enabled %}{% url 'core:public_assistant_chat' %}{% endif %}" data-jcw-assistant-language="{{ LANGUAGE_CODE }}">
+    <button type="button" class="jcw-clippy-tab" data-jcw-clippy-toggle aria-expanded="false" aria-controls="jcw-clippy-panel">
       <span class="jcw-clippy-tab__label">{% trans "JCW Assistant" %}</span>
     </button>
     <div class="jcw-clippy-panel" id="jcw-clippy-panel" hidden>
       <div class="jcw-clippy-panel__inner">
-        <h2 class="jcw-clippy-panel__title">{% trans "JCW Assistant" %}</h2>
-        <button type="button" class="jcw-clippy-panel__close" data-jcw-clippy-close>
-          {% trans "Close" %}
-        </button>
+        <div class="jcw-clippy-panel__header">
+          <h2 class="jcw-clippy-panel__title">{% trans "JCW Assistant" %}</h2>
+          <button type="button" class="jcw-clippy-panel__close" data-jcw-clippy-close>{% trans "Close" %}</button>
+        </div>
+        {% if public_assistant_enabled %}
+        <p class="jcw-clippy-panel__body">{% trans "Ask about approved Just Code Works information. This assistant is read-only." %}</p>
+        <div class="jcw-clippy-messages" data-jcw-assistant-messages aria-live="polite"></div>
+        <p class="jcw-clippy-status" data-jcw-assistant-status hidden></p>
+        <form class="jcw-clippy-form" data-jcw-assistant-form>
+          {% csrf_token %}
+          <label class="sr-only" for="jcw-assistant-message">{% trans "Message" %}</label>
+          <textarea id="jcw-assistant-message" data-jcw-assistant-input rows="3" maxlength="1200" placeholder="{% trans 'Ask a question...' %}"></textarea>
+          <div class="jcw-clippy-form__actions">
+            <button type="submit" class="jcw-clippy-send">{% trans "Send" %}</button>
+            <button type="button" class="jcw-clippy-clear" data-jcw-assistant-clear>{% trans "Clear" %}</button>
+          </div>
+        </form>
+        {% endif %}
       </div>
     </div>
   </div>

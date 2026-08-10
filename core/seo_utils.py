@@ -3,6 +3,27 @@ from urllib.parse import parse_qsl, urlsplit, urlencode
 from django.conf import settings
 
 
+INDEXABLE_PUBLIC_PATHS = frozenset({
+    "/",
+    "/about/",
+    "/what-we-build/",
+    "/how-we-work/",
+    "/contact/",
+})
+
+
+def is_indexable_public_path(path):
+    """Return whether a path is one of the explicitly approved public pages."""
+    stripped = _strip_lang_prefix(path, settings.LANGUAGES)
+    normalized = _normalize_path("/" + stripped) if stripped else "/"
+    return normalized in INDEXABLE_PUBLIC_PATHS
+
+
+def is_indexable_public_request(request):
+    """Only the main JCW site's approved marketing pages may be indexed."""
+    site = getattr(request, "site", None)
+    return bool(site and getattr(site, "is_main", False) and is_indexable_public_path(request.path))
+
 def _normalize_path(path):
     if not path:
         return "/"
@@ -88,8 +109,7 @@ def build_hreflang_urls(request):
 
 
 def is_public_path(path):
-    trimmed = _strip_lang_prefix(path, settings.LANGUAGES).lstrip("/")
-    return not trimmed.startswith(("dashboard", "control-panel", "admin"))
+    return is_indexable_public_path(path)
 
 
 def resolve_canonical_override(request, override):

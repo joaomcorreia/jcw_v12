@@ -1,4 +1,4 @@
-﻿from django.conf import settings
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
@@ -29,6 +29,7 @@ from django.views.decorators.http import require_POST
 from django.views.i18n import set_language as django_set_language
 
 from core.models import (
+    AssistantProfile,
     BlogCategory,
     BlogPost,
     BusinessProfile,
@@ -47,6 +48,7 @@ from core.models import (
 )
 from core.forms import BusinessProfileForm
 from core.services.blog import localize_categories, localize_posts
+from core.services.assistant_engine import AssistantServiceError, request_assistant_response
 from core.services.drafts import (
     clear_draft_site,
     ensure_draft_site,
@@ -63,6 +65,8 @@ from core.seo_utils import (
     build_hreflang_urls,
     build_language_path,
     build_language_url_for_path,
+    INDEXABLE_PUBLIC_PATHS,
+    is_indexable_public_request,
     resolve_canonical_override,
     resolve_page_seo,
 )
@@ -3442,28 +3446,63 @@ def dashboard_widgets_demo(request):
     return render(request, "dashboard/widgets_autofix_pack_demo.html", context)
 
 
-def robots_txt(request):
-    if getattr(settings, "SEO_NOINDEX", False):
-        content = "\n".join(
-            [
-                "User-agent: *",
-                "Disallow: /",
-                "",
-            ]
+def public_assistant_chat(request):
+    site = getattr(request, "site", None)
+    if not site or not site.is_main:
+        return JsonResponse({"error": "Assistant unavailable."}, status=404)
+    profile = AssistantProfile.objects.filter(site=site, enabled=True, frontend_enabled=True).first()
+    if not profile:
+        return JsonResponse({"error": "Assistant unavailable."}, status=404)
+
+    session_key = f"public_assistant_thread:{site.id}"
+    if request.POST.get("action") == "clear":
+        request.session.pop(session_key, None)
+        request.session.modified = True
+        return JsonResponse({"cleared": True})
+
+    language = (request.POST.get("conversation_language") or getattr(request, "LANGUAGE_CODE", "en")).lower()
+    if language not in supported_language_codes():
+        language = "en"
+    message = (request.POST.get("message") or "").strip()
+    if len(message) > 1200:
+        return JsonResponse({"error": "Please keep the message under 1,200 characters."}, status=400)
+    history = request.session.get(session_key, [])
+    try:
+        answer, context = request_assistant_response(
+            profile,
+            message=message,
+            conversation_language=language,
+            content_language=language,
+            surface="frontend",
+            history=history,
         )
+    except AssistantServiceError as exc:
+        return JsonResponse({"error": str(exc)}, status=503)
+
+    history = (history + [
+        {"role": "user", "content": message},
+        {"role": "assistant", "content": answer},
+    ])[-12:]
+    request.session[session_key] = history
+    request.session.modified = True
+    return JsonResponse({
+        "answer": answer,
+        "conversation_language": context["languages"]["conversation_language"],
+    })
+
+def robots_txt(request):
+    if getattr(settings, "SEO_NOINDEX", False) or not getattr(getattr(request, "site", None), "is_main", False):
+        content = "User-agent: *\nDisallow: /\n"
         return HttpResponse(content, content_type="text/plain")
 
-    sitemap_url = request.build_absolute_uri(reverse("sitemap_xml"))
-    content = "\n".join(
-        [
-            "User-agent: *",
-            "Disallow: /dashboard/",
-            f"Sitemap: {sitemap_url}",
-            "",
-        ]
-    )
-    return HttpResponse(content, content_type="text/plain")
-
+    lines = ["User-agent: *", "Disallow: /"]
+    for code, _name in settings.LANGUAGES:
+        for public_path in INDEXABLE_PUBLIC_PATHS:
+            path = build_language_path(code, public_path)
+            lines.append(f"Allow: {path}$")
+    lines.append(f"Sitemap: {request.build_absolute_uri(reverse('sitemap_xml'))}")
+    lines.append("")
+    return HttpResponse("\n".join(lines), content_type="text/plain")
 
 def tenant_robots_txt(request):
     tenant = resolve_active_site(request)
@@ -3503,18 +3542,18 @@ def tenant_robots_txt(request):
 
 
 def sitemap_xml(request):
-    # The launch sitemap is intentionally limited to the English company pages.
-    loc = request.build_absolute_uri(reverse("sitemap_language", args=["en"]))
+    sitemap_urls = [
+        request.build_absolute_uri(reverse("sitemap_language", args=[code]))
+        for code, _name in settings.LANGUAGES
+    ]
     xml = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-        "  <sitemap>",
-        f"    <loc>{escape(loc)}</loc>",
-        "  </sitemap>",
-        "</sitemapindex>",
     ]
+    for loc in sitemap_urls:
+        xml.extend(["  <sitemap>", f"    <loc>{escape(loc)}</loc>", "  </sitemap>"])
+    xml.append("</sitemapindex>")
     return HttpResponse("\n".join(xml), content_type="application/xml")
-
 def tenant_sitemap_xml(request):
     tenant = resolve_active_site(request)
     if not tenant:
@@ -3545,40 +3584,30 @@ def tenant_sitemap_xml(request):
 
 
 def sitemap_language_xml(request, lang):
-    if lang != "en":
-        xml = [
-            '<?xml version="1.0" encoding="UTF-8"?>',
-            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-            "</urlset>",
-        ]
-        return HttpResponse("\n".join(xml), content_type="application/xml")
-
-    # Keep the launch sitemap English-only until translated content is published.
-    paths = [
+    valid_langs = {code for code, _name in settings.LANGUAGES}
+    if lang not in valid_langs:
+        return HttpResponse(status=404)
+    paths = [(build_language_path(lang, path), priority) for path, priority in [
         ("/", "1.0"),
         ("/about/", "0.8"),
         ("/what-we-build/", "0.8"),
         ("/how-we-work/", "0.8"),
         ("/contact/", "0.8"),
-    ]
-    paths = [(build_language_path("en", path), priority) for path, priority in paths]
+    ]]
     urlset = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     ]
     for path, priority in paths:
-        urlset.extend(
-            [
-                "  <url>",
-                f"    <loc>{escape(request.build_absolute_uri(path))}</loc>",
-                "    <changefreq>weekly</changefreq>",
-                f"    <priority>{priority}</priority>",
-                "  </url>",
-            ]
-        )
+        urlset.extend([
+            "  <url>",
+            f"    <loc>{escape(request.build_absolute_uri(path))}</loc>",
+            "    <changefreq>weekly</changefreq>",
+            f"    <priority>{priority}</priority>",
+            "  </url>",
+        ])
     urlset.append("</urlset>")
     return HttpResponse("\n".join(urlset), content_type="application/xml")
-
 def tenant_sitemap_language_xml(request, lang):
     valid_langs = {code for code, _name in settings.LANGUAGES}
     if lang not in valid_langs:

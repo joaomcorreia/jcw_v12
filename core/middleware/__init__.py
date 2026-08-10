@@ -3,9 +3,9 @@ import logging
 from django.conf import settings
 from django.utils.text import slugify
 
-from core.services.site_settings import get_site_settings
 from core.models import Site
 from core.tenant import resolve_site_from_host
+from core.seo_utils import is_indexable_public_request
 
 
 class LaunchNoIndexMiddleware:
@@ -16,8 +16,8 @@ class LaunchNoIndexMiddleware:
         response = self.get_response(request)
         content_type = response.get("Content-Type", "")
         if content_type.startswith("text/html"):
-            settings = get_site_settings()
-            if settings.launch_noindex:
+            if getattr(settings, "SEO_NOINDEX", False) or not is_indexable_public_request(request):
+
                 response["X-Robots-Tag"] = "noindex, nofollow"
         return response
 

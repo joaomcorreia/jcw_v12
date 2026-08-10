@@ -1,12 +1,13 @@
-﻿from django.urls import reverse
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import get_language, gettext as _
 
-from core.models import BlogPost, Feature, HeroParticlesSettings, Page
+from core.models import AssistantProfile, BlogPost, Feature, HeroParticlesSettings, Page
 from core.seo_caps import get_seo_caps
 from core.seo_utils import (
     build_canonical_url,
     build_hreflang_urls,
+    is_indexable_public_request,
     is_public_path,
     resolve_canonical_override,
     resolve_page_seo,
@@ -60,8 +61,16 @@ def site_mode_context(request):
         mode = "main"
     else:
         mode = "other"
-    return {"jcw_site_mode": mode, "jcw_site_host": host}
-
+    public_assistant_enabled = bool(
+        getattr(request, "site", None)
+        and getattr(request.site, "is_main", False)
+        and AssistantProfile.objects.filter(site=request.site, enabled=True, frontend_enabled=True).exists()
+    )
+    return {
+        "jcw_site_mode": mode,
+        "jcw_site_host": host,
+        "public_assistant_enabled": public_assistant_enabled,
+    }
 
 def seo_context(request):
     page = getattr(request, "current_page", None)
@@ -239,16 +248,12 @@ def feature_flags(request):
 
 
 def launch_settings(request):
-    settings_obj = get_site_settings()
-    path = (request.path or "/").rstrip("/") or "/"
-    launch_paths = {f"/{code}{suffix}" for code, _name in settings.LANGUAGES for suffix in ("", "/about", "/what-we-build", "/how-we-work", "/contact")}
-    main_site_legacy_path = not getattr(request, "tenant", None) and path not in launch_paths
-    force_noindex = getattr(settings, "SEO_NOINDEX", False) or main_site_legacy_path
+    indexable_public = is_indexable_public_request(request)
+    launch_blocked = getattr(settings, "SEO_NOINDEX", False) or not indexable_public
     return {
-        "launch_noindex": force_noindex or settings_obj.launch_noindex,
-        "launch_disallow_robots": force_noindex or settings_obj.launch_disallow_robots,
+        "launch_noindex": launch_blocked,
+        "launch_disallow_robots": launch_blocked,
     }
-
 
 def latest_blog_posts(request):
     now = timezone.now()

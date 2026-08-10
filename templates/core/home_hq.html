@@ -5,7 +5,7 @@
 <head>
   <script>window.JCW_SITE_MODE = "main";</script>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}"><link rel="icon" href="{% static 'favicon.png' %}">
+  <link rel="stylesheet" href="{% static 'jcw/all-styles.css' %}"><link rel="stylesheet" href="{% static 'jcw/public-floating-ui.css' %}"><link rel="icon" href="{% static 'favicon.png' %}">
   <title>{{ seo_title }}</title><meta name="description" content="{{ seo_description }}">
   <meta name="robots" content="{% if launch_noindex %}noindex, nofollow{% else %}{{ seo_robots|default:'index, follow' }}{% endif %}">
   {% if canonical_url %}<link rel="canonical" href="{{ canonical_url }}">{% endif %}
@@ -128,6 +128,7 @@
     </section>
 
     {% include 'core/footer.html' %}
+    {% include 'core/includes/public_floating_ui.html' %}
   </div>
   {% if marketing_particles_enabled and particles_settings_json %}
     {{ particles_settings_json|json_script:"particles-config" }}
@@ -139,5 +140,6 @@
     <script src="{% static 'jcw/js/particles-hero.js' %}"></script>
   {% endif %}
   <script src="{% static 'jcw/js/jcw-ui.js' %}"></script>
+  <script src="{% static 'jcw/js/public-floating-ui.js' %}" defer></script>
 </body>
 </html>
